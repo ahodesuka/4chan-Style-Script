@@ -29,7 +29,7 @@
     themes[0] = { name: "Erio", bg: "http://img88.imageshack.us/img88/2449/eriobg.png", linkColor: "#6cb2ee" };
     themes[1] = { name: "Fate", bg: "http://img848.imageshack.us/img848/3976/fatebg.png", linkColor: "#e1d550" };
     themes[2] = { name: "Kurimu", bg: "http://img823.imageshack.us/img823/9940/kurimubg.png", linkColor: "#ce717d" };
-    themes[3] = { name: "????", bg: "http://img217.imageshack.us/img217/2928/homubg.png", linkColor: "#886999" };
+    themes[3] = { name: "ほむほむ", bg: "http://img217.imageshack.us/img217/2928/homubg.png", linkColor: "#886999" };
     themes[4] = { name: "Horo", bg: "http://img525.imageshack.us/img525/9757/horobg.png", linkColor: "#a46e41" };
     themes[5] = { name: "Marisa", bg: "http://img252.imageshack.us/img252/8995/marisabg.png", linkColor: "#e1cb9c" };
     themes[6] = { name: "Shana", bg: "http://img821.imageshack.us/img821/1281/shanabg.png", linkColor: "#ef4353" };
@@ -193,9 +193,9 @@
     span.plus{color:#fff!important}\
     form[name=delform]{margin:23px 0 0}\
     body>span[style]~form[name=delform]{margin-bottom:-13px}\
-    form[name=delform] table{border-spacing:0;margin:0 0 1px;position:relative}\
+    form[name=delform] table{border-spacing:0;margin:0 0 1px;position:relative;width:100%}\
     .reply{position:relative;color:#fff!important}\
-    .replyhider{position:absolute;right:2px;z-index:999}\
+    .replyhider>a{position:absolute;right:1px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
@@ -220,7 +220,8 @@
     .filetitle{color:#aaa!important}\
     #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
     #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
-    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,#stats,table[width='100%'],#autohide\
+    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,#stats,table[width='100%'],#autohide,\
+    body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center\
     {display:none!important}\
     table,td{border:0!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -261,9 +262,12 @@
     .inputtext:not(textarea){height:20px!important}\
     form[name=post] .inputtext:not(textarea),#qr>.move>.inputtext,#qr input[name=pwd]{width:305px!important}\
     form[name=post] input[type=text][name=sub]{width:254px!important;margin-right:1px!important}\
-    textarea,input,input[type=file]>input[type=button],input[type=file]::-webkit-file-upload-button\
+    textarea,input,input[type=file]>input[type=button]\
     {background:rgba(22,22,22,0.9)!important;border:0!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
-    textarea:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover,input[type=file]::-webkit-file-upload-button:hover{background:rgba(33,33,33,0.9)!important}\
+    input[type=file]::-webkit-file-upload-button\
+    {background:rgba(22,22,22,0.9)!important;border:0!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
+    textarea:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
+    input[type=file]::-webkit-file-upload-button:hover{background:rgba(33,33,33,0.9)!important}\
     select{background:rgba(40,40,40,.9);border:1px solid #121212}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;width:305px!important;margin:0!important;height:55px!important}\
@@ -285,8 +289,10 @@
     .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;font-size:10px!important;position:absolute;bottom:8px;text-align:center;width:300px;text-transform:uppercase}\
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}#overlay{z-index:1000}\
-    input,select,input[type=file]::-webkit-file-upload-button{color:#fff!important;-webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
-    input[type=submit],input[type=file]::-webkit-file-upload-button{width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:0!important;padding:0!important;font-size:9px!important;text-transform:uppercase}\
+    input,select{color:#fff!important;-webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
+    input[type=file]::-webkit-file-upload-button{color:#fff!important;width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:0!important;padding:0!important;font-size:9px!important;text-transform:uppercase\
+    -webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
+    input[type=submit]{width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:-1px 0 0!important;padding:0!important;font-size:9px!important;text-transform:uppercase}\
     input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;\
     -webkit-appearance:button!important;-moz-appearance:none;-o-appearance:none;width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px;-moz-border-radius:3px}\
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
@@ -343,7 +349,11 @@
     body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-92px;left:0;height:88px;z-index:9;\
     margin-left:-5px;padding:0 0 3px 5px;-webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
     body>center:nth-of-type(2)>font[color=red]:hover{top:-24px}\
-    body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}";
+    body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
+    @-moz-document url-prefix(){\
+        .replyhider>a{right:318px}\
+        body>center:nth-of-type(2)>font[color=red]{padding-bottom:8px!important;top:-97px}\
+    }";
     
     if (!getValue("Show Announcements"))
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
