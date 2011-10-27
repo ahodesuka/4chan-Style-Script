@@ -2,6 +2,7 @@
 // @name          4chan Dark Flat
 // @author        ahoka
 // @version       1.0
+// @run-at        document-body       
 // @include       http://boards.4chan.org/*
 // @include       https://boards.4chan.org/*
 // ==/UserScript==
@@ -189,25 +190,22 @@
     textarea,input:not([type=submit]),select{font:11px 'Anonymous Pro',arial,sans-serif!important}\
     div.thread{clear:left;margin:3px 0 0;position:relative}\
     div.op{background:rgba(40,40,40,.3);margin:-4px 0 1px -10px;padding:4px 0 1px 10px}\
-    #navtopr>a:not(:empty)::after{content:'/';padding:0 2px 0 3px}\
     span.plus{color:#fff!important}\
-    form[name=delform]{margin:23px 0 0}\
+    form[name=delform]{margin:23px 0 0;position:relative}\
     body>span[style]~form[name=delform]{margin-bottom:-13px}\
-    form[name=delform] table{border-spacing:0;margin:0 0 1px;position:relative;width:100%}\
+    form[name=delform] table{border-spacing:0;margin:0 0 1px;position:relative}\
     .reply{position:relative;color:#fff!important}\
     .replyhider>a{position:absolute;right:1px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px}\
-    #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:2!important;\
-    border-top:1px solid #1c1c1c!important;background:rgb(40,40,40)!important;text-align:center;}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important;font-weight:700!important}\
     .commentpostername a.linkmail[href='mailto:sage']:after{content:' (SAGE)'}\
     .omittedposts{margin-left:4px!important;color:#888!important;font-weight:700!important;text-decoration:none!important;margin-top:-18px;display:inline-block;padding-bottom:4px}\
     .replytitle {color:#999!important}\
     .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #1c1c1c!important;border-top:1px solid #1c1c1c!important;position:fixed;bottom:18px;right:316px;\
-    height:22px;color:transparent!important;font-size:0!important;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;\
+    height:22px;color:transparent!important;font-size:0!important;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;z-index:2;\
     -webkit-transition:all .2s linear;-moz-transition:all .2s linear;-o-transition:all .2s linear}\
     .deletebuttons:hover{width:186px;-webkit-transition:all .2s linear;-moz-transition:all .2s linear;-o-transition:all .2s linear}\
     .deletebuttons::before{display:inline-block;width:17px;padding:1px 1px 0 0;font-size:10px!important;text-align:center;content:'X';color:#fff}\
@@ -216,12 +214,11 @@
     .deletebuttons input[type=checkbox]{position:absolute;right:92px;bottom:3px!important;top:auto!important}\
     .deletebuttons::after{visibility:visible!important;position:absolute;right:54px;bottom:6px;font-size:9px!important;color:#ccc!important;content:'FILE ONLY'}\
     .deletebuttons .inputtext{width:138px}\
-    .pages{background:transparent;color:#fff!important;margin-top:-4px!important}\
     .filetitle{color:#aaa!important}\
     #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
     #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,#stats,table[width='100%'],#autohide,\
-    body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center\
+    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center\
     {display:none!important}\
     table,td{border:0!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -238,7 +235,6 @@
     .commentpostername a,.postername a{font-weight:700!important}\
     blockquote{margin-right:5px!important}\
     div.op blockquote,form[name=delform]>blockquote{margin-bottom:2em!important}\
-    #navtopr,#navbotr{float:none!important;display:inline!important}\
     div.reply{background:rgba(40,40,40,.9)!important;border:0!important;margin:0!important;z-index:2!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:0 20px 20px!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important;position:relative;z-index:9}\
@@ -257,49 +253,41 @@
     [src$='arrow_down2.png']{background-position:-80px -16px!important}\
     [src$='empty.png']{background-position:-96px -16px!important}\
     .inputtext,textarea{margin:0;padding:1px 4px;outline:none}\
-    .pages td b{color:#fff;display:inline-block;padding:0 3px}\
     input[type=file]{width:305px;margin:0}\
     .inputtext:not(textarea){height:20px!important}\
     form[name=post] .inputtext:not(textarea),#qr>.move>.inputtext,#qr input[name=pwd]{width:305px!important}\
     form[name=post] input[type=text][name=sub]{width:254px!important;margin-right:1px!important}\
-    textarea,input,input[type=file]>input[type=button]\
+    textarea,input:not([type=checkbox]),input[type=file]>input[type=button]\
     {background:rgba(22,22,22,0.9)!important;border:0!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     input[type=file]::-webkit-file-upload-button\
     {background:rgba(22,22,22,0.9)!important;border:0!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     textarea:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
     input[type=file]::-webkit-file-upload-button:hover{background:rgba(33,33,33,0.9)!important}\
+    input,select{color:#fff!important;-webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
+    input[type=file]::-webkit-file-upload-button{color:#fff!important;width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:0!important;padding:0!important;font-size:9px!important;text-transform:uppercase\
+    -webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
+    input[type=submit]{width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:-1px 0 0!important;padding:0!important;font-size:9px!important;text-transform:uppercase}\
+    input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
+    -webkit-appearance:button!important;width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important;-moz-border-radius:3px!important}\
+    input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
+    input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
+    td.reply input[type=checkbox],#autohide,#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
+    input[name=recaptcha_response_field]{height:20px!important;padding:1px 4px!important;width:305px!important}\
+    input[type=file]>input[type=button],input[type=file]::-webkit-file-upload-button{padding:0 5px!important;width:auto!important;border:0!important;vertical-align:bottom}\
     select{background:rgba(40,40,40,.9);border:1px solid #121212}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;width:305px!important;margin:0!important;height:55px!important}\
     .unkfunc{font-weight:bold!important;color:#568821!important}\
     .unkfunc a,.unkfunc a:hover{font-weight:bold!important;text-shadow:none!important;text-decoration:none!important;color:#888!important}\
-    #pages{color:#666!important;line-height:18px}\
-    #pages span{color:#999!important}\
-    #pages b{color:#fff!important}\
-    #pages a{font-weight:bold!important;text-decoration:none!important}\
-    #navi{padding:1px 0;color:#999!important;line-height:18px}\
-    #navi a{font-weight:bold!important}\
-    .navi-left{padding-left:320px!important;text-align:left!important}\
     td.doubledash{padding:0;text-indent:-9999px}\
     #updater input:not([type=checkbox]){margin:1px!important}\
     #updater input[type=text]{width:50px!important}\
     .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px}\
     .logo img{margin:0!important;opacity:0.4;border:1px solid #1c1c1c!important}\
     .logo span{color:#eee;text-shadow:#000 0 0 10px;display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px;z-index:3}\
-    .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;font-size:10px!important;position:absolute;bottom:8px;text-align:center;width:300px;text-transform:uppercase}\
+    .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;font-size:10px!important;position:absolute;bottom:8px;left:7px;text-align:center;width:300px;text-transform:uppercase}\
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}#overlay{z-index:1000}\
-    input,select{color:#fff!important;-webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
-    input[type=file]::-webkit-file-upload-button{color:#fff!important;width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:0!important;padding:0!important;font-size:9px!important;text-transform:uppercase\
-    -webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
-    input[type=submit]{width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:-1px 0 0!important;padding:0!important;font-size:9px!important;text-transform:uppercase}\
-    input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;\
-    -webkit-appearance:button!important;-moz-appearance:none;-o-appearance:none;width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px;-moz-border-radius:3px}\
-    input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
-    input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
-    td.reply input[type=checkbox],#autohide,#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
-    input[name=recaptcha_response_field]{height:20px!important;padding:1px 4px!important;width:305px!important}\
-    input[type=file]>input[type=button],input[type=file]::-webkit-file-upload-button{padding:0 5px!important;width:auto!important;border:0!important;vertical-align:bottom}\
     .postarea table{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
     .postarea,#qr{width:306px;height:265px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-230px;top:auto!important;left:auto!important;\
     -webkit-transition:all .2s linear 1s;-moz-transition:all .2s linear 1s;-o-transition:all .2s linear 1s;background:rgba(40,40,40,0.9)}\
@@ -313,7 +301,8 @@
     .filesize span{font-size:0!important;visibility:hidden}\
     .filesize span::after{content:attr(title);font-size:12px;visibility:visible}\
     .postarea input[type=password]{width:150px}\
-    #imageType{-webkit-appearance:none;-moz-appearance:none;-o-appearance:none;}\
+    #imageType,input:not([type=checkbox]),input:not([type=radio]),input[type=file]>input[type=button],input[type=submit],select,textarea\
+    {-webkit-appearance:none;-moz-appearance:none;-o-appearance:none;}\
     #options label,#options a,#themeoptions label,#themeoptions a,.pointer{cursor: pointer}\
     #themeoptions label>span{padding:0 3px}\
     #watcher .move,#updater .move,#options .move,#stats .move,#filter>div:first-child,#thread_filter>div:first-child,#qr .move{cursor:default!important}\
@@ -332,7 +321,7 @@
     #thread_filter.reply>div:first-child>span:first-child{line-height:14px}\
     #thread_filter.reply>div:first-child>.autohide{margin:2px -5px 0;padding:0 5px;border-top:1px solid #121212}\
     #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed;right:157px;top:0;z-index:7;border-right:1px solid #121212}\
-    #imgControls select{border:0;background:rgba(40,40,40,.9);margin-top:3px!important;}\
+    #imgControls select{border:0;background:rgba(40,40,40,.9)}\
     #thread_filter.reply>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
     #qr #close,form[name=post] input[name=email]+label{text-transform:uppercase;font-size:9px!important;line-height:20px}\
     #qr{bottom:0!important;height:auto!important;padding-bottom:21px}\
@@ -350,9 +339,27 @@
     margin-left:-5px;padding:0 0 3px 5px;-webkit-transition:all 100ms ease-in-out;-moz-transition:all 100ms ease-in-out;-o-transition:all 100ms ease-in-out}\
     body>center:nth-of-type(2)>font[color=red]:hover{top:-24px}\
     body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
+    #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
+    border-top:1px solid #1c1c1c!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
+    #navtop,#navtopr{float:none!important;display:inline!important}\
+    #navtop{padding:1px 0;color:#aaa!important}\
+    #navtop a{font-weight:bold!important}\
+    #navtopr{float:right!important;line-height:18px;margin-right:5px;font-size:0;color:transparent}\
+    #navtopr>a:last-child::before{content:'/';padding:0 2px}\
+    .pages{background:transparent;height:18px;position:fixed!important;bottom:0;left:0;z-index:3;width:auto!important}\
+    .pages td{color:transparent!important;font-size:0!important;padding:0 5px!important}\
+    .pages td:nth-of-type(2){padding:1px 0!important;vertical-align:bottom}\
+    .pages span{color:#aaa!important}\
+    .pages b{color:#fff!important}\
+    .pages a{font-weight:bold!important;text-decoration:none!important}\
+    .pages a:not(:last-child)::after,.pages b:not(:last-child)::after{content:' ';padding:0 2px}\
+    .pages input{background:rgba(33,33,33,.9)!important;border:0!important;border-top:1px solid #1c1c1c!important;height:19px!important;position:relative;top:1px;width:auto!important;padding:0 5px!important}\
+    .pages input:hover{background:rgba(36,36,36,.9)!important;border-top:1px solid #1c1c1c!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 5px;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
+    .pages input[value=Next]::after{content:'>>';padding:0 2px}\
     @-moz-document url-prefix(){\
-        .replyhider>a{right:318px}\
+        body{padding-bottom:35px!important}\
         body>center:nth-of-type(2)>font[color=red]{padding-bottom:8px!important;top:-97px}\
+        form[name=delform] table{width:100%}\
     }";
     
     if (!getValue("Show Announcements"))
@@ -362,7 +369,7 @@
     {
         var pages = '';
         
-        if (getValue("Pages in nav"))
+        /*if (getValue("Pages in nav"))
         {
             css += ".pages{display:none!important}";
             var pagesTd = document.getElementsByTagName('td');
@@ -396,27 +403,25 @@
             }
             
             pages = before+pages+next;
-        }
+        }*/
             
-        var _4chlinks = getValue('_4chlinks');
-        var navi = document.getElementById('header');
+        var _4chlinks = getValue('_4chlinks'), a;
         
-        navi.innerHTML = '<div style="position:relative;width:100%;"><div id="pages" style="position:absolute;left:5px;">'+pages+'</div>\
-        <div style="position:absolute;right:5px;top:3px;z-index:2;"><span id="navtopr"><a></a></span><a name="4chdarkop" class="pointer">Theme</a></div></div>\
-        <div id="navi">'+_4chlinks+'</div>';
-        $('a[name="4chdarkop"]').addEventListener('click', options, true);
-    }
-    else
-    {
-        css += "#navtop,#navtopr{float:none!important;display:inline!important}.pages{background:transparent;color:#fff!important}";
-        var text, a;
-        text = $('#navtopr a').nextSibling;
+        document.getElementById('navtop').innerHTML = _4chlinks;        
         a = tag('a');
         a.textContent = 'Theme';
         a.setAttribute('class','pointer');
         a.addEventListener('click', options, true);
-        inBefore(text, document.createTextNode('/'));
-        inBefore(text, a);
+        inBefore($('#navtopr a').nextSibling, a);
+    }
+    else
+    {
+        css += ".pages{position:relative!important}";
+        var a = tag('a');
+        a.textContent = 'Theme';
+        a.setAttribute('class','pointer');
+        a.addEventListener('click', options, true);
+        inBefore($('#navtopr a').nextSibling, a);
     }
     
        
