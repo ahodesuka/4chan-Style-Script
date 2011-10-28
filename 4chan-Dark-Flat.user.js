@@ -26,7 +26,8 @@
 <a href="http://boards.4chan.org/jp/">japan</a>'
     };
     
-    var __hasProp = Object.prototype.hasOwnProperty;
+    // @copyright      2009, 2010 James Campos
+    // @license        cc-by-3.0; http://creativecommons.org/licenses/by/3.0/
     if (typeof GM_deleteValue === "undefined")
     {
         GM_addStyle = function(css)
@@ -67,11 +68,14 @@
             localStorage.setItem(name, value);
         }
     }
+    /* END LICENSE */
+    
     var getValue = function(name)
     {        
         return GM_getValue(name, config[name]);
     };
     
+    var __hasProp = Object.prototype.hasOwnProperty;
     var postTabText = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD";
     var bgPattern = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7";
     
@@ -92,6 +96,30 @@
     var uTheme = getValue("Theme"), ctClear = false;
     
     /* Thanks to aeosynth */
+    /* LICENSE
+     *
+     * Copyright (c) 2009-2011 James Campos <james.r.campos@gmail.com>
+     *
+     * Permission is hereby granted, free of charge, to any person
+     * obtaining a copy of this software and associated documentation
+     * files (the "Software"), to deal in the Software without
+     * restriction, including without limitation the rights to use,
+     * copy, modify, merge, publish, distribute, sublicense, and/or sell
+     * copies of the Software, and to permit persons to whom the
+     * Software is furnished to do so, subject to the following
+     * conditions:
+     *
+     * The above copyright notice and this permission notice shall be
+     * included in all copies or substantial portions of the Software.
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+     * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+     * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+     * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+     * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+     * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+     * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+     * OTHER DEALINGS IN THE SOFTWARE.
+     */
     function addStyle()
     {
         document.removeEventListener('DOMNodeInserted', addStyle, false);
@@ -140,6 +168,8 @@
     {
         return el.parentNode.removeChild(el);
     };
+    /* END LICENSE */
+    
     var options = function()
     {
         var _c, _d, checked, div, hiddenNum, option;
@@ -319,7 +349,7 @@
     .container{font-size:10px!important;position:absolute;bottom:2px;right:2px}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{border-left:3px solid " + linkColor + "!important;outline:none}\
-    #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
+    #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important;font-weight:700!important}\
     .commentpostername a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
@@ -452,6 +482,7 @@
     #updater:not(:hover){background:transparent!important;line-height:14px}\
     #updater:hover{border-right:1px solid #1c1c1c!important;border-top:1px solid #1c1c1c!important}\
     #navlinks{font-size:16px!important;top:125px!important;z-index:3!important}\
+    #iHover{z-index:9!important}\
     body>center:nth-of-type(2){position:relative}\
     body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-94px;left:0;height:93px;z-index:9;\
     margin-left:-5px;padding-right:5px;-webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
