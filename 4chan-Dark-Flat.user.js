@@ -5,10 +5,11 @@
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       https://boards.4chan.org/*
+// @exclude       http://images.4chan.org/*
+// @exclude       https://images.4chan.org/*
 // @updateURL     https://github.com/ahoka-/4chan-Dark-Flat/raw/master/4chan-Dark-Flat.user.js
 // ==/UserScript==
 (function(){
-    var __hasProp = Object.prototype.hasOwnProperty;
     var config = {
         'Show Announcements': true,
         'Show Logo': true,
@@ -16,6 +17,7 @@
         'Pages in nav': false,
         'Custom nav links': true,
         'Theme': "Random",
+        'Custom Theme': JSON.stringify({ name: "Custom" }),
         '_4chlinks':
 '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n\
 <a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n\
@@ -24,39 +26,7 @@
 <a href="http://boards.4chan.org/jp/">japan</a>'
     };
     
-    var postTabText = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD";
-    var bgPattern = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7";
-    
-    var themes = [];
-    themes[0] = { name: "Erio", bg: "http://img88.imageshack.us/img88/2449/eriobg.png", linkColor: "#6cb2ee" };
-    themes[1] = { name: "Fate", bg: "http://img848.imageshack.us/img848/3976/fatebg.png", linkColor: "#e1d550" };
-    themes[2] = { name: "Kurimu", bg: "http://img823.imageshack.us/img823/9940/kurimubg.png", linkColor: "#ce717d" };
-    themes[3] = { name: "ほむほむ", bg: "http://img217.imageshack.us/img217/2928/homubg.png", linkColor: "#886999" };
-    themes[4] = { name: "Horo", bg: "http://img525.imageshack.us/img525/9757/horobg.png", linkColor: "#a46e41" };
-    themes[5] = { name: "Marisa", bg: "http://img252.imageshack.us/img252/8995/marisabg.png", linkColor: "#e1cb9c" };
-    themes[6] = { name: "Shana", bg: "http://img821.imageshack.us/img821/1281/shanabg.png", linkColor: "#ef4353" };
-    themes[7] = { name: "Shiki", bg: "http://img94.imageshack.us/img94/629/shikibg.png", linkColor: "#aaa" };
-    themes[8] = { name: "Tessa", bg: "http://img834.imageshack.us/img834/1904/tessabg.png", linkColor: "#857d92" };
-    themes[9] = { name: "Yin", bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef" };
-    themes[10] = { name: "Random" };
-    themes[11] = { name: "Custom" };
-    
-    var d = document;
-    function addStyle()
-    {
-        d.removeEventListener('DOMNodeInserted', addStyle, false);
-        var node = d.childNodes[0];
-            if (!node) //firefox
-            {
-                d.addEventListener('DOMNodeInserted', addStyle, false);
-                return;
-            }
-            
-        var style = d.createElement('style');
-        style.textContent = css;
-        d.childNodes[0].appendChild(style);
-    }
-
+    var __hasProp = Object.prototype.hasOwnProperty;
     if (typeof GM_deleteValue === "undefined")
     {
         GM_addStyle = function(css)
@@ -101,6 +71,42 @@
     {        
         return GM_getValue(name, config[name]);
     };
+    
+    var postTabText = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD";
+    var bgPattern = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7";
+    
+    var themes = [];
+    themes[0] = { name: "Erio", bg: "http://img88.imageshack.us/img88/2449/eriobg.png", linkColor: "#6cb2ee" };
+    themes[1] = { name: "Fate", bg: "http://img848.imageshack.us/img848/3976/fatebg.png", linkColor: "#e1d550" };
+    themes[2] = { name: "Kurimu", bg: "http://img823.imageshack.us/img823/9940/kurimubg.png", linkColor: "#ce717d" };
+    themes[3] = { name: "ほむほむ", bg: "http://img217.imageshack.us/img217/2928/homubg.png", linkColor: "#886999" };
+    themes[4] = { name: "Horo", bg: "http://img525.imageshack.us/img525/9757/horobg.png", linkColor: "#a46e41" };
+    themes[5] = { name: "Marisa", bg: "http://img252.imageshack.us/img252/8995/marisabg.png", linkColor: "#e1cb9c" };
+    themes[6] = { name: "Shana", bg: "http://img821.imageshack.us/img821/1281/shanabg.png", linkColor: "#ef4353" };
+    themes[7] = { name: "Shiki", bg: "http://img94.imageshack.us/img94/629/shikibg.png", linkColor: "#aaa" };
+    themes[8] = { name: "Tessa", bg: "http://img834.imageshack.us/img834/1904/tessabg.png", linkColor: "#857d92" };
+    themes[9] = { name: "Yin", bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef" };
+    themes[10] = { name: "Random" };
+    themes[11] = JSON.parse(getValue("Custom Theme"));
+    
+    var uTheme = getValue("Theme");
+    
+    var d = document;
+    /* Thanks to aeosynth */
+    function addStyle()
+    {
+        d.removeEventListener('DOMNodeInserted', addStyle, false);
+        var node = d.childNodes[0];
+        if (!node) //firefox
+        {
+            d.addEventListener('DOMNodeInserted', addStyle, false);
+            return;
+        }
+            
+        var style = d.createElement('style');
+        style.textContent = css;
+        node.appendChild(style);
+    }
     var $ = function(selector, root)
     {
         root = root || document.body;
@@ -152,7 +158,9 @@
                 _c = _d[option];
                 checked = getValue(option) ? "checked" : "";
                 
-                if (option == 'Theme')
+                if (option == 'Custom Theme')
+                    continue;
+                else if (option == 'Theme')
                 {
                     html += '<label><span>' + option + '</span><select name="Theme">';
                     
@@ -164,7 +172,11 @@
                          html += '<option value="' + themes[i].name + '"' + (themes[i].name == getValue(option) ? ' selected="selected"' : '') +'>' + themes[i].name + '</option>';
                     }
                     
-                    html += '</select></label>';
+                    html += '</select></label>\
+                    <div id="customTheme"' + (uTheme != "Custom" ? ' class="hidden"' : '') + '><label><span>BG URL</span>\
+                    <input name="customBG" value="' + (uTheme == "Custom" ? themes[themes.length-1].bg : '') + '" /></label><br>\
+                    <label><span title="i.e. #FF6999">Link Color (Hex.)</span>\
+                    <input name="customLColor" value="' + (uTheme == "Custom" ? themes[themes.length-1].linkColor : '') + '" /></label></div>';
                 }
                 else if (option != '_4chlinks')
                     html += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type="checkbox"></label>';
@@ -176,6 +188,7 @@
             
             html += '<div style="float:right;"><a name="save">save</a> <a name="cancel">cancel</a></div></div>';
             div.innerHTML = html;
+            $('select[name="Theme"]', div).addEventListener('change', toggleCustom, true);
             $('a[name="save"]', div).addEventListener('click', optionsSave, true);
             $('a[name="cancel"]',div).addEventListener('click', close, true);
             
@@ -192,8 +205,28 @@
         {
             input = _d[_c];
             if (input.name == "Theme")
-                GM_setValue(input.name, input.value);
-            else
+                if (input.value == "Custom")
+                {
+                    var cBG = $("input[name='customBG']").value;
+                    var cLColor = $("input[name='customLColor']").value;
+                    
+                    if (cBG == "")
+                    {
+                        alert("Invalid bg image.");
+                        return;
+                    }
+                    else if (!cLColor.match(/^#[A-Fa-f0-9]{3,6}$/))
+                    {
+                        alert("Invalid link color! Hexadecimal values only.");
+                        return;
+                    }
+                    
+                    GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: cBG, linkColor: cLColor }));                    
+                    GM_setValue(input.name, input.value);
+                }
+                else
+                    GM_setValue(input.name, input.value);
+            else if (input.name != "customBG" && input.name != "customLColor")
                 GM_setValue(input.name, input.checked);
         }
         
@@ -209,17 +242,24 @@
         return remove(div);
     };
     
-    var uTheme = getValue("Theme");
+    
+    function toggleCustom()
+    {
+        var sVal = $('select[name="Theme"]').value;
+        var cTheme = $("#customTheme");
+        
+        if (sVal == "Custom" && cTheme.className == "hidden")
+            cTheme.className = "";
+        else
+            cTheme.className = "hidden";
+    }
+    
     var bg, linkColor;
     if (uTheme == "Random")
     {
-        var i = Math.max(Math.min(Math.round(Math.random() * themes.length - 3), themes.length - 3), 0);
+        var i = Math.round(Math.random() * (themes.length - 3));
         bg = themes[i].bg;
         linkColor = themes[i].linkColor;
-    }
-    else if (uTheme == "Custom")
-    {
-        // TODO: link to bg and link hex color.
     }
     else
     {
@@ -237,6 +277,7 @@
     "@font-face{font-family:'AnonymousPro';font-style:normal;font-weight:normal;src:local('AnonymousPro'),url('http://themes.googleusercontent.com/static/fonts/anonymouspro/v1/Zhfjj_gat3waL4JSju74E1tUcs43uvLUMv3hfHgzs3w.woff') format('woff')}\
     *{font-family:Calibri,sans-serif;font-size:11px!important}\
     *:focus{outline:none}\
+    ::selection{background:" + linkColor + ";color:#fff}\
     img{border:none!important}\
     hr{border:none!important;clear:left;height:0}\
     a{text-decoration:none!important;color:" + linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
@@ -258,7 +299,7 @@
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
-    .container{font-size:10px!important;position:absolute;bottom:5px;right:5px}\
+    .container{font-size:10px!important;position:absolute;bottom:2px;right:2px}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{border-left:3px solid " + linkColor + "!important;outline:none}\
     #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
@@ -281,7 +322,7 @@
     #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
     #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,#stats,table[width='100%'],#autohide,\
-    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center\
+    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -296,25 +337,15 @@
     div{color:#fff!important}\
     .commentpostername,.postername,.commentpostername a,.postername a{color:#fff!important}\
     .commentpostername a,.postername a{font-weight:700!important}\
-    blockquote{margin-right:5px!important}\
+    blockquote{margin:12px 10px 18px 40px!important}\
     div.op blockquote,form[name=delform]>blockquote{margin-bottom:2em!important}\
     blockquote>.abbr{color:#fff!important}\
     div.reply{background:rgba(40,40,40,.9)!important;border:none!important;margin:0!important;z-index:2!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:0 20px 20px!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important;position:relative;z-index:9}\
-    img[src^='chrome://4chan/skin/buttons/'],img[alt='closed'],[alt='sticky'],\
-    .hidethread,.unhidethread,.watchthread,.expandthread,.quickreply,.hidewatchedthreads,.refreshwatchedthreads,.restorewatchedthreads,.restorewatchedthreadsimg\
-    {background-image:url('http://img175.imageshack.us/img175/1497/yunoiconsbf0.png')!important;background-color:transparent!important;background-repeat:no-repeat;\
-    height:0!important;margin:0 1px!important;padding-top:16px!important;margin-right:-3px!important;width:16px!important;margin-left:4px!important}\
-    [src$='post_expand_plus.png']{background-position:-48px 0!important}\
-    [src$='arrow_up.png']{background-position:-64px 0!important}\
-    [src$='quote.png']{background-position:-80px 0!important}\
-    [src$='stop.png']{background-position:-96px 0!important}\
-    [src$='arrow_right.png']{background-position:-112px 0!important}\
-    [src$='post_expand_minus.png']{margin-left:3px!important;background-position:-32px -16px!important}\
-    [src$='arrow_down.png']{background-position:-64px -16px!important}\
-    [src$='arrow_down2.png']{background-position:-80px -16px!important}\
-    [src$='empty.png']{background-position:-96px -16px!important}\
+    img[alt='closed'],[alt='sticky']\
+    {background-image:url('http://img175.imageshack.us/img175/1497/yunoiconsbf0.png')!important;background-color:transparent!important;background-repeat:no-repeat;display:inline-block;\
+    height:0!important;margin:0 1px!important;padding-top:16px!important;margin-right:-3px!important;width:16px!important;margin-left:4px!important;font-size:0!important;color:transparent!important}\
     [alt='sticky']{background-position:-129px 0!important}\
     [alt='closed']{background-position:-112px -16px!important}\
     .inputtext,textarea{margin:0;padding:1px 4px;outline:none}\
@@ -333,7 +364,7 @@
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     input[type=submit]{width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:-1px 0 0!important;padding:0!important;font-size:9px!important;text-transform:uppercase}\
     input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
-    -webkit-appearance:button!important;width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important;-moz-border-radius:3px!important}\
+    width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important;-moz-border-radius:3px!important}\
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
     input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
     td.reply input[type=checkbox],#autohide,#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
@@ -354,7 +385,7 @@
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}#overlay{z-index:1000}\
     .postarea table{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
     .postarea,#qr{width:306px;height:265px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-230px;top:auto!important;left:auto!important;\
-    -webkit-transition:bottom .2s ease-in-out 1s;-moz-transition:bottom .2s ease-in-out 1s;-o-transition:bottom .2s ease-in-out 1s;background:rgba(40,40,40,0.9)}\
+    -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9)}\
     .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
     .postarea form[name=post]::before,#qr .move::before{display:block;height:18px;padding-top:1px;font-size:10px!important;text-align:center;content:'" + postTabText + "'}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move{font-size:0!important;color:transparent!important}\
@@ -398,7 +429,7 @@
     #qr input[name=upfile]+a::after,#qr #close::after{content:']';padding-left:2px}\
     #qr .move::before{color:#fff;content:'QUICK REPLY';width:306px}\
     #qr #close{position:absolute;right:6px;top:1px}\
-    #updater{bottom:0;left:0!important;right:auto!important;top:auto!important;padding:1px 3px}\
+    #updater{position:fixed!important;bottom:0;left:0!important;right:auto!important;top:auto!important;padding:1px 3px;z-index:3!important}\
     #updater input:not([type=checkbox]){margin:1px!important}\
     #updater input[type=text]{width:50px!important}\
     #updater:not(:hover){background:transparent!important;line-height:14px}\
@@ -412,9 +443,9 @@
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;height:75px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
     border-top:1px solid #1c1c1c!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
-    #navtop,#navtopr{float:none!important;display:inline!important}\
-    #navtop{padding:1px 0;color:#aaa!important}\
-    #navtop a{font-weight:bold!important}\
+    #navtop,#navtopr{float:none!important;display:inline}\
+    #navtop{padding:1px 0;color:#aaa!important;display:none}\
+    #navtop a{font-weight:bold!important;text-shadow:rgba(0,0,0,.6) 0 0 5px}\
     #navtopr{float:right!important;line-height:18px;margin-right:5px;font-size:0;color:transparent}\
     #navtopr>a:last-child::before{content:'/';padding:0 2px}\
     .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #1c1c1c!important;border-right:1px solid #1c1c1c!important;padding-top:1px;height:22px;margin:0!important;\
@@ -431,6 +462,7 @@
     @-moz-document url-prefix(){\
         body{padding-bottom:36px!important}\
         form[name=delform] table{width:100%}\
+        .container{right:6px}\
     }";
     
     if (!getValue("Show Announcements"))
@@ -445,8 +477,11 @@
     /* DOM manipulation */
     function DOMLoaded()
     {
-        if (getValue("Custom nav links"))        
-            $("#navtop").innerHTML = getValue('_4chlinks');
+        var nTop = $("#navtop");
+        if (getValue("Custom nav links"))
+            nTop.innerHTML = getValue('_4chlinks');
+            
+        nTop.setAttribute("style", "display:inline!important");
             
         // Add theme options link
         var a = tag("a");
