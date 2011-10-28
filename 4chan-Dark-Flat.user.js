@@ -2,9 +2,10 @@
 // @name          4chan Dark Flat
 // @author        ahoka
 // @version       1.0
-// @run-at        document-end
+// @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       https://boards.4chan.org/*
+// @updateURL     https://github.com/ahoka-/4chan-Dark-Flat/raw/master/4chan-Dark-Flat.user.js
 // ==/UserScript==
 (function(){
     var __hasProp = Object.prototype.hasOwnProperty;
@@ -39,6 +40,22 @@
     themes[9] = { name: "Yin", bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef" };
     themes[10] = { name: "Random" };
     themes[11] = { name: "Custom" };
+    
+    var d = document;
+    function addStyle()
+    {
+        d.removeEventListener('DOMNodeInserted', addStyle, false);
+        var node = d.childNodes[0];
+            if (!node) //firefox
+            {
+                d.addEventListener('DOMNodeInserted', addStyle, false);
+                return;
+            }
+            
+        var style = d.createElement('style');
+        style.textContent = css;
+        d.childNodes[0].appendChild(style);
+    }
 
     if (typeof GM_deleteValue === "undefined")
     {
@@ -215,6 +232,7 @@
             }
     }
     
+    /* Styling */
     var css =
     "@font-face{font-family:'AnonymousPro';font-style:normal;font-weight:normal;src:local('AnonymousPro'),url('http://themes.googleusercontent.com/static/fonts/anonymouspro/v1/Zhfjj_gat3waL4JSju74E1tUcs43uvLUMv3hfHgzs3w.woff') format('woff')}\
     *{font-family:Calibri,sans-serif;font-size:11px!important}\
@@ -225,7 +243,7 @@
     a:hover{color:#eee!important}\
     a:not([href]){color:#fff!important;text-decoration:none!important;font-weight:bold!important}\
     .postertrip{color:#a7dce7!important}\
-    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020;font-size:12px;margin:0!important;padding:0 316px 37px 5px!important}\
+    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;margin:0!important;padding:0 316px 37px 5px!important}\
     body::after{background:url(" + bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select{font:11px 'Anonymous Pro',arial,sans-serif!important}\
@@ -328,7 +346,7 @@
     .unkfunc{font-weight:bold!important;color:#568821!important}\
     .unkfunc a,.unkfunc a:hover{font-weight:bold!important;text-shadow:none!important;text-decoration:none!important;color:#888!important}\
     td.doubledash{padding:0;text-indent:-9999px}\
-    .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px}\
+    .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important}\
     .logo img{margin:0!important;opacity:0.4;border:1px solid #1c1c1c!important}\
     .logo span{color:#eee;text-shadow:#000 0 0 10px;display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px;z-index:3}\
     .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;font-size:10px!important;position:absolute;bottom:8px;left:7px;text-align:center;width:300px;text-transform:uppercase}\
@@ -420,65 +438,54 @@
         
     if (getValue("Pages in nav"))
         css += ".pages{background:transparent!important;height:18px!important;border:none!important;bottom:0!important;left:0!important}.pages input{height:18px!important}";
-        
-    if (typeof GM_addStyle !== "undefined")
-        GM_addStyle(css);
-    else if (typeof PRO_addStyle !== "undefined")
-        PRO_addStyle(css);
-    else if (typeof addStyle !== "undefined")
-        addStyle(css);
-    else
+
+    addStyle();
+    document.addEventListener("DOMContentLoaded", DOMLoaded, false);
+    
+    /* DOM manipulation */
+    function DOMLoaded()
     {
-        var heads = document.getElementsByTagName("head");
-        if (heads.length > 0)
-        {
-            var node = document.createElement("style");
-            node.type = "text/css";
-            node.appendChild(document.createTextNode(css));
-            heads[0].appendChild(node); 
-        }
-    }
-    
-    if (getValue("Custom nav links"))        
-        $("#navtop").innerHTML = getValue('_4chlinks');
+        if (getValue("Custom nav links"))        
+            $("#navtop").innerHTML = getValue('_4chlinks');
+            
+        // Add theme options link
+        var a = tag("a");
+        a.textContent = "Theme";
+        a.addEventListener('click', options, true);
+        inBefore($('#navtopr a').nextSibling, a);
         
-    // Add theme options link
-    var a = tag("a");
-    a.textContent = "Theme";
-    a.addEventListener('click', options, true);
-    inBefore($('#navtopr a').nextSibling, a);
-    
-    // Add placeholders to postarea form
-    var elem = document.getElementsByName('post')[0].elements;
-    for(var i = 0; i < elem.length; i++)
-        switch (elem[i].name)
-        {
-            case "name":
-                elem[i].setAttribute("placeholder", "Name");
-                break;
-            case "email":
-                elem[i].setAttribute("placeholder", "E-mail");
-                if (getValue('Auto noko'))
-                    elem[i].value = "noko";
-                break;
-            case "sub":
-                elem[i].setAttribute("placeholder", "Subject");
-                break;
-            case "com":
-                elem[i].setAttribute("placeholder", "Comment");
-                break;
-            case "recaptcha_response_field":
-                elem[i].setAttribute("placeholder", "Verification");
-                break;
-            case "pwd":
-                elem[i].setAttribute("placeholder", "Password");
-                break;
-        }
-    
-    // Truncuate Previous to Prev
-    var prev;
-    if (typeof (prev = $(".pages td input[value='Previous']")) !== "undefined" && prev !== null)
-        prev.value = "Prev";
-    else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev !== null)
-        prev.textContent = "Prev";
+        // Add placeholders to postarea form
+        var elem = document.getElementsByName('post')[0].elements;
+        for(var i = 0; i < elem.length; i++)
+            switch (elem[i].name)
+            {
+                case "name":
+                    elem[i].setAttribute("placeholder", "Name");
+                    break;
+                case "email":
+                    elem[i].setAttribute("placeholder", "E-mail");
+                    if (getValue('Auto noko'))
+                        elem[i].value = "noko";
+                    break;
+                case "sub":
+                    elem[i].setAttribute("placeholder", "Subject");
+                    break;
+                case "com":
+                    elem[i].setAttribute("placeholder", "Comment");
+                    break;
+                case "recaptcha_response_field":
+                    elem[i].setAttribute("placeholder", "Verification");
+                    break;
+                case "pwd":
+                    elem[i].setAttribute("placeholder", "Password");
+                    break;
+            }
+        
+        // Truncuate Previous to Prev
+        var prev;
+        if (typeof (prev = $(".pages td input[value='Previous']")) !== "undefined" && prev !== null)
+            prev.value = "Prev";
+        else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev !== null)
+            prev.textContent = "Prev";
+    }
 })();
