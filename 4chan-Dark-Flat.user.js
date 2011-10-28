@@ -17,7 +17,7 @@
         'Pages in nav': false,
         'Custom nav links': true,
         'Theme': "Random",
-        'Custom Theme': JSON.stringify({ name: "Custom" }),
+        'Custom Theme': JSON.stringify({ name: "Custom", bg: "", linkColor: "" }),
         '_4chlinks':
 '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n\
 <a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n\
@@ -86,24 +86,24 @@
     themes[7] = { name: "Shiki", bg: "http://img94.imageshack.us/img94/629/shikibg.png", linkColor: "#aaa" };
     themes[8] = { name: "Tessa", bg: "http://img834.imageshack.us/img834/1904/tessabg.png", linkColor: "#857d92" };
     themes[9] = { name: "Yin", bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef" };
-    themes[10] = { name: "Random" };
-    themes[11] = JSON.parse(getValue("Custom Theme"));
+    themes[10] = JSON.parse(getValue("Custom Theme"));
+    themes[11] = { name: "Random" };
     
-    var uTheme = getValue("Theme");
+    var uTheme = getValue("Theme"), ctClear = false;
     
-    var d = document;
     /* Thanks to aeosynth */
     function addStyle()
     {
-        d.removeEventListener('DOMNodeInserted', addStyle, false);
-        var node = d.childNodes[0];
-        if (!node) //firefox
+        document.removeEventListener('DOMNodeInserted', addStyle, false);
+        var node = document.childNodes[0];
+        
+        if (!node) // firefox
         {
-            d.addEventListener('DOMNodeInserted', addStyle, false);
+            document.addEventListener('DOMNodeInserted', addStyle, false);
             return;
         }
             
-        var style = d.createElement('style');
+        var style = document.createElement('style');
         style.textContent = css;
         node.appendChild(style);
     }
@@ -166,7 +166,7 @@
                     
                     for (var i = 0; i < themes.length; i++)
                     {
-                        if (themes[i].name == "Random")
+                        if (themes[i].name == "Custom")
                             html += '<option disabled="disabled">---</option>';
                         
                          html += '<option value="' + themes[i].name + '"' + (themes[i].name == getValue(option) ? ' selected="selected"' : '') +'>' + themes[i].name + '</option>';
@@ -174,9 +174,10 @@
                     
                     html += '</select></label>\
                     <div id="customTheme"' + (uTheme != "Custom" ? ' class="hidden"' : '') + '><label><span>BG URL</span>\
-                    <input name="customBG" value="' + (uTheme == "Custom" ? themes[themes.length-1].bg : '') + '" /></label><br>\
+                    <input name="customBG" value="' + themes[themes.length-2].bg + '" /></label><br>\
                     <label><span title="i.e. #FF6999">Link Color (Hex.)</span>\
-                    <input name="customLColor" value="' + (uTheme == "Custom" ? themes[themes.length-1].linkColor : '') + '" /></label></div>';
+                    <input name="customLColor" value="' + themes[themes.length-2].linkColor + '" /></label><br>\
+                    <input name="clearCustom" value="Clear Custom Theme" type="button" /></div>';
                 }
                 else if (option != '_4chlinks')
                     html += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type="checkbox"></label>';
@@ -189,6 +190,7 @@
             html += '<div style="float:right;"><a name="save">save</a> <a name="cancel">cancel</a></div></div>';
             div.innerHTML = html;
             $('select[name="Theme"]', div).addEventListener('change', toggleCustom, true);
+            $('input[name="clearCustom"]', div).addEventListener('click', clearCustom, true);
             $('a[name="save"]', div).addEventListener('click', optionsSave, true);
             $('a[name="cancel"]',div).addEventListener('click', close, true);
             
@@ -205,14 +207,19 @@
         {
             input = _d[_c];
             if (input.name == "Theme")
-                if (input.value == "Custom")
+                if (ctClear)
+                {
+                    GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: "", linkColor: "" }));
+                    GM_setValue(input.name, input.value);
+                }
+                else if (input.value == "Custom")
                 {
                     var cBG = $("input[name='customBG']").value;
                     var cLColor = $("input[name='customLColor']").value;
                     
-                    if (cBG == "")
+                    if (!cBG.match(/^http:\/\/.+$/i))
                     {
-                        alert("Invalid bg image.");
+                        alert("Invalid bg image URL.");
                         return;
                     }
                     else if (!cLColor.match(/^#[A-Fa-f0-9]{3,6}$/))
@@ -221,7 +228,7 @@
                         return;
                     }
                     
-                    GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: cBG, linkColor: cLColor }));                    
+                    GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: cBG, linkColor: cLColor }));
                     GM_setValue(input.name, input.value);
                 }
                 else
@@ -252,6 +259,16 @@
             cTheme.className = "";
         else
             cTheme.className = "hidden";
+    }
+    
+    function clearCustom()
+    {
+        $('select[name="Theme"]').value = "Random";
+        $("input[name='customBG']").value = "";
+        $("input[name='customLColor']").value = "";
+        
+        ctClear = true;        
+        toggleCustom();
     }
     
     var bg, linkColor;
