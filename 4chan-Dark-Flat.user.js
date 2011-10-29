@@ -16,6 +16,7 @@
         'Auto noko': true,
         'Pages in nav': false,
         'Custom nav links': true,
+        'Font': "Calibri",
         'Theme': "Random",
         'Custom Theme': JSON.stringify({ name: "Custom", bg: "", linkColor: "" }),
         '_4chlinks':
@@ -95,6 +96,8 @@
     
     var uTheme = getValue("Theme"), ctClear = false;
     
+    var fonts = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
+    
     /* Thanks to aeosynth */
     /* LICENSE
      *
@@ -148,7 +151,7 @@
         result = root.querySelectorAll(selector);
         _a = []; _c = result;
         
-        for(_b = 0, _d = _c.length; _b < _d; _b++)
+        for (_b = 0, _d = _c.length; _b < _d; _b++)
         {
             node = _c[_b];
             _a.push(node);
@@ -170,6 +173,7 @@
     };
     /* END LICENSE */
     
+    /* OPTIONS */
     var options = function()
     {
         var _c, _d, checked, div, hiddenNum, option;
@@ -194,7 +198,7 @@
                 {
                     html += '<label><span>' + option + '</span><select name="Theme">';
                     
-                    for (var i = 0; i < themes.length; i++)
+                    for (var i = 0, MAX = themes.length; i < MAX; i++)
                     {
                         if (themes[i].name == "Custom")
                             html += '<option disabled="disabled">---</option>';
@@ -208,6 +212,15 @@
                     <label><span title="i.e. #FF6999">Link Color (Hex.)</span>\
                     <input name="customLColor" value="' + themes[themes.length-2].linkColor + '" /></label><br>\
                     <input name="clearCustom" value="Clear Custom Theme" type="button" /></div>';
+                }
+                else if (option == 'Font')
+                {
+                    html += '<label><span>' + option + '</span><select name="Font">';
+                    
+                    for (var i = 0, MAX = fonts.length; i < MAX; i++)
+                         html += '<option value="' + fonts[i] + '"' + (fonts[i] == getValue(option) ? ' selected="selected"' : '') +'>' + fonts[i] + '</option>';
+                    
+                    html += '</select></label>';
                 }
                 else if (option != '_4chlinks')
                     html += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type="checkbox"></label>';
@@ -233,7 +246,7 @@
         div = this.parentNode.parentNode;
         _d = $$('input, select', div);
         
-        for (_c = 0; _c < _d.length; _c++)
+        for (_c = 0, MAX = _d.length; _c < MAX; _c++)
         {
             input = _d[_c];
             if (input.name == "Theme")
@@ -263,6 +276,8 @@
                 }
                 else
                     GM_setValue(input.name, input.value);
+            else if (input.name == "Font")
+                GM_setValue(input.name, input.value);
             else if (input.name != "customBG" && input.name != "customLColor")
                 GM_setValue(input.name, input.checked);
         }
@@ -300,6 +315,7 @@
         ctClear = true;        
         toggleCustom();
     }
+    /* END OPTIONS */
     
     var bg, linkColor;
     if (uTheme == "Random")
@@ -310,7 +326,7 @@
     }
     else
     {
-        for (var i = 0; i < themes.length; i++)
+        for (var i = 0, MAX = themes.length; i < MAX; i++)
             if (uTheme == themes[i].name)
             {
                 bg = themes[i].bg;
@@ -319,10 +335,13 @@
             }
     }
     
-    /* Styling */
+    /* STYLING */
     var css =
-    "@font-face{font-family:'AnonymousPro';font-style:normal;font-weight:normal;src:local('AnonymousPro'),url('http://themes.googleusercontent.com/static/fonts/anonymouspro/v1/Zhfjj_gat3waL4JSju74E1tUcs43uvLUMv3hfHgzs3w.woff') format('woff')}\
-    *{font-family:Calibri,sans-serif;font-size:11px!important}\
+    "@font-face{font-family:'Anonymous Pro';font-style:normal;font-weight:normal;src:local('Anonymous Pro'),url('http://themes.googleusercontent.com/static/fonts/anonymouspro/v1/Zhfjj_gat3waL4JSju74E1tUcs43uvLUMv3hfHgzs3w.woff') format('woff')}\
+    body,*{font-family:" + getValue("Font") + ",Calibri,Helvetica,sans-serif!important;font-size:11px!important}\
+    .deletebuttons::after,input[type=submit],#thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,\
+    #qr #captchas,#qr #attach,#qr #close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,.deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,\
+    .logo font[size='1'],.pages *,#navlinks,#navlinks a{font-family:Calibri,Helvetica,sans-serif!important}\
     *:focus{outline:none}\
     ::selection{background:" + linkColor + ";color:#fff}\
     img{border:none!important}\
@@ -331,14 +350,14 @@
     a:hover{color:#eee!important}\
     a:not([href]){color:#fff!important;text-decoration:none!important;font-weight:bold!important}\
     .postertrip{color:#a7dce7!important}\
-    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;margin:0!important;padding:0 316px 37px 5px!important}\
+    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 42px 5px!important;padding:0!important}\
     body::after{background:url(" + bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
-    textarea,input:not([type=submit]),select{font:11px 'Anonymous Pro',arial,sans-serif!important}\
+    textarea,input:not([type=submit]),select{font:11px 'Anonymous Pro',Calibri,Helvetica,sans-serif!important}\
     div.thread{clear:left;margin:3px 0 0;position:relative}\
     div.op{background:rgba(40,40,40,.3);margin:-4px 0 1px -10px;padding:4px 0 1px 10px}\
     span.plus{color:#fff!important}\
-    form[name=delform]{margin:23px 0 0;position:relative}\
+    form[name=delform]{margin:23px 0 0}\
     body>span[style]~form[name=delform]{margin-bottom:-13px}\
     form[name=delform] table{border-spacing:0;margin:0 0 1px;overflow:hidden;position:relative}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
@@ -346,24 +365,24 @@
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
-    .container{font-size:10px!important;position:absolute;bottom:2px;right:2px}\
+    .container{font-size:10px!important;position:absolute;bottom:2px;right:2px;z-index:1}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{border-left:3px solid " + linkColor + "!important;outline:none}\
-    #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
+    #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important;font-weight:700!important}\
     .commentpostername a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
     .omittedposts{margin-left:4px!important;color:#888!important;font-weight:700!important;text-decoration:none!important;margin-top:-18px;display:inline-block;padding-bottom:4px}\
     .replytitle {color:#999!important}\
-    .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #1c1c1c!important;border-top:1px solid #1c1c1c!important;position:fixed;bottom:18px;right:316px;\
+    .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
     height:22px;color:transparent!important;font-size:0!important;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;z-index:2;\
     -webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
     .deletebuttons:hover{width:186px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
-    .deletebuttons::before{display:inline-block;width:17px;padding:1px 1px 0 0;font-size:10px!important;text-align:center;content:'X';color:#fff}\
+    .deletebuttons::before{display:inline-block;width:17px;padding:1px 1px 0 0;text-align:center;content:'X';color:#fff}\
     .deletebuttons:hover::before{overflow:hidden;white-space:nowrap;padding:0;width:0}\
+    .deletebuttons::after{font-size:9px!important;color:#ccc!important;content:'FILE ONLY';position:absolute;bottom:0;right:52px;line-height:22px}\
     .deletebuttons *{visibility:visible!important}\
-    .deletebuttons input[type=checkbox]{position:absolute;right:92px;bottom:3px!important;top:auto!important}\
-    .deletebuttons::after{visibility:visible!important;position:absolute;right:54px;bottom:6px;font-size:9px!important;color:#ccc!important;content:'FILE ONLY'}\
+    .deletebuttons input[type=checkbox]{position:absolute;right:88px;bottom:3px!important;top:auto!important}\
     .deletebuttons .inputtext{width:138px}\
     .filetitle{color:#aaa!important}\
     #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
@@ -403,12 +422,12 @@
     textarea,input:not([type=checkbox]),input[type=file]>input[type=button]\
     {background:rgba(22,22,22,0.9)!important;border:none!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     input[type=file]::-webkit-file-upload-button\
-    {background:rgba(22,22,22,0.9)!important;border:none!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
-    textarea:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
-    input[type=file]::-webkit-file-upload-button:hover{background:rgba(33,33,33,0.9)!important}\
-    input,select{color:#fff!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
-    input[type=file]::-webkit-file-upload-button{color:#fff!important;width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:0!important;padding:0!important;font-size:9px!important;text-transform:uppercase\
+    {background:rgba(22,22,22,0.9)!important;border:none!important;border-right:1px solid #262626!important;font-size:8px!important;text-transform:uppercase!important;\
+    padding:0 5px!important;width:auto!important;vertical-align:bottom;height:20px!important;color:#ddd!important;cursor:pointer;margin:0!important;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
+    input[type=file]::-webkit-file-upload-button:hover{background:rgba(33,33,33,0.9)!important}\
+    textarea:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
+    input,select{color:#fff!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     input[type=submit]{width:50px;height:20px!important;color:#ddd!important;cursor:pointer;margin:-1px 0 0!important;padding:0!important;font-size:9px!important;text-transform:uppercase}\
     input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
     width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important;-moz-border-radius:3px!important}\
@@ -416,8 +435,7 @@
     input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
     td.reply input[type=checkbox],#autohide,#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
     input[name=recaptcha_response_field]{height:20px!important;padding:1px 4px!important;width:305px!important}\
-    input[type=file]>input[type=button],input[type=file]::-webkit-file-upload-button{padding:0 5px!important;width:auto!important;border:none!important;vertical-align:bottom}\
-    select{background:rgba(40,40,40,.9);border:1px solid #121212}\
+    select{background:rgba(40,40,40,.9);border:1px solid #161616}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;margin:0!important}\
     .postarea textarea{width:305px!important;height:55px!important}\
@@ -425,16 +443,16 @@
     .unkfunc a,.unkfunc a:hover{font-weight:bold!important;text-shadow:none!important;text-decoration:none!important;color:#888!important}\
     td.doubledash{padding:0;text-indent:-9999px}\
     .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important}\
-    .logo img{margin:0!important;opacity:0.4;border:1px solid #1c1c1c!important}\
+    .logo img{margin:0!important;opacity:0.4;border:1px solid #161616!important}\
     .logo span{color:#eee;text-shadow:#000 0 0 10px;display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px;z-index:3}\
-    .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;font-size:10px!important;position:absolute;bottom:8px;left:7px;text-align:center;width:300px;text-transform:uppercase}\
+    .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;position:absolute;bottom:8px;left:7px;text-align:center;width:300px}\
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}#overlay{z-index:1000}\
     .postarea table{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
     .postarea,#qr{width:306px;height:265px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-230px;top:auto!important;left:auto!important;\
-    -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9)}\
+    -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9);border-top:1px solid #161616!important}\
     .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
-    .postarea form[name=post]::before,#qr .move::before{display:block;height:18px;padding-top:1px;font-size:10px!important;text-align:center;content:'" + postTabText + "'}\
+    .postarea form[name=post]::before,#qr .move::before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move{font-size:0!important;color:transparent!important}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:35px;right:8px!important;vertical-align:bottom}\
@@ -449,9 +467,9 @@
     #themeoptions label>span{padding:0 3px}\
     #watcher .move,#updater .move,#options .move,#stats .move,#filter>div:first-child,#thread_filter>div:first-child,#qr .move{cursor:default!important}\
     #watcher{position:fixed!important;top:" + (getValue("Show Logo") ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
-    #watcher .move,#themeoptions .move{font-size:9px!important;text-decoration:none!important;padding:5px!important;text-transform:uppercase}\
+    #watcher .move,#themeoptions .move{text-decoration:none!important;padding:5px!important;line-height:10px!important}\
     #watcher>div>a:first-child{font-size:10px!important}\
-    #themeoptions{background:#262626!important;border-top:1px solid #121212!important;position:fixed!important;top:" + (getValue("Show Logo") ? 147 : 40) + "px;right:0;text-align:right;width:312px;padding-bottom:5px;z-index:5!important}\
+    #themeoptions{background:#262626!important;border-top:1px solid #161616!important;position:fixed!important;top:" + (getValue("Show Logo") ? 146 : 39) + "px;right:0;text-align:right;width:312px;padding-bottom:5px;z-index:5!important}\
     #themeoptions>div{padding:5px}\
     #themeoptions .move{text-align:left;position:absolute}\
     #themeoptions input[type=text]{height:auto;margin:2px;padding:1px!important}\
@@ -463,12 +481,14 @@
     #thread_filter textarea{width:305px}\
     #thread_filter>div:first-child{padding:2px 5px!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
-    #thread_filter>div:first-child>span:first-child{line-height:14px}\
-    #thread_filter>div:first-child>.autohide{margin:2px -5px 0;padding:0 5px;border-top:1px solid #121212}\
-    #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:159px;top:0;z-index:7;border-right:1px solid #121212}\
-    #imgControls select{border:none;background:rgba(40,40,40,.9)}\
+    #thread_filter>div:first-child>span:first-child{display:inline-block;line-height:14px!important;margin:1px 0 -1px;width:130px}\
+    #thread_filter>div:first-child>.autohide{margin:2px -5px 0;padding:0 5px;border-top:1px solid #161616}\
+    #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:139px;top:0;width:172px!important;z-index:7;border-right:1px solid #161616}\
+    #imgControls select{border:none;background:rgba(40,40,40,.9);margin-top:3px}\
+    #imgControls>label{float:right}\
+    .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1']{font-size:10px!important;text-transform:uppercase}\
     #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
-    #qr #close,form[name=post] input[name=email]+label{text-transform:uppercase;font-size:9px!important;line-height:20px}\
+    #qr #close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move{text-transform:uppercase;font-size:9px!important;line-height:20px}\
     #qr{bottom:0!important;height:auto!important;padding-bottom:21px}\
     #qr #files>div,#qr .autohide>div,#qr .autohide>form>div{position:relative}\
     #qr input[name=upfile]+a,#qr #captchas,#qr #attach{position:absolute;right:6px;top:1px}\
@@ -480,9 +500,9 @@
     #updater input:not([type=checkbox]){margin:1px!important}\
     #updater input[type=text]{width:50px!important}\
     #updater:not(:hover){background:transparent!important;line-height:14px}\
-    #updater:hover{border-right:1px solid #1c1c1c!important;border-top:1px solid #1c1c1c!important}\
-    #navlinks{font-size:16px!important;top:125px!important;z-index:3!important}\
-    #iHover{z-index:9!important}\
+    #updater:hover{border-right:1px solid #161616!important;border-top:1px solid #161616!important}\
+    #navlinks{font-size:16px!important;top:" + (getValue("Show Logo") ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
+    #iHover{padding-bottom:19px;z-index:9!important}\
     body>center:nth-of-type(2){position:relative}\
     body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-94px;left:0;height:93px;z-index:9;\
     margin-left:-5px;padding-right:5px;-webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
@@ -490,14 +510,14 @@
     body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;height:75px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
-    border-top:1px solid #1c1c1c!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
+    border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
     #navtop,#navtopr{float:none!important;display:inline}\
     #navtop{padding:1px 0;color:#aaa!important;display:none}\
-    #navtop a{font-weight:bold!important;text-shadow:rgba(0,0,0,.6) 0 0 5px}\
+    #navtop a{font-weight:bold!important;text-shadow:rgba(0,0,0,.3) 0 0 5px}\
     #navtopr{float:right!important;line-height:18px;margin-right:5px;font-size:0;color:transparent}\
     #navtopr>a:last-child::before{content:'/';padding:0 2px}\
-    .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #1c1c1c!important;border-right:1px solid #1c1c1c!important;padding-top:1px;height:22px;margin:0!important;\
-    position:fixed!important;bottom:19px;left:-270px;z-index:3;width:310px!important;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
+    .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
+    position:fixed!important;bottom:19px;left:-270px;z-index:3;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:29px;text-align:center}\
     .pages td:nth-of-type(2){color:transparent!important;font-size:0!important}\
@@ -505,10 +525,11 @@
     .pages b{color:#fff!important}\
     .pages a{font-weight:bold!important;text-decoration:none!important}\
     .pages a:not(:last-child),.pages b:not(:last-child){margin:0 2px}\
-    .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:29px!important;padding:0 5px!important}\
+    .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 5px!important}\
     .pages input:hover{background:rgba(36,36,36,.9)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 5px;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
+    *::-webkit-input-placeholder{color:#999!important}\
+    *:-moz-placeholder{color:#999!important}\
     @-moz-document url-prefix(){\
-        body{padding-bottom:36px!important}\
         form[name=delform] table{width:100%}\
         .container{right:6px}\
     }";
@@ -520,9 +541,11 @@
         css += ".pages{background:transparent!important;height:18px!important;border:none!important;bottom:0!important;left:0!important}.pages input{height:18px!important}";
 
     addStyle();
+    /* END STYLING */
+    
+    /* DOM MANIPULATION */
     document.addEventListener("DOMContentLoaded", DOMLoaded, false);
     
-    /* DOM manipulation */
     function DOMLoaded()
     {
         var nTop = $("#navtop");
@@ -539,7 +562,7 @@
         
         // Add placeholders to postarea form
         var elem = document.getElementsByName('post')[0].elements;
-        for(var i = 0; i < elem.length; i++)
+        for(var i = 0, MAX = elem.length; i < MAX; i++)
             switch (elem[i].name)
             {
                 case "name":
@@ -571,4 +594,5 @@
         else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev !== null)
             prev.textContent = "Prev";
     }
+    /* END DOM MANIPULATION */
 })();
