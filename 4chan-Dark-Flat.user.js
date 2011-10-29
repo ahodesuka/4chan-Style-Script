@@ -369,27 +369,31 @@
     a:hover{color:#eee!important}\
     a:not([href]){color:#fff!important}\
     .postertrip{color:#a7dce7!important}\
-    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 42px 5px!important;padding:0!important}\
+    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 40px 5px!important;padding:0!important}\
     body::after{background:url(" + bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select{font:" + (getValue("Font Size") > 11 ? 12 : 11) + "px " + getValue("Font") + ",Calibri,Helvetica,sans-serif!important}\
-    div.thread{clear:left;margin:3px 0 0;position:relative}\
-    div.op{background:rgba(40,40,40,.3);margin:-4px 0 1px -10px;padding:4px 0 1px 10px}\
+    div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:1px 0 1px 1px;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
+    div.thread::after{clear:left;content:' ';display:block}\
+    div.op{border:none!important}\
+    div.op>a:not([href]){margin-left:2px}\
     span.plus{color:#fff!important}\
-    form[name=delform]{margin:23px 0 0}\
+    form[name=delform]{margin:19px 0 0}\
     form[name=delform] table{border-spacing:0;margin:0 0 1px;overflow:hidden;position:relative}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
-    .replyhider>a{position:absolute;right:1px;z-index:1}\
+    .replyhider>a{position:absolute;right:2px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
-    td.reply,td.replyhl{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
+    td.reply,td.replyhl,.stub{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
+    .stub{margin:0 0 1px;padding:2px 0 2px 1px}\
+    .stub>a,.stub>.block>a{display:block}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{border-left:3px solid " + linkColor + "!important;outline:none}\
     #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
-    a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important;font-weight:700!important}\
+    a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     .commentpostername a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
     .omittedposts{margin-left:4px!important;color:#888!important;text-decoration:none!important;margin-top:-18px;display:inline-block;padding-bottom:4px}\
     .replytitle {color:#999!important}\
@@ -403,12 +407,12 @@
     .deletebuttons *{visibility:visible!important}\
     .deletebuttons input[type=checkbox]{position:absolute;right:88px;bottom:3px!important;top:auto!important}\
     .deletebuttons .inputtext{width:138px}\
-    .deletebuttons input:not([type=checkbox]){height:20px!important}\
+    .deletebuttons input:not([type=checkbox]){height:20px!important;margin:0!important}\
     .filetitle{color:#aaa!important}\
     #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
     #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,#stats,table[width='100%'],#autohide,\
-    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br\
+    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,form[name=delform]>hr\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -422,8 +426,7 @@
     .recaptcha_image_cell{padding-right:2px!important}\
     div{color:#fff!important}\
     .commentpostername,.postername,.commentpostername a,.postername a{color:#fff!important}\
-    span.commentpostername,span.postername{font-weight:400!important}\
-    .commentpostername a,.postername a{font-weight:700!important}\
+    .commentpostername,.postername{font-weight:400!important}\
     blockquote{margin:12px 10px 18px 40px!important}\
     div.op blockquote,form[name=delform]>blockquote{margin-bottom:2em!important}\
     blockquote>.abbr{color:#fff!important}\
@@ -455,11 +458,11 @@
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
     input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
     td.reply input[type=checkbox],#autohide,#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
-    input[name=recaptcha_response_field]{height:20px!important;padding:1px 4px!important;width:305px!important}\
+    input[name=recaptcha_response_field]{height:22px!important;padding:1px 4px!important;width:305px!important}\
     select{background:rgba(40,40,40,.9);border:1px solid #161616}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;margin:0!important}\
-    .postarea textarea{width:305px!important;height:55px!important}\
+    .postarea textarea{width:305px!important;height:125px!important;resize:none}\
     .unkfunc a,.unkfunc a:hover{color:#999!important}\
     td.doubledash{padding:0;text-indent:-9999px}\
     .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important}\
@@ -469,13 +472,13 @@
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}#overlay{z-index:1000}\
     .postarea table{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
-    .postarea,#qr{width:306px;height:265px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-230px;top:auto!important;left:auto!important;\
+    .postarea,#qr{width:306px;height:347px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-311px;top:auto!important;left:auto!important;\
     -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9);border-top:1px solid #161616!important}\
-    .postarea:hover{bottom:15px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
+    .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
     .postarea form[name=post]::before,#qr .move::before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move{font-size:0!important;color:transparent!important}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
-    .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:6px;right:8px!important;vertical-align:bottom}\
+    .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:17px;right:8px!important;vertical-align:bottom}\
     form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:173px;right:6px;vertical-align:bottom;z-index:1}\
     .filesize{margin-left:4px!important}\
     .filesize span{font-size:0!important;visibility:hidden}\
@@ -491,10 +494,12 @@
     #themeoptions{background:#262626!important;border-top:1px solid #161616!important;position:fixed!important;top:" + (getValue("Show Logo") ? 146 : 39) + "px;right:0;text-align:right;width:312px;padding-bottom:5px;z-index:5!important}\
     #themeoptions>div{padding:5px}\
     #themeoptions .move{text-align:left}\
-    #themeoptions label{display:block;border-bottom:1px solid #333;margin-bottom:2px;height:18px;vertical-align:top}\
+    #themeoptions label{display:block;border-bottom:1px solid #333;height:20px;padding:0 3px;vertical-align:top}\
+    #themeoptions label:hover{background:#222}\
     #themeoptions label>span{padding:0 3px;float:left;font-size:12px!important;line-height:18px}\
-    #themeoptions label>select{height:17px!important;margin:0!important}\
-    #themeoptions input[type=text]{height:auto;margin-top:-1px!important;padding:1px!important}\
+    #themeoptions label>input[type=checkbox]{margin:4px 2px 0!important;vertical-align:bottom!important}\
+    #themeoptions label>select{height:18px!important;margin:1px 0!important}\
+    #themeoptions input[type=text]{height:18px;margin-top:1px 0 0!important;padding:1px 3px!important}\
     #themeoptions textarea{height:100px;width:305px!important}\
     #options{text-align:center}\
     #options .dialog{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px}\
@@ -540,7 +545,7 @@
     #navtopr{float:right!important;line-height:18px;margin-right:5px;font-size:0;color:transparent}\
     #navtopr>a:last-child::before{content:'/';padding:0 2px}\
     .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
-    position:fixed!important;bottom:18px;left:-270px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
+    position:fixed!important;bottom:18px;left:-271px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages *{font-size:12px!important}\
     .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:29px;text-align:center}\
