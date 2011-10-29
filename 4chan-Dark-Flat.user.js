@@ -378,7 +378,7 @@
     div.op{border:none!important}\
     div.op>a:not([href]){margin-left:2px}\
     span.plus{color:#fff!important}\
-    form[name=delform]{margin:19px 0 0}\
+    form[name=delform]{margin:19px 0 0;position:relative}\
     form[name=delform] table{border-spacing:0;margin:0 0 1px;overflow:hidden;position:relative}\
     body>span[style]~form[name=delform]{margin-bottom:42px!important}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
@@ -518,7 +518,8 @@
     .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1']{font-size:10px!important;text-transform:uppercase}\
     #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
     #qr #close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move{text-transform:uppercase;font-size:9px!important;line-height:20px}\
-    #qr{bottom:0!important;height:auto!important;padding-bottom:21px}\
+    #qr{bottom:-26px!important;height:auto!important;padding-bottom:24px}\
+    #qr:hover{padding-bottom:48px!important}\
     #qr #files>div,#qr .autohide>div,#qr .autohide>form>div{position:relative}\
     #qr input[name=upfile]+a,#qr #captchas,#qr #attach{position:absolute;right:6px;top:1px}\
     #qr input[name=upfile]+a::before,#qr #close::before{content:'[';padding-right:2px}\
@@ -535,7 +536,7 @@
     body>center:nth-of-type(2){position:relative}\
     body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-94px;left:0;height:93px;z-index:9;\
     margin-left:-5px;padding-right:5px;-webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
-    body>center:nth-of-type(2)>font[color=red]:hover{top:-24px}\
+    body>center:nth-of-type(2)>font[color=red]:hover{top:-18px}\
     body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;height:75px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
@@ -568,7 +569,7 @@
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
         
     if (getValue("Pages in nav"))
-        css += ".pages{background:transparent!important;height:18px!important;border:none!important;bottom:0!important;left:0!important}.pages input{height:18px!important}";
+        css += ".pages{background:transparent!important;height:18px!important;border:none!important;bottom:-1px!important;left:0!important;z-index:3!important}.pages input{height:18px!important}";
 
     addStyle();
     /* END STYLING */
