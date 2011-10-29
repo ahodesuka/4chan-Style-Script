@@ -380,6 +380,7 @@
     span.plus{color:#fff!important}\
     form[name=delform]{margin:19px 0 0}\
     form[name=delform] table{border-spacing:0;margin:0 0 1px;overflow:hidden;position:relative}\
+    body>span[style]~form[name=delform]{margin-bottom:42px!important}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
@@ -390,7 +391,7 @@
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
-    .qphl{border-left:3px solid " + linkColor + "!important;outline:none}\
+    .qphl{border-left:3px solid " + linkColor + "!important;outline:none!important}\
     #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
