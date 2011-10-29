@@ -358,7 +358,7 @@
     var css =
     "body,*{font-family:" + getValue("Font") + ",Calibri,Helvetica,sans-serif!important;font-size:" + getValue("Font Size") + "px!important}\
     .deletebuttons::after,input[type=submit],#thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,\
-    #qr #captchas,#qr #attach,#qr #close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,.deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,\
+    #qr #captchas,#qr #attach,#qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,.deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,\
     .container::before,.container *,.logo font[size='1'],.pages *,#navlinks,#navlinks a{font-family:Calibri,Helvetica,sans-serif!important}\
     *:focus{outline:none}\
     ::selection{background:" + linkColor + ";color:#fff}\
@@ -412,7 +412,7 @@
     .filetitle{color:#aaa!important}\
     #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
     #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
-    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,#stats,table[width='100%'],#autohide,\
+    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],\
     .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,form[name=delform]>hr\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
@@ -458,12 +458,12 @@
     width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important;-moz-border-radius:3px!important}\
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
     input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
-    td.reply input[type=checkbox],#autohide,#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
-    input[name=recaptcha_response_field]{height:22px!important;padding:1px 4px!important;width:305px!important}\
+    td.reply input[type=checkbox],#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
+    input[name=recaptcha_response_field],input#recaptcha_response_field{border:none!important;height:22px!important;padding:1px 4px!important;width:305px!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     select{background:rgba(40,40,40,.9);border:1px solid #161616}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;margin:0!important}\
-    .postarea textarea{width:305px!important;height:125px!important;resize:none}\
+    .postarea textarea,#qr textarea{width:305px!important;height:125px!important;resize:none}\
     .unkfunc a,.unkfunc a:hover{color:#999!important}\
     td.doubledash{padding:0;text-indent:-9999px}\
     .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important}\
@@ -517,20 +517,26 @@
     #imgControls>label{float:right}\
     .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1']{font-size:10px!important;text-transform:uppercase}\
     #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
-    #qr #close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move{text-transform:uppercase;font-size:9px!important;line-height:20px}\
-    #qr{bottom:-26px!important;height:auto!important;padding-bottom:24px}\
-    #qr:hover{padding-bottom:48px!important}\
+    #qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move{text-transform:uppercase;font-size:9px!important;line-height:20px}\
+    #qr{bottom:-5px!important;height:auto!important}\
+    #qr #autohide{position:absolute;right:24px!important;top:4px!important}\
+    #qr>#autohide:not(:checked)~.autohide,#qr:hover>#autohide:checked~.autohide{height:auto!important;overflow:visible!important;padding-bottom:25px!important}\
     #qr #files>div,#qr .autohide>div,#qr .autohide>form>div{position:relative}\
     #qr input[name=upfile]+a,#qr #captchas,#qr #attach{position:absolute;right:6px;top:1px}\
-    #qr input[name=upfile]+a::before,#qr #close::before{content:'[';padding-right:2px}\
-    #qr input[name=upfile]+a::after,#qr #close::after{content:']';padding-left:2px}\
+    #qr input[name=upfile]+a::before,#qr #close::before,#qr a.close::before{content:'[';padding-right:2px}\
+    #qr input[name=upfile]+a::after,#qr #close::after,#qr a.close::after{content:']';padding-left:2px}\
     #qr .move::before{color:#fff;content:'QUICK REPLY';width:306px}\
-    #qr #close{position:absolute;right:6px;top:1px}\
-    #updater{position:fixed!important;bottom:0;left:0!important;right:auto!important;top:auto!important;padding:1px 3px;z-index:3!important}\
+    #qr #close,#qr a.close{position:absolute;right:6px;top:1px}\
+    #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:7!important;width:45px;text-align:left!important}\
+    #updater:hover{right:0!important;width:133px!important}\
     #updater input:not([type=checkbox]){margin:1px!important}\
     #updater input[type=text]{width:50px!important}\
-    #updater:not(:hover){background:transparent!important;line-height:14px}\
-    #updater:hover{border-right:1px solid #161616!important;border-top:1px solid #161616!important}\
+    #updater:not(:hover){background:transparent!important}\
+    #stats{background:rgba(40,40,40,.9)!important;height:18px;bottom:auto!important;left:auto!important;right:0!important;top:0!important;z-index:6!important;width:309px;padding-right:3px;text-align:right}\
+    #stats .move{color:transparent!important;font-size:0!important;line-height:18px}\
+    #stats span{color:#fff!important;font-size:9px!important;margin:0 2px}\
+    #stats #postcount::before{font-size:9px!important;content:'POSTS: ';}\
+    #stats #imagecount::before{font-size:9px!important;content:'IMAGES: ';}\
     #navlinks{font-size:16px!important;top:" + (getValue("Show Logo") ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
     #iHover{padding-bottom:19px;z-index:9!important}\
     body>center:nth-of-type(2){position:relative}\
