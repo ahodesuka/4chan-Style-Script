@@ -17,6 +17,7 @@
         'Pages in nav': false,
         'Custom nav links': true,
         'Font': "Calibri",
+        'Font Size': 12,
         'Theme': "Random",
         'Custom Theme': JSON.stringify({ name: "Custom", bg: "", linkColor: "" }),
         '_4chlinks':
@@ -97,6 +98,11 @@
     var uTheme = getValue("Theme"), ctClear = false;
     
     var fonts = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
+    var fontSizes = [];
+    fontSizes[0] = { name: "Small", size: 11 };
+    fontSizes[1] = { name: "Normal", size: 12 };
+    fontSizes[2] = { name: "Large", size: 14 };
+    fontSizes[3] = { name: "Larger", size: 16 };
     
     /* Thanks to aeosynth */
     /* LICENSE
@@ -222,6 +228,15 @@
                     
                     html += '</select></label>';
                 }
+                else if (option == 'Font Size')
+                {
+                    html += '<label><span>' + option + '</span><select name="Font Size">';
+                    
+                    for (var i = 0, MAX = fontSizes.length; i < MAX; i++)
+                         html += '<option value="' + fontSizes[i].size + '"' + (fontSizes[i].size == getValue(option) ? ' selected="selected"' : '') +'>' + fontSizes[i].name + '</option>';
+                    
+                    html += '</select></label>';
+                }
                 else if (option != '_4chlinks')
                     html += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type="checkbox"></label>';
                 else
@@ -249,43 +264,48 @@
         for (_c = 0, MAX = _d.length; _c < MAX; _c++)
         {
             input = _d[_c];
-            if (input.name == "Theme")
-                if (ctClear)
+            if (input.type == "select-one")
+            {
+                if (input.name == "Theme")
                 {
-                    GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: "", linkColor: "" }));
-                    GM_setValue(input.name, input.value);
-                }
-                else if (input.value == "Custom")
-                {
-                    var cBG = $("input[name='customBG']").value;
-                    var cLColor = $("input[name='customLColor']").value;
-                    
-                    if (!cBG.match(/^http:\/\/.+$/i))
+                    if (ctClear)
                     {
-                        alert("Invalid bg image URL.");
-                        return;
+                        GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: "", linkColor: "" }));
+                        GM_setValue(input.name, input.value);
                     }
-                    else if (!cLColor.match(/^#[A-Fa-f0-9]{3,6}$/))
+                    else if (input.value == "Custom")
                     {
-                        alert("Invalid link color! Hexadecimal values only.");
-                        return;
+                        var cBG = $("input[name='customBG']").value;
+                        var cLColor = $("input[name='customLColor']").value;
+                        
+                        if (!cBG.match(/^http:\/\/.+$/i))
+                        {
+                            alert("Invalid bg image URL.");
+                            return;
+                        }
+                        else if (!cLColor.match(/^#[A-Fa-f0-9]{3,6}$/))
+                        {
+                            alert("Invalid link color! Hexadecimal values only.");
+                            return;
+                        }
+                        
+                        GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: cBG, linkColor: cLColor }));
+                        GM_setValue(input.name, input.value);
                     }
-                    
-                    GM_setValue("Custom Theme", JSON.stringify({ name: "Custom", bg: cBG, linkColor: cLColor }));
-                    GM_setValue(input.name, input.value);
+                    else
+                        GM_setValue(input.name, input.value);
                 }
                 else
                     GM_setValue(input.name, input.value);
-            else if (input.name == "Font")
-                GM_setValue(input.name, input.value);
-            else if (input.name != "customBG" && input.name != "customLColor")
+            }
+            else if (input.type == "checkbox")
                 GM_setValue(input.name, input.checked);
         }
         
         _4chlinks = $('textarea[name="_4chlinks"]');
         GM_setValue("_4chlinks", _4chlinks.value);
         
-        return window.location.reload(true);
+        return setTimeout('window.location.reload(true);', 1);
     };
     var close = function()
     {
@@ -338,10 +358,10 @@
     /* STYLING */
     var css =
     "@font-face{font-family:'Anonymous Pro';font-style:normal;font-weight:normal;src:local('Anonymous Pro'),url('http://themes.googleusercontent.com/static/fonts/anonymouspro/v1/Zhfjj_gat3waL4JSju74E1tUcs43uvLUMv3hfHgzs3w.woff') format('woff')}\
-    body,*{font-family:" + getValue("Font") + ",Calibri,Helvetica,sans-serif!important;font-size:11px!important}\
+    body,*{font-family:" + getValue("Font") + ",Calibri,Helvetica,sans-serif!important;font-size:" + getValue("Font Size") + "px!important}\
     .deletebuttons::after,input[type=submit],#thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,\
     #qr #captchas,#qr #attach,#qr #close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,.deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,\
-    .logo font[size='1'],.pages *,#navlinks,#navlinks a{font-family:Calibri,Helvetica,sans-serif!important}\
+    .container::before,.container *,.logo font[size='1'],.pages *,#navlinks,#navlinks a{font-family:Calibri,Helvetica,sans-serif!important}\
     *:focus{outline:none}\
     ::selection{background:" + linkColor + ";color:#fff}\
     img{border:none!important}\
@@ -358,14 +378,14 @@
     div.op{background:rgba(40,40,40,.3);margin:-4px 0 1px -10px;padding:4px 0 1px 10px}\
     span.plus{color:#fff!important}\
     form[name=delform]{margin:23px 0 0}\
-    body>span[style]~form[name=delform]{margin-bottom:-13px}\
     form[name=delform] table{border-spacing:0;margin:0 0 1px;overflow:hidden;position:relative}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
     .replyhider>a{position:absolute;right:1px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
-    .container{font-size:10px!important;position:absolute;bottom:2px;right:2px;z-index:1}\
+    .container{position:absolute;bottom:2px;right:2px;z-index:1}\
+    .container::before,.container *{font-size:10px!important}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{border-left:3px solid " + linkColor + "!important;outline:none}\
     #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
@@ -388,7 +408,7 @@
     #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
     #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,#stats,table[width='100%'],#autohide,\
-    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden\
+    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -477,8 +497,9 @@
     #options{text-align:center}\
     #options .dialog{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px}\
     #thread_filter{position:fixed!important;width:312px;z-index:6!important}\
-    #thread_filter input{height:22px;margin:2px 1px;padding:1px 4px;width:250px}\
+    #thread_filter input{height:22px;margin:2px 1px;padding:1px 4px;width:230px}\
     #thread_filter textarea{width:305px}\
+    #thread_filter>.autohide>span{float:left;line-height:24px;margin-left:2px}\
     #thread_filter>div:first-child{padding:2px 5px!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
     #thread_filter>div:first-child>span:first-child{display:inline-block;line-height:14px!important;margin:1px 0 -1px;width:130px}\
@@ -519,6 +540,7 @@
     .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
     position:fixed!important;bottom:19px;left:-270px;z-index:3;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
+    .pages *{font-size:12px!important}\
     .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:29px;text-align:center}\
     .pages td:nth-of-type(2){color:transparent!important;font-size:0!important}\
     .pages span{color:#aaa!important}\
