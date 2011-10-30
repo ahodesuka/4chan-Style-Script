@@ -1,12 +1,9 @@
 // ==UserScript==
 // @name          4chan Dark Flat
 // @author        ahoka
-// @version       1.0
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       https://boards.4chan.org/*
-// @exclude       http://images.4chan.org/*
-// @exclude       https://images.4chan.org/*
 // @updateURL     https://github.com/ahoka-/4chan-Dark-Flat/raw/master/4chan-Dark-Flat.user.js
 // ==/UserScript==
 (function(){
@@ -32,18 +29,11 @@
     // @license        cc-by-3.0; http://creativecommons.org/licenses/by/3.0/
     if (typeof GM_deleteValue === "undefined")
     {
-        GM_addStyle = function(css)
-        {
-            var style = document.createElement('style');
-            style.textContent = css;
-            document.getElementsByTagName('head')[0].appendChild(style);
-        }
 
         GM_deleteValue = function(name)
         {
             localStorage.removeItem(name);
         }
-
         GM_getValue = function(name, defaultValue)
         {
             var value = localStorage.getItem(name);
@@ -63,7 +53,6 @@
                     return value;
             }
         }
-
         GM_setValue = function(name, value)
         {
             value = (typeof value)[0] + value;
@@ -77,9 +66,9 @@
         return GM_getValue(name, config[name]);
     };
     
-    var __hasProp = Object.prototype.hasOwnProperty;
-    var postTabText = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD";
-    var bgPattern = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7",
+    var __hasProp = Object.prototype.hasOwnProperty,
+        postTabText = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD",
+        bgPattern = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7",
         checkMark = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABwSURBVHjalI+rDYBAEEQfSCwnETiqwtEIBdAHjgIoAIE4hUBBDeT8YC5swkcw6+ZlsjOJeFfKl8QtUzEIPYBjIRioo50zIXYDgR7I8AixGjgQHSNCeEoDLYo3kUcvPm8QYsZdTa9WLRuFTUh+Lz8HABdVPTT1adyuAAAAAElFTkSuQmCC";
         
     var themes = [];
@@ -96,7 +85,14 @@
     themes[10] = JSON.parse(getValue("Custom Theme"));
     themes[11] = { name: "Random" };
     
-    var uTheme = getValue("Theme"), ctClear = false;
+    var uTheme     = getValue("Theme"),
+        uFont      = getValue("Font"),
+        uFontSize  = getValue("Font Size"),
+        sFontSize  = uFontSize > 11 ? 12 : 11,
+        uShowLogo  = getValue("Show Logo"),
+        uPageInNav = getValue("Pages in nav"),
+        uShowAnn   = getValue("Show Announcements"),
+        ctClear    = false;
     
     var fonts = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
     var fontSizes = [];
@@ -130,20 +126,20 @@
      * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
      * OTHER DEALINGS IN THE SOFTWARE.
      */
-    function addStyle()
+    function addStyle() // Edited -ahoka
     {
         document.removeEventListener('DOMNodeInserted', addStyle, false);
-        var node = document.childNodes[0];
+        var head = document.head;
         
-        if (!node) // firefox
+        if (!head) // firefox
         {
             document.addEventListener('DOMNodeInserted', addStyle, false);
             return;
         }
             
         var style = document.createElement('style');
-        style.textContent = css;
-        node.appendChild(style);
+        style.textContent = (arguments.length > 0 && typeof arguments[0] === "string") ? arguments[0] : css;
+        head.appendChild(style);
     }
     var $ = function(selector, root)
     {
@@ -336,62 +332,57 @@
     }
     /* END OPTIONS */
     
-    var bg, linkColor;
     if (uTheme == "Random")
     {
         var i = Math.round(Math.random() * (themes.length - 3));
-        bg = themes[i].bg;
-        linkColor = themes[i].linkColor;
+        uTheme = themes[i];
     }
     else
     {
         for (var i = 0, MAX = themes.length; i < MAX; i++)
             if (uTheme == themes[i].name)
-            {
-                bg = themes[i].bg;
-                linkColor = themes[i].linkColor;
-                break;
-            }
+                uTheme = themes[i];
     }
     
     /* STYLING */
     var css =
-    "body,*{font-family:" + getValue("Font") + ",Calibri,Helvetica,sans-serif!important;font-size:" + getValue("Font Size") + "px!important}\
-    .deletebuttons::after,input[type=submit],#thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,\
-    #qr #captchas,#qr #attach,#qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,.deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,\
-    .container::before,.container *,.logo font[size='1'],.pages *,#navlinks,#navlinks a{font-family:Calibri,Helvetica,sans-serif!important}\
+    "*{font-family:" + uFont + ",Calibri,Helvetica,sans-serif!important;font-size:" + sFontSize + "px!important}\
+    body>form *{font-family:" + uFont + ",Calibri,Helvetica,sans-serif!important;font-size:" + uFontSize + "px!important}\
     *:focus{outline:none}\
-    ::selection{background:" + linkColor + ";color:#fff}\
-    ::-moz-selection{background:" + linkColor + ";color:#fff}\
+    ::selection{background:" + uTheme.linkColor + ";color:#fff}\
+    ::-moz-selection{background:" + uTheme.linkColor + ";color:#fff}\
     img{border:none!important}\
+    h1,h2,h3,h4,h5{margin:.4em 0!important}\
+    h3,.commentpostername,.postername,body>center:nth-of-type(2)>font[color=red]>b,.pages b{font-weight:400!important}\
     hr{border:none!important;clear:left;height:0}\
-    a{text-decoration:none!important;color:" + linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
+    a{text-decoration:none!important;color:" + uTheme.linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:hover{color:#eee!important}\
     a:not([href]){color:#fff!important}\
     .postertrip{color:#a7dce7!important}\
-    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 40px 5px!important;padding:0!important}\
-    body::after{background:url(" + bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
+    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 42px 5px!important;padding:0!important;padding-bottom:12px!important}\
+    body::after{background:url(" + uTheme.bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
-    textarea,input:not([type=submit]),select{font:" + (getValue("Font Size") > 11 ? 12 : 11) + "px " + getValue("Font") + ",Calibri,Helvetica,sans-serif!important}\
-    div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:1px 0 1px 1px;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
-    div.thread::after{clear:left;content:' ';display:block}\
+    textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
+    div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
+    div.thread::after,#updater div::after,body>span[style]~form[name=delform] div.op{clear:left;content:' ';display:block}\
     div.op{border:none!important}\
     div.op>a:not([href]){margin-left:2px}\
     span.plus{color:#fff!important}\
-    form[name=delform]{margin:19px 0 0;position:relative}\
-    form[name=delform] table{border-spacing:0;margin:0 0 1px;overflow:hidden;position:relative}\
-    body>span[style]~form[name=delform]{margin-bottom:42px!important}\
+    form[name=delform]{margin:0 0 1px 5px;position:relative;top:" + (uShowAnn ? "13px" : "0") + ";border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);border-radius:0 0 0 2px;-o-border-radius:0 0 0 2px}\
+    form[name=delform] table{border-spacing:0;margin:1px 0 0;overflow:hidden;position:relative}\
+    body>span[style]~form[name=delform]{padding-bottom:1px}\
+    body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl,.stub{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
-    .stub{margin:0 0 1px;padding:2px 0 2px 1px}\
-    .stub>a,.stub>.block>a{display:block}\
+    .stub{margin:1px!important;padding:0 0 0 1px}\
+    .stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
-    .qphl{border-left:3px solid " + linkColor + "!important;outline:none!important}\
+    .qphl{border-left:3px solid " + uTheme.linkColor + "!important;outline:none!important}\
     #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
@@ -399,18 +390,18 @@
     .omittedposts{margin-left:4px!important;color:#888!important;text-decoration:none!important;margin-top:-18px;display:inline-block;padding-bottom:4px}\
     .replytitle {color:#999!important}\
     .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
-    height:22px;color:transparent!important;font-size:0!important;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;z-index:2;\
+    height:22px;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;z-index:2;\
     -webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
     .deletebuttons:hover{width:186px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
     .deletebuttons::before{display:inline-block;width:17px;padding:1px 1px 0 0;text-align:center;content:'X';color:#fff}\
     .deletebuttons:hover::before{overflow:hidden;white-space:nowrap;padding:0;width:0}\
-    .deletebuttons::after{font-size:9px!important;color:#ccc!important;content:'FILE ONLY';position:absolute;bottom:0;right:52px;line-height:22px}\
+    .deletebuttons::after{font-size:9px!important;color:#ccc!important;content:'FILE ONLY';position:absolute;bottom:0;right:68px;line-height:22px}\
     .deletebuttons *{visibility:visible!important}\
-    .deletebuttons input[type=checkbox]{position:absolute;right:88px;bottom:3px!important;top:auto!important}\
+    .deletebuttons input[type=checkbox]{position:absolute;right:50px;bottom:3px!important;top:auto!important}\
     .deletebuttons .inputtext{width:138px}\
     .deletebuttons input:not([type=checkbox]){height:20px!important;margin:0!important}\
     .filetitle{color:#aaa!important}\
-    #recaptcha_logo" + (!getValue("Show Logo") ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
+    #recaptcha_logo" + (!uShowLogo ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
     #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],\
     .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,form[name=delform]>hr\
@@ -427,8 +418,7 @@
     .recaptcha_image_cell{padding-right:2px!important}\
     div{color:#fff!important}\
     .commentpostername,.postername,.commentpostername a,.postername a{color:#fff!important}\
-    .commentpostername,.postername{font-weight:400!important}\
-    blockquote{margin:12px 10px 18px 40px!important}\
+    blockquote{margin:12px 10px 20px 40px!important}\
     div.op blockquote,form[name=delform]>blockquote{margin-bottom:2em!important}\
     blockquote>.abbr{color:#fff!important}\
     div.reply{background:rgba(40,40,40,.9)!important;border:none!important;margin:0!important;z-index:2!important}\
@@ -436,24 +426,24 @@
     form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important}\
     img[alt='closed'],[alt='sticky']\
     {background-image:url('http://img175.imageshack.us/img175/1497/yunoiconsbf0.png')!important;background-color:transparent!important;background-repeat:no-repeat;display:inline-block;\
-    height:0!important;margin:0 1px!important;padding-top:16px!important;margin-right:-3px!important;width:16px!important;margin-left:4px!important;font-size:0!important;color:transparent!important}\
+    height:0!important;margin:0 1px!important;padding-top:16px!important;margin-right:-3px!important;width:16px!important;margin-left:4px!important}\
     [alt='sticky']{background-position:-129px 0!important}\
     [alt='closed']{background-position:-112px -16px!important}\
     .inputtext,textarea{margin:0;padding:1px 4px;outline:none}\
     input[type=file]{width:305px;margin:0}\
-    .inputtext:not(textarea){height:22px!important}\
+    .inputtext:not(textarea),#qr input[form=qr_form]{height:22px!important}\
     form[name=post] .inputtext:not(textarea),#qr>.move>.inputtext,#qr input[name=pwd]{width:305px!important}\
     form[name=post] input[type=text][name=sub]{width:254px!important;margin-right:1px!important}\
-    textarea,input:not([type=checkbox]),input[type=file]>input[type=button]\
+    textarea,button,input:not([type=checkbox]),input[type=file]>input[type=button]\
     {background:rgba(22,22,22,0.9)!important;border:none!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     input[type=file]::-webkit-file-upload-button\
     {background:rgba(22,22,22,0.9)!important;border:none!important;border-right:1px solid #262626!important;font-size:8px!important;text-transform:uppercase!important;\
     padding:0 5px!important;width:auto!important;vertical-align:bottom;height:22px!important;color:#ddd!important;cursor:pointer;margin:0!important;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     input[type=file]::-webkit-file-upload-button:hover{background:rgba(33,33,33,0.9)!important}\
-    textarea:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
+    textarea:hover,button:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
     input,select{color:#fff!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
-    input[type=submit]{width:50px;height:22px!important;color:#ddd!important;cursor:pointer;vertical-align:top;padding:0!important;font-size:9px!important;text-transform:uppercase}\
+    input[type=submit],button{width:50px;height:22px!important;color:#ddd!important;cursor:pointer;vertical-align:top;padding:0!important;font-size:9px!important;text-transform:uppercase}\
     input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
     width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important;-moz-border-radius:3px!important}\
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
@@ -477,7 +467,6 @@
     -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9);border-top:1px solid #161616!important}\
     .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
     .postarea form[name=post]::before,#qr .move::before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
-    form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move{font-size:0!important;color:transparent!important}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:17px;right:8px!important;vertical-align:bottom}\
     form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:173px;right:6px;vertical-align:bottom;z-index:1}\
@@ -485,18 +474,18 @@
     .filesize span{font-size:0!important;visibility:hidden}\
     .filesize span::after{content:attr(title);font-size:12px;visibility:visible}\
     .postarea input[type=password]{width:150px}\
-    #imageType,input:not([type=checkbox]),input:not([type=radio]),input[type=file]>input[type=button],input[type=submit],select,textarea\
+    #imageType,input:not([type=checkbox]),input:not([type=radio]),input[type=file]>input[type=button],input[type=submit],button,select,textarea\
     {-webkit-appearance:none;-o-appearance:none;}\
     #options label,#options a,#themeoptions label,#themeoptions a,.pointer{cursor: pointer}\
     #watcher .move,#updater .move,#options .move,#stats .move,#filter>div:first-child,#thread_filter>div:first-child,#qr .move{cursor:default!important}\
-    #watcher{position:fixed!important;top:" + (getValue("Show Logo") ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
+    #watcher{position:fixed!important;top:" + (uShowLogo ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
     #watcher .move,#themeoptions .move{text-decoration:none!important;padding:5px!important;line-height:10px!important}\
     #watcher>div>a:first-child,.container::before{font-size:10px!important}\
-    #themeoptions{background:#262626!important;border-top:1px solid #161616!important;position:fixed!important;top:" + (getValue("Show Logo") ? 146 : 39) + "px;right:0;text-align:right;width:312px;padding-bottom:5px;z-index:5!important}\
+    #themeoptions{background:#262626!important;border-top:1px solid #161616!important;position:fixed!important;top:" + (uShowLogo ? 146 : 39) + "px;right:0;text-align:right;width:312px;padding-bottom:5px;z-index:5!important}\
     #themeoptions>div{padding:5px}\
     #themeoptions .move{text-align:left}\
-    #themeoptions label{display:block;border-bottom:1px solid #333;height:20px;padding:0 3px;vertical-align:top}\
-    #themeoptions label:hover{background:#222}\
+    #themeoptions label,#updater label{display:block;border-bottom:1px solid #333;height:20px;padding:0 3px;vertical-align:top}\
+    #themeoptions label:hover,#updater label:hover{background:#222}\
     #themeoptions label>span{padding:0 3px;float:left;font-size:12px!important;line-height:18px}\
     #themeoptions label>input[type=checkbox]{margin:4px 2px 0!important;vertical-align:bottom!important}\
     #themeoptions label>select{height:18px!important;margin:1px 0!important}\
@@ -504,7 +493,8 @@
     #themeoptions textarea{height:100px;width:305px!important}\
     #options{text-align:center}\
     #options .dialog{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px}\
-    #thread_filter{position:fixed!important;width:312px;z-index:6!important}\
+    #thread_filter{position:fixed!important;width:312px;z-index:7!important}\
+    #thread_filter.autohide:not(:hover){background:transparent!important;width:140px}\
     #thread_filter input{height:22px;margin:2px 1px;padding:1px 4px;width:230px}\
     #thread_filter textarea{width:305px}\
     #thread_filter>.autohide>span{float:left;line-height:24px;margin-left:2px}\
@@ -512,14 +502,22 @@
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
     #thread_filter>div:first-child>span:first-child{display:inline-block;line-height:14px!important;margin:1px 0 -1px;width:130px}\
     #thread_filter>div:first-child>.autohide{margin:2px -5px 0;padding:0 5px;border-top:1px solid #161616}\
-    #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:139px;top:0;width:172px!important;z-index:7;border-right:1px solid #161616}\
-    #imgControls select{border:none;background:rgba(40,40,40,.9)}\
-    #imgControls>label{float:right}\
+    #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:160px!important;padding-right:152px!important;z-index:6}\
+    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);font-size:12px!important;height:17px!important;max-width:80px}\
+    #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
+    #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
     .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1']{font-size:10px!important;text-transform:uppercase}\
     #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
-    #qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move{text-transform:uppercase;font-size:9px!important;line-height:20px}\
+    #qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,#updater span{text-transform:uppercase;font-size:9px!important;line-height:18px}\
     #qr{bottom:-5px!important;height:auto!important}\
+    #qr #qr_stats{color: #fff!important;position:absolute;top:0;right:44px;line-height:22px}\
     #qr #autohide{position:absolute;right:24px!important;top:4px!important}\
+    #qr a.close~.autohide{padding-bottom:22px!important}\
+    #qr a.close~.autohide,#qr #files>div,#qr .autohide>div,#qr .autohide>form>div{font-size:0!important;}\
+    #qr a.close~.autohide>.wat{margin:0 2px!important}\
+    #qr a.close~.autohide>input,#qr a.close~.autohide input[name=resto]{width:94px;padding:2px;margin:0!important;margin-left:1px!important;vertical-align:bottom}\
+    #qr #files a.x{padding:0 4px;background: rgba(20,20,20,.9);margin:1px;border-radius:2px;-o-border-radius:2px}\
+    #qr .autohide>form>div>label{line-height:22px;margin-left:5px}\
     #qr>#autohide:not(:checked)~.autohide,#qr:hover>#autohide:checked~.autohide{height:auto!important;overflow:visible!important;padding-bottom:25px!important}\
     #qr #files>div,#qr .autohide>div,#qr .autohide>form>div{position:relative}\
     #qr input[name=upfile]+a,#qr #captchas,#qr #attach{position:absolute;right:6px;top:1px}\
@@ -527,22 +525,24 @@
     #qr input[name=upfile]+a::after,#qr #close::after,#qr a.close::after{content:']';padding-left:2px}\
     #qr .move::before{color:#fff;content:'QUICK REPLY';width:306px}\
     #qr #close,#qr a.close{position:absolute;right:6px;top:1px}\
-    #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:7!important;width:45px;text-align:left!important}\
-    #updater:hover{right:0!important;width:133px!important}\
+    #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:7!important;width:58px;text-align:left!important}\
+    #updater:hover{border:1px solid #161616!important;border-top:none!important;border-right:none!important;right:0!important;padding-bottom:3px;width:146px!important}\
+    #updater .move{line-height:16px!important}\
+    #updater input{float:right}\
     #updater input:not([type=checkbox]){margin:1px!important}\
-    #updater input[type=text]{width:50px!important}\
+    #updater input[type=text]{height:19px!important;width:50px!important}\
     #updater:not(:hover){background:transparent!important}\
-    #stats{background:rgba(40,40,40,.9)!important;height:18px;bottom:auto!important;left:auto!important;right:0!important;top:0!important;z-index:6!important;width:309px;padding-right:3px;text-align:right}\
-    #stats .move{color:transparent!important;font-size:0!important;line-height:18px}\
+    #stats{height:18px;bottom:auto!important;left:auto!important;right:0!important;top:0!important;z-index:8!important;padding-right:3px;text-align:right}\
+    #stats .move{line-height:18px}\
     #stats span{color:#fff!important;font-size:9px!important;margin:0 2px}\
     #stats #postcount::before{font-size:9px!important;content:'POSTS: ';}\
     #stats #imagecount::before{font-size:9px!important;content:'IMAGES: ';}\
-    #navlinks{font-size:16px!important;top:" + (getValue("Show Logo") ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
+    #navlinks{font-size:16px!important;top:" + (uShowLogo ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
     #iHover{padding-bottom:19px;z-index:9!important}\
     body>center:nth-of-type(2){position:relative}\
-    body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-94px;left:0;height:93px;z-index:9;\
+    body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-81px;left:0;height:93px;z-index:9;\
     margin-left:-5px;padding-right:5px;-webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
-    body>center:nth-of-type(2)>font[color=red]:hover{top:-18px}\
+    body>center:nth-of-type(2)>font[color=red]:hover{top:-6px}\
     body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;height:75px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
@@ -552,29 +552,30 @@
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
     #navtopr{float:right!important;line-height:18px;margin-right:5px;font-size:0;color:transparent}\
     #navtopr>a:last-child::before{content:'/';padding:0 2px}\
-    .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
-    position:fixed!important;bottom:18px;left:-271px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
-    .pages:hover{left:0;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
-    .pages *{font-size:12px!important}\
+    .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;min-width:310px;width:auto!important;height:22px;\
+    position:fixed!important;bottom:18px;left:-350px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
+    .pages:hover{left:0!important;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
+    .pages *{font-size:" + sFontSize + "px!important}\
     .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:29px;text-align:center}\
-    .pages td:nth-of-type(2){color:transparent!important;font-size:0!important}\
     .pages span{color:#aaa!important}\
     .pages b{color:#fff!important}\
-    .pages a{font-weight:bold!important;text-decoration:none!important}\
     .pages a:not(:last-child),.pages b:not(:last-child){margin:0 2px}\
     .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 5px!important;position:relative;top:-1px}\
     .pages input:hover{background:rgba(36,36,36,.9)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 5px;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
+    form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
+    #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}\
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
     @-moz-document url-prefix(){\
         form[name=delform] table{width:100%}\
         .container{right:6px}\
+        div.thread{padding-left:1px}\
     }";
     
-    if (!getValue("Show Announcements"))
+    if (!uShowAnn)
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
         
-    if (getValue("Pages in nav"))
+    if (uPageInNav)
         css += ".pages{background:transparent!important;height:18px!important;border:none!important;bottom:-1px!important;left:0!important;z-index:3!important}.pages input{height:18px!important}";
 
     addStyle();
@@ -630,6 +631,17 @@
             prev.value = "Prev";
         else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev !== null)
             prev.textContent = "Prev";
+            
+        // Fix pages position
+        if (!uPageInNav)
+        {
+            var pages = $(".pages");
+            if (typeof pages === "undefined" || pages === null)
+                return;
+            
+            var leftOffset = $(".pages td:last-child").offsetWidth - pages.offsetWidth;
+            addStyle(".pages{left:" + leftOffset + "px!important}");
+        }
     }
     /* END DOM MANIPULATION */
 })();
