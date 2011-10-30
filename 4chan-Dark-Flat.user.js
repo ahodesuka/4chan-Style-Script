@@ -10,6 +10,7 @@
     var config = {
         'Show Announcements': true,
         'Show Logo': true,
+        'Hide Reply Form': false,
         'Auto noko': true,
         'Pages in nav': false,
         'Custom nav links': true,
@@ -92,6 +93,7 @@
         uShowLogo  = getValue("Show Logo"),
         uPageInNav = getValue("Pages in nav"),
         uShowAnn   = getValue("Show Announcements"),
+        uHideRForm = getValue("Hide Reply Form"),
         ctClear    = false;
     
     var fonts = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
@@ -401,10 +403,11 @@
     .deletebuttons .inputtext{width:138px}\
     .deletebuttons input:not([type=checkbox]){height:20px!important;margin:0!important}\
     .filetitle{color:#aaa!important}\
-    #recaptcha_logo" + (!uShowLogo ? ",.logo" : "") + ",#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#filter-button,\
-    #recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,form[name=delform]>br[clear],\
-    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],\
-    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,form[name=delform]>hr\
+    " + (!uShowLogo ? ".logo," : "") + (uHideRForm ? "body>table~.postarea," : "") + "#recaptcha_logo,#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,\
+    .yui-g,#filter-button,#recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,\
+    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],\
+    .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,form[name=delform]>hr,\
+    body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -493,17 +496,22 @@
     #themeoptions textarea{height:100px;width:305px!important}\
     #options{text-align:center}\
     #options .dialog{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px}\
-    #thread_filter{position:fixed!important;width:312px;z-index:7!important}\
-    #thread_filter.autohide:not(:hover){background:transparent!important;width:140px}\
+    #thread_filter{background:transparent!important;position:fixed!important;top:0!important;right:0!important;left:auto!important;bottom:auto!important;width:312px;z-index:8!important}\
+    body>span[style]~#thread_filter:hover{padding-top:20px!important}\
+    #thread_filter:hover>div{background:rgba(40,40,40,.9)}\
+    #thread_filter.autohide:not(:hover){width:115px}\
     #thread_filter input{height:22px;margin:2px 1px;padding:1px 4px;width:230px}\
     #thread_filter textarea{width:305px}\
     #thread_filter>.autohide>span{float:left;line-height:24px;margin-left:2px}\
-    #thread_filter>div:first-child{padding:2px 5px!important}\
+    #thread_filter>div:first-child{padding:0!important}\
+    #thread_filter>div:first-child>span{padding:1px 5px!important}\
+    #thread_filter>div:first-child>span.autohide{border-top:1px solid #161616}\
+    body>span[style]~#thread_filter>div:first-child{height:16px!important;padding:2px 5px!important}\
+    body>span[style]~#thread_filter>div:first-child>span{padding:0!important}\
+    body>span[style]~#thread_filter>div:first-child>span.autohide{border:none!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
-    #thread_filter>div:first-child>span:first-child{display:inline-block;line-height:14px!important;margin:1px 0 -1px;width:130px}\
-    #thread_filter>div:first-child>.autohide{margin:2px -5px 0;padding:0 5px;border-top:1px solid #161616}\
     #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:160px!important;padding-right:152px!important;z-index:6}\
-    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);font-size:12px!important;height:17px!important;max-width:80px}\
+    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);font-size:12px!important;max-height:16px!important;max-width:80px}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
     .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1']{font-size:10px!important;text-transform:uppercase}\
@@ -525,7 +533,7 @@
     #qr input[name=upfile]+a::after,#qr #close::after,#qr a.close::after{content:']';padding-left:2px}\
     #qr .move::before{color:#fff;content:'QUICK REPLY';width:306px}\
     #qr #close,#qr a.close{position:absolute;right:6px;top:1px}\
-    #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:7!important;width:58px;text-align:left!important}\
+    #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:9!important;width:58px;text-align:left!important}\
     #updater:hover{border:1px solid #161616!important;border-top:none!important;border-right:none!important;right:0!important;padding-bottom:3px;width:146px!important}\
     #updater .move{line-height:16px!important}\
     #updater input{float:right}\
@@ -569,7 +577,7 @@
     @-moz-document url-prefix(){\
         form[name=delform] table{width:100%}\
         .container{right:6px}\
-        div.thread{padding-left:1px}\
+        div.thread{padding-left:1px!important}\
     }";
     
     if (!uShowAnn)
