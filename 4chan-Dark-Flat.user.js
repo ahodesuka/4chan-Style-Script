@@ -14,6 +14,7 @@
         'Auto noko': true,
         'Pages in nav': false,
         'Custom nav links': true,
+        'ExHentai Source': false,
         'Font': "Calibri",
         'Font Size': 12,
         'Theme': "Random",
@@ -61,47 +62,6 @@
         }
     }
     /* END LICENSE */
-    
-    var getValue = function(name)
-    {        
-        return GM_getValue(name, config[name]);
-    };
-    
-    var __hasProp = Object.prototype.hasOwnProperty,
-        postTabText = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD",
-        bgPattern = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7",
-        checkMark = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABwSURBVHjalI+rDYBAEEQfSCwnETiqwtEIBdAHjgIoAIE4hUBBDeT8YC5swkcw6+ZlsjOJeFfKl8QtUzEIPYBjIRioo50zIXYDgR7I8AixGjgQHSNCeEoDLYo3kUcvPm8QYsZdTa9WLRuFTUh+Lz8HABdVPTT1adyuAAAAAElFTkSuQmCC";
-        
-    var themes = [];
-    themes[0] = { name: "Erio", bg: "http://img88.imageshack.us/img88/2449/eriobg.png", linkColor: "#6cb2ee" };
-    themes[1] = { name: "Fate", bg: "http://img848.imageshack.us/img848/3976/fatebg.png", linkColor: "#e1d550" };
-    themes[2] = { name: "Kurimu", bg: "http://img823.imageshack.us/img823/9940/kurimubg.png", linkColor: "#ce717d" };
-    themes[3] = { name: "ほむほむ", bg: "http://img217.imageshack.us/img217/2928/homubg.png", linkColor: "#886999" };
-    themes[4] = { name: "Horo", bg: "http://img525.imageshack.us/img525/9757/horobg.png", linkColor: "#a46e41" };
-    themes[5] = { name: "Marisa", bg: "http://img252.imageshack.us/img252/8995/marisabg.png", linkColor: "#e1cb9c" };
-    themes[6] = { name: "Shana", bg: "http://img821.imageshack.us/img821/1281/shanabg.png", linkColor: "#ef4353" };
-    themes[7] = { name: "Shiki", bg: "http://img94.imageshack.us/img94/629/shikibg.png", linkColor: "#aaa" };
-    themes[8] = { name: "Tessa", bg: "http://img834.imageshack.us/img834/1904/tessabg.png", linkColor: "#857d92" };
-    themes[9] = { name: "Yin", bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef" };
-    themes[10] = JSON.parse(getValue("Custom Theme"));
-    themes[11] = { name: "Random" };
-    
-    var uTheme     = getValue("Theme"),
-        uFont      = getValue("Font"),
-        uFontSize  = getValue("Font Size"),
-        sFontSize  = uFontSize > 11 ? 12 : 11,
-        uShowLogo  = getValue("Show Logo"),
-        uPageInNav = getValue("Pages in nav"),
-        uShowAnn   = getValue("Show Announcements"),
-        uHideRForm = getValue("Hide Reply Form"),
-        ctClear    = false;
-    
-    var fonts = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
-    var fontSizes = [];
-    fontSizes[0] = { name: "Small", size: 11 };
-    fontSizes[1] = { name: "Normal", size: 12 };
-    fontSizes[2] = { name: "Large", size: 14 };
-    fontSizes[3] = { name: "Larger", size: 16 };
     
     /* Thanks to aeosynth */
     /* LICENSE
@@ -177,6 +137,48 @@
         return el.parentNode.removeChild(el);
     };
     /* END LICENSE */
+    
+    var getValue = function(name)
+    {        
+        return GM_getValue(name, config[name]);
+    };
+    
+    var __hasProp = Object.prototype.hasOwnProperty,
+        postTabText = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD",
+        bgPattern = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7",
+        checkMark = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABwSURBVHjalI+rDYBAEEQfSCwnETiqwtEIBdAHjgIoAIE4hUBBDeT8YC5swkcw6+ZlsjOJeFfKl8QtUzEIPYBjIRioo50zIXYDgR7I8AixGjgQHSNCeEoDLYo3kUcvPm8QYsZdTa9WLRuFTUh+Lz8HABdVPTT1adyuAAAAAElFTkSuQmCC";
+        
+    var themes = [];
+    themes[0] = { name: "Erio", bg: "http://img88.imageshack.us/img88/2449/eriobg.png", linkColor: "#6cb2ee" };
+    themes[1] = { name: "Fate", bg: "http://img848.imageshack.us/img848/3976/fatebg.png", linkColor: "#e1d550" };
+    themes[2] = { name: "Kurimu", bg: "http://img823.imageshack.us/img823/9940/kurimubg.png", linkColor: "#ce717d" };
+    themes[3] = { name: "ほむほむ", bg: "http://img217.imageshack.us/img217/2928/homubg.png", linkColor: "#886999" };
+    themes[4] = { name: "Horo", bg: "http://img525.imageshack.us/img525/9757/horobg.png", linkColor: "#a46e41" };
+    themes[5] = { name: "Marisa", bg: "http://img252.imageshack.us/img252/8995/marisabg.png", linkColor: "#e1cb9c" };
+    themes[6] = { name: "Shana", bg: "http://img821.imageshack.us/img821/1281/shanabg.png", linkColor: "#ef4353" };
+    themes[7] = { name: "Shiki", bg: "http://img94.imageshack.us/img94/629/shikibg.png", linkColor: "#aaa" };
+    themes[8] = { name: "Tessa", bg: "http://img834.imageshack.us/img834/1904/tessabg.png", linkColor: "#857d92" };
+    themes[9] = { name: "Yin", bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef" };
+    themes[10] = JSON.parse(getValue("Custom Theme"));
+    themes[11] = { name: "Random" };
+    
+    var uTheme     = getValue("Theme"),
+        uFont      = getValue("Font"),
+        uFontSize  = getValue("Font Size"),
+        sFontSize  = uFontSize > 11 ? 12 : 11,
+        uShowLogo  = getValue("Show Logo"),
+        uPageInNav = getValue("Pages in nav"),
+        uShowAnn   = getValue("Show Announcements"),
+        uHideRForm = getValue("Hide Reply Form"),
+        uHentai    = getValue("ExHentai Source"),
+        ctClear    = false;
+    
+    var fonts = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
+    var fontSizes = [];
+    fontSizes[0] = { name: "Small", size: 11 };
+    fontSizes[1] = { name: "Normal", size: 12 };
+    fontSizes[2] = { name: "Large", size: 14 };
+    fontSizes[3] = { name: "Larger", size: 16 };
     
     /* OPTIONS */
     var options = function()
@@ -377,10 +379,10 @@
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
-    td.reply,td.replyhl,.stub{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
+    td.reply,td.replyhl,div.stub{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
-    .stub{margin:1px!important;padding:0 0 0 1px}\
-    .stub>a,.stub>.block>a{display:block;padding:2px}\
+    div.stub{margin:1px!important;padding:0 0 0 1px!important}\
+    div.stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
@@ -574,6 +576,13 @@
     #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}\
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
+    .exSource{margin:0 3px;position:relative}\
+    .exSource.exFound{-webkit-transition:none!important}\
+    .exSource.exFound:hover{background:rgba(36,36,36,.9)!important;border-radius:3px 3px 0 0;-o-border-radius:3px 3px 0 0}\
+    .exSource:hover>.exPopup{display:block!important}\
+    .exPopup{background:rgba(36,36,36,.9)!important;display:none;left:0;padding:5px;position:absolute!important;white-space:nowrap;z-index:8!important;\
+    box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:0 3px 3px 3px;-o-border-radius:0 3px 3px 3px}\
+    .exPopup a{display:block}\
     @-moz-document url-prefix(){\
         form[name=delform] table{width:100%}\
         .container{right:6px}\
@@ -635,21 +644,208 @@
         
         // Truncuate Previous to Prev
         var prev;
-        if (typeof (prev = $(".pages td input[value='Previous']")) !== "undefined" && prev !== null)
+        if (typeof (prev = $(".pages td input[value='Previous']")) !== "undefined" && prev != null)
             prev.value = "Prev";
-        else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev !== null)
+        else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev != null)
             prev.textContent = "Prev";
             
         // Fix pages position
         if (!uPageInNav)
         {
             var pages = $(".pages");
-            if (typeof pages === "undefined" || pages === null)
+            if (typeof pages === "undefined" || pages == null)
                 return;
             
             var leftOffset = $(".pages td:last-child").offsetWidth - pages.offsetWidth;
             addStyle(".pages{left:" + leftOffset + "px!important}");
         }
+        
+        if (uHentai)
+        {
+            addLinks(document);
+            document.addEventListener('DOMNodeInserted', function(e)
+            {
+                if (e.target.nodeName.toLowerCase == 'table')
+                    addLinks(e.target);
+            });
+        }
     }
     /* END DOM MANIPULATION */
+    
+    /* Thanks to hurfdurf
+     * http://pastebin.com/TTDJNH7c */
+     /* EXHENTAI SOURCE */
+    function addLinks(x)
+    {
+        var targets = x.querySelectorAll('img[md5]');
+        for (var i = 0; i < targets.length; i++)
+        {
+            var a = document.createElement('a');
+            a.innerHTML = 'exhentai';
+            a.href = targets[i].parentNode.href;
+            a.addEventListener('click', fetchImage);
+            a.className = 'exSource';
+            
+            document.evaluate('preceding-sibling::span[@class="filesize"][1]', targets[i].parentNode, null, 9, null).singleNodeValue.appendChild(a);
+        }
+    }
+
+    function fetchImage(e)
+    {
+        if (e.which != 1) return;
+        e.preventDefault();
+        
+        var a = e.target;
+        a.textContent = 'loading';
+        GM_xmlhttpRequest(
+        {
+            method: 'GET',
+            url: a.href,
+            data: a,
+            overrideMimeType : 'text/plain; charset=x-user-defined',
+            headers: { 'Content-Type': 'image/jpeg' },
+            onload: function(x) { checkTitles(a, x.responseText); }
+        });
+    }
+
+    function checkTitles(anchor, data)
+    {
+        var hash = sha1Hash(data_string(data));
+        anchor.innerHTML = 'checking';
+        
+        anchor.href = 'http://exhentai.org/?f_shash=' + hash + '&fs_similar=1&fs_exp=1';
+        anchor.removeEventListener('click', fetchImage);
+        
+        GM_xmlhttpRequest(
+        {
+            method: 'GET',
+            url: anchor.href,
+            data: anchor,
+            onload: function(x)
+            {
+                var temp = document.createElement('div');                
+                temp.innerHTML = x.responseText;
+                var results = temp.querySelectorAll('div.it3 > a:not([rel="nofollow"]), div.itd2 > a:not([rel="nofollow"])');
+                
+                anchor.innerHTML = 'found: ' + results.length;
+                anchor.target = "_blank";
+                
+                if (results.length > 0)
+                {
+                    anchor.className += " exFound";
+                    
+                    var div = document.createElement('div');
+                    div.className = 'exPopup';
+                    div.id = 'ex' + hash;    
+                    anchor.appendChild(div);
+                    
+                    for (var i = 0, MAX = results.length; i < MAX; i++)
+                    {
+                        var a = document.createElement('a');
+                        a.innerHTML = results[i].innerHTML;
+                        a.href = results[i].href;
+                        a.target = "_blank";
+                        div.appendChild(a);
+                    }
+                }
+            }
+        });
+    }
+
+    /* SHA1 HASING */
+    function data_string(data)
+    {
+        var data_string='';
+        for (var i = 0, MAX = data.length; i < MAX; i++)
+            data_string+=String.fromCharCode(data[i].charCodeAt(0)&0xff);
+            
+        return data_string;
+    }
+
+
+    function sha1Hash(msg)
+    {
+        var K = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc, 0xca62c1d6];
+        msg += String.fromCharCode(0x80);
+        var l = msg.length/4 + 2;
+        var N = Math.ceil(l/16);
+        var M = new Array(N);
+        for (var i = 0; i < N; i++)
+        {
+            M[i] = new Array(16);
+            for (var j = 0; j < 16; j++)
+                M[i][j] = (msg.charCodeAt(i*64+j*4)<<24) | (msg.charCodeAt(i*64+j*4+1)<<16) |
+                          (msg.charCodeAt(i*64+j*4+2)<<8) | (msg.charCodeAt(i*64+j*4+3));
+        }
+        
+        M[N-1][14] = ((msg.length-1)*8) / Math.pow(2, 32); M[N-1][14] = Math.floor(M[N-1][14])
+        M[N-1][15] = ((msg.length-1)*8) & 0xffffffff;
+
+        var H0 = 0x67452301;
+        var H1 = 0xefcdab89;
+        var H2 = 0x98badcfe;
+        var H3 = 0x10325476;
+        var H4 = 0xc3d2e1f0;
+
+        var W = new Array(80); var a, b, c, d, e;
+        for (var i = 0; i < N; i++)
+        {
+            for (var t = 0; t < 16; t++)
+                W[t] = M[i][t];
+                
+            for (var t = 16; t < 80; t++)
+                W[t] = ROTL(W[t-3] ^ W[t-8] ^ W[t-14] ^ W[t-16], 1);
+                
+            a = H0; b = H1; c = H2; d = H3; e = H4;
+            for (var t = 0; t < 80; t++)
+            {
+                var s = Math.floor(t/20);
+                var T = (ROTL(a,5) + f(s,b,c,d) + e + K[s] + W[t]) & 0xffffffff;
+                e = d;
+                d = c;
+                c = ROTL(b, 30);
+                b = a;
+                a = T;
+            }
+            
+            H0 = (H0+a) & 0xffffffff;
+            H1 = (H1+b) & 0xffffffff;
+            H2 = (H2+c) & 0xffffffff;
+            H3 = (H3+d) & 0xffffffff;
+            H4 = (H4+e) & 0xffffffff;
+        }
+        
+        return H0.toHexStr() + H1.toHexStr() + H2.toHexStr() + H3.toHexStr() + H4.toHexStr();
+    }
+
+    function f(s, x, y, z)
+    {
+        switch (s)
+        {
+            case 0: return (x & y) ^ (~x & z);
+            case 1: return x ^ y ^ z;
+            case 2: return (x & y) ^ (x & z) ^ (y & z);
+            case 3: return x ^ y ^ z;
+        }
+    }
+
+    function ROTL(x, n)
+    {
+        return (x<<n) | (x>>>(32-n));
+    }
+
+    Number.prototype.toHexStr = function()
+    {
+        var s = "", v;
+        
+        for (var i = 7; i >= 0; i--)
+        {
+            v = (this >>> (i*4)) & 0xf;
+            s += v.toString(16);
+        }
+        
+        return s;
+    }
+    /* END SHA1 HASHING */
+    /* END EXHENTAI SOURCE */
 })();
