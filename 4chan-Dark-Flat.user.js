@@ -210,11 +210,11 @@
                         if (themes[i].name == "Custom")
                             html += '<option disabled="disabled">---</option>';
                         
-                         html += '<option value="' + themes[i].name + '"' + (themes[i].name == getValue(option) ? ' selected="selected"' : '') +'>' + themes[i].name + '</option>';
+                         html += '<option value="' + themes[i].name + '"' + (themes[i].name == uTheme.name ? ' selected="selected"' : '') +'>' + themes[i].name + '</option>';
                     }
                     
                     html += '</select></label>\
-                    <div id="customTheme"' + (uTheme != "Custom" ? ' class="hidden"' : '') + '><label><span>BG URL</span>\
+                    <div id="customTheme"' + (uTheme.name != "Custom" ? ' class="hidden"' : '') + '><label><span>BG URL</span>\
                     <input type="text" name="customBG" value="' + themes[themes.length-2].bg + '" /></label>\
                     <label><span title="i.e. #FF6999">Link Color (Hex.)</span>\
                     <input type="text" name="customLColor" value="' + themes[themes.length-2].linkColor + '" /></label>\
@@ -225,7 +225,7 @@
                     html += '<label><span>' + option + '</span><select name="Font">';
                     
                     for (var i = 0, MAX = fonts.length; i < MAX; i++)
-                         html += '<option value="' + fonts[i] + '"' + (fonts[i] == getValue(option) ? ' selected="selected"' : '') +'>' + fonts[i] + '</option>';
+                         html += '<option value="' + fonts[i] + '"' + (fonts[i] == uFont ? ' selected="selected"' : '') +'>' + fonts[i] + '</option>';
                     
                     html += '</select></label>';
                 }
@@ -357,7 +357,7 @@
     ::-moz-selection{background:" + uTheme.linkColor + ";color:#fff}\
     img{border:none!important}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
-    h3,.commentpostername,.postername,body>center:nth-of-type(2)>font[color=red]>b,.pages b{font-weight:400!important}\
+    h3,.commentpostername,.postername,body>center:nth-of-type(2)>font[color=red]>b,.pages b,.filetitle{font-weight:400!important}\
     hr{border:none!important;clear:left;height:0}\
     a{text-decoration:none!important;color:" + uTheme.linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:hover{color:#eee!important}\
@@ -390,7 +390,7 @@
     #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
-    .commentpostername a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
+    a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
     .omittedposts{margin-left:4px!important;color:#888!important;text-decoration:none!important;margin-top:-18px;display:inline-block;padding-bottom:4px}\
     .replytitle {color:#999!important}\
     .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
