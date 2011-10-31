@@ -653,22 +653,16 @@
         if (!uPageInNav)
         {
             var pages = $(".pages");
-            if (typeof pages === "undefined" || pages == null)
-                return;
-            
-            var leftOffset = $(".pages td:last-child").offsetWidth - pages.offsetWidth;
-            addStyle(".pages{left:" + leftOffset + "px!important}");
+            if (typeof pages !== "undefined" && pages != null)
+            {            
+                var leftOffset = $(".pages td:last-child").offsetWidth - pages.offsetWidth;
+                addStyle(".pages{left:" + leftOffset + "px!important}");
+            }
         }
         
+        // Add ExHentai source link
         if (uHentai)
-        {
             addLinks(document);
-            document.addEventListener('DOMNodeInserted', function(e)
-            {
-                if (e.target.nodeName.toLowerCase == 'table')
-                    addLinks(e.target);
-            });
-        }
     }
     /* END DOM MANIPULATION */
     
