@@ -368,7 +368,7 @@
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
-    div.thread::after,#updater div::after,body>span[style]~form[name=delform] div.op{clear:left;content:' ';display:block}\
+    div.thread::after,#updater div::after,body>span[style]~form[name=delform] div.op{clear:left;content:'';display:block}\
     div.op{border:none!important}\
     div.op>a:not([href]){margin-left:2px}\
     span.plus{color:#fff!important}\
@@ -377,21 +377,23 @@
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
+    .reply blockquote a,.replyhl blockquote a{color:#999!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl,div.stub{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     td.replyhl{background:rgba(40,40,40,.3)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 15px;box-shadow:inset rgba(0,0,0,0.35) 0 0 15px}\
-    div.stub{margin:1px!important;padding:0 0 0 1px!important}\
+    div.stub{margin:1px 0 0 1px!important;padding: 0 1px 0 0!important}\
     div.stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
-    .qphl{border-left:3px solid " + uTheme.linkColor + "!important;outline:none!important}\
+    .qphl{outline:none!important}\
+    .qphl::before{background:" + uTheme.linkColor + ";content:'';height:100%;width:100%;position:absolute;top:0;left:0;opacity:.1;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     #qp{background:rgba(36,36,36,.9)!important;padding:5px;position:fixed!important;z-index:9!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
-    .omittedposts{margin-left:4px!important;color:#888!important;text-decoration:none!important;margin-top:-18px;display:inline-block;padding-bottom:4px}\
+    .omittedposts{margin-left:8px!important;text-decoration:none!important;display:inline-block;padding-bottom:4px}\
     .replytitle {color:#999!important}\
     .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
     height:22px;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;z-index:2;\
@@ -416,18 +418,17 @@
     th{background-color:#000!important;opacity:0!important}\
     tr{background-color:transparent!important;color:#fff!important}\
     tr[height='73']{height:auto!important}\
-    .recaptchatable #recaptcha_image{background-color:transparent!important;margin-left:0!important;border:none!important}\
+    #recaptcha_table #recaptcha_image{background-color:transparent!important;margin-left:0!important;border:none!important}\
     #recaptcha_image img,#qr img[src*='recaptcha/api']{width:305px!important}\
     #recaptcha_table tr td{padding:0!important}\
     .recaptcha_input_area{padding:0!important}\
     .recaptcha_image_cell{padding-right:2px!important}\
     div{color:#fff!important}\
     .commentpostername,.postername,.commentpostername a,.postername a{color:#fff!important}\
-    blockquote{margin:12px 10px 20px 40px!important}\
-    div.op blockquote,form[name=delform]>blockquote{margin-bottom:2em!important}\
+    blockquote{margin:12px 12px 12px 40px!important}\
     blockquote>.abbr{color:#fff!important}\
     div.reply{background:rgba(40,40,40,.9)!important;border:none!important;margin:0!important;z-index:2!important}\
-    form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:0 20px 20px!important}\
+    form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:2px 20px 12px!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important}\
     img[alt='closed'],[alt='sticky']\
     {background-image:url('http://img175.imageshack.us/img175/1497/yunoiconsbf0.png')!important;background-color:transparent!important;background-repeat:no-repeat;display:inline-block;\
@@ -459,7 +460,6 @@
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;margin:0!important}\
     .postarea textarea,#qr textarea{width:305px!important;height:125px!important;resize:none}\
-    .unkfunc a,.unkfunc a:hover{color:#999!important}\
     td.doubledash{padding:0;text-indent:-9999px}\
     .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important}\
     .logo img{margin:0!important;opacity:0.4;border:1px solid #161616!important}\
@@ -485,6 +485,7 @@
     #watcher .move,#updater .move,#options .move,#stats .move,#filter>div:first-child,#thread_filter>div:first-child,#qr .move{cursor:default!important}\
     #watcher{position:fixed!important;top:" + (uShowLogo ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
     #watcher .move,#themeoptions .move{text-decoration:none!important;padding:5px!important;line-height:10px!important}\
+    #watcher>div{max-width:100%!important}\
     #watcher>div>a:first-child,.container::before{font-size:10px!important}\
     #themeoptions{background:#262626!important;border-top:1px solid #161616!important;position:fixed!important;top:" + (uShowLogo ? 146 : 39) + "px;right:0;text-align:right;width:312px;padding-bottom:5px;z-index:5!important}\
     #themeoptions>div{padding:5px}\
@@ -497,7 +498,7 @@
     #themeoptions input[type=text]{height:18px;margin-top:1px 0 0!important;padding:1px 3px!important}\
     #themeoptions textarea{height:100px;width:305px!important}\
     #options{text-align:center}\
-    #options .dialog{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px}\
+    #options .dialog,#options.dialog{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px}\
     #thread_filter{background:transparent!important;position:fixed!important;top:0!important;right:0!important;left:auto!important;bottom:auto!important;width:312px;z-index:8!important}\
     body>span[style]~#thread_filter:hover{padding-top:20px!important}\
     #thread_filter:hover>div{background:rgba(40,40,40,.9)}\
@@ -557,10 +558,10 @@
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;height:75px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
     border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
-    #navtop,#navtopr{float:none!important;display:inline}\
+    #navtop,#navtopr{float:none!important;display:none}\
     #navtop{padding:1px 0;color:#aaa!important;display:none}\
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
-    #navtopr{float:right!important;line-height:18px;margin-right:5px;font-size:0;color:transparent}\
+    #navtopr{line-height:18px;position:fixed;bottom:0;right:5px;font-size:0;color:transparent}\
     #navtopr>a:last-child::before{content:'/';padding:0 2px}\
     .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;min-width:310px;width:auto!important;height:22px;\
     position:fixed!important;bottom:18px;left:-350px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
@@ -569,31 +570,24 @@
     .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:29px;text-align:center}\
     .pages span{color:#aaa!important}\
     .pages b{color:#fff!important}\
-    .pages a:not(:last-child),.pages b:not(:last-child){margin:0 2px}\
+    .pages a:not(:last-child),.pages b:not(:last-child){margin:0 1px}\
     .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 5px!important;position:relative;top:-1px}\
     .pages input:hover{background:rgba(36,36,36,.9)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 5px;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
     #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}\
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
-    .exSource{margin:0 3px;position:relative}\
-    .exSource.exFound{-webkit-transition:none!important}\
-    .exSource.exFound:hover{background:rgba(36,36,36,.9)!important;border-radius:3px 3px 0 0;-o-border-radius:3px 3px 0 0}\
-    .exSource:hover>.exPopup{display:block!important}\
-    .exPopup{background:rgba(36,36,36,.9)!important;display:none;left:0;padding:5px;position:absolute!important;white-space:nowrap;z-index:8!important;\
-    box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:0 3px 3px 3px;-o-border-radius:0 3px 3px 3px}\
-    .exPopup a{display:block}\
     @-moz-document url-prefix(){\
-        form[name=delform] table{width:100%}\
+        form[name=delform] table{margin-left:1px!important;width:100%}\
         .container{right:6px}\
-        div.thread{padding-left:1px!important}\
     }";
     
     if (!uShowAnn)
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
         
     if (uPageInNav)
-        css += ".pages{background:transparent!important;height:18px!important;border:none!important;bottom:-1px!important;left:0!important;z-index:3!important}.pages input{height:18px!important}";
+        css += ".pages{background:transparent!important;height:18px!important;margin:0!important;border:none!important;bottom:0!important;left:0!important;z-index:3!important}\
+                .pages input{height:18px!important;top:0!important}";
 
     addStyle();
     /* END STYLING */
@@ -603,11 +597,27 @@
     
     function DOMLoaded()
     {
-        var nTop = $("#navtop");
+        var postLoadCSS = "#navtop,#navtopr{display:inline!important}",
+            nTop = $("#navtop");
+            
         if (getValue("Custom nav links"))
             nTop.innerHTML = getValue('_4chlinks');
+        else
+        {
+            var navH = tag("a");
+            navH.textContent = $('.logo span').textContent.match(/\/\w{1,3}\/\s-\s(.*)/i, "")[1];
+            navH.id = "navHover";
+            navH.href = window.location.href.match(/(http:\/\/boards\.4chan\.org\/(\w{1,3})\/)/i, "")[1];
+            inBefore($("#navtop"), navH);
             
-        nTop.setAttribute("style", "display:inline!important");
+            postLoadCSS += "#navHover{display:inline-block;position:absolute;padding:10px 50px 0!important;top:-10px}\
+                            #navHover:hover+#navtop{display:inline-block!important}\
+                            #navHover,#navtop{line-height:normal!important}\
+                            #navtop{color:transparent!important;position:relative;font-size:0!important;top:-24px;display:none!important;\
+                            background:rgba(33,33,33,.9);padding:3px;box-shadow:#202020 0 2px 5px;border-radius:3px}\
+                            #navtop:hover{display:inline-block!important}\
+                            #navtop a{margin:1px 0}";
+        }
             
         // Add theme options link
         var a = tag("a");
@@ -654,27 +664,38 @@
         {
             var pages = $(".pages");
             if (typeof pages !== "undefined" && pages != null)
-            {            
-                var leftOffset = $(".pages td:last-child").offsetWidth - pages.offsetWidth;
-                addStyle(".pages{left:" + leftOffset + "px!important}");
+            {
+                var leftOffset = $(".pages td:last-child").scrollWidth - pages.scrollWidth;
+                postLoadCSS += ".pages{left:" + leftOffset + "px!important}";
             }
         }
         
         // Add ExHentai source link
         if (uHentai)
+        {
+            postLoadCSS += ".exSource{margin:0 3px;position:relative}\
+                            .exSource.exFound{-webkit-transition:none!important}\
+                            .exSource.exFound:hover{background:rgba(36,36,36,.9)!important;border-radius:3px 3px 0 0;-o-border-radius:3px 3px 0 0}\
+                            .exSource:hover>.exPopup{display:block!important}\
+                            .exPopup{background:rgba(36,36,36,.9)!important;display:none;left:0;padding:5px;position:absolute!important;white-space:nowrap;z-index:8!important;\
+                            box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:0 3px 3px 3px;-o-border-radius:0 3px 3px 3px}\
+                            .exPopup a{display:block}";
             addLinks(document);
+        }
+            
+        addStyle(postLoadCSS);
     }
     /* END DOM MANIPULATION */
     
     /* Thanks to hurfdurf
      * http://pastebin.com/TTDJNH7c */
-     /* EXHENTAI SOURCE */
+    /* EXHENTAI SOURCE */
     function addLinks(x)
     {
         var targets = x.querySelectorAll('img[md5]');
         for (var i = 0; i < targets.length; i++)
         {
-            var a = document.createElement('a');
+            var a = tag('a');
             a.innerHTML = 'exhentai';
             a.href = targets[i].parentNode.href;
             a.addEventListener('click', fetchImage);
@@ -717,7 +738,7 @@
             data: anchor,
             onload: function(x)
             {
-                var temp = document.createElement('div');                
+                var temp = tag('div');                
                 temp.innerHTML = x.responseText;
                 var results = temp.querySelectorAll('div.it3 > a:not([rel="nofollow"]), div.itd2 > a:not([rel="nofollow"])');
                 
@@ -728,14 +749,14 @@
                 {
                     anchor.className += " exFound";
                     
-                    var div = document.createElement('div');
+                    var div = tag('div');
                     div.className = 'exPopup';
                     div.id = 'ex' + hash;    
                     anchor.appendChild(div);
                     
                     for (var i = 0, MAX = results.length; i < MAX; i++)
                     {
-                        var a = document.createElement('a');
+                        var a = tag('a');
                         a.innerHTML = results[i].innerHTML;
                         a.href = results[i].href;
                         a.target = "_blank";
