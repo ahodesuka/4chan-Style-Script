@@ -377,7 +377,6 @@
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
-    .reply blockquote a,.replyhl blockquote a{color:#999!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     td.reply,td.replyhl,div.stub{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
@@ -426,6 +425,7 @@
     div{color:#fff!important}\
     .commentpostername,.postername,.commentpostername a,.postername a{color:#fff!important}\
     blockquote{margin:12px 12px 12px 40px!important}\
+    blockquote a{color:#999!important}\
     blockquote>.abbr{color:#fff!important}\
     div.reply{background:rgba(40,40,40,.9)!important;border:none!important;margin:0!important;z-index:2!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:2px 20px 12px!important}\
