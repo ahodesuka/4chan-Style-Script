@@ -31,7 +31,7 @@
             { bg: "http://img834.imageshack.us/img834/1904/tessabg.png", linkColor: "#857d92", enabled: true },
             { bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef", enabled: true }
         ]),
-        "_4chlinks": '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n\<a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n\<a href="http://boards.4chan.org/g/">technology</a>&nbsp;-&nbsp;\n\<a href="http://boards.4chan.org/v/">video games</a>&nbsp;-&nbsp;\n\<a href="http://boards.4chan.org/jp/">japan</a>'
+        "_4chlinks": '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/g/">technology</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/v/">video games</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/jp/">japan</a>'
     },
     $, $$, inBefore, tag, remove, getValue, __hasProp, postTabText, bgPattern, checkMark, uThemes, uTheme, uFont, uFontSize, sFontSize, uShowLogo, uPageInNav, uShowAnn, uHideRForm, uHentai,
     fonts, fontSizes = [], options, css;
@@ -656,7 +656,7 @@
     body>span[style]~#thread_filter>div:first-child>span{padding:0!important}\
     body>span[style]~#thread_filter>div:first-child>span.autohide{border:none!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
-    #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:160px!important;padding-right:152px!important;z-index:6}\
+    #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:140px!important;padding-right:172px!important;z-index:6}\
     #imgControls #imageType{border:none;background:rgba(40,40,40,.9);font-size:12px!important;max-height:16px!important;max-width:80px}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
@@ -679,8 +679,8 @@
     #qr input[name=upfile]+a::after,#qr #close::after,#qr a.close::after{content:']';padding-left:2px}\
     #qr .move::before{color:#fff;content:'QUICK REPLY';width:306px}\
     #qr #close,#qr a.close{position:absolute;right:6px;top:1px}\
-    #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:9!important;width:58px;text-align:left!important}\
-    #updater:hover{border:1px solid #161616!important;border-top:none!important;border-right:none!important;right:0!important;padding-bottom:3px;width:146px!important}\
+    #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:9!important;width:78px;text-align:left!important}\
+    #updater:hover{border:1px solid #161616!important;border-top:none!important;border-right:none!important;right:0!important;padding-bottom:3px;width:166px!important}\
     #updater .move{line-height:16px!important}\
     #updater input{float:right}\
     #updater input:not([type=checkbox]){margin:1px!important}\
