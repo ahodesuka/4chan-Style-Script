@@ -479,7 +479,7 @@
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
-    div.thread::after,#updater div::after,body>span[style]~form[name=delform] div.op{clear:left;content:'';display:block}\
+    div.thread::after,#updater div::after,body>span[style]~form[name=delform] div.op::after,#addTheme>label::after{clear:both;content:'';display:block}\
     div.op{border:none!important}\
     div.op>a:not([href]){margin-left:2px}\
     span.plus{color:#fff!important}\
