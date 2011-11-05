@@ -472,9 +472,11 @@
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
     " + (uSScroll ? "::-webkit-scrollbar{width:12px}\
-    ::-webkit-scrollbar-track{background:rgba(22,22,22,.9);border-radius:10px;box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
-    ::-webkit-scrollbar-thumb:vertical{background-color:rgba(" + uTheme.rgbColor() + ",.6);border-radius:10px;box-shadow:inset rgba(0,0,0,.5) 0 0 6px}\
-    ::-webkit-scrollbar-thumb:vertical:window-inactive{background-color:rgba(" + uTheme.rgbColor() + ",.3)}" : "") + "\
+    ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);border-radius:5px;box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
+    ::-webkit-scrollbar-corner,::-webkit-scrollbar-resizer{background:rgba(12,12,12,.9)}\
+    ::-webkit-scrollbar-thumb{background-color:rgba(" + uTheme.rgbColor() + ",.6);border-radius:5px;box-shadow:inset rgba(0,0,0,.5) 0 0 6px}\
+    ::-webkit-scrollbar-thumb:active,::-webkit-scrollbar-thumb:hover{background-color:rgba(" + uTheme.rgbColor() + ",.8)}\
+    ::-webkit-scrollbar-thumb:window-inactive{background-color:rgba(" + uTheme.rgbColor() + ",.3)}" : "") + "\
     img{border:none!important}\
     hr{border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 3px}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
@@ -505,7 +507,7 @@
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px;-moz-box-shadow:inset rgba(150,150,150,.3) 0 0 6px;}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
-    div.stub{margin:1px 0 0 1px!important;padding: 0 1px 0 0!important}\
+    div.stub{margin:1px 0 1px 1px!important;padding-right:1px!important}\
     div.stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
