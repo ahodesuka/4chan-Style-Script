@@ -236,7 +236,7 @@
                         html += "<label><span>" + option + "</span><input " + checked + ' name=' + option + '" type=checkbox></label>';
                     else if (option == "Themes")
                     {
-                        html += "</div><input type=radio name=toTab id=tcbTheme hidden><div id=tTheme><a name=add>add</a>";
+                        html += "</div><input type=radio name=toTab id=tcbTheme hidden><div id=tTheme><a class=trbtn name=add>add</a>";
                         
                         for (var i = 0, MAX = uThemes.length; i < MAX; i++)
                             html += "<div id=theme" + i + (uThemes[i].enabled ? " class=selected" : "") + "><a title=Delete>X</a><a title=Edit>E</a><img src='" + uThemes[i].bg + "'></div>";
@@ -245,7 +245,7 @@
                         html += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><textarea name=_4chlinks>" + getValue("_4chlinks") + "</textarea></div>";
                 }
                 
-                html += "</div><div><a name=save>save</a><a name=cancel>cancel</a></div>";
+                html += "</div><div><a class=trbtn name=save>save</a><a class=trbtn name=cancel>cancel</a></div>";
                 div.innerHTML = html;
                 overlay.appendChild(div);
                 
@@ -335,7 +335,7 @@
             div.id = "addTheme";
             div.innerHTML = "<label><span>Background:</span><input type=text name=customBG value='" + (bEdit ? tEdit.bg : "") + "'></label>\
                     <label title='i.e. #FF6999'><span>Link Color (Hex.):</span><input type=text name=customLColor value='" + (bEdit ? tEdit.linkColor : "") + "'></label>\
-                    <div><a name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a name=cancel>cancel</a></div></div>";
+                    <div><a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>";
             
             overlay = tag("div");
             overlay.id = "overlay2";
@@ -465,6 +465,8 @@
     *:focus{outline:none}\
     ::selection{background:" + uTheme.linkColor + ";color:#fff}\
     ::-moz-selection{background:" + uTheme.linkColor + ";color:#fff}\
+    *::-webkit-input-placeholder{color:#999!important}\
+    *:-moz-placeholder{color:#999!important}\
     img{border:none!important}\
     hr{border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 3px}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
@@ -479,17 +481,18 @@
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
-    div.thread::after,#updater div::after,body>span[style]~form[name=delform] div.op::after,#addTheme>label::after{clear:both;content:'';display:block}\
+    div.thread::after,#updater div::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;content:'';display:block}\
     div.op{border:none!important}\
     div.op>a:not([href]){margin-left:2px}\
     span.plus{color:#fff!important}\
     form[name=delform]{margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 5px;position:relative;border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);border-radius:0 0 0 2px;-o-border-radius:0 0 0 2px}\
-    form[name=delform] table{border-spacing:0;margin:1px 0 0;overflow:hidden;position:relative}\
+    form[name=delform] table{border-spacing:0;margin:1px 0 0;position:relative;table-layout:fixed;width:100%}\
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
+    .replyhider{width:1px!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
-    td.reply,td.replyhl,div.stub{padding:2px;width:100%;background:rgba(40,40,40,0.9)!important;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px;\
+    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:0!important;width:100%;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px;-moz-box-shadow:inset rgba(150,150,150,.3) 0 0 6px;}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
@@ -503,7 +506,9 @@
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
-    .omittedposts{color:#fff;margin-left:8px!important;text-decoration:none!important;display:inline-block;padding-bottom:4px}\
+    .omittedposts{color:#fff;}\
+    a.omittedposts{background:rgba(36,36,36,.9);color:#aaa!important;margin:0 10px!important;padding:2px 6px;border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0}\
+    a.omittedposts:hover{background:rgba(40,40,40,.9);color:#fff!important}\
     .replytitle {color:#999!important}\
     .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
     height:22px;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;z-index:2;\
@@ -535,7 +540,7 @@
     .recaptcha_image_cell{padding-right:2px!important}\
     div{color:#fff!important}\
     .commentpostername,.postername,.commentpostername a,.postername a{color:#fff!important}\
-    blockquote{margin:12px 12px 12px 40px!important}\
+    blockquote{margin:1em 12px 2em 40px!important}\
     blockquote a{color:#999!important}\
     blockquote>.abbr{color:#fff!important}\
     div.reply{background:rgba(40,40,40,.9)!important;border:none!important;margin:0!important;z-index:2!important}\
@@ -586,7 +591,7 @@
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:17px;right:8px!important;vertical-align:bottom}\
     form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:173px;right:6px;vertical-align:bottom;z-index:1}\
-    .filesize{margin-left:4px!important}\
+    .filesize{display:inline-block!important;margin-left:4px!important}\
     .filesize span{font-size:0!important;visibility:hidden}\
     .filesize span::after{content:attr(title);font-size:12px;visibility:visible}\
     .postarea input[type=password]{width:150px}\
@@ -602,16 +607,18 @@
     #overlay::before,#overlay2::before{content:'';display:inline-block;height:100%;vertical-align:middle}\
     #themeoptions,#addTheme{display:inline-block;text-align:right!important;width:500px;padding:5px;vertical-align:middle}\
     #themeoptions>div{padding:5px}\
-    #themeoptions>div>a,#themeoptions #tTheme>a,#addTheme a{display:inline-block;line-height:18px;margin:0 2px;padding:2px 10px;text-align:center;width:40px;\
+    a.trbtn{display:inline-block;line-height:18px;margin:0 2px;padding:2px 10px;text-align:center;width:40px;\
     background:rgba(40,40,40,.9);background:-webkit-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));background:-moz-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));\
     background:-o-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));border-radius:3px;-moz-border-radius:3px;box-shadow:rgba(0,0,0,.3) 0 0 2px;-moz-box-shadow:rgba(0,0,0,.3) 0 0 2px}\
-    #themeoptions>div>a:not([href]):hover,#themeoptions #tTheme>a:not([href]):hover,#addTheme a:not([href]):hover{background:rgba(60,60,60,.9);background:-webkit-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3));\
+    a.trbtn:hover{background:rgba(60,60,60,.9);background:-webkit-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3));\
     background:-moz-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3));background:-o-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3))}\
+    a.trbtn:active{box-shadow:inset rgba(0,0,0,.3) 0 0 3px, rgba(0,0,0,.3) 0 0 2px;-moz-box-shadow:inset rgba(0,0,0,.3) 0 0 3px, rgba(0,0,0,.3) 0 0 2px}\
     #themeoptions #toNav{list-style:none;margin:0;padding:0;position:absolute;top:-26px}\
     #themeoptions #toNav li{float:left;margin:0;padding:0}\
     #themeoptions #toNav li label{display:block;cursor:pointer;color:#888!important;line-height:16px;padding:5px 10px;background:rgba(30,30,30,.9);margin:0 2px;border-radius:5px 5px 0 0;width:60px;text-align:center}\
     #themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover{color:#fff!important}\
-    #themeoptions #toWrapper{background:rgba(0,0,0,.3);height:300px;box-shadow:rgba(0,0,0,.3) 0 0 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 0 5px;border-radius:5px;-moz-border-radius:5px}\
+    #themeoptions #toWrapper{background:rgba(0,0,0,.3);border:1px solid #161616;height:300px;\
+    box-shadow:inset rgba(0,0,0,.3) 0 0 5px, rgba(150,150,150,.3) 0 1px 3px;-moz-box-shadow:inset rgba(0,0,0,.3) 0 0 5px, rgba(150,150,150,.3) 0 1px 3px;border-radius:5px;-moz-border-radius:5px}\
     #themeoptions #toWrapper>div{height:300px;overflow:auto}\
     #themeoptions #toWrapper>[name=toTab]:not(:checked)+div{display:none}\
     #themeoptions #tMain label,#updater label{display:block;border-bottom:1px solid rgba(40,40,40,.3);border-top:1px solid rgba(0,0,0,.1);height:20px;padding:0 3px;vertical-align:top}\
@@ -634,7 +641,7 @@
     #themeoptions label>select{height:18px!important;margin:1px 0!important}\
     #themeoptions input[type=text]{height:18px;margin:1px 0 0!important;padding:1px 3px!important}\
     #themeoptions textarea{background:transparent!important;border:none!important;height:100%!important;width:100%!important;resize:none}\
-    #addTheme{width:300px!important;height:75px!important}\
+    #addTheme{width:350px!important;height:75px!important}\
     #addTheme>div{padding:5px}\
     #addTheme>label{display:block}\
     #addTheme>label>span{float:left;line-height:22px;padding-left:5px}\
@@ -660,7 +667,7 @@
     #imgControls #imageType{border:none;background:rgba(40,40,40,.9);font-size:12px!important;max-height:16px!important;max-width:80px}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
-    .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1'],#themeoptions>div>a,#themeoptions #tTheme>a,#addTheme a{font-size:10px!important;text-transform:uppercase}\
+    .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
     #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
     #qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,#updater span{text-transform:uppercase;font-size:9px!important;line-height:18px}\
     #qr{bottom:-5px!important;height:auto!important}\
@@ -717,13 +724,7 @@
     .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 5px!important;position:relative;top:-1px}\
     .pages input:hover{background:rgba(36,36,36,.9)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 5px;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
-    #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}\
-    *::-webkit-input-placeholder{color:#999!important}\
-    *:-moz-placeholder{color:#999!important}\
-    @-moz-document url-prefix(){\
-        form[name=delform] table{margin-left:1px!important;width:100%}\
-        .container{right:6px}\
-    }";
+    #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}";
     
     if (!uShowAnn)
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
@@ -813,7 +814,7 @@
         // Add ExHentai source link
         if (uHentai)
         {
-            postLoadCSS += ".exSource{margin:0 3px;position:relative}\
+            postLoadCSS += ".exSource{float:right;margin:0 3px;position:relative}\
                             .exSource.exFound{-webkit-transition:none!important}\
                             .exSource.exFound:hover{background:rgba(36,36,36,.9)!important;border-radius:3px 3px 0 0;-o-border-radius:3px 3px 0 0}\
                             .exSource:hover>.exPopup{display:block!important}\
@@ -821,6 +822,11 @@
                             box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:0 3px 3px 3px;-o-border-radius:0 3px 3px 3px}\
                             .exPopup a{display:block}";
             addLinks(document);
+            document.addEventListener('DOMNodeInserted', function(e)
+            {
+                if (e.target.nodeName == "TABLE")
+                    addLinks(e.target);
+            });
         }
             
         addStyle(postLoadCSS);
