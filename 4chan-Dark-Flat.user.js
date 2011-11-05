@@ -9,16 +9,17 @@
 (function(){
     var config =
     {
-        'Show Announcements': true,
-        'Show Logo': true,
-        'Hide Reply Form': false,
-        'Auto noko': true,
-        'Pages in nav': false,
-        'Custom nav links': true,
-        'ExHentai Source': false,
-        'Font': "Calibri",
-        'Font Size': 12,
-        'Themes':
+        "Show Announcements": true,
+        "Show Logo": true,
+        "Hide Reply Form": false,
+        "Auto noko": true,
+        "Pages in nav": false,
+        "Custom nav links": true,
+        "Style Scrollbars": true,
+        "ExHentai Source": false,
+        "Font": "Calibri",
+        "Font Size": 12,
+        "Themes":
         JSON.stringify([
             { bg: "http://img88.imageshack.us/img88/2449/eriobg.png", linkColor: "#6cb2ee", enabled: true },
             { bg: "http://img848.imageshack.us/img848/3976/fatebg.png", linkColor: "#e1d550", enabled: true },
@@ -34,7 +35,7 @@
         "_4chlinks": '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/g/">technology</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/v/">video games</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/jp/">japan</a>'
     },
     $, $$, inBefore, tag, remove, getValue, __hasProp, postTabText, bgPattern, checkMark, uThemes, uTheme, uFont, uFontSize, sFontSize, uShowLogo, uPageInNav, uShowAnn, uHideRForm, uHentai,
-    fonts, fontSizes = [], options, css;
+    fonts, fontSizes = [], uSScroll, options, css;
     
     // @copyright      2009, 2010 James Campos
     // @license        cc-by-3.0; http://creativecommons.org/licenses/by/3.0/
@@ -70,7 +71,6 @@
             localStorage.setItem(name, value);
         }
     }
-    
     /* END LICENSE */
     
     /* Thanks to aeosynth */
@@ -168,6 +168,7 @@
     uShowAnn     = getValue("Show Announcements");
     uHideRForm   = getValue("Hide Reply Form");
     uHentai      = getValue("ExHentai Source");
+    uSScroll     = getValue("Style Scrollbars");
     
     fonts        = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
     fontSizes[0] = { name: "Small", size: 11 };
@@ -233,7 +234,7 @@
                         html += '</select></label>';
                     }
                     else if (option != "_4chlinks" && option != "Themes")
-                        html += "<label><span>" + option + "</span><input " + checked + ' name=' + option + '" type=checkbox></label>';
+                        html += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type=checkbox></label>';
                     else if (option == "Themes")
                     {
                         html += "</div><input type=radio name=toTab id=tcbTheme hidden><div id=tTheme><a class=trbtn name=add>add</a>";
@@ -255,7 +256,7 @@
                     {
                         $("#toNav li label.selected").className = "";
                         this.className = "selected";
-                    });
+                    }, false);
                     
                 themes = $$("#tTheme div", div);
                 for (var i = 0, MAX = themes.length; i < MAX; i++)
@@ -266,23 +267,23 @@
                             this.className = "selected";
                         else
                             this.className = "";
-                    });
+                    }, false);
                     
                     $("a[title=Delete]",themes[i]).addEventListener("click", function(e)
                     {
                         e.stopPropagation();
                         options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
-                    });
+                    }, false);
                     $("a[title=Edit]", themes[i]).addEventListener("click", function(e)
                     {
                         e.stopPropagation();
                         options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
-                    });
+                    }, false);
                 }
                 
-                $("a[name=add]", div).addEventListener("click", options.showTheme);
-                $("a[name=save]", div).addEventListener("click", options.save);
-                $("a[name=cancel]",div).addEventListener("click", function(){ return remove($("#overlay")); });
+                $("a[name=add]", div).addEventListener("click", options.showTheme, false);
+                $("a[name=save]", div).addEventListener("click", options.save, false);
+                $("a[name=cancel]",div).addEventListener("click", function(){ return remove($("#overlay")); }, false);
                 
                 return document.body.appendChild(overlay);
             }
@@ -299,7 +300,10 @@
                 if (input.type == "select-one")
                     GM_setValue(input.name, input.value);
                 else if (input.type == "checkbox")
+                {
+                    console.log("GM_setValue(" + input.name +", " + input.checked + ");");
                     GM_setValue(input.name, input.checked);
+                }
             }
             
             _d = $$("#tTheme div", div);
@@ -342,11 +346,11 @@
             overlay.appendChild(div);
             
             if (bEdit)
-                $("a[name=edit]", div).addEventListener("click", function(){ options.addTheme(tIndex); });
+                $("a[name=edit]", div).addEventListener("click", function(){ options.addTheme(tIndex); }, false);
             else
-                $("a[name=add]", div).addEventListener("click", options.addTheme);
+                $("a[name=add]", div).addEventListener("click", options.addTheme, false);
             
-            $("a[name=cancel]", div).addEventListener("click", function(){ return remove($("#overlay2")); });
+            $("a[name=cancel]", div).addEventListener("click", function(){ return remove($("#overlay2")); }, false);
             
             return document.body.appendChild(overlay);
         },
@@ -357,7 +361,7 @@
             cBG = $("input[name=customBG]", div).value;
             cLColor = $("input[name=customLColor]", div).value;
 
-            if (!cBG.match(/^http:\/\/.+$/i))
+            if (!cBG.match(/^https?:\/\/.+$/i))
             {
                 alert("Invalid bg image URL.");
                 return;
@@ -389,12 +393,12 @@
                 {
                     e.stopPropagation();
                     options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
-                });
+                }, false);
                 $("a[title=Edit]", nTheme).addEventListener("click", function(e)
                 {
                     e.stopPropagation();
                     options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
-                });
+                }, false);
                 
                 $("#tTheme").appendChild(nTheme);
             }
@@ -467,6 +471,10 @@
     ::-moz-selection{background:" + uTheme.linkColor + ";color:#fff}\
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
+    " + (uSScroll ? "::-webkit-scrollbar{width:12px}\
+    ::-webkit-scrollbar-track{background:rgba(22,22,22,.9);border-radius:10px;box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
+    ::-webkit-scrollbar-thumb:vertical{background-color:rgba(" + uTheme.rgbColor() + ",.6);border-radius:10px;box-shadow:inset rgba(0,0,0,.5) 0 0 6px}\
+    ::-webkit-scrollbar-thumb:vertical:window-inactive{background-color:rgba(" + uTheme.rgbColor() + ",.3)}" : "") + "\
     img{border:none!important}\
     hr{border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 3px}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
@@ -476,6 +484,7 @@
     a:hover{color:#eee!important}\
     a:not([href]){color:#fff!important}\
     .postertrip{color:#a7dce7!important}\
+    option{background:rgba(40,40,40,.9)}\
     body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 5px!important;padding:0!important}\
     body::after{background:url(" + uTheme.bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
@@ -483,7 +492,7 @@
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
     div.thread::after,#updater div::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;content:'';display:block}\
     div.op{border:none!important}\
-    div.op>a:not([href]){margin-left:2px}\
+    div.op>a:not([href]):not([name]):not(.reportbutton){float:right;margin-right:2px}\
     span.plus{color:#fff!important}\
     form[name=delform]{margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 5px;position:relative;border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);border-radius:0 0 0 2px;-o-border-radius:0 0 0 2px}\
     form[name=delform] table{border-spacing:0;margin:1px 0 0;position:relative;table-layout:fixed;width:100%}\
@@ -511,10 +520,10 @@
     a.omittedposts:hover{background:rgba(40,40,40,.9);color:#fff!important}\
     .replytitle {color:#999!important}\
     .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
-    height:22px;width:16px;overflow:hidden;white-space:nowrap;padding:1px 2px 0!important;z-index:2;\
+    height:22px;width:0px;overflow:hidden;white-space:nowrap;padding:1px 2px 0 16px!important;z-index:2;\
     -webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
-    .deletebuttons:hover{width:186px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
-    .deletebuttons::before{display:inline-block;width:17px;padding:1px 1px 0 0;text-align:center;content:'X';color:#fff}\
+    .deletebuttons:hover{padding-left:2px!important;width:186px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
+    .deletebuttons::before{background:rgba(40,40,40,0.9)!important;content:'X';color:#fff;display:inline-block;position:absolute;left:0;top:0;width:20px;height:24px;text-align:center;padding-top:1px;line-height:20px}\
     .deletebuttons:hover::before{overflow:hidden;white-space:nowrap;padding:0;width:0}\
     .deletebuttons::after{font-size:9px!important;color:#ccc!important;content:'FILE ONLY';position:absolute;bottom:0;right:68px;line-height:22px}\
     .deletebuttons *{visibility:visible!important}\
@@ -577,9 +586,9 @@
     textarea{color:#fff;margin:0!important}\
     .postarea textarea,#qr textarea{width:305px!important;height:125px!important;resize:none}\
     td.doubledash{padding:0;text-indent:-9999px}\
-    .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important}\
+    .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important;z-index:3}\
     .logo img{margin:0!important;opacity:0.4;border:1px solid #161616!important}\
-    .logo span{color:#eee;text-shadow:#000 0 0 10px;display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px;z-index:3}\
+    .logo span{color:#eee;text-shadow:#000 0 0 10px;display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px}\
     .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;position:absolute;bottom:8px;left:7px;text-align:center;width:300px}\
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}\
@@ -638,7 +647,7 @@
     #themeoptions #tTheme div a[title=Edit]{right:0;border-radius:0 10px 0 10px;-moz-border-radius:0 10px 0 10px}\
     #themeoptions label>span{float:left;font-size:12px!important;line-height:18px}\
     #themeoptions label>input[type=checkbox]{margin:4px 2px 0!important;vertical-align:bottom!important}\
-    #themeoptions label>select{height:18px!important;margin:1px 0!important}\
+    #themeoptions label>select{height:18px!important;margin:1px 0!important;width:100px}\
     #themeoptions input[type=text]{height:18px;margin:1px 0 0!important;padding:1px 3px!important}\
     #themeoptions textarea{background:transparent!important;border:none!important;height:100%!important;width:100%!important;resize:none}\
     #addTheme{width:350px!important;height:75px!important}\
@@ -646,7 +655,7 @@
     #addTheme>label{display:block}\
     #addTheme>label>span{float:left;line-height:22px;padding-left:5px}\
     #addTheme>label>input{width:200px}\
-    #themeoptions,#options,#themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover,#addTheme{background:rgba(40,40,40,.98)!important;text-align:center}\
+    #themeoptions,#options.dialog,#themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover,#addTheme{background:rgba(40,40,40,.98)!important;text-align:center}\
     #options .dialog,#options.dialog,#themeoptions,#addTheme{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px;border-radius:5px;-moz-border-radius:5px}\
     #options hr{margin:3px 0!important}\
     #thread_filter{background:transparent!important;position:fixed!important;top:0!important;right:0!important;left:auto!important;bottom:auto!important;width:312px;z-index:8!important}\
@@ -664,7 +673,7 @@
     body>span[style]~#thread_filter>div:first-child>span.autohide{border:none!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
     #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:140px!important;padding-right:172px!important;z-index:6}\
-    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);font-size:12px!important;max-height:16px!important;max-width:80px}\
+    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:80px}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
     .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
@@ -712,7 +721,7 @@
     #navtop{padding:1px 0;color:#aaa!important;display:none}\
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
     #navtopr{line-height:18px;position:fixed;bottom:0;right:5px;font-size:0;color:transparent}\
-    #navtopr>a:last-child::before{content:'/';padding:0 2px}\
+    #navtopr>a:not(:first-child):last-child::before{content:'/';padding:0 2px}\
     .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;min-width:310px;width:auto!important;height:22px;\
     position:fixed!important;bottom:18px;left:-350px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0!important;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
@@ -737,7 +746,10 @@
     /* END STYLING */
     
     /* DOM MANIPULATION */
-    document.addEventListener("DOMContentLoaded", DOMLoaded, false);
+    if (document.body)
+        DOMLoaded();
+    else
+        document.addEventListener("DOMContentLoaded", DOMLoaded, false);
     
     function DOMLoaded()
     {
@@ -751,7 +763,7 @@
             var navH = tag("a");
             navH.textContent = $('.logo span').textContent.match(/\/\w{1,3}\/\s-\s(.*)/i, "")[1];
             navH.id = "navHover";
-            navH.href = window.location.href.match(/(http:\/\/boards\.4chan\.org\/(\w{1,3})\/)/i, "")[1];
+            navH.href = window.location.href.match(/(https?:\/\/boards\.4chan\.org\/(\w{1,3})\/)/i, "")[1];
             inBefore($("#navtop"), navH);
             
             postLoadCSS += "#navHover{display:inline-block;position:absolute;padding:10px 50px 0!important;top:-10px}\
@@ -826,7 +838,7 @@
             {
                 if (e.target.nodeName == "TABLE")
                     addLinks(e.target);
-            });
+            }, false);
         }
             
         addStyle(postLoadCSS);
@@ -844,7 +856,7 @@
             var a = tag('a');
             a.innerHTML = 'exhentai';
             a.href = targets[i].parentNode.href;
-            a.addEventListener('click', fetchImage);
+            a.addEventListener('click', fetchImage, false);
             a.className = 'exSource';
             
             document.evaluate('preceding-sibling::span[@class="filesize"][1]', targets[i].parentNode, null, 9, null).singleNodeValue.appendChild(a);
