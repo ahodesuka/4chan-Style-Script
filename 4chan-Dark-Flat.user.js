@@ -34,8 +34,9 @@
         ]),
         "_4chlinks": '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/g/">technology</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/v/">video games</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/jp/">japan</a>'
     },
-    $, $$, inBefore, tag, remove, getValue, __hasProp, postTabText, bgPattern, checkMark, uThemes, uTheme, uFont, uFontSize, sFontSize, uShowLogo, uPageInNav, uShowAnn, uHideRForm, uHentai,
-    fonts, fontSizes = [], uSScroll, options, css;
+    $, $$, inBefore, tag, remove, getValue, __hasProp, postTabText, bgPattern, checkMark,
+    uThemes, uTheme, uFont, uFontSize, sFontSize, uShowLogo, uPageInNav, uShowAnn, uHideRForm, uHentai, uSScroll,
+    fonts, fontSizes = [], options, css;
     
     // @copyright      2009, 2010 James Campos
     // @license        cc-by-3.0; http://creativecommons.org/licenses/by/3.0/
@@ -150,7 +151,7 @@
     /* END LICENSE */
     
     getValue = function(name)
-    {        
+    {
         return GM_getValue(name, config[name]);
     };
     
@@ -170,7 +171,7 @@
     uHentai      = getValue("ExHentai Source");
     uSScroll     = getValue("Style Scrollbars");
     
-    fonts        = new Array('Ubuntu', 'Droid Sans', 'Terminus', 'Segoe UI', 'Calibri', 'Lucida Grande', 'Helvetica');
+    fonts        = new Array("Ubuntu", "Consolas", "Droid Sans", "Terminus", "Segoe UI", "Calibri", "Arial", "Lucida Grande", "Helvetica");
     fontSizes[0] = { name: "Small", size: 11 };
     fontSizes[1] = { name: "Normal", size: 12 };
     fontSizes[2] = { name: "Large", size: 14 };
@@ -239,8 +240,13 @@
                     {
                         html += "</div><input type=radio name=toTab id=tcbTheme hidden><div id=tTheme><a class=trbtn name=add>add</a>";
                         
-                        for (var i = 0, MAX = uThemes.length; i < MAX; i++)
-                            html += "<div id=theme" + i + (uThemes[i].enabled ? " class=selected" : "") + "><a title=Delete>X</a><a title=Edit>E</a><img src='" + uThemes[i].bg + "'></div>";
+                        for (var i = 0, MAX = uThemes.length, tTheme; i < MAX; i++)
+                        {
+                            tTheme = new Theme(uThemes[i].bg, uThemes[i].linkColor, uThemes[i].enabled);
+                            html += "<div id=theme" + i + (tTheme.enabled ? " class=selected" : "") + ">\
+                            <a title=Delete>X</a><a title=Edit>E</a>\
+                            <img src='" + (tTheme.isBGBase64() ? "data:image/png;base64," : "") + tTheme.bg + "'></div>";
+                        }
                     }
                     else if (option == "_4chlinks")
                         html += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><textarea name=_4chlinks>" + getValue("_4chlinks") + "</textarea></div>";
@@ -327,17 +333,13 @@
         showTheme: function(tIndex)
         {
             if (typeof tIndex === "number")
-            {
                 var bEdit = true,
                     tEdit = uThemes[tIndex];
-                
-                console.log(tIndex);
-            }
                 
             var div, overly;
             div = tag("div");
             div.id = "addTheme";
-            div.innerHTML = "<label><span>Background:</span><input type=text name=customBG value='" + (bEdit ? tEdit.bg : "") + "'></label>\
+            div.innerHTML = "<label><span title='URL or base64'>Background:</span><textarea name=customBG>" + (bEdit ? tEdit.bg : "") + "</textarea></label>\
                     <label title='i.e. #FF6999'><span>Link Color (Hex.):</span><input type=text name=customLColor value='" + (bEdit ? tEdit.linkColor : "") + "'></label>\
                     <div><a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>";
             
@@ -358,12 +360,14 @@
         {
             var nTheme, div, cBG, cLColor;
             div = $("#overlay2");
-            cBG = $("input[name=customBG]", div).value;
+            cBG = decodeURIComponent($("textarea[name=customBG]", div).value.replace(/(\r\n|\r|\n)/gm, ""));
             cLColor = $("input[name=customLColor]", div).value;
-
-            if (!cBG.match(/^https?:\/\/.+$/i))
+            
+            // base64 regex thanks to njzk2;
+            // http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/5885097#5885097
+            if (!cBG.match(/^(?:https?:\/\/.+|(?:data:image\/(?:gif|jpe?p|png);base64,)?(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4}))$/i))
             {
-                alert("Invalid bg image URL.");
+                alert("Invalid bg image URL/base64.");
                 return;
             }
             else if (!cLColor.match(/^#?[A-F0-9]{6}$/i))
@@ -374,6 +378,8 @@
             
             if (cLColor[0] != "#")
                 cLColor = "#" + cLColor;
+                
+            cBG = cBG.replace(/(data:image\/(?:gif|jpe?p|png);base64,)/i, "");
             
             if (typeof tIndex === "number")
             {
@@ -382,7 +388,7 @@
             }
             else
             {
-                uThemes.push(new Theme(cBG, cLColor));
+                uThemes.push(new Theme(cBG, cLColor, true));
                 
                 nTheme = tag("div");
                 nTheme.id = "theme" + (uThemes.length - 1);
@@ -435,16 +441,16 @@
                 t = uThemes[rnd];
             }
             
-            return new Theme(t.bg, t.linkColor);
+            return new Theme(t.bg, t.linkColor, true);
         }
     };
     /* END OPTIONS */
     
-    function Theme(bg, linkColor)
+    function Theme(bg, linkColor, enabled)
     {
         this.bg = bg;
         this.linkColor = linkColor;
-        this.enabled = true;
+        this.enabled = enabled;
         
         this.rgbColor = function()
         {
@@ -458,6 +464,11 @@
             
             return rgb.join(",");
         };
+        
+        this.isBGBase64 = function()
+        {
+            return !this.bg.match(/^https?:\/\/.+/i);
+        }
     }
     
     uTheme = options.getTheme();
@@ -471,14 +482,20 @@
     ::-moz-selection{background:" + uTheme.linkColor + ";color:#fff}\
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
-    " + (uSScroll ? "::-webkit-scrollbar{width:12px}\
-    ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);border-radius:5px;box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
+    " + (uSScroll ? "::-webkit-scrollbar{width:10px;height:10px}\
+    ::-webkit-scrollbar-track{border:1px solid rgba(40,40,40,.9)}\
+    ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
     ::-webkit-scrollbar-corner,::-webkit-scrollbar-resizer{background:rgba(12,12,12,.9)}\
-    ::-webkit-scrollbar-thumb{background-color:rgba(" + uTheme.rgbColor() + ",.6);border-radius:5px;box-shadow:inset rgba(0,0,0,.5) 0 0 6px}\
-    ::-webkit-scrollbar-thumb:active,::-webkit-scrollbar-thumb:hover{background-color:rgba(" + uTheme.rgbColor() + ",.8)}\
-    ::-webkit-scrollbar-thumb:window-inactive{background-color:rgba(" + uTheme.rgbColor() + ",.3)}" : "") + "\
+    ::-webkit-scrollbar-thumb{background:rgba(40,40,40,.9)}\
+    ::-webkit-scrollbar-thumb:hover{box-shadow:inset rgba(0,0,0,.15) 0 0 3px}\
+    ::-webkit-scrollbar-thumb:active{box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
+    ::-webkit-scrollbar-thumb:vertical{border-left:1px solid rgb(22,22,22)}\
+    ::-webkit-scrollbar-thumb:horizontal{border-top:1px solid rgb(22,22,22)}\
+    ::-webkit-scrollbar-thumb:window-inactive{background:rgba(40,40,40,.6)}\
+    .reply *::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px;border-radius:5px}\
+    .reply *::-webkit-scrollbar-thumb:vertical{border:1px solid rgb(22,22,22);border-radius:4px}" : "") + "\
     img{border:none!important}\
-    hr{border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 3px}\
+    hr{border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
     h3,.commentpostername,.postername,body>center:nth-of-type(2)>font[color=red]>b,.pages b,.filetitle{font-weight:400!important}\
     a{text-decoration:none!important;color:" + uTheme.linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
@@ -487,25 +504,25 @@
     a:not([href]){color:#fff!important}\
     .postertrip{color:#a7dce7!important}\
     option{background:rgba(40,40,40,.9)}\
-    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 5px!important;padding:0!important}\
-    body::after{background:url(" + uTheme.bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
+    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
+    body::after{background:url(" + (uTheme.isBGBase64() ? "data:image/png;base64," : "") + uTheme.bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
-    div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px}\
+    div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
     div.thread::after,#updater div::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;content:'';display:block}\
     div.op{border:none!important}\
-    div.op>a:not([href]):not([name]):not(.reportbutton){float:right;margin-right:2px}\
+    div.op>a:not([href]):not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
-    form[name=delform]{margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 5px;position:relative;border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);border-radius:0 0 0 2px;-o-border-radius:0 0 0 2px}\
+    form[name=delform]{margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 10px;position:relative;border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);border-radius:0 0 0 2px}\
     form[name=delform] table{border-spacing:0;margin:1px 0 0;position:relative;table-layout:fixed;width:100%}\
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
     .replyhider{width:1px!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
-    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:0!important;width:100%;border-radius:3px 0 0 3px;-moz-border-radius:3px 0 0 3px;\
+    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:0!important;width:100%;border-radius:3px 0 0 3px;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
-    td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px;-moz-box-shadow:inset rgba(150,150,150,.3) 0 0 6px;}\
+    td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     div.stub{margin:1px 0 1px 1px!important;padding-right:1px!important}\
     div.stub>a,.stub>.block>a{display:block;padding:2px}\
@@ -513,12 +530,12 @@
     .container *{font-size:11px!important}\
     .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{outline:none!important}\
-    #qp{background:rgba(36,36,36,.98)!important;padding:5px;position:fixed!important;z-index:11!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px;-moz-border-radius:3px}\
-    .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;-moz-border-radius:3px;padding:5px!important}\
+    #qp{background:rgba(36,36,36,.98)!important;padding:5px;position:fixed!important;z-index:11!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
+    .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
     .omittedposts{color:#fff;}\
-    a.omittedposts{background:rgba(36,36,36,.9);color:#aaa!important;margin:0 10px!important;padding:2px 6px;border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0}\
+    a.omittedposts{background:rgba(36,36,36,.9);color:#aaa!important;margin:0 10px!important;padding:2px 6px;border-radius:3px 3px 0 0}\
     a.omittedposts:hover{background:rgba(40,40,40,.9);color:#fff!important}\
     .replytitle {color:#999!important}\
     .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
@@ -578,12 +595,12 @@
     input,select{color:#fff!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     input[type=submit],button{width:50px;height:22px!important;color:#ddd!important;cursor:pointer;vertical-align:top;padding:0!important;font-size:9px!important;text-transform:uppercase}\
     input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
-    width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important;-moz-border-radius:3px!important}\
-    input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;-moz-box-shadow:#eee 0 0 2px;box-shadow:#eee 0 0 2px}\
+    width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important}\
+    input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;box-shadow:#eee 0 0 2px}\
     input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
     td.reply input[type=checkbox],#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
     input[name=recaptcha_response_field],input#recaptcha_response_field{border:none!important;height:22px!important;padding:1px 4px!important;width:305px!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
-    select{background:rgba(40,40,40,.9);border:1px solid #161616}\
+    select{background:rgba(40,40,40,.9);border:1px solid #161616;box-sizing:content-box;-moz-box-sizing:content-box;-o-box-sizing:content-box}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;margin:0!important}\
     .postarea textarea,#qr textarea{width:305px!important;height:125px!important;resize:none}\
@@ -620,16 +637,15 @@
     #themeoptions>div{padding:5px}\
     a.trbtn{display:inline-block;line-height:18px;margin:0 2px;padding:2px 10px;text-align:center;width:40px;\
     background:rgba(40,40,40,.9);background:-webkit-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));background:-moz-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));\
-    background:-o-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));border-radius:3px;-moz-border-radius:3px;box-shadow:rgba(0,0,0,.3) 0 0 2px;-moz-box-shadow:rgba(0,0,0,.3) 0 0 2px}\
+    background:-o-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));border-radius:3px;box-shadow:rgba(0,0,0,.3) 0 0 2px}\
     a.trbtn:hover{background:rgba(60,60,60,.9);background:-webkit-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3));\
     background:-moz-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3));background:-o-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3))}\
-    a.trbtn:active{box-shadow:inset rgba(0,0,0,.3) 0 0 3px, rgba(0,0,0,.3) 0 0 2px;-moz-box-shadow:inset rgba(0,0,0,.3) 0 0 3px, rgba(0,0,0,.3) 0 0 2px}\
+    a.trbtn:active{box-shadow:inset rgba(0,0,0,.3) 0 0 3px, rgba(0,0,0,.3) 0 0 2px}\
     #themeoptions #toNav{list-style:none;margin:0;padding:0;position:absolute;top:-26px}\
     #themeoptions #toNav li{float:left;margin:0;padding:0}\
-    #themeoptions #toNav li label{display:block;cursor:pointer;color:#888!important;line-height:16px;padding:5px 10px;background:rgba(30,30,30,.9);margin:0 2px;border-radius:5px 5px 0 0;width:60px;text-align:center}\
+    #themeoptions #toNav li label{display:block;cursor:pointer;color:#888!important;line-height:16px;padding:5px 10px;background:rgba(30,30,30,.9);margin:0 2px;border-radius:5px 5px 0 0;width:75px;text-align:center}\
     #themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover{color:#fff!important}\
-    #themeoptions #toWrapper{background:rgba(0,0,0,.3);border:1px solid #161616;height:300px;\
-    box-shadow:inset rgba(0,0,0,.3) 0 0 5px, rgba(150,150,150,.3) 0 1px 3px;-moz-box-shadow:inset rgba(0,0,0,.3) 0 0 5px, rgba(150,150,150,.3) 0 1px 3px;border-radius:5px;-moz-border-radius:5px}\
+    #themeoptions #toWrapper{background:rgba(0,0,0,.3);border:1px solid #161616;height:300px;box-shadow:inset rgba(0,0,0,.3) 0 0 5px, rgba(150,150,150,.3) 0 1px 3px;border-radius:5px}\
     #themeoptions #toWrapper>div{height:300px;overflow:auto}\
     #themeoptions #toWrapper>[name=toTab]:not(:checked)+div{display:none}\
     #themeoptions #tMain label,#updater label{display:block;border-bottom:1px solid rgba(40,40,40,.3);border-top:1px solid rgba(0,0,0,.1);height:20px;padding:0 3px;vertical-align:top}\
@@ -639,14 +655,13 @@
     #themeoptions #tTheme{text-align:center}\
     #themeoptions #tTheme>a{position:absolute;bottom:10px;left:10px}\
     #themeoptions #tTheme div{cursor:pointer;display:inline-block;position:relative;margin:2px;\
-    border-radius:10px;-moz-border-radius:10px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
-    #themeoptions #tTheme div.selected{background:rgba(" + uTheme.rgbColor() + ",.6);\
-    box-shadow:inset rgba(0,0,0,.4) 0 0 15px, rgba(" + uTheme.rgbColor() + ",.6) 0 0 2px;-moz-box-shadow:inset rgba(0,0,0,.4) 0 0 15px, rgba(" + uTheme.rgbColor() + ",.6) 0 0 2px}\
-    #themeoptions #tTheme div img{width:153px;border-radius:10px;-moz-border-radius:10px}\
+    border-radius:10px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
+    #themeoptions #tTheme div.selected{background:rgba(" + uTheme.rgbColor() + ",.6);box-shadow:inset rgba(0,0,0,.4) 0 0 15px, rgba(" + uTheme.rgbColor() + ",.6) 0 0 2px}\
+    #themeoptions #tTheme div img{width:153px;border-radius:10px}\
     #themeoptions #tTheme div a{position:absolute;top:0;padding:5px 8px;background:rgba(0,0,0,.3)}\
     #themeoptions #tTheme div a:not([href]):hover{background:rgba(0,0,0,.5)}\
-    #themeoptions #tTheme div a[title=Delete]{left:0;border-radius:10px 0 10px 0;-moz-border-radius:10px 0 10px 0}\
-    #themeoptions #tTheme div a[title=Edit]{right:0;border-radius:0 10px 0 10px;-moz-border-radius:0 10px 0 10px}\
+    #themeoptions #tTheme div a[title=Delete]{left:0;border-radius:10px 0 10px 0}\
+    #themeoptions #tTheme div a[title=Edit]{right:0;border-radius:0 10px 0 10px}\
     #themeoptions label>span{float:left;font-size:12px!important;line-height:18px}\
     #themeoptions label>input[type=checkbox]{margin:4px 2px 0!important;vertical-align:bottom!important}\
     #themeoptions label>select{height:18px!important;margin:1px 0!important;width:100px}\
@@ -656,9 +671,10 @@
     #addTheme>div{padding:5px}\
     #addTheme>label{display:block}\
     #addTheme>label>span{float:left;line-height:22px;padding-left:5px}\
-    #addTheme>label>input{width:200px}\
+    #addTheme>label>input,#addTheme>label>textarea{width:200px}\
+    #addTheme>label>textarea{height:18px;line-height:18px;overflow:hidden;resize:none}\
     #themeoptions,#options.dialog,#themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover,#addTheme{background:rgba(40,40,40,.98)!important;text-align:center}\
-    #options .dialog,#options.dialog,#themeoptions,#addTheme{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;-moz-box-shadow:rgba(0,0,0,.6) 0 0 10px;border-radius:5px;-moz-border-radius:5px}\
+    #options .dialog,#options.dialog,#themeoptions,#addTheme{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;border-radius:5px}\
     #options hr{margin:3px 0!important}\
     #thread_filter{background:transparent!important;position:fixed!important;top:0!important;right:0!important;left:auto!important;bottom:auto!important;width:312px;z-index:8!important}\
     body>span[style]~#thread_filter:hover{padding-top:20px!important}\
@@ -675,7 +691,7 @@
     body>span[style]~#thread_filter>div:first-child>span.autohide{border:none!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
     #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:140px!important;padding-right:172px!important;z-index:6}\
-    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:80px}\
+    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:80px;line-height:14px!important}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
     .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
@@ -688,7 +704,7 @@
     #qr a.close~.autohide,#qr #files>div,#qr .autohide>div,#qr .autohide>form>div{font-size:0!important;}\
     #qr a.close~.autohide>.wat{margin:0 2px!important}\
     #qr a.close~.autohide>input,#qr a.close~.autohide input[name=resto]{width:94px;padding:2px;margin:0!important;margin-left:1px!important;vertical-align:bottom}\
-    #qr #files a.x{padding:0 4px;background: rgba(20,20,20,.9);margin:1px;border-radius:2px;-o-border-radius:2px}\
+    #qr #files a.x{padding:0 4px;background: rgba(20,20,20,.9);margin:1px;border-radius:2px}\
     #qr .autohide>form>div>label{line-height:22px;margin-left:5px}\
     #qr>#autohide:not(:checked)~.autohide,#qr:hover>#autohide:checked~.autohide{height:auto!important;overflow:visible!important;padding-bottom:25px!important}\
     #qr #files>div,#qr .autohide>div,#qr .autohide>form>div{position:relative}\
@@ -712,11 +728,11 @@
     #navlinks{font-size:16px!important;top:" + (uShowLogo ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
     #iHover{padding-bottom:19px;z-index:9!important}\
     body>center:nth-of-type(2){position:relative}\
-    body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-94px;left:0;height:93px;z-index:9;\
-    margin-left:-5px;padding-right:5px;-webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
-    body>center:nth-of-type(2)>font[color=red]:hover{top:-18px}\
+    body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-150px;left:0;z-index:11;\
+    -webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
+    body>center:nth-of-type(2)>font[color=red]:hover{top:-18px!important}\
     body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
-    body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;height:75px}\
+    body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;max-height:125px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
     border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
     #navtop,#navtopr{float:none!important;display:none}\
@@ -733,7 +749,7 @@
     .pages b{color:#fff!important}\
     .pages a:not(:last-child),.pages b:not(:last-child){margin:0 1px}\
     .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 5px!important;position:relative;top:-1px}\
-    .pages input:hover{background:rgba(36,36,36,.9)!important;-moz-box-shadow:inset rgba(0,0,0,0.35) 0 0 5px;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
+    .pages input:hover{background:rgba(36,36,36,.9)!important;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
     #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}";
     
@@ -748,13 +764,16 @@
     /* END STYLING */
     
     /* DOM MANIPULATION */
-    if (document.body)
-        DOMLoaded();
-    else
+    //if (document.body)
+    //    DOMLoaded();
+    //else
         document.addEventListener("DOMContentLoaded", DOMLoaded, false);
     
     function DOMLoaded()
     {
+        // Add theme options link
+        options.init();
+        
         var postLoadCSS = "#navtop,#navtopr{display:inline!important}",
             nTop = $("#navtop");
             
@@ -776,13 +795,17 @@
                             #navtop:hover{display:inline-block!important}\
                             #navtop a{margin:1px 0}";
         }
-            
-        // Add theme options link
-        options.init();
+        
+        if (uShowAnn)
+        {
+            var ann = $("body>center:nth-of-type(2)>font[color=red]");
+            if (typeof ann !== "undefined" && ann != null)
+                postLoadCSS += "body>center:nth-of-type(2)>font[color=red]{top:" + (-ann.scrollHeight - 1) + "px!important}";
+        }
         
         // Add placeholders to postarea form
-        var elem = document.getElementsByName('post')[0].elements;
-        for(var i = 0, MAX = elem.length; i < MAX; i++)
+        var elem = document.getElementsByName("post")[0].elements;
+        for (var i = 0, MAX = elem.length; i < MAX; i++)
             switch (elem[i].name)
             {
                 case "name":
@@ -790,7 +813,7 @@
                     break;
                 case "email":
                     elem[i].setAttribute("placeholder", "E-mail");
-                    if (getValue('Auto noko'))
+                    if (getValue("Auto noko"))
                         elem[i].value = "noko";
                     break;
                 case "sub":
@@ -828,8 +851,8 @@
         // Add ExHentai source link
         if (uHentai)
         {
-            postLoadCSS += ".exSource{float:right;margin:0 3px;position:relative}\
-                            .exSource.exFound{-webkit-transition:none!important}\
+            postLoadCSS += ".exSource{position:relative}\
+                            .exSource.exFound{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important}\
                             .exSource.exFound:hover{background:rgba(36,36,36,.9)!important;border-radius:3px 3px 0 0;-o-border-radius:3px 3px 0 0}\
                             .exSource:hover>.exPopup{display:block!important}\
                             .exPopup{background:rgba(36,36,36,.9)!important;display:none;left:0;padding:5px;position:absolute!important;white-space:nowrap;z-index:8!important;\
@@ -855,13 +878,15 @@
         var targets = x.querySelectorAll('img[md5]');
         for (var i = 0; i < targets.length; i++)
         {
+            var node = document.evaluate('preceding-sibling::span[@class="filesize"][1]', targets[i].parentNode, null, 9, null).singleNodeValue;
             var a = tag('a');
             a.innerHTML = 'exhentai';
             a.href = targets[i].parentNode.href;
             a.addEventListener('click', fetchImage, false);
             a.className = 'exSource';
             
-            document.evaluate('preceding-sibling::span[@class="filesize"][1]', targets[i].parentNode, null, 9, null).singleNodeValue.appendChild(a);
+            node.appendChild(document.createTextNode(" "));
+            node.appendChild(a);
         }
     }
 
