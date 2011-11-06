@@ -495,7 +495,7 @@
     .reply *::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px;border-radius:5px}\
     .reply *::-webkit-scrollbar-thumb:vertical{border:1px solid rgb(22,22,22);border-radius:4px}" : "") + "\
     img{border:none!important}\
-    hr{border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px}\
+    hr{border:none!important;border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
     h3,.commentpostername,.postername,body>center:nth-of-type(2)>font[color=red]>b,.pages b,.filetitle{font-weight:400!important}\
     a{text-decoration:none!important;color:" + uTheme.linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
@@ -509,7 +509,7 @@
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
-    div.thread::after,#updater div::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;content:'';display:block}\
+    div.thread::after,#updater div::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
     div.op{border:none!important}\
     div.op>a:not([href]):not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
@@ -518,9 +518,9 @@
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
-    .replyhider{width:1px!important}\
+    .replyhider{margin:0!important;padding:0!important;width:1px!important}\
     .replyhider>a{position:absolute;right:2px;z-index:1}\
-    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:0!important;width:100%;border-radius:3px 0 0 3px;\
+    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:4px 0!important;width:100%;border-radius:3px 0 0 3px;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
@@ -551,10 +551,11 @@
     .deletebuttons input:not([type=checkbox]){height:20px!important;margin:0!important}\
     .filetitle{color:#aaa!important}\
     " + (!uShowLogo ? ".logo," : "") + (uHideRForm ? "body>table~.postarea," : "") + "#recaptcha_logo,#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,\
-    .yui-g,#filter-button,#recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,body>hr,\
+    .yui-g,#filter-button,#recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,td.reply>br,td.replyhl>br,body>hr,\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],\
     .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,\
-    form[name=delform] center+hr,form[name=delform] hr:nth-last-of-type(2),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden]\
+    form[name=delform] center+hr,form[name=delform] hr:nth-last-of-type(2),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden],\
+    .filesize+br\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -598,7 +599,8 @@
     width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important}\
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;box-shadow:#eee 0 0 2px}\
     input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
-    td.reply input[type=checkbox],#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
+    td.reply input[type=checkbox],td.replyhl input[type=checkbox],#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
+    td.reply input[type=checkbox],td.replyhl input[type=checkbox]{margin:0 0 0 4px!important}\
     input[name=recaptcha_response_field],input#recaptcha_response_field{border:none!important;height:22px!important;padding:1px 4px!important;width:305px!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     select{background:rgba(40,40,40,.9);border:1px solid #161616;box-sizing:content-box;-moz-box-sizing:content-box;-o-box-sizing:content-box}\
     select:hover{background:rgba(50,50,50,1);}\
@@ -619,7 +621,8 @@
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:17px;right:8px!important;vertical-align:bottom}\
     form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:173px;right:6px;vertical-align:bottom;z-index:1}\
-    .filesize{display:inline-block!important;margin-left:4px!important}\
+    .filesize{display:block!important;margin:2px 6px!important}\
+    td .filesize{margin:2px 18px!important}\
     .filesize span{font-size:0!important;visibility:hidden}\
     .filesize span::after{content:attr(title);font-size:12px;visibility:visible}\
     .postarea input[type=password]{width:150px}\
