@@ -245,7 +245,7 @@
                             tTheme = new Theme(uThemes[i].bg, uThemes[i].linkColor, uThemes[i].enabled);
                             html += "<div id=theme" + i + (tTheme.enabled ? " class=selected" : "") + ">\
                             <a title=Delete>X</a><a title=Edit>E</a>\
-                            <img src='" + (tTheme.isBGBase64() ? "data:image/png;base64," : "") + tTheme.bg + "'></div>";
+                            <img src='" + tTheme.background() + "'></div>";
                         }
                     }
                     else if (option == "_4chlinks")
@@ -358,10 +358,10 @@
         },
         addTheme: function(tIndex)
         {
-            var nTheme, div, cBG, cLColor;
-            div = $("#overlay2");
-            cBG = decodeURIComponent($("textarea[name=customBG]", div).value.replace(/(\r\n|\r|\n)/gm, ""));
-            cLColor = $("input[name=customLColor]", div).value;
+            var overlay, nTheme, div, cBG, cLColor;
+            overlay = $("#overlay2");
+            cBG = decodeURIComponent($("textarea[name=customBG]", overlay).value.replace(/(\r\n|\r|\n)/gm, ""));
+            cLColor = $("input[name=customLColor]", overlay).value;
             
             // base64 regex thanks to njzk2;
             // http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/5885097#5885097
@@ -388,28 +388,29 @@
             }
             else
             {
-                uThemes.push(new Theme(cBG, cLColor, true));
+                nTheme = new Theme(cBG, cLColor, true);
+                uThemes.push(nTheme);
                 
-                nTheme = tag("div");
-                nTheme.id = "theme" + (uThemes.length - 1);
-                nTheme.className = "selected";
-                nTheme.innerHTML = "<a title=Delete>X</a><a title=Edit>E</a><img src='" + cBG + "'>";
+                div = tag("div");
+                div.id = "theme" + (uThemes.length - 1);
+                div.className = "selected";
+                div.innerHTML = "<a title=Delete>X</a><a title=Edit>E</a><img src='" + nTheme.background() + "'>";
                     
-                $("a[title=Delete]", nTheme).addEventListener("click", function(e)
+                $("a[title=Delete]", div).addEventListener("click", function(e)
                 {
                     e.stopPropagation();
                     options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
                 }, false);
-                $("a[title=Edit]", nTheme).addEventListener("click", function(e)
+                $("a[title=Edit]", div).addEventListener("click", function(e)
                 {
                     e.stopPropagation();
                     options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
                 }, false);
                 
-                $("#tTheme").appendChild(nTheme);
+                $("#tTheme").appendChild(div);
             }
             
-            return remove(div);
+            return remove(overlay);
         },
         deleteTheme: function(tIndex)
         {
@@ -452,6 +453,14 @@
         this.linkColor = linkColor;
         this.enabled = enabled;
         
+        this.background = function()
+        {
+            if (!this.bg.match(/^https?:\/\/.+$/i))
+                return "data:image/png;base64," + this.bg;
+                
+            return this.bg;
+        };
+        
         this.rgbColor = function()
         {
             var rgb = [], hex;
@@ -464,11 +473,6 @@
             
             return rgb.join(",");
         };
-        
-        this.isBGBase64 = function()
-        {
-            return !this.bg.match(/^https?:\/\/.+/i);
-        }
     }
     
     uTheme = options.getTheme();
@@ -483,8 +487,7 @@
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
     " + (uSScroll ? "::-webkit-scrollbar{width:10px;height:10px}\
-    ::-webkit-scrollbar-track{border:1px solid rgba(40,40,40,.9)}\
-    ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
+    ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px,rgba(150,150,150,.1) 0 0 2px}\
     ::-webkit-scrollbar-corner,::-webkit-scrollbar-resizer{background:rgba(12,12,12,.9)}\
     ::-webkit-scrollbar-thumb{background:rgba(40,40,40,.9)}\
     ::-webkit-scrollbar-thumb:hover{box-shadow:inset rgba(0,0,0,.15) 0 0 3px}\
@@ -492,7 +495,7 @@
     ::-webkit-scrollbar-thumb:vertical{border-left:1px solid rgb(22,22,22)}\
     ::-webkit-scrollbar-thumb:horizontal{border-top:1px solid rgb(22,22,22)}\
     ::-webkit-scrollbar-thumb:window-inactive{background:rgba(40,40,40,.6)}\
-    .reply *::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px;border-radius:5px}\
+    .reply *::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{border-radius:5px}\
     .reply *::-webkit-scrollbar-thumb:vertical{border:1px solid rgb(22,22,22);border-radius:4px}" : "") + "\
     img{border:none!important}\
     hr{border:none!important;border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px}\
@@ -504,8 +507,8 @@
     a:not([href]){color:#fff!important}\
     .postertrip{color:#a7dce7!important}\
     option{background:rgba(40,40,40,.9)}\
-    body{color:#fff!important;background:url(data:image/png;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
-    body::after{background:url(" + (uTheme.isBGBase64() ? "data:image/png;base64," : "") + uTheme.bg + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
+    body{color:#fff!important;background:url(data:image/gif;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
+    body::after{background:url("+ uTheme.background() + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
@@ -767,10 +770,7 @@
     /* END STYLING */
     
     /* DOM MANIPULATION */
-    //if (document.body)
-    //    DOMLoaded();
-    //else
-        document.addEventListener("DOMContentLoaded", DOMLoaded, false);
+    document.addEventListener("DOMContentLoaded", DOMLoaded, false);
     
     function DOMLoaded()
     {
@@ -862,9 +862,9 @@
                             box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:0 3px 3px 3px;-o-border-radius:0 3px 3px 3px}\
                             .exPopup a{display:block}";
             addLinks(document);
-            document.addEventListener('DOMNodeInserted', function(e)
+            document.addEventListener("DOMNodeInserted", function(e)
             {
-                if (e.target.nodeName == "TABLE")
+                if (e.target.nodeName.toLowerCase() == "table")
                     addLinks(e.target);
             }, false);
         }
@@ -878,15 +878,15 @@
     /* EXHENTAI SOURCE */
     function addLinks(x)
     {
-        var targets = x.querySelectorAll('img[md5]');
+        var targets = x.querySelectorAll("img[md5]");
         for (var i = 0; i < targets.length; i++)
         {
-            var node = document.evaluate('preceding-sibling::span[@class="filesize"][1]', targets[i].parentNode, null, 9, null).singleNodeValue;
-            var a = tag('a');
-            a.innerHTML = 'exhentai';
+            var node = document.evaluate("preceding-sibling::span[@class='filesize'][1]", targets[i].parentNode, null, 9, null).singleNodeValue;
+            var a = tag("a");
+            a.innerHTML = "exhentai";
             a.href = targets[i].parentNode.href;
-            a.addEventListener('click', fetchImage, false);
-            a.className = 'exSource';
+            a.addEventListener("click", fetchImage, false);
+            a.className = "exSource";
             
             node.appendChild(document.createTextNode(" "));
             node.appendChild(a);
@@ -899,14 +899,14 @@
         e.preventDefault();
         
         var a = e.target;
-        a.textContent = 'loading';
+        a.textContent = "loading";
         GM_xmlhttpRequest(
         {
-            method: 'GET',
+            method: "GET",
             url: a.href,
             data: a,
-            overrideMimeType : 'text/plain; charset=x-user-defined',
-            headers: { 'Content-Type': 'image/jpeg' },
+            overrideMimeType : "text/plain; charset=x-user-defined",
+            headers: { "Content-Type": "image/jpeg" },
             onload: function(x) { checkTitles(a, x.responseText); }
         });
     }
@@ -914,10 +914,10 @@
     function checkTitles(anchor, data)
     {
         var hash = sha1Hash(data_string(data));
-        anchor.innerHTML = 'checking';
+        anchor.innerHTML = "checking";
         
-        anchor.href = 'http://exhentai.org/?f_shash=' + hash + '&fs_similar=1&fs_exp=1';
-        anchor.removeEventListener('click', fetchImage);
+        anchor.href = "http://exhentai.org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1";
+        anchor.removeEventListener("click", fetchImage);
         
         GM_xmlhttpRequest(
         {
@@ -928,23 +928,23 @@
             {
                 var temp = tag('div');                
                 temp.innerHTML = x.responseText;
-                var results = temp.querySelectorAll('div.it3 > a:not([rel="nofollow"]), div.itd2 > a:not([rel="nofollow"])');
+                var results = temp.querySelectorAll("div.it3 > a:not([rel='nofollow']), div.itd2 > a:not([rel='nofollow'])");
                 
-                anchor.innerHTML = 'found: ' + results.length;
+                anchor.innerHTML = "found: " + results.length;
                 anchor.target = "_blank";
                 
                 if (results.length > 0)
                 {
                     anchor.className += " exFound";
                     
-                    var div = tag('div');
-                    div.className = 'exPopup';
-                    div.id = 'ex' + hash;    
+                    var div = tag("div");
+                    div.className = "exPopup";
+                    div.id = "ex" + hash;    
                     anchor.appendChild(div);
                     
                     for (var i = 0, MAX = results.length; i < MAX; i++)
                     {
-                        var a = tag('a');
+                        var a = tag("a");
                         a.innerHTML = results[i].innerHTML;
                         a.href = results[i].href;
                         a.target = "_blank";
@@ -958,9 +958,9 @@
     /* SHA1 HASING */
     function data_string(data)
     {
-        var data_string='';
+        var data_string = "";
         for (var i = 0, MAX = data.length; i < MAX; i++)
-            data_string+=String.fromCharCode(data[i].charCodeAt(0)&0xff);
+            data_string += String.fromCharCode(data[i].charCodeAt(0) & 0xff);
             
         return data_string;
     }
