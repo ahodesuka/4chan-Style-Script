@@ -697,7 +697,7 @@
     body>span[style]~#thread_filter>div:first-child>span.autohide{border:none!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
     #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:140px!important;padding-right:172px!important;z-index:6}\
-    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:80px;line-height:14px!important}\
+    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:85px;line-height:14px!important}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
     .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
@@ -746,15 +746,15 @@
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
     #navtopr{line-height:18px;position:fixed;bottom:0;right:5px;font-size:0;color:transparent}\
     #navtopr>a:not(:first-child):last-child::before{content:'/';padding:0 2px}\
-    .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;min-width:310px;width:auto!important;height:22px;\
+    .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
     position:fixed!important;bottom:18px;left:-350px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0!important;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages *{font-size:" + sFontSize + "px!important}\
-    .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:29px;text-align:center}\
+    .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:40px;text-align:center}\
     .pages span{color:#aaa!important}\
     .pages b{color:#fff!important}\
-    .pages a:not(:last-child),.pages b:not(:last-child){margin:0 1px}\
-    .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 5px!important;position:relative;top:-1px}\
+    .pages a:not(:last-child),.pages b:not(:last-child){margin:0 2px}\
+    .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 10px!important;position:relative;top:-1px}\
     .pages input:hover{background:rgba(36,36,36,.9)!important;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
     #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}";
@@ -839,14 +839,14 @@
             prev.value = "Prev";
         else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev != null)
             prev.textContent = "Prev";
-            
+        
         // Fix pages position
         if (!uPageInNav)
         {
             var pages = $(".pages");
             if (typeof pages !== "undefined" && pages != null)
             {
-                var leftOffset = $(".pages td:last-child").scrollWidth - pages.scrollWidth;
+                var leftOffset = $(".pages td:last-child").scrollWidth - pages.offsetWidth;
                 postLoadCSS += ".pages{left:" + leftOffset + "px!important}";
             }
         }
