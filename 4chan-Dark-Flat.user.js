@@ -512,7 +512,7 @@
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
-    div.thread::after,#updater div::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
+    div.thread::after,#updater div>label::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
     div.op{border:none!important}\
     div.op>a:not([href]):not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
