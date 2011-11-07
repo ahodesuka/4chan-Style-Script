@@ -101,16 +101,16 @@
      */
     function addStyle() // Edited -ahoka
     {
-        document.removeEventListener('DOMNodeInserted', addStyle, false);
+        document.removeEventListener("DOMNodeInserted", addStyle, false);
         var head = document.head;
         
         if (!head) // firefox
         {
-            document.addEventListener('DOMNodeInserted', addStyle, false);
+            document.addEventListener("DOMNodeInserted", addStyle, false);
             return;
         }
             
-        var style = document.createElement('style');
+        var style = document.createElement("style");
         style.textContent = (arguments.length > 0 && typeof arguments[0] === "string") ? arguments[0] : css;
         head.appendChild(style);
     }
@@ -184,7 +184,7 @@
         {
             var a = tag("a");
             a.textContent = "Theme";
-            a.addEventListener('click', options.show, false);
+            a.addEventListener("click", options.show, false);
             
             return inBefore($('#navtopr a').nextSibling, a);
         },
@@ -325,7 +325,7 @@
             
             GM_setValue("Themes", JSON.stringify(themes));
             
-            _4chlinks = $('textarea[name="_4chlinks"]');
+            _4chlinks = $("textarea[name=_4chlinks]");
             GM_setValue("_4chlinks", _4chlinks.value);
             
             return window.location.reload(true);
@@ -616,14 +616,14 @@
     .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;position:absolute;bottom:8px;left:7px;text-align:center;width:300px}\
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}\
-    .postarea table{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
+    .postarea table, .postarea table td{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
     .postarea,#qr{width:306px;height:347px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-311px;top:auto!important;left:auto!important;\
     -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9);border-top:1px solid #161616!important}\
     .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
     .postarea form[name=post]::before,#qr .move::before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:17px;right:8px!important;vertical-align:bottom}\
-    form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:173px;right:6px;vertical-align:bottom;z-index:1}\
+    form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:250px;right:6px;vertical-align:bottom;z-index:1}\
     .filesize{display:block!important;margin:2px 6px!important}\
     td .filesize{margin:2px 18px!important}\
     .filesize span{font-size:0!important;visibility:hidden}\
@@ -708,7 +708,7 @@
     #qr #autohide{position:absolute;right:24px!important;top:4px!important}\
     #qr a.close~.autohide{padding-bottom:22px!important}\
     #qr a.close~.autohide,#qr #files>div,#qr .autohide>div,#qr .autohide>form>div{font-size:0!important;}\
-    #qr a.close~.autohide>.wat{margin:0 2px!important}\
+    #qr a.close~.autohide>.wat{float:left;margin:4px 2px 0!important}\
     #qr a.close~.autohide>input,#qr a.close~.autohide input[name=resto]{width:94px;padding:2px;margin:0!important;margin-left:1px!important;vertical-align:bottom}\
     #qr #files a.x{padding:0 4px;background: rgba(20,20,20,.9);margin:1px;border-radius:2px}\
     #qr .autohide>form>div>label{line-height:22px;margin-left:5px}\
@@ -738,7 +738,7 @@
     -webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
     body>center:nth-of-type(2)>font[color=red]:hover{top:-18px!important}\
     body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
-    body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;max-height:125px}\
+    body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;max-height:125px;padding:5px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
     border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
     #navtop,#navtopr{float:none!important;display:none}\
