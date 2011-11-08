@@ -508,11 +508,12 @@
     .postertrip{color:#a7dce7!important}\
     option{background:rgba(40,40,40,.9)}\
     body{color:#fff!important;background:url(data:image/gif;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
-    body::after{background:url("+ uTheme.background() + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
-    border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-1}\
+    body:before{border-left:1px solid #161616;content:'';height:100%;width:312px;position:fixed;right:0;bottom:18px;z-index:-1}\
+    body:after{background:url("+ uTheme.background() + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
+    border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-2}\
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
-    div.thread::after,#updater div>label::after,form[name=delform] div.op::after,#addTheme>label::after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
+    div.thread:after,#updater div>label:after,form[name=delform] div.op:after,#addTheme>label:after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
     div.op{border:none!important}\
     div.op>a:not([href]):not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
@@ -531,7 +532,7 @@
     div.stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
-    .container::before{color:#666;content:'REPLIES:';padding-right:3px}\
+    .container:before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{outline:none!important}\
     #qp{background:rgba(36,36,36,.98)!important;padding:5px;position:fixed!important;z-index:11!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:5px!important}\
@@ -545,9 +546,9 @@
     height:22px;width:0px;overflow:hidden;white-space:nowrap;padding:1px 2px 0 16px!important;z-index:2;\
     -webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
     .deletebuttons:hover{padding-left:2px!important;width:186px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
-    .deletebuttons::before{background:rgba(40,40,40,0.9)!important;content:'X';color:#fff;display:inline-block;position:absolute;left:0;top:0;width:20px;height:24px;text-align:center;padding-top:1px;line-height:20px}\
-    .deletebuttons:hover::before{overflow:hidden;white-space:nowrap;padding:0;width:0}\
-    .deletebuttons::after{font-size:9px!important;color:#ccc!important;content:'FILE ONLY';position:absolute;bottom:0;right:68px;line-height:22px}\
+    .deletebuttons:before{background:rgba(40,40,40,0.9)!important;content:'X';color:#fff;display:inline-block;position:absolute;left:0;top:0;width:20px;height:24px;text-align:center;padding-top:1px;line-height:20px}\
+    .deletebuttons:hover:before{overflow:hidden;white-space:nowrap;padding:0;width:0}\
+    .deletebuttons:after{font-size:9px!important;color:#ccc!important;content:'FILE ONLY';position:absolute;bottom:0;right:68px;line-height:22px}\
     .deletebuttons *{visibility:visible!important}\
     .deletebuttons input[type=checkbox]{position:absolute;right:50px;bottom:3px!important;top:auto!important}\
     .deletebuttons .inputtext{width:138px}\
@@ -617,17 +618,17 @@
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}\
     .postarea table, .postarea table td{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
-    .postarea,#qr{width:306px;height:347px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-311px;top:auto!important;left:auto!important;\
+    .postarea,#qr{width:306px;height:347px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-312px;top:auto!important;left:auto!important;\
     -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9);border-top:1px solid #161616!important}\
     .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
-    .postarea form[name=post]::before,#qr .move::before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
+    .postarea form[name=post]:before,#qr .move:before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:17px;right:8px!important;vertical-align:bottom}\
     form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:250px;right:6px;vertical-align:bottom;z-index:1}\
     .filesize{display:block!important;margin:2px 6px!important}\
     td .filesize{margin:2px 18px!important}\
     .filesize span{font-size:0!important;visibility:hidden}\
-    .filesize span::after{content:attr(title);font-size:12px;visibility:visible}\
+    .filesize span:after{content:attr(title);font-size:12px;visibility:visible}\
     .postarea input[type=password]{width:150px}\
     #imageType,input:not([type=checkbox]),input:not([type=radio]),input[type=file]>input[type=button],input[type=submit],button,select,textarea\
     {-webkit-appearance:none;-o-appearance:none;}\
@@ -636,9 +637,9 @@
     #watcher{position:fixed!important;top:" + (uShowLogo ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
     #watcher .move,#themeoptions .move{text-decoration:none!important;padding:5px!important;line-height:10px!important}\
     #watcher>div{max-width:100%!important}\
-    #watcher>div>a:first-child,.container::before{font-size:10px!important}\
+    #watcher>div>a:first-child,.container:before{font-size:10px!important}\
     #overlay,#overlay2{background:rgba(0,0,0,.5);position:fixed;top:0;left:0;height:100%;width:100%;text-align:center;z-index:1000}\
-    #overlay::before,#overlay2::before{content:'';display:inline-block;height:100%;vertical-align:middle}\
+    #overlay:before,#overlay2:before{content:'';display:inline-block;height:100%;vertical-align:middle}\
     #themeoptions,#addTheme{display:inline-block;text-align:right!important;width:500px;padding:5px;vertical-align:middle}\
     #themeoptions>div{padding:5px}\
     a.trbtn{display:inline-block;line-height:18px;margin:0 2px;padding:2px 10px;text-align:center;width:40px;\
@@ -699,25 +700,25 @@
     #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:140px!important;padding-right:172px!important;z-index:6}\
     #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:85px;line-height:14px!important}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
-    #imgControls>label::before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
-    .deletebuttons::before,.postarea form[name=post]::before,#qr .move::before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
+    #imgControls>label:before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
+    .deletebuttons:before,.postarea form[name=post]:before,#qr .move:before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
     #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
     #qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,#updater span{text-transform:uppercase;font-size:9px!important;line-height:18px}\
     #qr{bottom:-5px!important;height:auto!important}\
     #qr #qr_stats{color: #fff!important;position:absolute;top:0;right:44px;line-height:22px}\
     #qr #autohide{position:absolute;right:24px!important;top:4px!important}\
-    #qr a.close~.autohide{padding-bottom:22px!important}\
+    #qr a.close~.autohide{padding-bottom:21px!important}\
     #qr a.close~.autohide,#qr #files>div,#qr .autohide>div,#qr .autohide>form>div{font-size:0!important;}\
-    #qr a.close~.autohide>.wat{float:left;margin:4px 2px 0!important}\
+    #qr a.close~.autohide>.wat{margin:0 2px!important}\
     #qr a.close~.autohide>input,#qr a.close~.autohide input[name=resto]{width:94px;padding:2px;margin:0!important;margin-left:1px!important;vertical-align:bottom}\
     #qr #files a.x{padding:0 4px;background: rgba(20,20,20,.9);margin:1px;border-radius:2px}\
     #qr .autohide>form>div>label{line-height:22px;margin-left:5px}\
     #qr>#autohide:not(:checked)~.autohide,#qr:hover>#autohide:checked~.autohide{height:auto!important;overflow:visible!important;padding-bottom:25px!important}\
     #qr #files>div,#qr .autohide>div,#qr .autohide>form>div{position:relative}\
     #qr input[name=upfile]+a,#qr #captchas,#qr #attach{position:absolute;right:6px;top:1px}\
-    #qr input[name=upfile]+a::before,#qr #close::before,#qr a.close::before{content:'[';padding-right:2px}\
-    #qr input[name=upfile]+a::after,#qr #close::after,#qr a.close::after{content:']';padding-left:2px}\
-    #qr .move::before{color:#fff;content:'QUICK REPLY';width:306px}\
+    #qr input[name=upfile]+a:before,#qr #close:before,#qr a.close:before{content:'[';padding-right:2px}\
+    #qr input[name=upfile]+a:after,#qr #close:after,#qr a.close:after{content:']';padding-left:2px}\
+    #qr .move:before{color:#fff;content:'QUICK REPLY';width:306px}\
     #qr #close,#qr a.close{position:absolute;right:6px;top:1px}\
     #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:9!important;width:78px;text-align:left!important}\
     #updater:hover{border:1px solid #161616!important;border-top:none!important;border-right:none!important;right:0!important;padding-bottom:3px;width:166px!important}\
@@ -729,15 +730,15 @@
     #stats{height:18px;bottom:auto!important;left:auto!important;right:0!important;top:0!important;z-index:8!important;padding-right:3px;text-align:right}\
     #stats .move{line-height:18px}\
     #stats span{color:#fff!important;font-size:9px!important;margin:0 2px}\
-    #stats #postcount::before{font-size:9px!important;content:'POSTS: ';}\
-    #stats #imagecount::before{font-size:9px!important;content:'IMAGES: ';}\
+    #stats #postcount:before{font-size:9px!important;content:'POSTS: ';}\
+    #stats #imagecount:before{font-size:9px!important;content:'IMAGES: ';}\
     #navlinks{font-size:16px!important;top:" + (uShowLogo ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
     #iHover{padding-bottom:19px;z-index:9!important}\
     body>center:nth-of-type(2){position:relative}\
     body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-150px;left:0;z-index:11;\
     -webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
     body>center:nth-of-type(2)>font[color=red]:hover{top:-18px!important}\
-    body>center:nth-of-type(2)>font[color=red]::after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
+    body>center:nth-of-type(2)>font[color=red]:after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;max-height:125px;padding:5px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
     border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
@@ -745,7 +746,7 @@
     #navtop{padding:1px 0;color:#aaa!important;display:none}\
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
     #navtopr{line-height:18px;position:fixed;bottom:0;right:5px;font-size:0;color:transparent}\
-    #navtopr>a:not(:first-child):last-child::before{content:'/';padding:0 2px}\
+    #navtopr>a:not(:first-child):last-child:before{content:'/';padding:0 2px}\
     .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
     position:fixed!important;bottom:18px;left:-350px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0!important;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
@@ -781,11 +782,11 @@
             nTop = $("#navtop");
             
         if (getValue("Custom nav links"))
-            nTop.innerHTML = getValue('_4chlinks');
+            nTop.innerHTML = getValue("_4chlinks");
         else
         {
-            var navH = tag("a");
-            navH.textContent = $('.logo span').textContent.match(/\/\w{1,3}\/\s-\s(.*)/i, "")[1];
+            var navH = tag("a"), boardTitle = $(".logo span").textContent.match(/\/\w{1,3}\/\s-\s(.*)/i, "");
+            navH.textContent = boardTitle != null ? boardTitle[1] : $(".logo span").textContent;
             navH.id = "navHover";
             navH.href = window.location.href.match(/(https?:\/\/boards\.4chan\.org\/(\w{1,3})\/)/i, "")[1];
             inBefore($("#navtop"), navH);
@@ -846,7 +847,8 @@
             var pages = $(".pages");
             if (typeof pages !== "undefined" && pages != null)
             {
-                var leftOffset = $(".pages td:last-child").scrollWidth - pages.offsetWidth;
+                var leftOffset = $(".pages td:last-child").scrollWidth - pages.offsetWidth +
+                    (navigator.userAgent.toLowerCase().indexOf("firefox") != -1 ? 30 : 0);
                 postLoadCSS += ".pages{left:" + leftOffset + "px!important}";
             }
         }
