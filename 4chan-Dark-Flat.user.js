@@ -495,7 +495,7 @@
     ::-webkit-scrollbar-thumb:vertical{border-left:1px solid rgb(22,22,22)}\
     ::-webkit-scrollbar-thumb:horizontal{border-top:1px solid rgb(22,22,22)}\
     ::-webkit-scrollbar-thumb:window-inactive{background:rgba(40,40,40,.6)}\
-    .reply *::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{border-radius:5px}\
+    .reply *::-webkit-scrollbar-track,.reply *::-webkit-scrollbar-track-piece{border-radius:5px}\
     .reply *::-webkit-scrollbar-thumb:vertical{border:1px solid rgb(22,22,22);border-radius:4px}" : "") + "\
     img{border:none!important}\
     hr{border:none!important;border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px}\
@@ -739,7 +739,7 @@
     -webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
     body>center:nth-of-type(2)>font[color=red]:hover{top:-18px!important}\
     body>center:nth-of-type(2)>font[color=red]:after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
-    body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;max-height:125px;padding:5px}\
+    body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;padding:5px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
     border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
     #navtop,#navtopr{float:none!important;display:none}\
@@ -884,14 +884,18 @@
         for (var i = 0; i < targets.length; i++)
         {
             var node = document.evaluate("preceding-sibling::span[@class='filesize'][1]", targets[i].parentNode, null, 9, null).singleNodeValue;
-            var a = tag("a");
-            a.innerHTML = "exhentai";
-            a.href = targets[i].parentNode.href;
-            a.addEventListener("click", fetchImage, false);
-            a.className = "exSource";
             
-            node.appendChild(document.createTextNode(" "));
-            node.appendChild(a);
+            if (!$("a.exSource", node))
+            {
+                var a = tag("a");
+                a.innerHTML = "exhentai";
+                a.href = targets[i].parentNode.href;
+                a.addEventListener("click", fetchImage, false);
+                a.className = "exSource";
+                
+                node.appendChild(document.createTextNode(" "));
+                node.appendChild(a);
+            }
         }
     }
 
@@ -923,12 +927,12 @@
         
         GM_xmlhttpRequest(
         {
-            method: 'GET',
+            method: "GET",
             url: anchor.href,
             data: anchor,
             onload: function(x)
             {
-                var temp = tag('div');                
+                var temp = tag("div");                
                 temp.innerHTML = x.responseText;
                 var results = temp.querySelectorAll("div.it3 > a:not([rel='nofollow']), div.itd2 > a:not([rel='nofollow'])");
                 
