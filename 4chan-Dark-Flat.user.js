@@ -739,7 +739,7 @@
     #stats{height:18px;bottom:auto!important;left:auto!important;right:0!important;top:0!important;z-index:8!important;padding-right:3px;text-align:right}\
     #stats .move{line-height:18px}\
     #stats span{color:#fff!important;font-size:9px!important;margin:0 2px}\
-    #stats #qrcount:before{font-size:9px!important;content:'POSTS: ';}\
+    #stats #postcount:before{font-size:9px!important;content:'POSTS: ';}\
     #stats #imagecount:before{font-size:9px!important;content:'IMAGES: ';}\
     #navlinks{font-size:16px!important;top:" + (uShowLogo ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
     #iHover{padding-bottom:19px;z-index:9!important}\
