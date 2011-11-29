@@ -504,7 +504,7 @@
     a{text-decoration:none!important;color:" + uTheme.linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:not([href]){-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:hover{color:#eee!important}\
-    a:not([href]){color:#fff!important}\
+    a:not([href]),a[href='javascript:;']{color:#fff!important}\
     .postertrip{color:#a7dce7!important}\
     option{background:rgba(40,40,40,.9)}\
     body{color:#fff!important;background:url(data:image/gif;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
@@ -515,15 +515,14 @@
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
     div.thread:after,#updater div>label:after,form[name=delform] div.op:after,#addTheme>label:after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
     div.op{border:none!important}\
-    div.op>a:not([href]):not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
+    div.op>a:first-child:not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
-    form[name=delform]{margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 10px;position:relative;border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);border-radius:0 0 0 2px}\
+    form[name=delform]{border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 10px;padding-left:1px;position:relative;border-radius:0 0 0 2px}\
     form[name=delform] table{border-spacing:0;margin:1px 0 0;position:relative;table-layout:fixed;width:100%}\
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
-    .replyhider{margin:0!important;padding:0!important;width:1px!important}\
-    .replyhider>a{position:absolute;right:2px;z-index:1}\
+    .replyhider{margin:0!important;padding:0!important;position:absolute;right:2px;top:1px;width:auto!important;z-index:1}\
     td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:4px 0!important;width:100%;border-radius:3px 0 0 3px;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
@@ -534,7 +533,7 @@
     .container *{font-size:11px!important}\
     .container:before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{outline:none!important}\
-    #qp{background:rgba(36,36,36,.98)!important;padding:5px;position:fixed!important;z-index:11!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
+    #qp{background:rgba(36,36,36,.98)!important;border-color:rgba(" + uTheme.rgbColor() + ",.6)!important;padding:5px;position:fixed!important;z-index:11!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
     .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:5px!important}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
@@ -566,6 +565,7 @@
     th{background-color:#000!important;opacity:0!important}\
     tr{background-color:transparent!important;color:#fff!important}\
     tr[height='73']{height:auto!important}\
+    #recaptcha_div{height:auto!important}\
     #recaptcha_table #recaptcha_image{background-color:transparent!important;margin-left:0!important;border:none!important}\
     #recaptcha_image img,#qr img[src*='recaptcha/api']{width:305px!important}\
     #recaptcha_table tr td{padding:0!important}\
@@ -586,7 +586,7 @@
     [alt='closed']{background-position:-112px -16px!important}\
     .inputtext,textarea{margin:0;padding:1px 4px;outline:none}\
     input[type=file]{width:305px;margin:0}\
-    .inputtext:not(textarea),#qr input[form=qr_form]{height:22px!important}\
+    .inputtext:not(textarea),#qr input[form=qr_form],#post #foo input{height:22px!important}\
     form[name=post] .inputtext:not(textarea),#qr>.move>.inputtext,#qr input[name=pwd]{width:305px!important}\
     form[name=post] input[type=text][name=sub]{width:254px!important;margin-right:1px!important}\
     textarea,button,input:not([type=checkbox]),input[type=file]>input[type=button]\
@@ -609,7 +609,7 @@
     select{background:rgba(40,40,40,.9);border:1px solid #161616;box-sizing:content-box;-moz-box-sizing:content-box;-o-box-sizing:content-box}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;margin:0!important}\
-    .postarea textarea,#qr textarea{width:305px!important;height:125px!important;resize:none}\
+    .postarea textarea,#qr textarea,#post textarea{width:305px!important;height:125px!important;resize:none}\
     td.doubledash{padding:0;text-indent:-9999px}\
     .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important;z-index:3}\
     .logo img{margin:0!important;opacity:0.4;border:1px solid #161616!important}\
@@ -618,12 +618,12 @@
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}\
     .postarea table, .postarea table td{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
-    .postarea,#qr{width:306px;height:347px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-312px;top:auto!important;left:auto!important;\
+    .postarea,#qr,#post{width:306px;height:347px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-312px;top:auto!important;left:auto!important;\
     -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9);border-top:1px solid #161616!important}\
     .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
-    .postarea form[name=post]:before,#qr .move:before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
-    form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:auto;right:55px;vertical-align:bottom}\
-    .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto;bottom:17px;right:8px!important;vertical-align:bottom}\
+    .postarea form[name=post]:before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
+    form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:2px;right:56px;vertical-align:bottom}\
+    .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto!important;bottom:17px;right:8px!important;vertical-align:bottom}\
     form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:250px;right:6px;vertical-align:bottom;z-index:1}\
     .filesize{display:block!important;margin:2px 6px!important}\
     td .filesize{margin:2px 18px!important}\
@@ -633,7 +633,7 @@
     #imageType,input:not([type=checkbox]),input:not([type=radio]),input[type=file]>input[type=button],input[type=submit],button,select,textarea\
     {-webkit-appearance:none;-o-appearance:none;}\
     #options label,#options a,#themeoptions label,#themeoptions a,.pointer{cursor: pointer}\
-    #watcher .move,#updater .move,#options .move,#stats .move,#filter>div:first-child,#thread_filter>div:first-child,#qr .move{cursor:default!important}\
+    #watcher .move,#updater .move,#options .move,#stats .move,#filter>div:first-child,#thread_filter>div:first-child,#qr .move,#post .move{cursor:default!important}\
     #watcher{position:fixed!important;top:" + (uShowLogo ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
     #watcher .move,#themeoptions .move{text-decoration:none!important;padding:5px!important;line-height:10px!important}\
     #watcher>div{max-width:100%!important}\
@@ -701,25 +701,34 @@
     #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:85px;line-height:14px!important}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label:before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
-    .deletebuttons:before,.postarea form[name=post]:before,#qr .move:before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
-    #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,\
-    #qr #close,#qr a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,#updater span{text-transform:uppercase;font-size:9px!important;line-height:18px}\
+    .deletebuttons:before,.postarea form[name=post]:before,#qr .move:before,#post .move:before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
+    #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,#post input[name=upfile]+a,#post #captchas,#post #attach,\
+    #qr #close,#post a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,#updater span{text-transform:uppercase;font-size:9px!important;line-height:18px}\
     #qr{bottom:-5px!important;height:auto!important}\
-    #qr #qr_stats{color: #fff!important;position:absolute;top:0;right:44px;line-height:22px}\
     #qr #autohide{position:absolute;right:24px!important;top:4px!important}\
-    #qr a.close~.autohide{padding-bottom:21px!important}\
-    #qr a.close~.autohide,#qr #files>div,#qr .autohide>div,#qr .autohide>form>div{font-size:0!important;}\
-    #qr a.close~.autohide>.wat{margin:0 2px!important}\
-    #qr a.close~.autohide>input,#qr a.close~.autohide input[name=resto]{width:94px;padding:2px;margin:0!important;margin-left:1px!important;vertical-align:bottom}\
-    #qr #files a.x{padding:0 4px;background: rgba(20,20,20,.9);margin:1px;border-radius:2px}\
-    #qr .autohide>form>div>label{line-height:22px;margin-left:5px}\
+    #qr .autohide>form>div>label{line-height:20px;margin-left:5px}\
     #qr>#autohide:not(:checked)~.autohide,#qr:hover>#autohide:checked~.autohide{height:auto!important;overflow:visible!important;padding-bottom:25px!important}\
     #qr #files>div,#qr .autohide>div,#qr .autohide>form>div{position:relative}\
     #qr input[name=upfile]+a,#qr #captchas,#qr #attach{position:absolute;right:6px;top:1px}\
-    #qr input[name=upfile]+a:before,#qr #close:before,#qr a.close:before{content:'[';padding-right:2px}\
-    #qr input[name=upfile]+a:after,#qr #close:after,#qr a.close:after{content:']';padding-left:2px}\
+    #qr input[name=upfile]+a:before,#qr>#close:before,#post>a.close:before{content:'[';padding-right:2px}\
+    #qr input[name=upfile]+a:after,#qr>#close:after,#post>a.close:after{content:']';padding-left:2px}\
+    #qr>div.move{text-align:center!important;line-height:16px}\
     #qr .move:before{color:#fff;content:'QUICK REPLY';width:306px}\
-    #qr #close,#qr a.close{position:absolute;right:6px;top:1px}\
+    #qr #close,#post>a.close{position:absolute;right:6px;top:1px}\
+    #post{bottom:-5px!important;height:auto!important;padding-bottom:26px!important}\
+    #post #pstats{color:#fff!important;line-height:18px}\
+    #post .autohide{position:relative}\
+    #post .autohide #items+div>label{line-height:22px}\
+    #post #autohide{position:absolute;right:28px;top:3px!important}\
+    #post #foo{margin-left:20px}\
+    #post #foo input{float:left;margin:0!important;margin-left:1px!important;padding:2px;width:94px!important}\
+    #post #reholder{position:static!important}\
+    #post #reholder #charcount{bottom:26px;right:5px!important;top:auto!important}\
+    #post #reholder #fileSpan{left:2px!important;right:auto!important}\
+    #post #captchaImg{width:305px}\
+    #post #items a.close{background: rgba(20,20,20,.9);margin:1px;padding:0 4px;position:absolute;left:0;top:0;border-radius:2px}\
+    #post #items a.close:hover{color:#f00!important}\
+    #post #items>div,#post .autohide>div,#post .autohide>form>div{position:relative}\
     #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:9!important;width:78px;text-align:left!important}\
     #updater:hover{border:1px solid #161616!important;border-top:none!important;border-right:none!important;right:0!important;padding-bottom:3px;width:166px!important}\
     #updater .move{line-height:16px!important}\
@@ -730,7 +739,7 @@
     #stats{height:18px;bottom:auto!important;left:auto!important;right:0!important;top:0!important;z-index:8!important;padding-right:3px;text-align:right}\
     #stats .move{line-height:18px}\
     #stats span{color:#fff!important;font-size:9px!important;margin:0 2px}\
-    #stats #postcount:before{font-size:9px!important;content:'POSTS: ';}\
+    #stats #qrcount:before{font-size:9px!important;content:'POSTS: ';}\
     #stats #imagecount:before{font-size:9px!important;content:'IMAGES: ';}\
     #navlinks{font-size:16px!important;top:" + (uShowLogo ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
     #iHover{padding-bottom:19px;z-index:9!important}\
@@ -847,8 +856,7 @@
             var pages = $(".pages");
             if (typeof pages !== "undefined" && pages != null)
             {
-                var leftOffset = $(".pages td:last-child").scrollWidth - pages.offsetWidth +
-                    (navigator.userAgent.toLowerCase().indexOf("firefox") != -1 ? 30 : 0);
+                var leftOffset = $(".pages td:last-child").scrollWidth - pages.offsetWidth;
                 postLoadCSS += ".pages{left:" + leftOffset + "px!important}";
             }
         }
