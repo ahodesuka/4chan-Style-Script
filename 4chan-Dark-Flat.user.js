@@ -517,7 +517,7 @@
     div.op{border:none!important}\
     div.op>a:first-child:not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
-    form[name=delform]{border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 10px;padding-left:1px;position:relative;border-radius:0 0 0 2px}\
+    form[name=delform]{border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 10px;padding-left:1px;position:relative;border-radius:0 0 0 6px}\
     form[name=delform] table{border-spacing:0;margin:1px 0 0;position:relative;table-layout:fixed;width:100%}\
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
@@ -527,7 +527,7 @@
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
-    div.stub{margin:1px 0 1px 1px!important;padding-right:1px!important}\
+    div.stub{margin:1px 0!important;padding-right:1px!important}\
     div.stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
