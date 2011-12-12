@@ -514,7 +514,7 @@
     textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
     div.thread:after,#updater div>label:after,form[name=delform] div.op:after,#addTheme>label:after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
-    div.op{border:none!important}\
+    div.op{border:none!important;position:relative}\
     div.op>a:first-child:not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
     form[name=delform]{border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 10px;padding-left:1px;position:relative;border-radius:0 0 0 6px}\
@@ -599,10 +599,11 @@
     textarea:hover,button:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
     input,select{color:#fff!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     input[type=submit],button{width:50px;height:22px!important;color:#ddd!important;cursor:pointer;vertical-align:top;padding:0!important;font-size:9px!important;text-transform:uppercase}\
-    input[type=checkbox]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
+    input[type=checkbox],input[type=radio]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
     width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important}\
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;box-shadow:#eee 0 0 2px}\
-    input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
+    input[type=radio]:checked{border:1px solid #1f1f1f!important;background:rgba(180,180,180,0.6)!important;box-shadow:#eee 0 0 2px}\
+    input[type=checkbox]:active,input[type=radio]:active{background:rgba(255,255,255,0.6)!important}\
     td.reply input[type=checkbox],td.replyhl input[type=checkbox],#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
     td.reply input[type=checkbox],td.replyhl input[type=checkbox]{margin:0!important}\
     input[name=recaptcha_response_field],input#recaptcha_response_field{border:none!important;height:22px!important;padding:1px 4px!important;width:305px!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
@@ -732,7 +733,7 @@
     #post #items>div,#post .autohide>div,#post .autohide>form>div{position:relative}\
     #updater{position:fixed!important;bottom:auto!important;left:auto!important;right:88px!important;top:0!important;line-height:18px;padding:0 3px;z-index:9!important;width:78px;text-align:left!important}\
     #updater:hover{border:1px solid #161616!important;border-top:none!important;border-right:none!important;right:0!important;padding-bottom:3px;width:166px!important}\
-    #updater .move{line-height:16px!important}\
+    #updater .move{line-height:18px!important}\
     #updater input{float:right}\
     #updater input:not([type=checkbox]){margin:1px!important}\
     #updater input[type=text]{height:19px!important;width:50px!important}\
@@ -770,6 +771,7 @@
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
     #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}\
     body>a[style='cursor: pointer; float: right;']{position:fixed;right:5px;top:" + (uShowLogo ? 126 : 19) + "px;z-index:4}\
+    body>a[style='cursor: pointer; float: right;']+div>table{height:100%!important;padding-bottom:20px}\
     body>a[style='cursor: pointer; float: right;']+div>table table{width:100%}";
     
     if (!uShowAnn)
