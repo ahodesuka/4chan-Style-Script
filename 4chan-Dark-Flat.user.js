@@ -486,7 +486,7 @@
     ::-moz-selection{background:" + uTheme.linkColor + ";color:#fff}\
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
-    " + (uSScroll ? "::-webkit-scrollbar{width:10px;height:10px}\
+    " + (uSScroll ? "::-webkit-scrollbar{width:8px;height:8px}\
     ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px,rgba(150,150,150,.1) 0 0 2px}\
     ::-webkit-scrollbar-corner,::-webkit-scrollbar-resizer{background:rgba(12,12,12,.9)}\
     ::-webkit-scrollbar-thumb{background:rgba(40,40,40,.9)}\
@@ -523,8 +523,8 @@
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
     .replyhider{margin:0!important;padding:0!important;position:absolute;right:2px;top:1px;width:auto!important;z-index:1}\
-    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:4px 0!important;width:100%;border-radius:3px 0 0 3px;\
-    -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
+    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:5px!important;width:100%;border-radius:3px 0 0 3px;\
+    -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}\
     td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     div.stub{margin:1px 0!important;padding-right:1px!important}\
@@ -534,7 +534,7 @@
     .container:before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{outline:none!important}\
     #qp{background:rgba(36,36,36,.98)!important;border-color:rgba(" + uTheme.rgbColor() + ",.6)!important;padding:5px;position:fixed!important;z-index:11!important;margin:0 10px!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
-    .inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:5px!important}\
+    table.inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:5px!important;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
     .omittedposts{color:#fff;}\
@@ -557,7 +557,7 @@
     .yui-g,#filter-button,#recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,td.reply>br,td.replyhl>br,body>hr,\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],\
     .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,\
-    form[name=delform] center+hr,form[name=delform] hr:nth-last-of-type(2),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden],\
+    form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),form[name=delform] hr:nth-last-of-type(1),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden],\
     .filesize+br\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
@@ -604,7 +604,7 @@
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;box-shadow:#eee 0 0 2px}\
     input[type=checkbox]:active{background:rgba(255,255,255,0.6)!important}\
     td.reply input[type=checkbox],td.replyhl input[type=checkbox],#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
-    td.reply input[type=checkbox],td.replyhl input[type=checkbox]{margin:0 0 0 4px!important}\
+    td.reply input[type=checkbox],td.replyhl input[type=checkbox]{margin:0!important}\
     input[name=recaptcha_response_field],input#recaptcha_response_field{border:none!important;height:22px!important;padding:1px 4px!important;width:305px!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     select{background:rgba(40,40,40,.9);border:1px solid #161616;box-sizing:content-box;-moz-box-sizing:content-box;-o-box-sizing:content-box}\
     select:hover{background:rgba(50,50,50,1);}\
@@ -703,7 +703,8 @@
     #imgControls>label:before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
     .deletebuttons:before,.postarea form[name=post]:before,#qr .move:before,#post .move:before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
     #thread_filter>div:first-child>span,#imgControls label,form[name=post] #com_submit+label,#qr input[name=upfile]+a,#qr #captchas,#qr #attach,#post input[name=upfile]+a,#post #captchas,#post #attach,\
-    #qr #close,#post a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,#updater span{text-transform:uppercase;font-size:9px!important;line-height:18px}\
+    #qr #close,#post a.close,form[name=post] input[name=email]+label,#watcher .move,#themeoptions .move,#updater span,body>a[style='cursor: pointer; float: right;']\
+    {text-transform:uppercase;font-size:9px!important;line-height:18px}\
     #qr{bottom:-5px!important;height:auto!important}\
     #qr #autohide{position:absolute;right:24px!important;top:4px!important}\
     #qr .autohide>form>div>label{line-height:20px;margin-left:5px}\
@@ -741,7 +742,7 @@
     #stats span{color:#fff!important;font-size:9px!important;margin:0 2px}\
     #stats #postcount:before{font-size:9px!important;content:'POSTS: ';}\
     #stats #imagecount:before{font-size:9px!important;content:'IMAGES: ';}\
-    #navlinks{font-size:16px!important;top:" + (uShowLogo ? 126 : 19) + "px!important;height:20px;line-height:16px;z-index:3!important}\
+    #navlinks{font-size:16px!important;top:0!important;height:20px;line-height:14px;z-index:6!important}\
     #iHover{padding-bottom:19px;z-index:9!important}\
     body>center:nth-of-type(2){position:relative}\
     body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-150px;left:0;z-index:11;\
@@ -767,7 +768,9 @@
     .pages input{background:rgba(33,33,33,.9)!important;border:none!important;height:22px!important;width:auto!important;padding:0 10px!important;position:relative;top:-1px}\
     .pages input:hover{background:rgba(36,36,36,.9)!important;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
-    #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}";
+    #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}\
+    body>a[style='cursor: pointer; float: right;']{position:fixed;right:5px;top:" + (uShowLogo ? 126 : 19) + "px;z-index:4}\
+    body>a[style='cursor: pointer; float: right;']+div>table table{width:100%}";
     
     if (!uShowAnn)
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
@@ -809,12 +812,12 @@
                             #navtop a{margin:1px 0}";
         }
         
-        if (uShowAnn)
-        {
-            var ann = $("body>center:nth-of-type(2)>font[color=red]");
-            if (typeof ann !== "undefined" && ann != null)
-                postLoadCSS += "body>center:nth-of-type(2)>font[color=red]{top:" + (-ann.scrollHeight - 1) + "px!important}";
-        }
+        var ann = $("body>center:nth-of-type(2)>font[color=red]");
+        
+        if (uShowAnn && typeof ann !== "undefined" && ann != null)
+            postLoadCSS += "body>center:nth-of-type(2)>font[color=red]{top:" + (-ann.scrollHeight - 1) + "px!important}";
+        else
+            postLoadCSS += "form[name=delform]{margin-top:0!important;padding-top:2px}";
         
         // Add placeholders to postarea form
         var elem = document.getElementsByName("post")[0].elements;
