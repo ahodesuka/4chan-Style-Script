@@ -34,7 +34,7 @@
         ]),
         "_4chlinks": '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/g/">technology</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/v/">video games</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/jp/">japan</a>'
     },
-    $, $$, inBefore, tag, remove, getValue, __hasProp, postTabText, bgPattern, checkMark,
+    inBefore, tag, getValue, __hasProp, postTabText, bgPattern, checkMark,
     uThemes, uTheme, uFont, uFontSize, sFontSize, uShowLogo, uPageInNav, uShowAnn, uHideRForm, uHentai, uSScroll,
     fonts, fontSizes = [], options, css;
     
@@ -114,28 +114,6 @@
         style.textContent = (arguments.length > 0 && typeof arguments[0] === "string") ? arguments[0] : css;
         head.appendChild(style);
     }
-    $ = function(selector, root)
-    {
-        root = root || document.body;
-        return root.querySelector(selector);
-    };
-    $$ = function(selector, root)
-    {
-        var _a, _b, _c, _d, node, result;
-        
-        root = root || document.body;
-        result = root.querySelectorAll(selector);
-        _a = [];
-        _c = result;
-        
-        for (_b = 0, _d = _c.length; _b < _d; _b++)
-        {
-            node = _c[_b];
-            _a.push(node);
-        }
-        
-        return _a;
-    };
     inBefore = function(root, el)
     {
         return root.parentNode.insertBefore(el, root);
@@ -143,10 +121,6 @@
     tag = function(el)
     {
         return document.createElement(el);
-    };
-    remove = function(el)
-    {
-        return el.parentNode.removeChild(el);
     };
     /* END LICENSE */
     
@@ -177,6 +151,129 @@
     fontSizes[2] = { name: "Large", size: 14 };
     fontSizes[3] = { name: "Larger", size: 16 };
     
+    (function()
+    {
+        var SSf = window.$ = function(selector, root)
+        {
+            if (window == this || !this.init)
+                return new SSf(selector, root);
+                
+            return this.init(selector, root);
+        };
+        
+        SSf.prototype = 
+        {
+            elems: [],
+            
+            init: function(selector, root)
+            {
+                if (typeof selector === "string")
+                {
+                    var root = root || document.body,
+                        results = root.querySelectorAll(selector);
+                        
+                    this.elems = Array.prototype.slice.call(results);
+                }
+                else if (selector.nodeType)
+                    this.elems[0] = selector;
+                
+                return this;
+            },
+            
+            get: function(index)
+            {
+                if (index == null && this.elems.length == 1)
+                    return this.elems[0];
+                else if (index == null && this.elems.length > 1)
+                    return this.elems;
+                
+                return this.elems[index];
+            },
+            
+            append: function(ele)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].appendChild(ele);
+                
+                return this;
+            },
+            
+            prepend: function(ele)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].insertBefore(ele, this.elems[i].firstChild);
+                    
+                return this;
+            },
+            
+            addClass: function(classNames)
+            {
+                classNames = classNames.split(' ');
+                
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    for (var j = 0, jMAX = classNames.length; j < jMAX; j++)
+                        if (!$(this.elems[i]).hasClass(classNames[j]))
+                            this.elems[i].className += (this.elems[i].className ? " " : "") + classNames[j];
+                        
+            },
+            
+            hasClass: function(className)
+            {
+                if (this.elems.length > 1)
+                    return false;
+                
+                return this.elems[0].className.indexOf(className) != -1;
+            },
+            
+            removeClass: function(classNames)
+            {
+                classNames = classNames.split(' ');
+                
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    for (var j = 0, jMAX = classNames.length; j < jMAX; j++)
+                        if ($(this.elems[i]).hasClass(classNames[j]))
+                        {
+                            var iclassNames = this.elems[i].className.split(' ');
+                            this.elems[i].className = "";
+                            
+                            for (var k = 0, kMAX = iclassNames.length; k < kMAX; k++)
+                                if (classNames[k] != classNames[i])
+                                    this.elems[i].className += (this.elems[i].className ? " " : "") + classNames[k];
+                        }
+            },
+            
+            html: function(html)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].innerHTML = html;
+                    
+                return this;
+            },
+            
+            remove: function()
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].parentNode.removeChild(this.elems[i]);
+                    
+                return false;
+            
+            },
+            
+            exists: function()
+            {
+                return this.elems.length > 0;
+            },
+            
+            bind: function(type, listener)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].addEventListener(type, listener, false);
+                    
+                return this;
+            },
+        };
+    })();
+    
     /* OPTIONS */
     options =
     {
@@ -186,12 +283,13 @@
             a.textContent = "Theme";
             a.addEventListener("click", options.show, false);
             
-            return inBefore($('#navtopr a').nextSibling, a);
+            return $("#navtopr").append(a);
         },
         show: function()
         {
             var _c, checked, overlay, div, hiddenNum, option, html, tabs, themes;
-            if ($('#overlay'))
+            
+            if ($("#overlay").exists())
                 return options.close();
             else
             {
@@ -256,50 +354,53 @@
                 div.innerHTML = html;
                 overlay.appendChild(div);
                 
-                tabs = $$("#toNav li label", div);
+                tabs = $("#toNav li label", div).get();
                 for (var i = 0, MAX = tabs.length; i < MAX; i++)
-                    tabs[i].addEventListener("click", function(e)
+                {
+                    $(tabs[i]).bind("click", function(e)
                     {
-                        $("#toNav li label.selected").className = "";
-                        this.className = "selected";
-                    }, false);
+                        $("#toNav li label.selected").removeClass("selected");
+                        $(this).addClass("selected");
+                    });
+                }
                     
-                themes = $$("#tTheme div", div);
+                themes = $("#tTheme div", div).get();
                 for (var i = 0, MAX = themes.length; i < MAX; i++)
                 {
-                    themes[i].addEventListener("click", function(e)
+                    $(themes[i]).bind("click", function(e)
                     {
                         if (this.className == "")
                             this.className = "selected";
                         else
                             this.className = "";
-                    }, false);
+                    });
                     
-                    $("a[title=Delete]",themes[i]).addEventListener("click", function(e)
+                    $("a[title=Delete]",themes[i]).bind("click", function(e)
                     {
                         e.stopPropagation();
                         options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
-                    }, false);
-                    $("a[title=Edit]", themes[i]).addEventListener("click", function(e)
+                    });
+                    $("a[title=Edit]", themes[i]).bind("click", function(e)
                     {
                         e.stopPropagation();
                         options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
-                    }, false);
+                    });
                 }
                 
-                $("a[name=add]", div).addEventListener("click", options.showTheme, false);
-                $("a[name=save]", div).addEventListener("click", options.save, false);
-                $("a[name=cancel]",div).addEventListener("click", function(){ return remove($("#overlay")); }, false);
+                $("a[name=add]", div).bind("click", options.showTheme);
+                $("a[name=save]", div).bind("click", options.save);
+                $("a[name=cancel]",div).bind("click", function(){ return $("#overlay").remove(); });
                 
-                return document.body.appendChild(overlay);
+                return $(document.body).append(overlay);
             }
         },
         save: function()
         {
             var _4chlinks, _c, _d, div, input, themes = [];
             div = $("#themeoptions");
-            _d = $$('input, select', div);
             
+            // Save main
+            _d = $("#themeoptions input, #themeoptions select").get();
             for (_c = 0, MAX = _d.length; _c < MAX; _c++)
             {
                 input = _d[_c];
@@ -312,7 +413,8 @@
                 }
             }
             
-            _d = $$("#tTheme div", div);
+            // Save themes
+            _d = $("#themeoptions #tTheme div").get();
             for (_c = 0, MAX = _d.length; _c < MAX; _c++)
             {
                 if (_d[_c].className != "selected")
@@ -325,7 +427,8 @@
             
             GM_setValue("Themes", JSON.stringify(themes));
             
-            _4chlinks = $("textarea[name=_4chlinks]");
+            // Save nav links
+            _4chlinks = $("textarea[name=_4chlinks]").get();
             GM_setValue("_4chlinks", _4chlinks.value);
             
             return window.location.reload(true);
@@ -348,11 +451,11 @@
             overlay.appendChild(div);
             
             if (bEdit)
-                $("a[name=edit]", div).addEventListener("click", function(){ options.addTheme(tIndex); }, false);
+                $("a[name=edit]", div).bind("click", function(){ options.addTheme(tIndex); });
             else
-                $("a[name=add]", div).addEventListener("click", options.addTheme, false);
+                $("a[name=add]", div).bind("click", options.addTheme);
             
-            $("a[name=cancel]", div).addEventListener("click", function(){ return remove($("#overlay2")); }, false);
+            $("a[name=cancel]", div).bind("click", function(){ return $("#overlay2").remove(); });
             
             return document.body.appendChild(overlay);
         },
@@ -396,21 +499,21 @@
                 div.className = "selected";
                 div.innerHTML = "<a title=Delete>X</a><a title=Edit>E</a><img src='" + nTheme.background() + "'>";
                     
-                $("a[title=Delete]", div).addEventListener("click", function(e)
+                $("a[title=Delete]", div).bind("click", function(e)
                 {
                     e.stopPropagation();
                     options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
-                }, false);
-                $("a[title=Edit]", div).addEventListener("click", function(e)
+                });
+                $("a[title=Edit]", div).bind("click", function(e)
                 {
                     e.stopPropagation();
                     options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
-                }, false);
+                });
                 
                 $("#tTheme").appendChild(div);
             }
             
-            return remove(overlay);
+            return overlay.remove();
         },
         deleteTheme: function(tIndex)
         {
@@ -419,9 +522,9 @@
             else if (confirm("Are you sure?"))
             {
                 uThemes.splice(tIndex, 1);
-                remove($("#theme" + tIndex));
+                $("#theme" + tIndex).remove();
                 
-                var themes = $$("#tTheme div", $("#overlay"));
+                var themes = $("#overlay #tTheme div").get();
                 for (var i = 0, MAX = themes.length; i < MAX; i++)
                     themes[i].id = "theme" + i;
             }
@@ -522,12 +625,12 @@
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
-    .replyhider{margin:0!important;padding:0!important;position:absolute;right:2px;top:1px;width:auto!important;z-index:1}\
+    .replyhider{margin:0!important;padding:1px 0 0!important;position:absolute;right:2px;width:auto!important;z-index:1}\
     td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:5px!important;width:100%;border-radius:3px 0 0 3px;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}\
     td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
-    div.stub{margin:1px 0!important;padding-right:1px!important}\
+    div.stub{margin:1px 0 0!important;opacity:.75;padding-right:1px!important}\
     div.stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
@@ -557,8 +660,7 @@
     .yui-g,#filter-button,#recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,td.reply>br,td.replyhl>br,body>hr,\
     form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],\
     .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,\
-    form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),form[name=delform] hr:nth-last-of-type(1),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden],\
-    .filesize+br\
+    form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),form[name=delform] hr:nth-last-of-type(1),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden]\
     {display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
@@ -578,7 +680,7 @@
     blockquote>.abbr{color:#fff!important}\
     div.reply{background:rgba(40,40,40,.9)!important;border:none!important;margin:0!important;z-index:2!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:2px 20px 12px!important}\
-    form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important;position:relative;z-index:10!important}\
+    form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important;position:relative;z-index:8!important}\
     img[alt='closed'],[alt='sticky']\
     {background-image:url(http://img175.imageshack.us/img175/1497/yunoiconsbf0.png)!important;background-color:transparent!important;background-repeat:no-repeat;display:inline-block;\
     height:0!important;margin:0 1px!important;padding-top:16px!important;margin-right:-3px!important;width:16px!important;margin-left:4px!important}\
@@ -627,6 +729,7 @@
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto!important;bottom:17px;right:8px!important;vertical-align:bottom}\
     form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:250px;right:6px;vertical-align:bottom;z-index:1}\
     .filesize{display:block!important;margin:2px 6px!important}\
+    div.op .filesize{display:inline-block!important}\
     td .filesize{margin:2px 18px!important}\
     .filesize span{font-size:0!important;visibility:hidden}\
     .filesize span:after{content:attr(title);font-size:12px;visibility:visible}\
@@ -751,15 +854,15 @@
     body>center:nth-of-type(2)>font[color=red]:hover{top:-18px!important}\
     body>center:nth-of-type(2)>font[color=red]:after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;padding:5px}\
-    #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:3!important;\
+    #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:9!important;\
     border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
     #navtop,#navtopr{float:none!important;display:none}\
     #navtop{padding:1px 0;color:#aaa!important;display:none}\
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
-    #navtopr{line-height:18px;position:fixed;bottom:0;right:5px;font-size:0;color:transparent}\
+    #navtopr{position:fixed;right:5px!important;font-size:0!important;color:transparent}\
     #navtopr>a:not(:first-child):last-child:before{content:'/';padding:0 2px}\
     .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
-    position:fixed!important;bottom:18px;left:-350px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
+    position:fixed!important;bottom:18px;left:-370px;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0!important;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages *{font-size:" + sFontSize + "px!important}\
     .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:40px;text-align:center}\
@@ -792,18 +895,17 @@
         // Add theme options link
         options.init();
         
-        var postLoadCSS = "#navtop,#navtopr{display:inline!important}",
-            nTop = $("#navtop");
+        var postLoadCSS = "#navtop,#navtopr{display:inline!important}";
             
         if (getValue("Custom nav links"))
-            nTop.innerHTML = getValue("_4chlinks");
+            $("#navtop").html(getValue("_4chlinks"));
         else
         {
             var navH = tag("a"), boardTitle = $(".logo span").textContent.match(/\/\w{1,3}\/\s-\s(.*)/i, "");
             navH.textContent = boardTitle != null ? boardTitle[1] : $(".logo span").textContent;
             navH.id = "navHover";
             navH.href = window.location.href.match(/(https?:\/\/boards\.4chan\.org\/(\w{1,3})\/)/i, "")[1];
-            inBefore($("#navtop"), navH);
+            $("#navtop").prepend(navH);
             
             postLoadCSS += "#navHover{display:inline-block;position:absolute;padding:10px 50px 0!important;top:-10px}\
                             #navHover:hover+#navtop{display:inline-block!important}\
@@ -814,7 +916,7 @@
                             #navtop a{margin:1px 0}";
         }
         
-        var ann = $("body>center:nth-of-type(2)>font[color=red]");
+        var ann = $("body>center:nth-of-type(2)>font[color=red]").get();
         
         if (uShowAnn && typeof ann !== "undefined" && ann != null)
             postLoadCSS += "body>center:nth-of-type(2)>font[color=red]{top:" + (-ann.scrollHeight - 1) + "px!important}";
@@ -850,18 +952,18 @@
         
         // Truncuate Previous to Prev
         var prev;
-        if (typeof (prev = $(".pages td input[value='Previous']")) !== "undefined" && prev != null)
+        if (typeof (prev = $(".pages td input[value='Previous']").get()) !== "undefined" && prev != null)
             prev.value = "Prev";
-        else if (typeof (prev = $(".pages td:first-child")) !== "undefined" && prev != null)
+        else if (typeof (prev = $(".pages td:first-child").get()) !== "undefined" && prev != null)
             prev.textContent = "Prev";
         
         // Fix pages position
         if (!uPageInNav)
         {
-            var pages = $(".pages");
+            var pages = $(".pages").get();
             if (typeof pages !== "undefined" && pages != null)
             {
-                var leftOffset = $(".pages td:last-child").scrollWidth - pages.offsetWidth;
+                var leftOffset = $(".pages td:last-child").get().scrollWidth - pages.offsetWidth;
                 postLoadCSS += ".pages{left:" + leftOffset + "px!important}";
             }
         }
@@ -879,7 +981,7 @@
             addLinks(document);
             document.addEventListener("DOMNodeInserted", function(e)
             {
-                if (e.target.nodeName.toLowerCase() == "table")
+                if (e.target.nodeName == "TABLE")
                     addLinks(e.target);
             }, false);
         }
@@ -898,7 +1000,7 @@
         {
             var node = document.evaluate("preceding-sibling::span[@class='filesize'][1]", targets[i].parentNode, null, 9, null).singleNodeValue;
             
-            if (!$("a.exSource", node))
+            if (!$("a.exSource", node).exists())
             {
                 var a = tag("a");
                 a.innerHTML = "exhentai";
