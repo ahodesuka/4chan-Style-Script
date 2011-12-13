@@ -163,20 +163,32 @@
         
         SSf.prototype = 
         {
+            constructor: "SSf",
             elems: [],
             
             init: function(selector, root)
             {
                 if (typeof selector === "string")
                 {
-                    var root = root || document.body,
-                        results = root.querySelectorAll(selector);
+                    var root = root || document.body;
+                    if (root.constructor.toString() == "SSf")
+                        root = root.get();
+                    
+                    var results = root.querySelectorAll(selector);
                         
                     this.elems = Array.prototype.slice.call(results);
                 }
                 else if (selector.nodeType)
                     this.elems[0] = selector;
                 
+                return this;
+            },
+            
+            each: function(func)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    func.apply(this.elems[i]);
+                    
                 return this;
             },
             
@@ -214,7 +226,8 @@
                     for (var j = 0, jMAX = classNames.length; j < jMAX; j++)
                         if (!$(this.elems[i]).hasClass(classNames[j]))
                             this.elems[i].className += (this.elems[i].className ? " " : "") + classNames[j];
-                        
+                
+                return this;
             },
             
             hasClass: function(className)
@@ -240,6 +253,22 @@
                                 if (classNames[k] != classNames[i])
                                     this.elems[i].className += (this.elems[i].className ? " " : "") + classNames[k];
                         }
+                
+                return this;
+            },
+            
+            toggleClass: function(classNames)
+            {
+                classNames = classNames.split(' ');
+                
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    for (var j = 0, jMAX = classNames.length; j < jMAX; j++)
+                        if (!$(this.elems[i]).hasClass(classNames[j]))
+                            $(this.elems[i]).addClass(classNames[j]);
+                        else
+                            $(this.elems[i]).removeClass(classNames[j]);
+                
+                return this;
             },
             
             html: function(html)
@@ -287,7 +316,7 @@
         },
         show: function()
         {
-            var _c, checked, overlay, div, hiddenNum, option, html, tabs, themes;
+            var _c, checked, overlay, div, hiddenNum, option, html;
             
             if ($("#overlay").exists())
                 return options.close();
@@ -354,38 +383,30 @@
                 div.innerHTML = html;
                 overlay.appendChild(div);
                 
-                tabs = $("#toNav li label", div).get();
-                for (var i = 0, MAX = tabs.length; i < MAX; i++)
+                $("#toNav li label", div).bind("click", function(e)
                 {
-                    $(tabs[i]).bind("click", function(e)
-                    {
-                        $("#toNav li label.selected").removeClass("selected");
-                        $(this).addClass("selected");
-                    });
-                }
-                    
-                themes = $("#tTheme div", div).get();
-                for (var i = 0, MAX = themes.length; i < MAX; i++)
+                    $("#toNav li label.selected").removeClass("selected");
+                    $(this).addClass("selected");
+                });
+                
+                $("#tTheme div", div).each(function()
                 {
-                    $(themes[i]).bind("click", function(e)
+                    $(this).bind("click", function(e)
                     {
-                        if (this.className == "")
-                            this.className = "selected";
-                        else
-                            this.className = "";
+                        $(this).toggleClass("selected");
                     });
                     
-                    $("a[title=Delete]",themes[i]).bind("click", function(e)
+                    $("a[title=Delete]", this).bind("click", function(e)
                     {
                         e.stopPropagation();
                         options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
                     });
-                    $("a[title=Edit]", themes[i]).bind("click", function(e)
+                    $("a[title=Edit]", this).bind("click", function(e)
                     {
                         e.stopPropagation();
                         options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
                     });
-                }
+                });
                 
                 $("a[name=add]", div).bind("click", options.showTheme);
                 $("a[name=save]", div).bind("click", options.save);
@@ -463,8 +484,8 @@
         {
             var overlay, nTheme, div, cBG, cLColor;
             overlay = $("#overlay2");
-            cBG = decodeURIComponent($("textarea[name=customBG]", overlay).value.replace(/(\r\n|\r|\n)/gm, ""));
-            cLColor = $("input[name=customLColor]", overlay).value;
+            cBG = decodeURIComponent($("textarea[name=customBG]", overlay).get().value.replace(/(\r\n|\r|\n)/gm, ""));
+            cLColor = $("input[name=customLColor]", overlay).get().value;
             
             // base64 regex thanks to njzk2;
             // http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/5885097#5885097
@@ -510,7 +531,7 @@
                     options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
                 });
                 
-                $("#tTheme").appendChild(div);
+                $("#tTheme").append(div);
             }
             
             return overlay.remove();
