@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          4chan Dark Flat
 // @author        ahoka
-// @version       1.1
+// @version       1.1.1
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       https://boards.4chan.org/*
