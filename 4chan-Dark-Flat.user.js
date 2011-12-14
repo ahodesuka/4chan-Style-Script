@@ -741,7 +741,7 @@
     .postarea form[name=post]:before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:2px;right:56px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto!important;bottom:17px;right:8px!important;vertical-align:bottom}\
-    form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;right:6px;vertical-align:bottom;z-index:1}\
+    form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;right:6px;top:1px;vertical-align:bottom;z-index:1}\
     .filesize{display:block!important;margin:2px 6px!important}\
     div.op .filesize{display:inline-block!important}\
     td .filesize{margin:2px 18px!important}\
