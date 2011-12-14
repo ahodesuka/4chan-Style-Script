@@ -181,7 +181,7 @@
             {
                 if (ele.constructor == SSf)
                     ele = ele.get();
-                console.log(this.elems[0]);
+                
                 for (var i = 0, MAX = this.elems.length; i < MAX; i++)
                     this.elems[i].appendChild(ele);
                 
@@ -330,9 +330,6 @@
                 var overlay = $("<div id=overlay>");
                 var tOptions = $("<div id=themeoptions class=reply>");
                 
-                console.log(overlay.elems);
-                console.log(tOptions.elems);
-                
                 var optionsHTML = "<ul id=toNav>\
                 <li><label class=selected for=tcbMain>Main</label></li>\
                 <li><label for=tcbTheme>Theme</label></li>\
@@ -429,13 +426,11 @@
             for (_c = 0, MAX = _d.length; _c < MAX; _c++)
             {
                 input = _d[_c];
+                
                 if (input.type == "select-one")
                     GM_setValue(input.name, input.value);
                 else if (input.type == "checkbox")
-                {
-                    console.log("GM_setValue(" + input.name +", " + input.checked + ");");
                     GM_setValue(input.name, input.checked);
-                }
             }
             
             // Save themes
@@ -746,7 +741,7 @@
     .postarea form[name=post]:before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:2px;right:56px;vertical-align:bottom}\
     .postarea #com_submit+label{position:absolute;color:#ccc!important;top:auto!important;bottom:17px;right:8px!important;vertical-align:bottom}\
-    form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;top:250px;right:6px;vertical-align:bottom;z-index:1}\
+    form[name=post] input[name=email]+label{position:absolute;color:#ccc!important;right:6px;vertical-align:bottom;z-index:1}\
     .filesize{display:block!important;margin:2px 6px!important}\
     div.op .filesize{display:inline-block!important}\
     td .filesize{margin:2px 18px!important}\
@@ -900,7 +895,7 @@
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
         
     if (uPageInNav)
-        css += ".pages{background:transparent!important;height:18px!important;margin:0!important;border:none!important;bottom:0!important;left:0!important;z-index:3!important}\
+        css += ".pages{background:transparent!important;height:18px!important;margin:0!important;border:none!important;bottom:0!important;left:0!important;z-index:9!important}\
                 .pages input{height:18px!important;top:0!important}";
 
     var insertStyle = function(e)
@@ -912,10 +907,14 @@
     /* END STYLING */
     
     /* DOM MANIPULATION */
-    document.addEventListener("DOMContentLoaded", DOMLoaded, false);
+    if (document.body) // if the content is already loaded, opera?
+        DOMLoaded();
+    else
+        $(document).bind("DOMContentLoaded", DOMLoaded);
     
     function DOMLoaded()
     {
+        $(document).unbind("DOMContentLoaded", DOMLoaded)
         // Add theme options link
         options.init();
         
