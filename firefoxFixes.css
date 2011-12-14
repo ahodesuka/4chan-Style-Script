@@ -14,7 +14,7 @@
         border:1px solid #1f1f1f!important;
         -moz-box-shadow:#eee 0 0 1px!important;
     }
-    input[type=checkbox]:active
+    input[type="checkbox"]:active
     {
         background-color:rgba(255,255,255,.6)!important;
     }
@@ -25,13 +25,14 @@
     {
         -moz-appearance:none;
     }
-    input[type=file] > input[type=button]
+    input[type="file"] > input[type="button"]
     {
         background:rgba(22,22,22,0.9)!important;
         border:0 solid transparent!important;
         border-bottom:1px solid #101010!important;
         border-top:1px solid #262626!important;
         color:#fff!important;
+        float:left!important;
         font-size:9px!important;
         text-transform:uppercase;
         height:22px!important;
@@ -40,7 +41,7 @@
         -moz-transition:all .1s ease-in-out;
         -o-transition:all .1s ease-in-out
     }
-    input[type=file] > input[type=button]:hover
+    input[type="file"] > input[type="button"]:hover
     {
         background:rgba(33,33,33,0.9)!important;
     }
@@ -55,8 +56,9 @@
         border:0 solid transparent!important;
         border-bottom:1px solid #101010!important;
         border-top:1px solid #262626!important;
+        float:right!important;
         height:22px!important;
-        margin-right:1px!important;
+        margin-left:1px!important;
         width:227px!important;
     }
     select > button,
@@ -76,11 +78,11 @@
     }
     scrollbar[orient="vertical"]
     {
-        width:10px!important;
+        width:8px!important;
     }
     scrollbar[orient="horizontal"]
     {
-        height:10px!important;
+        height:8px!important;
     }
     scrollbar thumb
     {
