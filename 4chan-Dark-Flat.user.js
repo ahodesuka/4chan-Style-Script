@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name          4chan Dark Flat
 // @author        ahoka
+// @version       1.1
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       https://boards.4chan.org/*
-// @updateURL     https://github.com/ahoka-/4chan-Dark-Flat/raw/master/4chan-Dark-Flat.user.js
+// @updateURL     https://github.com/ahodesuka/4chan-Dark-Flat/raw/master/4chan-Dark-Flat.user.js
 // ==/UserScript==
 (function(){
     var config =
@@ -34,7 +35,7 @@
         ]),
         "_4chlinks": '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/g/">technology</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/v/">video games</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/jp/">japan</a>'
     },
-    inBefore, tag, getValue, __hasProp, postTabText, bgPattern, checkMark,
+    getValue, __hasProp, postTabText, bgPattern, checkMark,
     uThemes, uTheme, uFont, uFontSize, sFontSize, uShowLogo, uPageInNav, uShowAnn, uHideRForm, uHentai, uSScroll,
     fonts, fontSizes = [], options, css;
     
@@ -74,56 +75,6 @@
     }
     /* END LICENSE */
     
-    /* Thanks to aeosynth */
-    /* LICENSE
-     *
-     * Copyright (c) 2009-2011 James Campos <james.r.campos@gmail.com>
-     *
-     * Permission is hereby granted, free of charge, to any person
-     * obtaining a copy of this software and associated documentation
-     * files (the "Software"), to deal in the Software without
-     * restriction, including without limitation the rights to use,
-     * copy, modify, merge, publish, distribute, sublicense, and/or sell
-     * copies of the Software, and to permit persons to whom the
-     * Software is furnished to do so, subject to the following
-     * conditions:
-     *
-     * The above copyright notice and this permission notice shall be
-     * included in all copies or substantial portions of the Software.
-     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-     * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-     * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-     * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-     * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-     * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-     * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-     * OTHER DEALINGS IN THE SOFTWARE.
-     */
-    function addStyle() // Edited -ahoka
-    {
-        document.removeEventListener("DOMNodeInserted", addStyle, false);
-        var head = document.head;
-        
-        if (!head) // firefox
-        {
-            document.addEventListener("DOMNodeInserted", addStyle, false);
-            return;
-        }
-            
-        var style = document.createElement("style");
-        style.textContent = (arguments.length > 0 && typeof arguments[0] === "string") ? arguments[0] : css;
-        head.appendChild(style);
-    }
-    inBefore = function(root, el)
-    {
-        return root.parentNode.insertBefore(el, root);
-    };
-    tag = function(el)
-    {
-        return document.createElement(el);
-    };
-    /* END LICENSE */
-    
     getValue = function(name)
     {
         return GM_getValue(name, config[name]);
@@ -155,31 +106,55 @@
     {
         var SSf = window.$ = function(selector, root)
         {
-            if (window == this || !this.init)
-                return new SSf(selector, root);
-                
-            return this.init(selector, root);
+            return this instanceof SSf ?
+                this.init(selector, root) : new SSf(selector, root);
         };
         
         SSf.prototype = 
         {
-            constructor: "SSf",
+            constructor: SSf,
             elems: [],
+            length: function(){ return this.elems.length; },
             
             init: function(selector, root)
             {
                 if (typeof selector === "string")
                 {
-                    var root = root || document.body;
-                    if (root.constructor.toString() == "SSf")
-                        root = root.get();
+                    var root = root || document;
+                    var tagCheck = /^<(\w+)([^>]*)>(.*)$/.exec(selector); // NO CLOSING TAGS FOR MAIN NODE
                     
-                    var results = root.querySelectorAll(selector);
+                    if (root.constructor == SSf)
+                        root = root.get();
                         
-                    this.elems = Array.prototype.slice.call(results);
+                    if (tagCheck)
+                    {
+                        var tag = root.createElement(tagCheck[1]);
+                        
+                        if (tagCheck[2])
+                        {
+                            var attribs, atRegEx = /(\w+)=((?:"(?:[^"]+)"|'(?:[^']+)'|(?:\w+)))/g;
+                            while ((attribs = atRegEx.exec(tagCheck[2])) != null)
+                            {
+                                var val = attribs[2];
+                                if ((val[0] == '"' || val[0] == '\'') && val[0] == val[val.length-1])
+                                    val = val.substr(1, val.length-2)
+                                
+                                tag.setAttribute(attribs[1], val);
+                            }
+                        }
+                            
+                        tag.innerHTML = tagCheck[3];
+                        
+                        this.elems = [ tag ];
+                    }
+                    else
+                    {
+                        var results = root.querySelectorAll(selector);
+                        this.elems = Array.prototype.slice.call(results);
+                    }
                 }
                 else if (selector.nodeType)
-                    this.elems[0] = selector;
+                    this.elems = [ selector ];
                 
                 return this;
             },
@@ -204,6 +179,9 @@
             
             append: function(ele)
             {
+                if (ele.constructor == SSf)
+                    ele = ele.get();
+                console.log(this.elems[0]);
                 for (var i = 0, MAX = this.elems.length; i < MAX; i++)
                     this.elems[i].appendChild(ele);
                 
@@ -212,9 +190,39 @@
             
             prepend: function(ele)
             {
+                if (ele.constructor == SSf)
+                    ele = ele.get();
+                    
                 for (var i = 0, MAX = this.elems.length; i < MAX; i++)
                     this.elems[i].insertBefore(ele, this.elems[i].firstChild);
                     
+                return this;
+            },
+            
+            html: function(html)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].innerHTML = html;
+                    
+                return this;
+            },
+            
+            appendHTML: function(html)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].innerHTML += html;
+                    
+                return this;
+            },
+            
+            attr: function(name, value)
+            {
+                if (value == null)
+                    return this.elems[0].getAttribute(name);
+                else
+                    for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                        this.elems[i].setAttribute(name, value);
+                        
                 return this;
             },
             
@@ -271,14 +279,6 @@
                 return this;
             },
             
-            html: function(html)
-            {
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].innerHTML = html;
-                    
-                return this;
-            },
-            
             remove: function()
             {
                 for (var i = 0, MAX = this.elems.length; i < MAX; i++)
@@ -300,6 +300,14 @@
                     
                 return this;
             },
+            
+            unbind: function(type, listener)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].removeEventListener(type, listener, false);
+                    
+                return this;
+            },
         };
     })();
     
@@ -308,28 +316,24 @@
     {
         init: function()
         {
-            var a = tag("a");
-            a.textContent = "Theme";
-            a.addEventListener("click", options.show, false);
-            
+            var a = $("<a>Theme</a>").bind("click", options.show);
             return $("#navtopr").append(a);
         },
         show: function()
         {
-            var _c, checked, overlay, div, hiddenNum, option, html;
+            var _c, checked, option;
             
             if ($("#overlay").exists())
                 return options.close();
             else
             {
-                overlay = tag("div");
-                overlay.id = "overlay";
+                var overlay = $("<div id=overlay>");
+                var tOptions = $("<div id=themeoptions class=reply>");
                 
-                div = tag("div");
-                div.id = "themeoptions";
-                div.className = "reply";
+                console.log(overlay.elems);
+                console.log(tOptions.elems);
                 
-                html = "<ul id=toNav>\
+                var optionsHTML = "<ul id=toNav>\
                 <li><label class=selected for=tcbMain>Main</label></li>\
                 <li><label for=tcbTheme>Theme</label></li>\
                 <li><label for=tcbNavLinks>Nav Links</label></li>\
@@ -345,51 +349,51 @@
                     
                     if (option == "Font")
                     {
-                        html += "<label><span>" + option + "</span><select name=Font>";
+                        optionsHTML += "<label><span>" + option + "</span><select name=Font>";
                         
                         for (var i = 0, MAX = fonts.length; i < MAX; i++)
-                             html += "<option value='" + fonts[i] + "'" + (fonts[i] == uFont ? " selected" : "") + ">" + fonts[i] + "</option>";
+                             optionsHTML += "<option value='" + fonts[i] + "'" + (fonts[i] == uFont ? " selected" : "") + ">" + fonts[i] + "</option>";
                         
-                        html += "</select></label>";
+                        optionsHTML += "</select></label>";
                     }
                     else if (option == "Font Size")
                     {
-                        html += "<label><span>" + option + "</span><select name='Font Size'>";
+                        optionsHTML += "<label><span>" + option + "</span><select name='Font Size'>";
                         
                         for (var i = 0, MAX = fontSizes.length; i < MAX; i++)
-                             html += "<option value=" + fontSizes[i].size + (fontSizes[i].size == getValue(option) ? " selected" : "") + ">" + fontSizes[i].name + "</option>";
+                             optionsHTML += "<option value=" + fontSizes[i].size + (fontSizes[i].size == getValue(option) ? " selected" : "") + ">" + fontSizes[i].name + "</option>";
                         
-                        html += '</select></label>';
+                        optionsHTML += '</select></label>';
                     }
                     else if (option != "_4chlinks" && option != "Themes")
-                        html += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type=checkbox></label>';
+                        optionsHTML += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type=checkbox></label>';
                     else if (option == "Themes")
                     {
-                        html += "</div><input type=radio name=toTab id=tcbTheme hidden><div id=tTheme><a class=trbtn name=add>add</a>";
+                        optionsHTML += "</div><input type=radio name=toTab id=tcbTheme hidden><div id=tTheme><a class=trbtn name=add>add</a>";
                         
                         for (var i = 0, MAX = uThemes.length, tTheme; i < MAX; i++)
                         {
                             tTheme = new Theme(uThemes[i].bg, uThemes[i].linkColor, uThemes[i].enabled);
-                            html += "<div id=theme" + i + (tTheme.enabled ? " class=selected" : "") + ">\
+                            optionsHTML += "<div id=theme" + i + (tTheme.enabled ? " class=selected" : "") + ">\
                             <a title=Delete>X</a><a title=Edit>E</a>\
                             <img src='" + tTheme.background() + "'></div>";
                         }
                     }
                     else if (option == "_4chlinks")
-                        html += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><textarea name=_4chlinks>" + getValue("_4chlinks") + "</textarea></div>";
+                        optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><textarea name=_4chlinks>" + getValue("_4chlinks") + "</textarea></div>";
                 }
                 
-                html += "</div><div><a class=trbtn name=save>save</a><a class=trbtn name=cancel>cancel</a></div>";
-                div.innerHTML = html;
-                overlay.appendChild(div);
+                optionsHTML += "</div><div><a class=trbtn name=save>save</a><a class=trbtn name=cancel>cancel</a></div>";
+                tOptions.html(optionsHTML);
+                overlay.append(tOptions);
                 
-                $("#toNav li label", div).bind("click", function(e)
+                $("#toNav li label", tOptions).bind("click", function(e)
                 {
                     $("#toNav li label.selected").removeClass("selected");
                     $(this).addClass("selected");
                 });
                 
-                $("#tTheme div", div).each(function()
+                $("#tTheme div", tOptions).each(function()
                 {
                     $(this).bind("click", function(e)
                     {
@@ -408,9 +412,9 @@
                     });
                 });
                 
-                $("a[name=add]", div).bind("click", options.showTheme);
-                $("a[name=save]", div).bind("click", options.save);
-                $("a[name=cancel]",div).bind("click", function(){ return $("#overlay").remove(); });
+                $("a[name=add]", tOptions).bind("click", options.showTheme);
+                $("a[name=save]", tOptions).bind("click", options.save);
+                $("a[name=cancel]",tOptions).bind("click", function(){ return $("#overlay").remove(); });
                 
                 return $(document.body).append(overlay);
             }
@@ -461,15 +465,13 @@
                     tEdit = uThemes[tIndex];
                 
             var div, overly;
-            div = tag("div");
-            div.id = "addTheme";
-            div.innerHTML = "<label><span title='URL or base64'>Background:</span><textarea name=customBG>" + (bEdit ? tEdit.bg : "") + "</textarea></label>\
+            div = $("<div id=addTheme>");
+            div.html("<label><span title='URL or base64'>Background:</span><textarea name=customBG>" + (bEdit ? tEdit.bg : "") + "</textarea></label>\
                     <label title='i.e. #FF6999'><span>Link Color (Hex.):</span><input type=text name=customLColor value='" + (bEdit ? tEdit.linkColor : "") + "'></label>\
-                    <div><a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>";
+                    <div><a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>");
             
-            overlay = tag("div");
-            overlay.id = "overlay2";
-            overlay.appendChild(div);
+            overlay = $("<div id=overlay2>");
+            overlay.append(div);
             
             if (bEdit)
                 $("a[name=edit]", div).bind("click", function(){ options.addTheme(tIndex); });
@@ -515,11 +517,7 @@
                 nTheme = new Theme(cBG, cLColor, true);
                 uThemes.push(nTheme);
                 
-                div = tag("div");
-                div.id = "theme" + (uThemes.length - 1);
-                div.className = "selected";
-                div.innerHTML = "<a title=Delete>X</a><a title=Edit>E</a><img src='" + nTheme.background() + "'>";
-                    
+                div = $("<div id=theme" + (uThemes.length - 1) + " class=selected><a title=Delete>X</a><a title=Edit>E</a><img src='" + nTheme.background() + "'>");
                 $("a[title=Delete]", div).bind("click", function(e)
                 {
                     e.stopPropagation();
@@ -905,7 +903,12 @@
         css += ".pages{background:transparent!important;height:18px!important;margin:0!important;border:none!important;bottom:0!important;left:0!important;z-index:3!important}\
                 .pages input{height:18px!important;top:0!important}";
 
-    addStyle();
+    var insertStyle = function(e)
+    {
+        $(document).unbind("DOMNodeInserted", insertStyle);
+        $(document.head).append($("<style type='text/css' id=ch4SS>" + css));
+    };
+    $(document).bind("DOMNodeInserted", insertStyle);
     /* END STYLING */
     
     /* DOM MANIPULATION */
@@ -922,10 +925,8 @@
             $("#navtop").html(getValue("_4chlinks"));
         else
         {
-            var navH = tag("a"), boardTitle = $(".logo span").textContent.match(/\/\w{1,3}\/\s-\s(.*)/i, "");
-            navH.textContent = boardTitle != null ? boardTitle[1] : $(".logo span").textContent;
-            navH.id = "navHover";
-            navH.href = window.location.href.match(/(https?:\/\/boards\.4chan\.org\/(\w{1,3})\/)/i, "")[1];
+            var navH = $("<a id=navHover href='" + window.location.href.match(/(https?:\/\/boards\.4chan\.org\/(\w{1,3})\/)/i, "")[1] + "'>" +
+                (boardTitle = $(".logo span").textContent.match(/\/\w{1,3}\/\s-\s(.*)/i, "")) != null ? boardTitle[1] : $(".logo span").textContent);
             $("#navtop").prepend(navH);
             
             postLoadCSS += "#navHover{display:inline-block;position:absolute;padding:10px 50px 0!important;top:-10px}\
@@ -1007,7 +1008,7 @@
             }, false);
         }
             
-        addStyle(postLoadCSS);
+        $("#ch4SS").appendHTML(postLoadCSS);
     }
     /* END DOM MANIPULATION */
     
@@ -1023,14 +1024,10 @@
             
             if (!$("a.exSource", node).exists())
             {
-                var a = tag("a");
-                a.innerHTML = "exhentai";
-                a.href = targets[i].parentNode.href;
-                a.addEventListener("click", fetchImage, false);
-                a.className = "exSource";
+                var a = $("<a class=exSource href='" + targets[i].parentNode.href + "'>exhentai");
+                a.bind("click", fetchImage);
                 
-                node.appendChild(document.createTextNode(" "));
-                node.appendChild(a);
+                $(node).append(document.createTextNode(" ")).append(a);
             }
         }
     }
@@ -1042,6 +1039,7 @@
         
         var a = e.target;
         a.textContent = "loading";
+        
         GM_xmlhttpRequest(
         {
             method: "GET",
@@ -1056,41 +1054,35 @@
     function checkTitles(anchor, data)
     {
         var hash = sha1Hash(data_string(data));
-        anchor.innerHTML = "checking";
+        anchor = $(anchor);
         
-        anchor.href = "http://exhentai.org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1";
-        anchor.removeEventListener("click", fetchImage);
+        anchor.html("checking")
+              .attr("href", "http://exhentai.org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1")
+              .unbind("click", fetchImage);
         
         GM_xmlhttpRequest(
         {
             method: "GET",
-            url: anchor.href,
+            url: anchor.attr("href"),
             data: anchor,
             onload: function(x)
             {
-                var temp = tag("div");                
-                temp.innerHTML = x.responseText;
-                var results = temp.querySelectorAll("div.it3 > a:not([rel='nofollow']), div.itd2 > a:not([rel='nofollow'])");
+                var temp = $("<div>");                
+                temp.html(x.responseText);
+                var results = $("div.it3 > a:not([rel='nofollow']), div.itd2 > a:not([rel='nofollow'])", temp);
                 
-                anchor.innerHTML = "found: " + results.length;
-                anchor.target = "_blank";
+                anchor.html("found: " + results.length()).attr("target", "_blank");
                 
-                if (results.length > 0)
+                if (results.length() > 0)
                 {
-                    anchor.className += " exFound";
+                    var div = $("<div class=exPopup id=ex" + hash + ">");
+                    anchor.addClass("exFound").append(div);
                     
-                    var div = tag("div");
-                    div.className = "exPopup";
-                    div.id = "ex" + hash;    
-                    anchor.appendChild(div);
-                    
-                    for (var i = 0, MAX = results.length; i < MAX; i++)
+                    for (var i = 0, MAX = results.length(); i < MAX; i++)
                     {
-                        var a = tag("a");
-                        a.innerHTML = results[i].innerHTML;
-                        a.href = results[i].href;
-                        a.target = "_blank";
-                        div.appendChild(a);
+                        var ret = results.get(i);
+                        var a = $("<a href='" + ret.href + "' target=_blank>" + ret.innerHTML);
+                        div.append(a);
                     }
                 }
             }
