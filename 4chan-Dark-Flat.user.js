@@ -220,14 +220,6 @@
                 return this;
             },
             
-            appendHTML: function(html)
-            {
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].innerHTML += html;
-                    
-                return this;
-            },
-            
             text: function(text)
             {
                 if (text == undefined)
@@ -235,6 +227,14 @@
                 
                 for (var i = 0, MAX = this.elems.length; i < MAX; i++)
                     this.elems[i].textContent = text;
+                    
+                return this;
+            },
+            
+            appendText: function(text)
+            {
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    this.elems[i].textContent += text;
                     
                 return this;
             },
@@ -931,7 +931,11 @@
 
     var insertStyle = function(e)
     {
-        $(document).unbind("DOMNodeInserted", insertStyle);
+        if ($(document.head).exists())
+            $(document).unbind("DOMNodeInserted", insertStyle);
+        else
+            return;
+            
         $(document.head).append($("<style type='text/css' id=ch4SS>" + css));
     };
     $(document).bind("DOMNodeInserted", insertStyle);
@@ -1034,7 +1038,7 @@
             });
         }
             
-        $("#ch4SS").appendHTML(postLoadCSS);
+        $("#ch4SS").appendText(postLoadCSS);
     }
     /* END DOM MANIPULATION */
     
@@ -1096,15 +1100,16 @@
                 var temp = $("<div>");                
                 temp.html(x.responseText);
                 var results = $("div.it3 > a:not([rel='nofollow']), div.itd2 > a:not([rel='nofollow'])", temp);
+                var MAX = results.length();
                 
-                anchor.html("found: " + results.length()).attr("target", "_blank");
+                anchor.html("found: " + MAX).attr("target", "_blank");
                 
-                if (results.length() > 0)
+                if (MAX > 0)
                 {
                     var div = $("<div class=exPopup id=ex" + hash + ">");
                     anchor.addClass("exFound").append(div);
                     
-                    for (var i = 0, MAX = results.length(); i < MAX; i++)
+                    for (var i = 0; i < MAX; i++)
                     {
                         var ret = results.get(i);
                         var a = $("<a href='" + ret.href + "' target=_blank>" + ret.innerHTML);
