@@ -1,107 +1,70 @@
 // ==UserScript==
-// @name          4chan Dark Flat
+// @name          4chan Style Script
 // @author        ahoka
-// @version       1.1.1
+// @version       1.2
 // @run-at        document-start
-// @include       http://boards.4chan.org/*
-// @include       https://boards.4chan.org/*
-// @updateURL     https://github.com/ahodesuka/4chan-Dark-Flat/raw/master/4chan-Dark-Flat.user.js
+// @include       http://*.4chan.org/*
+// @match         http://*.4chan.org/*
+// @updateURL     https://github.com/ahodesuka/4chan-Style-Script/raw/master/4chanSS.user.js
 // ==/UserScript==
 (function(){
-    var config = // TODO: Rewrite the config using JSON array, add descriptions.
+    var defaultConfig =
     {
-        "Show Announcements": true,
-        "Show Logo": true,
-        "Hide Reply Form": false,
-        "Auto noko": true,
-        "Pages in nav": false, // TODO: Add fixed rotated pages in margin option.
-        "Custom nav links": true,
-        "Style Scrollbars": true,
-        "ExHentai Source": false,
-        "Font": "Calibri",
-        "Font Size": 12,
+        "Show Announcements": [ true, "Toggle visibility of announcements made by staff" ],
+        "Show Logo":          [ true, "Toggle visibility of board name and logo" ],
+        "Replace Reply Form": [ true, "Replaces the default reply form with 4chan x's QR form" ],
+        "Pages Location":
+        [
+            1, "Change the location of the page links",
+            [
+                { name: "Bottom Left Slide Out", value: 1 },
+                { name: "In Navigation Bar",     value: 2 },
+                { name: "Fixed Vertically",      value: 3 }
+            ]
+        ],
+        "Custom Navigation Links": [ true, "Use specified links instead of showing all boards" ],
+        "Style Scrollbars":        [ true, "Make the scroll bar match the theme (Chrome Only)" ],
+        "ExHentai Source":         [ false, "Adds a quick link to perform a file search through ExHentai (You must be logged into exhentai for it to work)" ],
+        "Font":                    [ "Calibri", "Set the default font family" ],
+        "Font Size":               [ 12, "Set the general size of text (Pixels)" ],
+        "Fonts":                   [ [ "Ubuntu", "Consolas", "Droid Sans", "Terminus", "Segoe UI", "Calibri", "Arial", "Lucida Grande", "Helvetica" ] ],
+        "Mascots":
+        [
+            { img: "http://img88.imageshack.us/img88/2449/eriobg.png",        color: "6cb2ee", enabled: true },
+            { img: "http://img848.imageshack.us/img848/3976/fatebg.png",      color: "e1d550", enabled: true },
+            { img: "http://img823.imageshack.us/img823/9940/kurimubg.png",    color: "ce717d", enabled: true },
+            { img: "http://img217.imageshack.us/img217/2928/homubg.png",      color: "886999", enabled: true },
+            { img: "http://img525.imageshack.us/img525/9757/horobg.png",      color: "a46e41", enabled: true },
+            { img: "http://img225.imageshack.us/img225/6970/patchoulibg.png", color: "8b58c0", enabled: true },
+            { img: "http://img821.imageshack.us/img821/1281/shanabg.png",     color: "ef4353", enabled: true },
+            { img: "http://img94.imageshack.us/img94/629/shikibg.png",        color: "aaaaaa", enabled: true },
+            { img: "http://img834.imageshack.us/img834/1904/tessabg.png",     color: "857d92", enabled: true },
+            { img: "http://img16.imageshack.us/img16/3190/yinbg.png",         color: "d1dfef", enabled: true }
+        ],
+        "Nav Links":
+        [
+            { text: "anime & manga", link: "http://boards.4chan.org/a/"  },
+            { text: "anime/cute",    link: "http://boards.4chan.org/c/"  },
+            { text: "technology",    link: "http://boards.4chan.org/g/"  },
+            { text: "video games",   link: "http://boards.4chan.org/v/"  },
+            { text: "otaku culture", link: "http://boards.4chan.org/jp/" }
+        ],
         "Themes":
-        JSON.stringify([
-            { bg: "http://img88.imageshack.us/img88/2449/eriobg.png", linkColor: "#6cb2ee", enabled: true },
-            { bg: "http://img848.imageshack.us/img848/3976/fatebg.png", linkColor: "#e1d550", enabled: true },
-            { bg: "http://img823.imageshack.us/img823/9940/kurimubg.png", linkColor: "#ce717d", enabled: true },
-            { bg: "http://img217.imageshack.us/img217/2928/homubg.png", linkColor: "#886999", enabled: true },
-            { bg: "http://img525.imageshack.us/img525/9757/horobg.png", linkColor: "#a46e41", enabled: true },
-            { bg: "http://img225.imageshack.us/img225/6970/patchoulibg.png", linkColor: "#8b58c0", enabled: true },
-            { bg: "http://img821.imageshack.us/img821/1281/shanabg.png", linkColor: "#ef4353", enabled: true },
-            { bg: "http://img94.imageshack.us/img94/629/shikibg.png", linkColor: "#aaaaaa", enabled: true },
-            { bg: "http://img834.imageshack.us/img834/1904/tessabg.png", linkColor: "#857d92", enabled: true },
-            { bg: "http://img16.imageshack.us/img16/3190/yinbg.png", linkColor: "#d1dfef", enabled: true }
-        ]),
-        "_4chlinks": '<a href="http://boards.4chan.org/a/">anime &amp; manga</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/c/">anime/cute</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/g/">technology</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/v/">video games</a>&nbsp;-&nbsp;\n<a href="http://boards.4chan.org/jp/">japan</a>'
-    },
-    getValue, postTabText, bgPattern, checkMark,
-    uThemes, uTheme, uFont, uFontSize, sFontSize, uShowLogo, uPageInNav, uShowAnn, uHideRForm, uHentai, uSScroll,
-    fonts, fontSizes = [], options, css;
+        [
+            {  }
+        ]
+    }, SSf, options, $SS, config, postTabText, bgPattern, checkMark, theme, mascot, css;
     
-    // @copyright      2009, 2010 James Campos
-    // @license        cc-by-3.0; http://creativecommons.org/licenses/by/3.0/
-    if (typeof GM_deleteValue === "undefined")
-    {
-        GM_deleteValue = function(name)
-        {
-            localStorage.removeItem(name);
-        }
-        GM_getValue = function(name, defaultValue)
-        {
-            var value = localStorage.getItem(name);
-            if (!value)
-                return defaultValue;
-                
-            var type = value[0];
-            value = value.substring(1);
-            
-            switch (type)
-            {
-                case 'b':
-                    return value == 'true';
-                case 'n':
-                    return Number(value);
-                default:
-                    return value;
-            }
-        }
-        GM_setValue = function(name, value)
-        {
-            value = (typeof value)[0] + value;
-            localStorage.setItem(name, value);
-        }
-    }
-    /* END LICENSE */
-    
-    getValue = function(name)
-    {
-        return GM_getValue(name, config[name]);
-    };
-    
-    postTabText  = (window.location.href.match(/.*\/res\/.*/i)) ? "NEW REPLY" : "NEW THREAD";
-    bgPattern    = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7";
-    checkMark    = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABwSURBVHjalI+rDYBAEEQfSCwnETiqwtEIBdAHjgIoAIE4hUBBDeT8YC5swkcw6+ZlsjOJeFfKl8QtUzEIPYBjIRioo50zIXYDgR7I8AixGjgQHSNCeEoDLYo3kUcvPm8QYsZdTa9WLRuFTUh+Lz8HABdVPTT1adyuAAAAAElFTkSuQmCC";
+    postTabText = /^.*\/res\/.*$/i.test(window.location.href) ? "NEW REPLY" : "NEW THREAD";
+    bgPattern   = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7";
+    checkMark   = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABwSURBVHjalI+rDYBAEEQfSCwnETiqwtEIBdAHjgIoAIE4hUBBDeT8YC5swkcw6+ZlsjOJeFfKl8QtUzEIPYBjIRioo50zIXYDgR7I8AixGjgQHSNCeEoDLYo3kUcvPm8QYsZdTa9WLRuFTUh+Lz8HABdVPTT1adyuAAAAAElFTkSuQmCC";
     // TODO: Change this ugly ass checkmark.
     
-    uThemes      = JSON.parse(getValue("Themes"));
-    uFont        = getValue("Font");
-    uFontSize    = getValue("Font Size");
-    sFontSize    = uFontSize > 11 ? 12 : 11;
-    uShowLogo    = getValue("Show Logo");
-    uPageInNav   = getValue("Pages in nav");
-    uShowAnn     = getValue("Show Announcements");
-    uHideRForm   = getValue("Hide Reply Form");
-    uHentai      = getValue("ExHentai Source");
-    uSScroll     = getValue("Style Scrollbars");
+    if (!Array.isArray)
+        Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
     
-    // TODO: Custom font faces & sizes.
-    fonts        = new Array("Ubuntu", "Consolas", "Droid Sans", "Terminus", "Segoe UI", "Calibri", "Arial", "Lucida Grande", "Helvetica");
-    fontSizes[0] = { name: "Small", size: 11 };
-    fontSizes[1] = { name: "Normal", size: 12 };
-    fontSizes[2] = { name: "Large", size: 14 };
-    fontSizes[3] = { name: "Larger", size: 16 };
-    
+    /* STYLE SCRIPT FRAMEWORK */
+    /* More or less based of jQuery */
     (function()
     {
         var SSf = window.$ = function(selector, root)
@@ -116,6 +79,7 @@
             elems: [],
             length: function(){ return this.elems.length; },
             
+            /* CONSTRUCTOR */
             init: function(selector, root)
             {
                 if (typeof selector === "string")
@@ -123,6 +87,9 @@
                     var root = root || document;
                     var tagCheck = /^<(\w+)([^>]*)>(.*)$/.exec(selector); // NO CLOSING TAGS FOR MAIN NODE
                     
+                    if (selector.constructor == SSf)
+                        selector = selector.get(); 
+                        
                     if (root.constructor == SSf)
                         root = root.get();
                         
@@ -159,14 +126,7 @@
                 return this;
             },
             
-            each: function(func, args)
-            {
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    func.apply(this.elems[i], args || [ i ]);
-                    
-                return this;
-            },
-            
+            /* DOM NODE RETRIEVAL */
             elements: function()
             {
                 if (this.elems > 1)
@@ -176,7 +136,6 @@
                 
                 return this;
             },
-            
             get: function(index)
             {
                 if (index == undefined && this.elems.length == 1)
@@ -187,102 +146,94 @@
                 return this.elems[index];
             },
             
-            append: function(ele)
+            /* DOM MANIPULATION */
+            prepend: function(el)
             {
-                if (ele.constructor == SSf)
-                    ele = ele.get();
-                
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].appendChild(ele);
-                
-                return this;
+                if (el.constructor == SSf)
+                    el = el.get();
+                    
+                return this.each(function(el){ this.insertBefore(el, this.firstChild); }, el);
             },
-            
-            prepend: function(ele)
+            append: function(el)
             {
-                if (ele.constructor == SSf)
-                    ele = ele.get();
-                    
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].insertBefore(ele, this.elems[i].firstChild);
-                    
-                return this;
+                if (el.constructor == SSf)
+                    el = el.get();
+                
+                return this.each(function(el){ this.appendChild(el); }, el);
             },
-            
+            before: function(el)
+            {
+                if (el.constructor == SSf)
+                    el = el.get();
+                    
+                return this.each(function(el){ this.parentNode.insertBefore(el, this); }, el);
+            },
+            after: function(el)
+            {
+                if (el.constructor == SSf)
+                    el = el.get();
+                    
+                return this.each(function(el)
+                {
+                    if (this.nextSibling != null)
+                        this.parentNode.insertBefore(el, this.nextSibling);
+                    else if (this.parentNode != null)
+                        this.parentNode.appendChild(el);
+                }, el);
+            },
             html: function(html)
             {
                 if (html == undefined)
                     return this.elems[0].innerHTML;
                     
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].innerHTML = html;
-                    
-                return this;
+                return this.each(function(html){ this.innerHTML = html; }, html);
             },
-            
             text: function(text)
             {
                 if (text == undefined)
                     return this.elems[0].textContent;
                 
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].textContent = text;
-                    
-                return this;
+                return this.each(function(text){ this.textContent = text; }, text);
             },
-            
             appendText: function(text)
             {
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].textContent += text;
-                    
-                return this;
+                return this.each(function(text){ this.textContent += text; }, text);
             },
             
-            attr: function(name, value)
+            attr: function(name, val)
             {
-                if (value == undefined)
+                if (val == undefined)
                     return this.elems[0].getAttribute(name);
-                else
-                    for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                        this.elems[i].setAttribute(name, value);
                         
-                return this;
+                return this.each(function(name, val){ this.setAttribute(name, val); }, [ name, val ]);
             },
-            
             val: function(val)
             {
                 if (val == undefined)
                 {
-                    var ele = this.elems[0];
-                    switch(ele.type)
+                    var el = this.elems[0];
+                    switch(el.type)
                     {
                         case "checkbox":
                         case "radio":
-                            return ele.checked;
+                            return el.checked;
                         default:
-                            return ele.value;
+                            return el.value;
                     }
                 }
                 
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].value = val;
-                
-                return this;
+                return this.each(function(val){ this.value = val; }, val);
             },
-            
             addClass: function(classNames)
             {
-                classNames = classNames.split(' ');
-                
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                return this.each(function(classNames)
+                {
+                    classNames = classNames.split(' ');
                     for (var j = 0, jMAX = classNames.length; j < jMAX; j++)
-                        if (!$(this.elems[i]).hasClass(classNames[j]))
-                            this.elems[i].className += (this.elems[i].className ? " " : "") + classNames[j];
-                
-                return this;
+                        if (!$(this).hasClass(classNames[j]))
+                            this.className += (this.className ? " " : "") + classNames[j];
+                }, classNames);
             },
-            
             hasClass: function(className)
             {
                 if (this.elems.length > 1)
@@ -290,136 +241,196 @@
                 
                 return this.elems[0].className.indexOf(className) != -1;
             },
-            
             removeClass: function(classNames)
             {
-                classNames = classNames.split(' ');
-                
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                return this.each(function(classNames)
+                {
+                    classNames = classNames.split(' ');
                     for (var j = 0, jMAX = classNames.length; j < jMAX; j++)
-                        if ($(this.elems[i]).hasClass(classNames[j]))
+                        if ($(this).hasClass(classNames[j]))
                         {
-                            var iclassNames = this.elems[i].className.split(' ');
-                            this.elems[i].className = "";
+                            var cclassNames = this.className.split(' ');
+                            this.className = "";
                             
-                            for (var k = 0, kMAX = iclassNames.length; k < kMAX; k++)
-                                if (classNames[k] != classNames[i])
-                                    this.elems[i].className += (this.elems[i].className ? " " : "") + classNames[k];
+                            for (var k = 0, kMAX = cclassNames.length; k < kMAX; k++)
+                                if (classNames[k] != classNames[j])
+                                    this.className += (this.className ? " " : "") + classNames[k];
                         }
-                
-                return this;
+                }, classNames);
             },
-            
             toggleClass: function(classNames)
             {
-                classNames = classNames.split(' ');
-                
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                return this.each(function(classNames)
+                {
+                    classNames = classNames.split(' ');
                     for (var j = 0, jMAX = classNames.length; j < jMAX; j++)
-                        if (!$(this.elems[i]).hasClass(classNames[j]))
-                            $(this.elems[i]).addClass(classNames[j]);
+                        if (!$(this).hasClass(classNames[j]))
+                            $(this).addClass(classNames[j]);
                         else
-                            $(this.elems[i]).removeClass(classNames[j]);
-                
-                return this;
+                            $(this).removeClass(classNames[j]);
+                }, classNames);
             },
-            
             remove: function()
             {
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].parentNode.removeChild(this.elems[i]);
-                    
-                return false;
-            
+                return this.each(function(){ this.parentNode.removeChild(this); });
             },
             
+            /* DOM TRAVERSING */
+            parent: function()
+            {
+                if (this.elems.length > 1)
+                    return false;
+                
+                return new SSf(this.elems[0].parentNode);
+            },
+            children: function(selector)
+            {
+                if (this.elems.length > 1)
+                    return false;
+                else if (selector == null)
+                    selector = "*";
+                
+                return new SSf(selector, this.elems[0]);
+            },
+            nextSibling: function(selector)
+            {
+                if (this.elems.length > 1 ? true : this.elems[0].nextSibling == null)
+                    return false;
+                
+                if (selector != undefined)
+                {
+                    var t, m = new SSf(selector, this.elems[0].parentNode),
+                        s = this.elems[0].parentNode.childNodes;
+                    
+                    for (var i = s.length - 1; i > 0; i--)
+                        if (s[i] == this.elems[0] && t == undefined)
+                            return false;
+                        else if (s[i] == this.elems[0] && t != undefined)
+                            return new SSf(t);
+                        else if (m.elems.indexOf(s[i]) != -1)
+                            t = s[i];
+                }
+                return new SSf(this.elems[0].nextSibling);
+            },
+            previousSibling: function(selector)
+            {
+                if (this.elems.length > 1 ? true : this.elems[0].previousSibling == null)
+                    return false;
+                
+                if (selector != undefined)
+                {
+                    var t, m = new SSf(selector, this.elems[0].parentNode),
+                        s = this.elems[0].parentNode.childNodes;
+                    
+                    for (var i = 0, MAX = s.length; i < MAX; i++)
+                        if (s[i] == this.elems[0] && t == undefined)
+                            return false;
+                        else if (s[i] == this.elems[0] && t != undefined)
+                            return new SSf(t);
+                        else if (m.elems.indexOf(s[i]) != -1)
+                            t = s[i];
+                }
+                
+                return new SSf(this.elems[0].previousSibling);
+            },
+            
+            /* EVENT METHODS */
+            bind: function(type, listener)
+            {
+                return this.each(function(type, listener){ this.addEventListener(type, listener, false); }, [ type, listener ]);
+            },
+            unbind: function(type, listener)
+            {
+                return this.each(function(type, listener){ this.removeEventListener(type, listener, false); }, [ type, listener ]);
+            },
+            
+            /* HELPER METHODS */
+            each: function(func, args)
+            {
+                if (args != null && !Array.isArray(args))
+                    args = [ args ];
+                
+                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+                    func.apply(this.elems[i], args || [ i ]);
+                    
+                return this;
+            },
             exists: function()
             {
                 return this.elems.length > 0;
-            },
-            
-            bind: function(type, listener)
-            {
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].addEventListener(type, listener, false);
-                    
-                return this;
-            },
-            
-            unbind: function(type, listener)
-            {
-                for (var i = 0, MAX = this.elems.length; i < MAX; i++)
-                    this.elems[i].removeEventListener(type, listener, false);
-                    
-                return this;
-            },
+            }
         };
     })();
+    /* END STYLE SCRIPT FRAMEWORK */
     
     /* OPTIONS */
     options =
     {
         init: function()
         {
-            var a = $("<a>Theme</a>").bind("click", options.show);
+            var a = $("<a>SS</a>").bind("click", options.show);
             return $("#navtopr").append(a);
         },
         show: function()
         {
-            var _c, checked, option;
-            
             if ($("#overlay").exists())
                 return options.close();
             else
             {
-                var overlay = $("<div id=overlay>");
-                var tOptions = $("<div id=themeoptions class=reply>");
-                
-                var optionsHTML = "<ul id=toNav>\
+                var key, val, des,
+                    overlay = $("<div id=overlay>"),
+                    tOptions = $("<div id=themeoptions class=reply>"),
+                    optionsHTML = "<ul id=toNav>\
                 <li><label class=selected for=tcbMain>Main</label></li>\
-                <li><label for=tcbTheme>Theme</label></li>\
+                <li><label for=tcbMascots>Mascots</label></li>\
                 <li><label for=tcbNavLinks>Nav Links</label></li>\
                 </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>";
                 
-                for (option in config)
+                for (key in config)
                 {
-                    _c = config[option];
-                    checked = getValue(option) ? "checked" : "";
+                    if (key == "Fonts") continue;
+                    val = config[key];
+                    des = defaultConfig[key][1];
                     
-                    if (option == "Font")
+                    if (key == "Font")
                     {
-                        optionsHTML += "<label><span>" + option + "</span><select name=Font>";
+                        var fonts = config["Fonts"][0];
+                        optionsHTML += "<label title='" + des + "'><span>" + key + "</span><select name=Font>";
                         
                         for (var i = 0, MAX = fonts.length; i < MAX; i++)
-                             optionsHTML += "<option value='" + fonts[i] + "'" + (fonts[i] == uFont ? " selected" : "") + ">" + fonts[i] + "</option>";
+                             optionsHTML += "<option value='" + fonts[i] + "'" + (fonts[i] == config["Font"] ? " selected" : "") + ">" + fonts[i] + "</option>";
                         
                         optionsHTML += "</select></label>";
                     }
-                    else if (option == "Font Size")
+                    else if (key == "Font Size")
+                        optionsHTML += "<label title='" + des + "'><span>" + key + "</span><input type=text name='Font Size' value=" + config["Font Size"] + "px></label>";
+                    else if (key != "Nav Links" && key != "Mascots" && key != "Themes")
+                        optionsHTML += "<label title='" + des + "'><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
+                    else if (key == "Mascots")
                     {
-                        optionsHTML += "<label><span>" + option + "</span><select name='Font Size'>";
+                        var mascots = config["Mascots"];
+                        optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot><a class=trbtn name=addMascot>add</a>";
                         
-                        for (var i = 0, MAX = fontSizes.length; i < MAX; i++)
-                             optionsHTML += "<option value=" + fontSizes[i].size + (fontSizes[i].size == getValue(option) ? " selected" : "") + ">" + fontSizes[i].name + "</option>";
-                        
-                        optionsHTML += '</select></label>';
-                    }
-                    else if (option != "_4chlinks" && option != "Themes")
-                        optionsHTML += "<label><span>" + option + "</span><input " + checked + ' name="' + option + '" type=checkbox></label>';
-                    else if (option == "Themes")
-                    {
-                        optionsHTML += "</div><input type=radio name=toTab id=tcbTheme hidden><div id=tTheme><a class=trbtn name=add>add</a>";
-                        
-                        for (var i = 0, MAX = uThemes.length, tTheme; i < MAX; i++)
+                        for (var i = 0, MAX = mascots.length, tMascot; i < MAX; i++)
                         {
-                            tTheme = new Theme(uThemes[i].bg, uThemes[i].linkColor, uThemes[i].enabled);
-                            optionsHTML += "<div id=theme" + i + (tTheme.enabled ? " class=selected" : "") + ">\
+                            tMascot = new $SS.Mascot(mascots[i].img, mascots[i].color, mascots[i].enabled);
+                            optionsHTML += "<div id=mascot" + i + (tMascot.enabled ? " class=selected" : "") + ">\
                             <a title=Delete>X</a><a title=Edit>E</a>\
-                            <img src='" + tTheme.background() + "'></div>";
+                            <img src='" + tMascot.image() + "'></div>";
                         }
                     }
-                    else if (option == "_4chlinks")
-                        optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><textarea name=_4chlinks>" + getValue("_4chlinks") + "</textarea></div>";
+                    else if (key == "Nav Links")
+                    {
+                        var links = config["Nav Links"];
+                        optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><a class=trbtn name=addLink>add</a>";
+                        
+                        for (var i = 0, MAX = links.length; i < MAX; i++)
+                            optionsHTML += "<div><label>Text: <input type=text value='" + links[i].text + "'></label>" +
+                                                "<label>Link: <input type=text value='" + links[i].link + "'></label>" +
+                                                "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a></div>";
+                        
+                        optionsHTML += "</div>";
+                    }
                 }
                 
                 optionsHTML += "</div><div><a class=trbtn name=save>save</a><a class=trbtn name=cancel>cancel</a></div>";
@@ -428,285 +439,396 @@
                 
                 $("#toNav li label", tOptions).bind("click", function(e)
                 {
+                    if ($(this).hasClass("selected")) return;
+                    
                     $("#toNav li label.selected").removeClass("selected");
                     $(this).addClass("selected");
                 });
                 
-                $("#tTheme div", tOptions).each(function()
-                {
-                    $(this).bind("click", function(e)
-                    {
-                        $(this).toggleClass("selected");
-                    });
-                    
-                    $("a[title=Delete]", this).bind("click", function(e)
-                    {
-                        e.stopPropagation();
-                        options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
-                    });
-                    $("a[title=Edit]", this).bind("click", function(e)
-                    {
-                        e.stopPropagation();
-                        options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
-                    });
-                });
+                $("#tMascot div", tOptions).each(function(){ options.bindMascotInputs(this); });
                 
-                $("a[name=add]", tOptions).bind("click", options.showTheme);
+                function bindLinkButtons(el)
+                {
+                    $("a[name=upLink]", el).bind("click", function()
+                    {
+                        var p = $(this).parent(), n;
+                        if ((n = p.previousSibling()))
+                            n.before(p);
+                    });
+                    $("a[name=downLink]", el).bind("click", function()
+                    {
+                        var p = $(this).parent(), n;
+                        if ((n = p.nextSibling()))
+                            n.after(p);
+                    });
+                    $("a[name=delLink]", el).bind("click", function(){ $(this).parent().remove(); });
+                }
+                
+                $("a[name=addMascot]", tOptions).bind("click", options.showMascot);
+                $("a[name=addLink]", tOptions).bind("click", function()
+                {
+                    var el = $("<div><label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label>" +
+                                "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a>");
+                    bindLinkButtons(el);
+                    $("#tNavLinks").append(el);
+                });
+                bindLinkButtons(tOptions);
                 $("a[name=save]", tOptions).bind("click", options.save);
-                $("a[name=cancel]",tOptions).bind("click", function(){ return $("#overlay").remove(); });
+                $("a[name=cancel]",tOptions).bind("click", function(){ $("#overlay").remove(); });
                 
                 return $(document.body).append(overlay);
             }
         },
         save: function()
         {
-            var div, themes = [];
+            var div, themes = [], mascots = [], links = [];
             div = $("#themeoptions");
             
             // Save main
-            $("#themeoptions input, #themeoptions select").each(function()
+            $("#themeoptions input:not([hidden]), #themeoptions select").each(function()
             {
-                GM_setValue($(this).attr("name"), $(this).val());
+                options.config.set($(this).attr("name"),
+                    $(this).attr("name") == "Font Size" ? parseInt($(this).val()) : $(this).val());
             });
             
-            // Save themes
-            $("#themeoptions #tTheme div").each(function(index)
+            // Save Mascots
+            $("#themeoptions #tMascot div").each(function(index)
             {
-                uThemes[index].enabled = $(this).hasClass("selected");
-                themes.push(uThemes[index]);
+                config["Mascots"][index].enabled = $(this).hasClass("selected");
+                mascots.push(config["Mascots"][index]);
             });
             
-            GM_setValue("Themes", JSON.stringify(themes));
+            options.config.set("Mascots", mascots);
             
             // Save nav links
-            GM_setValue("_4chlinks", $("textarea[name=_4chlinks]").val());
-            
-            return window.location.reload(true); // TODO: Just update theme instead of reloading page.
-        },
-        showTheme: function(tIndex)
-        {
-            if (typeof tIndex === "number")
-                var bEdit = true,
-                    tEdit = uThemes[tIndex];
+            $("#themeoptions #tNavLinks div").each(function()
+            {
+                var nLink = {};
                 
+                $(this).children("input").each(function(index)
+                {
+                    if (index == 0)
+                        nLink.text = $(this).val();
+                    else if (index == 1)
+                        nLink.link = $(this).val();
+                });
+                
+                links.push(nLink);
+            });
+            
+            options.config.set("Nav Links", links);
+            
+            return window.location.reload(true); // TENTATIVE TODO: Just update theme instead of reloading page.
+        },
+        showMascot: function(mIndex) // TODO: Fix base64 input element- why cant chrome hold all these chars- why is firefox and opera so slow
+        {
             var div, overly;
-            div = $("<div id=addTheme>");
-            div.html("<label><span title='URL or base64'>Background:</span><textarea name=customBG>" + (bEdit ? tEdit.bg : "") + "</textarea></label>\
-                    <label title='i.e. #FF6999'><span>Link Color (Hex.):</span><input type=text name=customLColor value='" + (bEdit ? tEdit.linkColor : "") + "'></label>\
+            
+            if (typeof mIndex === "number")
+                var bEdit = true, mEdit = config["Mascots"][mIndex];
+            
+            div = $("<div id=addMascot>");
+            div.html("<label><span title='URL or base64'>Background:</span><textarea name=customIMG>" + (bEdit ? mEdit.img : "") + "</textarea></label>\
+                    <label title='i.e. #FF6999'><span>Link Color (Hex.):</span><input type=text name=customColor value='#" + (bEdit ? mEdit.color : "") + "'></label>\
                     <div><a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>");
             
             overlay = $("<div id=overlay2>");
             overlay.append(div);
             
             if (bEdit)
-                $("a[name=edit]", div).bind("click", function(){ options.addTheme(tIndex); });
+                $("a[name=edit]", div).bind("click", function(){ options.addMascot(mIndex); });
             else
-                $("a[name=add]", div).bind("click", options.addTheme);
+                $("a[name=add]", div).bind("click", options.addMascot);
             
-            $("a[name=cancel]", div).bind("click", function(){ return $("#overlay2").remove(); });
+            $("a[name=cancel]", div).bind("click", function(){ $("#overlay2").remove(); });
             
             return $(document.body).append(overlay);
         },
-        addTheme: function(tIndex)
+        addMascot: function(mIndex)
         {
-            var overlay, nTheme, div, cBG, cLColor;
+            var overlay, nMascot, div, cIMG, cColor;
             overlay = $("#overlay2");
-            cBG = decodeURIComponent($("textarea[name=customBG]", overlay).val().replace(/(\r\n|\r|\n)/gm, ""));
-            cLColor = $("input[name=customLColor]", overlay).val();
+            cIMG = decodeURIComponent($("textarea[name=customIMG]", overlay).val());
+            cColor = $("input[name=customColor]", overlay).val();
             
-            // base64 regex thanks to njzk2;
-            // http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/5885097#5885097
-            if (!cBG.match(/^(?:https?:\/\/.+|(?:data:image\/(?:gif|jpe?p|png);base64,)?(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4}))$/i))
+            if (!/^https?:\/\/.+/.test(cIMG) && !$SS.validBase64(cIMG))
             {
                 alert("Invalid bg image URL/base64.");
                 return;
             }
-            else if (!cLColor.match(/^#?[A-F0-9]{6}$/i))
+            else if (!$SS.validHexColor(cColor))
             {
                 alert("Invalid link color! Hexadecimal values only (6 characters).");
                 return;
             }
-            
-            if (cLColor[0] != "#")
-                cLColor = "#" + cLColor;
+            console.log(cColor);
+            if (cColor[0] == "#")
+                cColor = cColor.substr(1);
                 
-            cBG = cBG.replace(/(data:image\/(?:gif|jpe?p|png);base64,)/i, "");
+            console.log(cColor);
+                
+            cIMG = $SS.cleanBase64(cIMG);
             
-            if (typeof tIndex === "number")
+            if (typeof mIndex === "number")
             {
-                uThemes[tIndex].bg = cBG;
-                uThemes[tIndex].linkColor = cLColor;
+                config["Mascots"][mIndex].img = cIMG;
+                config["Mascots"][mIndex].color = cColor;
             }
             else
             {
-                nTheme = new Theme(cBG, cLColor, true);
-                uThemes.push(nTheme);
+                nMascot = new $SS.Mascot(cIMG, cColor, true);
+                config["Mascots"].push({ img: cIMG, color: cColor, enabled: true });
                 
-                div = $("<div id=theme" + (uThemes.length - 1) + " class=selected><a title=Delete>X</a><a title=Edit>E</a><img src='" + nTheme.background() + "'>");
-                $("a[title=Delete]", div).bind("click", function(e)
-                {
-                    e.stopPropagation();
-                    options.deleteTheme(parseInt(e.target.parentNode.id.substr(5)));
-                });
-                $("a[title=Edit]", div).bind("click", function(e)
-                {
-                    e.stopPropagation();
-                    options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
-                });
+                div = $("<div id=mascot" + (config["Mascots"].length - 1) + " class=selected><a title=Delete>X</a><a title=Edit>E</a><img src='" + nMascot.image() + "'>");
+                options.bindMascotInputs(div);
                 
-                $("#tTheme").append(div);
+                $("#tMascot").append(div);
             }
             
             return overlay.remove();
         },
-        deleteTheme: function(tIndex)
+        deleteMascot: function(mIndex)
         {
-            if (typeof tIndex !== "number")
+            if (typeof mIndex !== "number")
                 return;
             else if (confirm("Are you sure?"))
             {
-                uThemes.splice(tIndex, 1);
-                $("#theme" + tIndex).remove();
+                config["Mascots"].splice(mIndex, 1);
+                $("#mascot" + mIndex).remove();
                 
-                var themes = $("#overlay #tTheme div").each(function(index)
-                {
-                    $(this).attr("id", "theme" + i);
-                });
+                var mascot = $("#overlay #tMascot div").each(function(index){ $(this).attr("id", "mascot" + index); });
             }
         },
-        getTheme: function()
+        getMascot: function()
         {
-            var eThemes = [], rand, t;
-            for (var i = 0, MAX = uThemes.length; i < MAX; i++)
-                if (uThemes[i].enabled)
-                    eThemes.push(uThemes[i]);
+            var eMascot = [], rand, m;
             
-            rnd = Math.round(Math.random() * (eThemes.length - 1));
-            t = eThemes[rnd];
+            for (var i = 0, MAX = config["Mascots"].length; i < MAX; i++)
+                if (config["Mascots"][i].enabled)
+                    eMascot.push(config["Mascots"][i]);
             
-            if (eThemes.length == 0)
+            rnd = Math.round(Math.random() * (eMascot.length - 1));
+            m = eMascot[rnd];
+            
+            if (eMascot.length == 0)
             {
-                rnd = Math.round(Math.random() * (uThemes.length - 1));
-                t = uThemes[rnd];
+                rnd = Math.round(Math.random() * (config["Mascots"].length - 1));
+                m = config["Mascots"][rnd];
             }
             
-            return new Theme(t.bg, t.linkColor, true);
+            return new $SS.Mascot(m.img, m.color, true);
+        },
+        bindMascotInputs: function(div)
+        {
+            $(div).bind("click", function(){ $(this).toggleClass("selected"); });
+            
+            $("a[title=Delete]", div).bind("click", function(e)
+            {
+                e.stopPropagation();
+                options.deleteMascot(parseInt(e.target.parentNode.id.substr(6)));
+            });
+            $("a[title=Edit]", div).bind("click", function(e)
+            {
+                e.stopPropagation();
+                options.showMascot(parseInt(e.target.parentNode.id.substr(6)));
+            });
+        },
+        config:
+        {
+            hasGM: typeof GM_deleteValue !== "undefined",
+            get: function(name, namespace)
+            {
+                namespace = namespace == null ? "4chanSS." : namespace;
+                var val, key = namespace + name;
+                
+                if (this.hasGM && (val = GM_getValue(key)) != null)
+                        return JSON.parse(val);
+                else if ((val = localStorage.getItem(key)) != null)
+                    return JSON.parse(val);
+                    
+                return defaultConfig[name];
+            },
+            set: function(name, val)
+            {
+                name = "4chanSS." + name;
+                val = JSON.stringify(val);
+                
+                if (this.hasGM)
+                    return GM_setValue(name, val);
+                    
+                return localStorage.setItem(name, val);
+            }
+        },
+        loadConf: function()
+        {
+            function parseVal(val)
+            {
+                return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
+            };
+            
+            config = {};
+            
+            for (var key in defaultConfig)
+                config[key] = parseVal(this.config.get(key));
         }
     };
     /* END OPTIONS */
     
-    function Theme(bg, linkColor, enabled)
+    /* STYLE SCRIPT CLASSES & METHODS */
+    $SS =
     {
-        this.bg = bg;
-        this.linkColor = linkColor; // TODO: Create a hex color class with a rgb method
-        this.enabled = enabled;
-        
-        this.background = function() // TODO: Make mascot indepedent from theme.
+        Color: function(hex)
         {
-            if (!this.bg.match(/^https?:\/\/.+$/i))
-                return "data:image/png;base64," + this.bg;
-                
-            return this.bg;
-        };
-        
-        this.rgbColor = function()
-        {
-            var rgb = [], hex;
-            hex = parseInt(this.linkColor[0] == "#" ?
-                this.linkColor.substr(1) : this.linkColor, 16);
-                
-            rgb[0] = (hex >> 16) & 0xFF;
-            rgb[1] = (hex >> 8) & 0xFF;
-            rgb[2] = hex & 0xFF;
+            this.hex = "#" + hex;
             
-            return rgb.join(",");
-        };
-    }
+            this.rgb = function(offset)
+            {
+                var rgb = [], hex;
+                hex = parseInt(this.hex.substr(1), 16);
+                    
+                rgb[0] = (hex >> 16) & 0xFF;
+                rgb[1] = (hex >> 8) & 0xFF;
+                rgb[2] = hex & 0xFF;
+                
+                return rgb.join(",");
+            };
+        },
+        
+        Mascot: function(img, hex, enabled)
+        {
+            this.img = img;
+            this.color = new $SS.Color(hex);
+            this.enabled = enabled;
+            
+            this.image = function()
+            {
+                if (!/^https?:\/\/.+$/i.test(this.img))
+                    return "data:image/png;base64," + this.img;
+                    
+                return this.img;
+            };
+        },
+        
+        cleanBase64: function(b64)
+        {
+            return b64.replace(/^(data:image\/(?:gif|jpe?p|png);base64,)(\r\n|\r|\n)/gmi, "");
+        },
+        validBase64: function(b64)
+        {
+            // base64 regex thanks to njzk2;
+            // http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/5885097#5885097
+            return /^(?:data:image\/(?:gif|jpe?p|png);base64,)?(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$/i.test(b64);
+        },
+        validHexColor: function(c)
+        {
+            return /^#?[A-F0-9]{6}$/i.test(c);
+        }
+    };
+    /* END STYLE SCRIPT CLASSES */
     
-    uTheme = options.getTheme();
+    function buildCustomNav()
+    {
+        var links = config["Nav Links"], a = [];
+        
+        for (var i = 0, MAX = links.length; i < MAX; i++)
+            a.push("<a href='" + links[i].link + "'>" + links[i].text + "</a>");
+            
+        $("#navtop").html(a.join(" - "));
+    }
+
+    options.loadConf();
+    console.log(config);
+    mascot = options.getMascot();
+    console.log(mascot);
     
     /* STYLING */
     css = // TODO: Consolidate css, prepare for color customization.
-    "*{font-family:" + uFont + ",Calibri,Helvetica,sans-serif!important;font-size:" + sFontSize + "px!important}\
-    body>form *{font-family:" + uFont + ",Calibri,Helvetica,sans-serif!important;font-size:" + uFontSize + "px!important}\
-    *:focus{outline:none}\
-    ::selection{background:" + uTheme.linkColor + ";color:#fff}\
-    ::-moz-selection{background:" + uTheme.linkColor + ";color:#fff}\
+    "*{font-family:" + config["Font"] + ",Calibri,Helvetica,sans-serif!important;font-size:" + config["Font Size"] + "px!important}\
+    body>form *{font-family:" + config["Font"] + ",Calibri,Helvetica,sans-serif!important}\
+    *:focus{outline:none!important}\
+    input:focus,select:focus,textarea:focus{box-shadow:inset " + mascot.color.hex +" 0 0 3px}\
+    ::selection{background:" + mascot.color.hex + ";color:#fff}\
+    ::-moz-selection{background:" + mascot.color.hex + ";color:#fff}\
     *::-webkit-input-placeholder{color:#999!important}\
     *:-moz-placeholder{color:#999!important}\
-    " + (uSScroll ? "::-webkit-scrollbar{width:8px;height:8px}\
-    ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:rgb(22,22,22);box-shadow:inset rgba(0,0,0,.3) 0 0 6px,rgba(150,150,150,.1) 0 0 2px}\
-    ::-webkit-scrollbar-corner,::-webkit-scrollbar-resizer{background:rgba(12,12,12,.9)}\
-    ::-webkit-scrollbar-thumb{background:rgba(40,40,40,.9)}\
-    ::-webkit-scrollbar-thumb:hover{box-shadow:inset rgba(0,0,0,.15) 0 0 3px}\
-    ::-webkit-scrollbar-thumb:active{box-shadow:inset rgba(0,0,0,.3) 0 0 6px}\
-    ::-webkit-scrollbar-thumb:vertical{border-left:1px solid rgb(22,22,22)}\
-    ::-webkit-scrollbar-thumb:horizontal{border-top:1px solid rgb(22,22,22)}\
-    ::-webkit-scrollbar-thumb:window-inactive{background:rgba(40,40,40,.6)}\
-    .reply *::-webkit-scrollbar-track,.reply *::-webkit-scrollbar-track-piece{border-radius:5px}\
-    .reply *::-webkit-scrollbar-thumb:vertical{border:1px solid rgb(22,22,22);border-radius:4px}" : "") + "\
+    " + (config["Style Scrollbars"] ? "::-webkit-scrollbar{width:8px;height:8px}\
+    ::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:#161616;box-shadow:inset rgba(0,0,0,.3) 0 0 6px,rgba(150,150,150,.1) 0 0 2px}\
+    ::-webkit-scrollbar-corner,::-webkit-scrollbar-resizer{background:#161616}\
+    ::-webkit-scrollbar-thumb{background:#333;border:2px solid #161616;border-radius:5px}\
+    ::-webkit-scrollbar-thumb:hover,::-webkit-scrollbar-thumb:active{background:#444}\
+    ::-webkit-scrollbar-thumb:window-inactive{#222}\
+    .reply *::-webkit-scrollbar-track,.reply *::-webkit-scrollbar-track-piece{border-radius:5px}": "") + "\
     img{border:none!important}\
     hr{border:none!important;border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
     h3,.commentpostername,.postername,body>center:nth-of-type(2)>font[color=red]>b,.pages b,.filetitle{font-weight:400!important}\
-    a{text-decoration:none!important;color:" + uTheme.linkColor + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
+    a{text-decoration:none!important;color:" + mascot.color.hex + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:not([href]){-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:hover{color:#eee!important}\
     a:not([href]),a[href='javascript:;']{color:#fff!important}\
-    .postertrip{color:#a7dce7!important}\
-    option{background:rgba(40,40,40,.9)}\
+    .postertrip,.trip{color:#a7dce7!important}\
+    .unkfunc{color:#789922!important}\
+    .filetitle,.replytitle{color:#aaa!important}\
+    .reply,td.replyhl,div.stub,option,div[id*=jsMath],#jsMath_float>*,.logo,a.trbtn,#thread_filter:hover>div,#imgControls,\
+    .pages,#imgControls #imageType,body>center:nth-of-type(2)>font[color=red],.deletebuttons,.deletebuttons:before,\
+    .postarea,#qr,#post,a.omittedposts:hover{background:rgba(40,40,40,.9)!important}\
+    #options label,#options a,#themeoptions label,#themeoptions a,.pointer,a.trbtn,#themeoptions #toNav li label,#themeoptions #tMascot div,\
+    input[type=checkbox],input[type=radio],input[type=submit],button{cursor:pointer}\
     body{color:#fff!important;background:url(data:image/gif;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
     body:before{border-left:1px solid #161616;content:'';height:100%;width:312px;position:fixed;right:0;bottom:18px;z-index:-1}\
-    body:after{background:url("+ uTheme.background() + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
+    body:after{background:url("+ mascot.image() + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-2}\
-    textarea,input:not([type=submit]),select,#updater span{font:" + sFontSize + "px " + uFont + ",Calibri,Helvetica,sans-serif!important}\
+    #jsmath_button,#jsMath_panel,#jsMath_float{border:1px solid #161616!important}\
+    #jsmath_button{bottom:auto!important;left:0!important;top:1px!important;right:auto!important}\
+    #jsMath_panel{bottom:auto!important;left:1em!important;top:1.75em!important;right:auto!important}\
+    textarea,input:not([type=submit]),select,#updater span{font:" + config["Font Size"] + "px " + config["Font"] + ",Calibri,Helvetica,sans-serif!important}\
     div.thread{background:rgba(40,40,40,.3);margin:0 0 1px;padding:3px 0 0!important;position:relative;border-radius:3px 0 0 3px}\
-    div.thread:after,#updater div>label:after,form[name=delform] div.op:after,#addTheme>label:after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
+    div.thread:after,#updater div>label:after,form[name=delform] div.op:after,#addMascot>label:after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
     div.op{border:none!important;position:relative}\
     div.op>a:first-child:not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
     span.plus{color:#fff!important}\
-    form[name=delform]{border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);margin:" + (uShowAnn ? "19px" : "0") + " 0 42px 10px;padding-left:1px;position:relative;border-radius:0 0 0 6px}\
+    form[name=delform]{border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);margin:" + (config["Show Announcements"] ? "19px" : "0") + " 0 42px 10px;padding-left:1px;position:relative;border-radius:0 0 0 6px}\
     form[name=delform] table{border-spacing:0;margin:1px 0 0;position:relative;table-layout:fixed;width:100%}\
     body>span[style]~form[name=delform]{padding-bottom:1px}\
     body>span[style]~form[name=delform] div.op{padding-top:2px}\
     .reply,.replyhl{display:inline-block;position:relative!important;color:#fff!important}\
     .replyhider{margin:0!important;padding:1px 0 0!important;position:absolute;right:2px;width:auto!important;z-index:1}\
-    td.reply,td.replyhl,div.stub{background:rgba(40,40,40,0.9)!important;padding:5px!important;width:100%;border-radius:3px 0 0 3px;\
+    td.reply,td.replyhl,div.stub{padding:5px!important;width:100%;border-radius:3px 0 0 3px;\
     -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}\
-    td.replyhl,td.qphl{background:rgba(" + uTheme.rgbColor() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
+    td.replyhl,td.qphl{background:rgba(" + mascot.color.rgb() + ",.1)!important;box-shadow:inset rgba(150,150,150,.3) 0 0 6px}\
     td.replyhl a:hover,td.reply a:hover{color:#fff!important}\
     div.stub{margin:1px 0 0!important;opacity:.75;padding-right:1px!important}\
+    div.thread.stub{margin:1px 0!important}\
     div.stub>a,.stub>.block>a{display:block;padding:2px}\
     .container{position:absolute;bottom:2px;right:2px;z-index:1}\
     .container *{font-size:11px!important}\
     .container:before{color:#666;content:'REPLIES:';padding-right:3px}\
     .qphl{outline:none!important}\
-    #qp{background:rgba(36,36,36,.98)!important;border:1px solid rgba(" + uTheme.rgbColor() + ",.4)!important;margin:0 10px!important;max-width:65%;padding:5px;position:fixed!important;z-index:11!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
+    #qp{background:rgba(36,36,36,.98)!important;border:1px solid rgba(" + mascot.color.rgb() + ",.4)!important;margin:0 10px!important;max-width:65%;padding:5px;position:fixed!important;z-index:11!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
     table.inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:5px!important;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}\
     a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
     .omittedposts{color:#fff;}\
     a.omittedposts{background:rgba(36,36,36,.9);color:#aaa!important;margin:0 10px!important;padding:2px 6px;border-radius:3px 3px 0 0}\
-    a.omittedposts:hover{background:rgba(40,40,40,.9);color:#fff!important}\
+    a.omittedposts:hover{color:#fff!important}\
     .replytitle {color:#999!important}\
-    .deletebuttons{background:rgba(40,40,40,0.9)!important;border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
+    .deletebuttons{border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
     height:22px;width:0px;overflow:hidden;white-space:nowrap;padding:1px 2px 0 16px!important;z-index:2;\
     -webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
     .deletebuttons:hover{padding-left:2px!important;width:186px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
-    .deletebuttons:before{background:rgba(40,40,40,0.9)!important;content:'X';color:#fff;display:inline-block;position:absolute;left:0;top:0;width:20px;height:24px;text-align:center;padding-top:1px;line-height:20px}\
+    .deletebuttons:before{content:'X';color:#fff;display:inline-block;position:absolute;left:0;top:0;width:20px;height:24px;text-align:center;padding-top:1px;line-height:20px}\
     .deletebuttons:hover:before{overflow:hidden;white-space:nowrap;padding:0;width:0}\
     .deletebuttons:after{font-size:9px!important;color:#ccc!important;content:'FILE ONLY';position:absolute;bottom:0;right:68px;line-height:22px}\
     .deletebuttons *{visibility:visible!important}\
     .deletebuttons input[type=checkbox]{position:absolute;right:50px;bottom:3px!important;top:auto!important}\
     .deletebuttons .inputtext{width:138px}\
     .deletebuttons input:not([type=checkbox]){height:20px!important;margin:0!important}\
-    .filetitle{color:#aaa!important}\
-    " + (!uShowLogo ? ".logo," : "") + (uHideRForm ? "body>table~.postarea," : "") + "#recaptcha_logo,#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,\
+    " + (!config["Show Logo"] ? ".logo," : "") + (config["Replace Reply Form"] ? "body>table~.postarea," : "") + "#recaptcha_logo,#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,\
     .yui-g,#filter-button,#recaptcha_table td:nth-of-type(2),#option-button,#hd,#ft,td small,#footer,.rules,center font small,body>span[style],body>br,td.reply>br,td.replyhl>br,body>hr,\
-    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],\
+    form[name=delform]>span[style],div.thread>br,td.postblock,.deletebuttons input[type=button],.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],#qp>br,\
     .logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,\
-    form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),form[name=delform] hr:nth-last-of-type(1),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden]\
-    {display:none!important}\
+    form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),form[name=delform] hr:nth-last-of-type(1),body>span[style]~#thread_filter>div:first-child>span:first-child,#thread_filter br,[hidden],\
+    body>span[style]~#navlinks,#navtop,#navtopr{display:none!important}\
     table,td{border:none!important;color:#ccc!important}\
     .replymode{background-color:transparent!important;color:#fff!important}\
     th{background-color:#000!important;opacity:0!important}\
@@ -723,7 +845,7 @@
     blockquote{margin:1em 12px 2em 40px!important}\
     blockquote a{color:#999!important}\
     blockquote>.abbr{color:#fff!important}\
-    div.reply{background:rgba(40,40,40,.9)!important;border:none!important;margin:0!important;z-index:2!important}\
+    div.reply{border:none!important;margin:0!important;z-index:2!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:2px 20px 12px!important}\
     form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important;position:relative;z-index:8!important}\
     img[alt='closed'],[alt='sticky']\
@@ -736,7 +858,7 @@
     .inputtext:not(textarea),#qr input[form=qr_form],#post #foo input{height:22px!important}\
     form[name=post] .inputtext:not(textarea),#qr>.move>.inputtext,#qr input[name=pwd]{width:305px!important}\
     form[name=post] input[type=text][name=sub]{width:254px!important;margin-right:1px!important}\
-    textarea,button,input:not([type=checkbox]),input[type=file]>input[type=button]\
+    textarea,button,input:not([type=checkbox]),input[type=file]>input[type=button],select\
     {background:rgba(22,22,22,0.9)!important;border:none!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
     input[type=file]::-webkit-file-upload-button\
     {background:rgba(22,22,22,0.9)!important;border:none!important;border-right:1px solid #262626!important;font-size:8px!important;text-transform:uppercase!important;\
@@ -745,21 +867,21 @@
     input[type=file]::-webkit-file-upload-button:hover{background:rgba(33,33,33,0.9)!important}\
     textarea:hover,button:hover,input:not([type=file]):hover,input[type=file]>input[type=button]:hover{background:rgba(33,33,33,0.9)!important}\
     input,select{color:#fff!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
-    input[type=submit],button{width:50px;height:22px!important;color:#ddd!important;cursor:pointer;vertical-align:top;padding:0!important;font-size:9px!important;text-transform:uppercase}\
+    input[type=submit],button{width:50px;height:22px!important;color:#ddd!important;vertical-align:top;padding:0!important;font-size:9px!important;text-transform:uppercase}\
     input[type=checkbox],input[type=radio]{position:relative;top:2px!important;margin:2px!important;vertical-align:top;border:1px solid #444!important;background:rgba(22,22,22,0.9)!important;\
-    width:12px!important;height:12px!important;cursor:pointer!important;border-radius:3px!important}\
+    width:12px!important;height:12px!important;border-radius:3px!important}\
     input[type=checkbox]:checked{border:1px solid #1f1f1f!important;background:url(data:image/png;base64," + checkMark + ") center no-repeat rgba(180,180,180,0.6)!important;box-shadow:#eee 0 0 2px}\
     input[type=radio]:checked{border:1px solid #1f1f1f!important;background:rgba(180,180,180,0.6)!important;box-shadow:#eee 0 0 2px}\
     input[type=checkbox]:active,input[type=radio]:active{background:rgba(255,255,255,0.6)!important}\
     td.reply input[type=checkbox],td.replyhl input[type=checkbox],#themeoptions input[type=checkbox],#options input[type=checkbox]{top:0!important}\
     td.reply input[type=checkbox],td.replyhl input[type=checkbox]{margin:0!important}\
     input[name=recaptcha_response_field],input#recaptcha_response_field{border:none!important;height:22px!important;padding:1px 4px!important;width:305px!important;border-bottom:1px solid #101010!important;border-top:1px solid #262626!important}\
-    select{background:rgba(40,40,40,.9);border:1px solid #161616;box-sizing:content-box;-moz-box-sizing:content-box;-o-box-sizing:content-box}\
+    select{box-sizing:content-box;-moz-box-sizing:content-box;-o-box-sizing:content-box}\
     select:hover{background:rgba(50,50,50,1);}\
     textarea{color:#fff;margin:0!important}\
     .postarea textarea,#qr textarea,#post textarea{width:305px!important;height:125px!important;resize:none}\
     td.doubledash{padding:0;text-indent:-9999px}\
-    .logo{background:rgba(40,40,40,.9);position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important;z-index:3}\
+    .logo{position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important;z-index:3}\
     .logo img{margin:0!important;opacity:0.4;border:1px solid #161616!important}\
     .logo span{color:#eee;text-shadow:#000 0 0 10px;display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px}\
     .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;position:absolute;bottom:8px;left:7px;text-align:center;width:300px}\
@@ -767,7 +889,7 @@
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}\
     .postarea table, .postarea table td{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
     .postarea,#qr,#post{width:306px;height:347px;position:fixed!important;z-index:1!important;margin:0!important;padding:3px;right:0;bottom:-312px;top:auto!important;left:auto!important;\
-    -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;background:rgba(40,40,40,0.9);border-top:1px solid #161616!important}\
+    -webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;border-top:1px solid #161616!important}\
     .postarea:hover{bottom:7px;-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out}\
     .postarea form[name=post]:before{display:block;height:18px;padding-top:1px;text-align:center;content:'" + postTabText + "'}\
     form[name=post] #com_submit+label{position:absolute;color:#ccc!important;top:2px;right:56px;vertical-align:bottom}\
@@ -781,60 +903,69 @@
     .postarea input[type=password]{width:150px}\
     #imageType,input:not([type=checkbox]),input:not([type=radio]),input[type=file]>input[type=button],input[type=submit],button,select,textarea\
     {-webkit-appearance:none;-o-appearance:none;}\
-    #options label,#options a,#themeoptions label,#themeoptions a,.pointer{cursor: pointer}\
     #watcher .move,#updater .move,#options .move,#stats .move,#filter>div:first-child,#thread_filter>div:first-child,#qr .move,#post .move{cursor:default!important}\
-    #watcher{position:fixed!important;top:" + (uShowLogo ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
+    #watcher{position:fixed!important;top:" + (config["Show Logo"] ? 126 : 19) + "px!important;right:0!important;left:auto!important;bottom:auto!important;width:312px!important}\
     #watcher .move,#themeoptions .move{text-decoration:none!important;padding:5px!important;line-height:10px!important}\
     #watcher>div{max-width:100%!important}\
     #watcher>div>a:first-child,.container:before{font-size:10px!important}\
     #overlay,#overlay2{background:rgba(0,0,0,.5);position:fixed;top:0;left:0;height:100%;width:100%;text-align:center;z-index:1000}\
     #overlay:before,#overlay2:before{content:'';display:inline-block;height:100%;vertical-align:middle}\
-    #themeoptions,#addTheme{display:inline-block;text-align:right!important;width:500px;padding:5px;vertical-align:middle}\
+    #themeoptions,#addMascot{display:inline-block;text-align:right!important;width:600px;padding:5px;vertical-align:middle}\
     #themeoptions>div{padding:5px}\
     a.trbtn{display:inline-block;line-height:18px;margin:0 2px;padding:2px 10px;text-align:center;width:40px;\
-    background:rgba(40,40,40,.9);background:-webkit-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));background:-moz-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));\
-    background:-o-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9));border-radius:3px;box-shadow:rgba(0,0,0,.3) 0 0 2px}\
+    background:-webkit-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9))!important;background:-moz-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9))!important;\
+    background:-o-linear-gradient(top,rgba(60,60,60,.9),rgba(40,40,40,.9))!important;border-radius:3px;box-shadow:rgba(0,0,0,.3) 0 0 2px}\
     a.trbtn:hover{background:rgba(60,60,60,.9);background:-webkit-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3));\
     background:-moz-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3));background:-o-linear-gradient(top,rgba(80,80,80,.9),rgba(60,60,60,.3))}\
     a.trbtn:active{box-shadow:inset rgba(0,0,0,.3) 0 0 3px, rgba(0,0,0,.3) 0 0 2px}\
+    a.trbtn-small{padding:2px 5px;width:30px}\
     #themeoptions #toNav{list-style:none;margin:0;padding:0;position:absolute;top:-26px}\
     #themeoptions #toNav li{float:left;margin:0;padding:0}\
-    #themeoptions #toNav li label{display:block;cursor:pointer;color:#888!important;line-height:16px;padding:5px 10px;background:rgba(30,30,30,.9);margin:0 2px;border-radius:5px 5px 0 0;width:75px;text-align:center}\
+    #themeoptions #toNav li label{background:rgba(30,30,30,.9);color:#888!important;display:block;line-height:16px;\
+    margin:0 2px;padding:5px 10px;text-align:center;width:75px;border-radius:5px 5px 0 0;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     #themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover{color:#fff!important}\
     #themeoptions #toWrapper{background:rgba(0,0,0,.3);border:1px solid #161616;height:300px;box-shadow:inset rgba(0,0,0,.3) 0 0 5px, rgba(150,150,150,.3) 0 1px 3px;border-radius:5px}\
     #themeoptions #toWrapper>div{height:300px;overflow:auto}\
     #themeoptions #toWrapper>[name=toTab]:not(:checked)+div{display:none}\
-    #themeoptions #tMain label,#updater label{display:block;border-bottom:1px solid rgba(40,40,40,.3);border-top:1px solid rgba(0,0,0,.1);height:20px;padding:0 3px;vertical-align:top}\
+    #themeoptions #tMain label,#themeoptions #tNavLinks>div,#updater label{display:block;border-bottom:1px solid rgba(40,40,40,.3);border-top:1px solid rgba(0,0,0,.1);height:20px;padding:0 3px;vertical-align:top}\
     #themeoptions #tMain label:first-child,#updater div:first-child label{border-top:none!important}\
     #themeoptions #tMain label:last-child,#updater div:nth-last-of-type(3) label{border-bottom:none!important}\
-    #themeoptions #tMain label:hover,#updater label:hover,#addTheme label:hover{background:rgba(33,33,33,.6)}\
-    #themeoptions #tTheme{text-align:center}\
-    #themeoptions #tTheme>a{position:absolute;bottom:10px;left:10px}\
-    #themeoptions #tTheme div{cursor:pointer;display:inline-block;position:relative;margin:2px;\
+    #themeoptions #tMain label:hover,#updater label:hover,#addMascot label:hover{background:rgba(33,33,33,.6)}\
+    #themeoptions #tMascot{text-align:center}\
+    #themeoptions #toWrapper>div>a{position:absolute;bottom:10px;left:10px}\
+    #themeoptions #tMascot div{display:inline-block;position:relative;margin:2px;\
     border-radius:10px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
-    #themeoptions #tTheme div.selected{background:rgba(" + uTheme.rgbColor() + ",.6);box-shadow:inset rgba(0,0,0,.4) 0 0 15px, rgba(" + uTheme.rgbColor() + ",.6) 0 0 2px}\
-    #themeoptions #tTheme div img{width:153px;border-radius:10px}\
-    #themeoptions #tTheme div a{position:absolute;top:0;padding:5px 8px;background:rgba(0,0,0,.3)}\
-    #themeoptions #tTheme div a:not([href]):hover{background:rgba(0,0,0,.5)}\
-    #themeoptions #tTheme div a[title=Delete]{left:0;border-radius:10px 0 10px 0}\
-    #themeoptions #tTheme div a[title=Edit]{right:0;border-radius:0 10px 0 10px}\
+    #themeoptions #tMascot div.selected{background:rgba(" + mascot.color.rgb() + ",.6);box-shadow:inset rgba(0,0,0,.4) 0 0 15px, rgba(" + mascot.color.rgb() + ",.6) 0 0 2px}\
+    #themeoptions #tMascot div img{max-width:185px;max-height:257px;border-radius:10px}\
+    #themeoptions #tMascot div a{position:absolute;top:0;padding:5px 8px;background:rgba(0,0,0,.3)}\
+    #themeoptions #tMascot div a:not([href]):hover{background:rgba(0,0,0,.5)}\
+    #themeoptions #tMascot div a[title=Delete]{left:0;border-radius:10px 0 10px 0}\
+    #themeoptions #tMascot div a[title=Edit]{right:0;border-radius:0 10px 0 10px}\
+    #themeoptions #tNavLinks>div{height:24px;padding-top:1px}\
+    #themeoptions #tNavLinks label{margin:0 5px;position:relative;top:1px}\
+    #themeoptions #tNavLinks label:first-child{float:left}\
+    #themeoptions #tNavLinks label:first-child>input[type=text]{width:130px}\
+    #themeoptions #tNavLinks label>input[type=text]{height:19px!important;width:180px}\
     #themeoptions label>span{float:left;font-size:12px!important;line-height:18px}\
     #themeoptions label>input[type=checkbox]{margin:4px 2px 0!important;vertical-align:bottom!important}\
-    #themeoptions label>select{height:18px!important;margin:1px 0!important;width:100px}\
+    #themeoptions label>select,#themeoptions label>input[type=text]{height:16px!important;margin:1px 0!important;width:100px}\
     #themeoptions input[type=text]{height:18px;margin:1px 0 0!important;padding:1px 3px!important}\
     #themeoptions textarea{background:transparent!important;border:none!important;height:100%!important;width:100%!important;resize:none}\
-    #addTheme{width:350px!important;height:75px!important}\
-    #addTheme>div{padding:5px}\
-    #addTheme>label{display:block}\
-    #addTheme>label>span{float:left;line-height:22px;padding-left:5px}\
-    #addTheme>label>input,#addTheme>label>textarea{width:200px}\
-    #addTheme>label>textarea{height:18px;line-height:18px;overflow:hidden;resize:none}\
-    #themeoptions,#options.dialog,#themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover,#addTheme{background:rgba(40,40,40,.98)!important;text-align:center}\
-    #options .dialog,#options.dialog,#themeoptions,#addTheme{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;border-radius:5px}\
+    #addMascot{width:350px!important;height:75px!important}\
+    #addMascot>div{padding:5px}\
+    #addMascot>label{display:block}\
+    #addMascot>label>span{float:left;line-height:22px;padding-left:5px}\
+    #addMascot>label>input,#addMascot>label>textarea{width:200px}\
+    #addMascot>label>textarea{height:18px;line-height:18px;overflow:hidden;resize:none}\
+    #themeoptions,#options.dialog,#themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover,#addMascot{background:rgba(40,40,40,.98)!important;text-align:center}\
+    #options .dialog,#options.dialog,#themeoptions,#addMascot{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;border-radius:5px}\
     #options hr{margin:3px 0!important}\
+    #options button{width:auto!important}\
+    #options ul{border:1px solid #161616;padding:2px 5px!important;border-radius:5px;box-shadow:inset #444 0 0 5px}\
+    #options ul li{height:0;opacity:0;overflow:hidden;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
+    #options ul:hover li{height:auto;min-height:20px;max-height:48px;opacity:1}\
     #thread_filter{background:transparent!important;position:fixed!important;top:0!important;right:0!important;left:auto!important;bottom:auto!important;width:312px;z-index:8!important}\
     body>span[style]~#thread_filter:hover{padding-top:20px!important}\
-    #thread_filter:hover>div{background:rgba(40,40,40,.9)}\
     #thread_filter.autohide:not(:hover){width:115px}\
     #thread_filter input{height:22px;margin:2px 1px;padding:1px 4px;width:230px}\
     #thread_filter textarea{width:305px}\
@@ -846,8 +977,8 @@
     body>span[style]~#thread_filter>div:first-child>span{padding:0!important}\
     body>span[style]~#thread_filter>div:first-child>span.autohide{border:none!important}\
     #thread_filter>div:not(:first-child):not(:last-child){padding:0 3px!important}\
-    #imgControls{background:rgba(40,40,40,.9);height:18px;position:fixed!important;right:0;top:0;width:140px!important;padding-right:172px!important;z-index:6}\
-    #imgControls #imageType{border:none;background:rgba(40,40,40,.9);float:left;font-size:12px!important;max-height:16px!important;max-width:85px;line-height:14px!important}\
+    #imgControls{height:18px;position:fixed!important;right:0;top:0;width:140px!important;padding-right:172px!important;z-index:6}\
+    #imgControls #imageType{border:none!important;float:left;font-size:12px!important;max-height:16px!important;max-width:85px;line-height:14px!important}\
     #imgControls>label{border-right:1px solid #161616;float:right;height:18px!important}\
     #imgControls>label:before{color:#fff!important;content:'EXPAND';font-size:9px!important}\
     .deletebuttons:before,.postarea form[name=post]:before,#qr .move:before,#post .move:before,.logo font[size='1'],a.trbtn{font-size:10px!important;text-transform:uppercase}\
@@ -891,26 +1022,27 @@
     #stats span{color:#fff!important;font-size:9px!important;margin:0 2px}\
     #stats #postcount:before{font-size:9px!important;content:'POSTS: ';}\
     #stats #imagecount:before{font-size:9px!important;content:'IMAGES: ';}\
-    #navlinks{font-size:16px!important;top:0!important;height:20px;line-height:14px;z-index:6!important}\
-    #iHover{padding-bottom:19px;z-index:9!important}\
+    #navlinks{font-size:12px!important;top:0!important;height:20px;line-height:16px;z-index:6!important}\
+    #iHover{padding-bottom:19px;z-index:8!important}\
     body>center:nth-of-type(2){position:relative}\
-    body>center:nth-of-type(2)>font[color=red]{background:rgba(40,40,40,.9);color:#f66!important;position:absolute;width:100%;top:-150px;left:0;z-index:11;\
+    body>center:nth-of-type(2)>font[color=red]{color:#f66!important;position:absolute;width:100%;top:-150px;left:0;z-index:11;\
     -webkit-transition:top .1s ease-in-out;-moz-transition:top .1s ease-in-out;-o-transition:top .1s ease-in-out}\
     body>center:nth-of-type(2)>font[color=red]:hover{top:-18px!important}\
     body>center:nth-of-type(2)>font[color=red]:after{color:#fff!important;content:'ANNOUNCEMENT';display:block;line-height:18px;font-size:10px!important}\
     body>center:nth-of-type(2)>font[color=red]>b{display:block;overflow:auto;width:100%;padding:5px}\
     #header{left:0!important;height:18px!important;width:100%!important;padding:0!important;position:fixed!important;top:auto!important;bottom:0!important;z-index:9!important;\
     border-top:1px solid #161616!important;background:rgb(40,40,40)!important;text-align:center;line-height:18px}\
-    #navtop,#navtopr{float:none!important;display:none!important}\
+    #navtop,#navtopr{float:none!important}\
     #navtop{padding:1px 0;color:#aaa!important}\
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
     #navtopr{position:absolute;right:5px!important;top:0;font-size:0!important;color:transparent}\
     #navtopr>a:not(:first-child):last-child:before{content:'/';padding:0 2px}\
-    .pages{background:rgba(40,40,40,.9)!important;border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:22px;\
+    .pages{border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:24px;\
     position:fixed!important;bottom:18px;left:-370px!important;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
     .pages:hover{left:0!important;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
-    .pages *{font-size:" + sFontSize + "px!important}\
-    .pages td{font-size:9px!important;text-transform:uppercase;padding:0 5px!important;min-width:40px;text-align:center}\
+    .pages *{font-size:" + config["Font Size"] + "px!important}\
+    .pages td{font-size:9px!important;text-transform:uppercase;padding:0!important;min-width:40px;text-align:center}\
+    .pages td:nth-of-type(2){padding:0 5px!important}\
     .pages span{color:#aaa!important}\
     .pages b{color:#fff!important}\
     .pages a:not(:last-child),.pages b:not(:last-child){margin:0 2px}\
@@ -918,14 +1050,14 @@
     .pages input:hover{background:rgba(36,36,36,.9)!important;box-shadow:inset rgba(0,0,0,0.35) 0 0 5px}\
     form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),#qr>div.move,#imgControls>label,.pages td:nth-of-type(2),img[alt='closed'],[alt='sticky'],\
     #stats .move,.deletebuttons{font-size:0px!important;color:transparent!important}\
-    body>a[style='cursor: pointer; float: right;']{position:fixed;right:5px;top:" + (uShowLogo ? 126 : 19) + "px;z-index:4}\
+    body>a[style='cursor: pointer; float: right;']{position:fixed;right:5px;top:" + (config["Show Logo"] ? 126 : 19) + "px;z-index:4}\
     body>a[style='cursor: pointer; float: right;']+div>table{height:100%!important;padding-bottom:20px}\
     body>a[style='cursor: pointer; float: right;']+div>table table{width:100%}";
     
-    if (!uShowAnn)
+    if (!config["Show Announcements"])
         css += "body>center:nth-of-type(2)>font[color=red]{display:none!important}";
         
-    if (uPageInNav)
+    if (config["Pages Location"] == 2)
         css += ".pages{background:transparent!important;height:18px!important;margin:0!important;border:none!important;bottom:0!important;left:0!important;z-index:9!important}\
                 .pages input{height:18px!important;top:0!important}";
 
@@ -942,35 +1074,34 @@
     /* END STYLING */
     
     /* DOM MANIPULATION */
-    if (document.body) // if the content is already loaded, opera?
+    if (document.body) // opera - with .user.js extension
         DOMLoaded();
     else
         $(document).bind("DOMContentLoaded", DOMLoaded);
     
     function DOMLoaded()
     {
-        $(document).unbind("DOMContentLoaded", DOMLoaded)
         // Add theme options link
         options.init();
         
         var postLoadCSS = "#navtop,#navtopr{display:inline!important}";
             
-        if (getValue("Custom nav links"))
-            $("#navtop").html(getValue("_4chlinks"));
+        if (config["Custom Navigation Links"])
+            buildCustomNav();
         else
         {
             var bTitle = $(".logo span").text();
             
             postLoadCSS += "#navtop{bottom:3px;color:transparent!important;display:inline-block!important;font-size:0!important;height:18px;padding:3px 6px 6px;position:relative;width:500px;\
                             -webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
-                            #navtop:before{color:" + uTheme.linkColor + ";content:'" + bTitle + "';display:block;font-size:" + sFontSize + "px}\
+                            #navtop:before{color:" + mascot.color.hex + ";content:'" + bTitle + "';display:block;font-size:" + config["Font Size"] + "px}\
                             #navtop:hover{background:rgb(42,42,42);bottom:48px;height:64px;border-radius:3px;box-shadow:rgba(0,0,0,.2) 0 0 5px}\
                             #navtop a{padding:2px!important}";
         }
         
         var ann = $("body>center:nth-of-type(2)>font[color=red]");
         
-        if (uShowAnn && ann.exists())
+        if (config["Show Announcements"] && ann.exists())
             postLoadCSS += "body>center:nth-of-type(2)>font[color=red]{top:" + (-ann.get().scrollHeight - 1) + "px!important}";
         else
             postLoadCSS += "form[name=delform]{margin-top:0!important;padding-top:2px}";
@@ -984,7 +1115,6 @@
                     break;
                 case "email":
                     $(this).attr("placeholder", "E-mail");
-                    if (getValue("Auto noko")) $(this).val("noko");
                     break;
                 case "sub":
                     $(this).attr("placeholder", "Subject");
@@ -1008,8 +1138,8 @@
         else if ((prev = $(".pages td:first-child")).exists())
             prev.text("Prev");
         
-        // Fix pages position
-        if (!uPageInNav)
+        // Slide out pages
+        if (config["Pages Location"] == 1)
         {
             var pages = $(".pages");
             
@@ -1021,7 +1151,7 @@
         }
         
         // Add ExHentai source link
-        if (uHentai)
+        if (config["ExHentai Source"])
         {
             postLoadCSS += ".exSource{position:relative}\
                             .exSource.exFound{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important}\
@@ -1030,6 +1160,8 @@
                             .exPopup{background:rgba(36,36,36,.9)!important;display:none;left:0;padding:5px;position:absolute!important;white-space:nowrap;z-index:8!important;\
                             box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:0 3px 3px 3px;-o-border-radius:0 3px 3px 3px}\
                             .exPopup a{display:block}";
+            //$("#ch4SS").appendText(postLoadCSS);
+            
             addLinks(document);
             $(document).bind("DOMNodeInserted", function(e)
             {
@@ -1037,8 +1169,8 @@
                     addLinks(e.target);
             });
         }
-            
-        $("#ch4SS").appendText(postLoadCSS);
+        //else
+            $("#ch4SS").appendText(postLoadCSS);
     }
     /* END DOM MANIPULATION */
     
@@ -1047,19 +1179,20 @@
     /* EXHENTAI SOURCE */
     function addLinks(x)
     {
-        var targets = x.querySelectorAll("img[md5]");
-        for (var i = 0; i < targets.length; i++)
+        var targets = $("img[md5]:not([addingexs])", x);
+        targets.each(function()
         {
-            var node = document.evaluate("preceding-sibling::span[@class='filesize'][1]", targets[i].parentNode, null, 9, null).singleNodeValue;
-            
+            var node = $(this).parent().previousSibling(".filesize");
             if (!$("a.exSource", node).exists())
             {
-                var a = $("<a class=exSource href='" + targets[i].parentNode.href + "'>exhentai");
+                var a = $("<a class=exSource href='" + this.parentNode.href + "'>exhentai");
                 a.bind("click", fetchImage);
                 
-                $(node).append(document.createTextNode(" ")).append(a);
+                // tries to ensure this link is inserted after 4chan x's source links
+                setTimeout(function(){ node.append(document.createTextNode(" ")).append(a); }, 1);
+                $(this).attr("addingexs", "");
             }
-        }
+        });
     }
 
     function fetchImage(e)
