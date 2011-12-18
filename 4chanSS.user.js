@@ -51,12 +51,25 @@
         ],
         "Themes":
         [
-            {  }
+            {
+                name: "Dark Flat",
+                enabled: true,
+                bgImg: "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7",
+                bgColor:     "202020",
+                mainColor:   "282828",
+                borderColor: "161616",
+                linkColor:   "ffffff",
+                nameColor:   "ffffff",
+                quoteColor:  "789922",
+                textColor:   "ffffff",
+                sageColor:   "c97b7b",
+                tripColor:   "7bb3c9",
+                titleColor:  "999999"
+            }
         ]
-    }, SSf, options, $SS, config, postTabText, bgPattern, checkMark, theme, mascot, css;
+    }, SSf, $SS, config, postTabText, checkMark, theme, mascot, css;
     
     postTabText = /^.*\/res\/.*$/i.test(window.location.href) ? "NEW REPLY" : "NEW THREAD";
-    bgPattern   = "R0lGODlhAwADAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA0NDQ4ODg8PDxAQEBERERISEhMTExQUFBUVFRYWFhcXFxgYGBkZGRoaGhsbGxwcHB0dHR4eHh8fHyAgICEhISIiIiMjIyQkJCUlJSYmJicnJygoKCkpKSoqKisrKywsLC0tLS4uLi8vLzAwMDExMTIyMjMzMzQ0NDU1NTY2Njc3Nzg4ODk5OTo6Ojs7Ozw8PD09PT4+Pj8/P0BAQEFBQUJCQkNDQ0REREVFRUZGRkdHR0hISElJSUpKSktLS0xMTE1NTU5OTk9PT1BQUFFRUVJSUlNTU1RUVFVVVVZWVldXV1hYWFlZWVpaWltbW1xcXF1dXV5eXl9fX2BgYGFhYWJiYmNjY2RkZGVlZWZmZmdnZ2hoaGlpaWpqamtra2xsbG1tbW5ubm9vb3BwcHFxcXJycnNzc3R0dHV1dXZ2dnd3d3h4eHl5eXp6ent7e3x8fH19fX5+fn9/f4CAgIGBgYKCgoODg4SEhIWFhYaGhoeHh4iIiImJiYqKiouLi4yMjI2NjY6Ojo+Pj5CQkJGRkZKSkpOTk5SUlJWVlZaWlpeXl5iYmJmZmZqampubm5ycnJ2dnZ6enp+fn6CgoKGhoaKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrOzs7S0tLW1tba2tre3t7i4uLm5ubq6uru7u7y8vL29vb6+vr+/v8DAwMHBwcLCwsPDw8TExMXFxcbGxsfHx8jIyMnJycrKysvLy8zMzM3Nzc7Ozs/Pz9DQ0NHR0dLS0tPT09TU1NXV1dbW1tfX19jY2NnZ2dra2tvb29zc3N3d3d7e3t/f3+Dg4OHh4eLi4uPj4+Tk5OXl5ebm5ufn5+jo6Onp6erq6uvr6+zs7O3t7e7u7u/v7/Dw8PHx8fLy8vPz8/T09PX19fb29vf39/j4+Pn5+fr6+vv7+/z8/P39/f7+/v///ywAAAAAAwADAAAICQA5cMgwsCCHgAA7";
     checkMark   = "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAACXBIWXMAAAsTAAALEwEAmpwYAAADGGlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjaY2BgnuDo4uTKJMDAUFBUUuQe5BgZERmlwH6egY2BmYGBgYGBITG5uMAxIMCHgYGBIS8/L5UBFTAyMHy7xsDIwMDAcFnX0cXJlYE0wJpcUFTCwMBwgIGBwSgltTiZgYHhCwMDQ3p5SUEJAwNjDAMDg0hSdkEJAwNjAQMDg0h2SJAzAwNjCwMDE09JakUJAwMDg3N+QWVRZnpGiYKhpaWlgmNKflKqQnBlcUlqbrGCZ15yflFBflFiSWoKAwMD1A4GBgYGXpf8EgX3xMw8BSMDVQYqg4jIKAUICxE+CDEESC4tKoMHJQODAIMCgwGDA0MAQyJDPcMChqMMbxjFGV0YSxlXMN5jEmMKYprAdIFZmDmSeSHzGxZLlg6WW6x6rK2s99gs2aaxfWMPZ9/NocTRxfGFM5HzApcj1xZuTe4FPFI8U3mFeCfxCfNN45fhXyygI7BD0FXwilCq0A/hXhEVkb2i4aJfxCaJG4lfkaiQlJM8JpUvLS19QqZMVl32llyfvIv8H4WtioVKekpvldeqFKiaqP5UO6jepRGqqaT5QeuA9iSdVF0rPUG9V/pHDBYY1hrFGNuayJsym740u2C+02KJ5QSrOutcmzjbQDtXe2sHY0cdJzVnJRcFV3k3BXdlD3VPXS8Tbxsfd99gvwT//ID6wIlBS4N3hVwMfRnOFCEXaRUVEV0RMzN2T9yDBLZE3aSw5IaUNak30zkyLDIzs+ZmX8xlz7PPryjYVPiuWLskq3RV2ZsK/cqSql01jLVedVPrHzbqNdU0n22VaytsP9op3VXUfbpXta+x/+5Em0mzJ/+dGj/t8AyNmf2zvs9JmHt6vvmCpYtEFrcu+bYsc/m9lSGrTq9xWbtvveWGbZtMNm/ZarJt+w6rnft3u+45uy9s/4ODOYd+Hmk/Jn58xUnrU+fOJJ/9dX7SRe1LR68kXv13fc5Nm1t379TfU75/4mHeY7En+59lvhB5efB1/lv5dxc+NH0y/fzq64Lv4T8Ffp360/rP8f9/AA0ADzT6lvFdAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABwSURBVHjalI+rDYBAEEQfSCwnETiqwtEIBdAHjgIoAIE4hUBBDeT8YC5swkcw6+ZlsjOJeFfKl8QtUzEIPYBjIRioo50zIXYDgR7I8AixGjgQHSNCeEoDLYo3kUcvPm8QYsZdTa9WLRuFTUh+Lz8HABdVPTT1adyuAAAAAElFTkSuQmCC";
     // TODO: Change this ugly ass checkmark.
     
@@ -64,7 +77,7 @@
         Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
     
     /* STYLE SCRIPT FRAMEWORK */
-    /* More or less based of jQuery */
+    /* More or less based off jQuery */
     (function()
     {
         var SSf = window.$ = function(selector, root)
@@ -87,9 +100,6 @@
                     var root = root || document;
                     var tagCheck = /^<(\w+)([^>]*)>(.*)$/.exec(selector); // NO CLOSING TAGS FOR MAIN NODE
                     
-                    if (selector.constructor == SSf)
-                        selector = selector.get(); 
-                        
                     if (root.constructor == SSf)
                         root = root.get();
                         
@@ -122,6 +132,7 @@
                 }
                 else if (selector.nodeType)
                     this.elems = [ selector ];
+                else if (selector.constructor == SSf) return selector; // if this becomes a problem add a clone method
                 
                 return this;
             },
@@ -363,320 +374,328 @@
     })();
     /* END STYLE SCRIPT FRAMEWORK */
     
-    /* OPTIONS */
-    options =
-    {
-        init: function()
-        {
-            var a = $("<a>SS</a>").bind("click", options.show);
-            return $("#navtopr").append(a);
-        },
-        show: function()
-        {
-            if ($("#overlay").exists())
-                return options.close();
-            else
-            {
-                var key, val, des,
-                    overlay = $("<div id=overlay>"),
-                    tOptions = $("<div id=themeoptions class=reply>"),
-                    optionsHTML = "<ul id=toNav>\
-                <li><label class=selected for=tcbMain>Main</label></li>\
-                <li><label for=tcbMascots>Mascots</label></li>\
-                <li><label for=tcbNavLinks>Nav Links</label></li>\
-                </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>";
-                
-                for (key in config)
-                {
-                    if (key == "Fonts") continue;
-                    val = config[key];
-                    des = defaultConfig[key][1];
-                    
-                    if (key == "Font")
-                    {
-                        var fonts = config["Fonts"][0];
-                        optionsHTML += "<label title='" + des + "'><span>" + key + "</span><select name=Font>";
-                        
-                        for (var i = 0, MAX = fonts.length; i < MAX; i++)
-                             optionsHTML += "<option value='" + fonts[i] + "'" + (fonts[i] == config["Font"] ? " selected" : "") + ">" + fonts[i] + "</option>";
-                        
-                        optionsHTML += "</select></label>";
-                    }
-                    else if (key == "Font Size")
-                        optionsHTML += "<label title='" + des + "'><span>" + key + "</span><input type=text name='Font Size' value=" + config["Font Size"] + "px></label>";
-                    else if (key != "Nav Links" && key != "Mascots" && key != "Themes")
-                        optionsHTML += "<label title='" + des + "'><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
-                    else if (key == "Mascots")
-                    {
-                        var mascots = config["Mascots"];
-                        optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot><a class=trbtn name=addMascot>add</a>";
-                        
-                        for (var i = 0, MAX = mascots.length, tMascot; i < MAX; i++)
-                        {
-                            tMascot = new $SS.Mascot(mascots[i].img, mascots[i].color, mascots[i].enabled);
-                            optionsHTML += "<div id=mascot" + i + (tMascot.enabled ? " class=selected" : "") + ">\
-                            <a title=Delete>X</a><a title=Edit>E</a>\
-                            <img src='" + tMascot.image() + "'></div>";
-                        }
-                    }
-                    else if (key == "Nav Links")
-                    {
-                        var links = config["Nav Links"];
-                        optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><a class=trbtn name=addLink>add</a>";
-                        
-                        for (var i = 0, MAX = links.length; i < MAX; i++)
-                            optionsHTML += "<div><label>Text: <input type=text value='" + links[i].text + "'></label>" +
-                                                "<label>Link: <input type=text value='" + links[i].link + "'></label>" +
-                                                "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a></div>";
-                        
-                        optionsHTML += "</div>";
-                    }
-                }
-                
-                optionsHTML += "</div><div><a class=trbtn name=save>save</a><a class=trbtn name=cancel>cancel</a></div>";
-                tOptions.html(optionsHTML);
-                overlay.append(tOptions);
-                
-                $("#toNav li label", tOptions).bind("click", function(e)
-                {
-                    if ($(this).hasClass("selected")) return;
-                    
-                    $("#toNav li label.selected").removeClass("selected");
-                    $(this).addClass("selected");
-                });
-                
-                $("#tMascot div", tOptions).each(function(){ options.bindMascotInputs(this); });
-                
-                function bindLinkButtons(el)
-                {
-                    $("a[name=upLink]", el).bind("click", function()
-                    {
-                        var p = $(this).parent(), n;
-                        if ((n = p.previousSibling()))
-                            n.before(p);
-                    });
-                    $("a[name=downLink]", el).bind("click", function()
-                    {
-                        var p = $(this).parent(), n;
-                        if ((n = p.nextSibling()))
-                            n.after(p);
-                    });
-                    $("a[name=delLink]", el).bind("click", function(){ $(this).parent().remove(); });
-                }
-                
-                $("a[name=addMascot]", tOptions).bind("click", options.showMascot);
-                $("a[name=addLink]", tOptions).bind("click", function()
-                {
-                    var el = $("<div><label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label>" +
-                                "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a>");
-                    bindLinkButtons(el);
-                    $("#tNavLinks").append(el);
-                });
-                bindLinkButtons(tOptions);
-                $("a[name=save]", tOptions).bind("click", options.save);
-                $("a[name=cancel]",tOptions).bind("click", function(){ $("#overlay").remove(); });
-                
-                return $(document.body).append(overlay);
-            }
-        },
-        save: function()
-        {
-            var div, themes = [], mascots = [], links = [];
-            div = $("#themeoptions");
-            
-            // Save main
-            $("#themeoptions input:not([hidden]), #themeoptions select").each(function()
-            {
-                options.config.set($(this).attr("name"),
-                    $(this).attr("name") == "Font Size" ? parseInt($(this).val()) : $(this).val());
-            });
-            
-            // Save Mascots
-            $("#themeoptions #tMascot div").each(function(index)
-            {
-                config["Mascots"][index].enabled = $(this).hasClass("selected");
-                mascots.push(config["Mascots"][index]);
-            });
-            
-            options.config.set("Mascots", mascots);
-            
-            // Save nav links
-            $("#themeoptions #tNavLinks div").each(function()
-            {
-                var nLink = {};
-                
-                $(this).children("input").each(function(index)
-                {
-                    if (index == 0)
-                        nLink.text = $(this).val();
-                    else if (index == 1)
-                        nLink.link = $(this).val();
-                });
-                
-                links.push(nLink);
-            });
-            
-            options.config.set("Nav Links", links);
-            
-            return window.location.reload(true); // TENTATIVE TODO: Just update theme instead of reloading page.
-        },
-        showMascot: function(mIndex) // TODO: Fix base64 input element- why cant chrome hold all these chars- why is firefox and opera so slow
-        {
-            var div, overly;
-            
-            if (typeof mIndex === "number")
-                var bEdit = true, mEdit = config["Mascots"][mIndex];
-            
-            div = $("<div id=addMascot>");
-            div.html("<label><span title='URL or base64'>Background:</span><textarea name=customIMG>" + (bEdit ? mEdit.img : "") + "</textarea></label>\
-                    <label title='i.e. #FF6999'><span>Link Color (Hex.):</span><input type=text name=customColor value='#" + (bEdit ? mEdit.color : "") + "'></label>\
-                    <div><a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>");
-            
-            overlay = $("<div id=overlay2>");
-            overlay.append(div);
-            
-            if (bEdit)
-                $("a[name=edit]", div).bind("click", function(){ options.addMascot(mIndex); });
-            else
-                $("a[name=add]", div).bind("click", options.addMascot);
-            
-            $("a[name=cancel]", div).bind("click", function(){ $("#overlay2").remove(); });
-            
-            return $(document.body).append(overlay);
-        },
-        addMascot: function(mIndex)
-        {
-            var overlay, nMascot, div, cIMG, cColor;
-            overlay = $("#overlay2");
-            cIMG = decodeURIComponent($("textarea[name=customIMG]", overlay).val());
-            cColor = $("input[name=customColor]", overlay).val();
-            
-            if (!/^https?:\/\/.+/.test(cIMG) && !$SS.validBase64(cIMG))
-            {
-                alert("Invalid bg image URL/base64.");
-                return;
-            }
-            else if (!$SS.validHexColor(cColor))
-            {
-                alert("Invalid link color! Hexadecimal values only (6 characters).");
-                return;
-            }
-            console.log(cColor);
-            if (cColor[0] == "#")
-                cColor = cColor.substr(1);
-                
-            console.log(cColor);
-                
-            cIMG = $SS.cleanBase64(cIMG);
-            
-            if (typeof mIndex === "number")
-            {
-                config["Mascots"][mIndex].img = cIMG;
-                config["Mascots"][mIndex].color = cColor;
-            }
-            else
-            {
-                nMascot = new $SS.Mascot(cIMG, cColor, true);
-                config["Mascots"].push({ img: cIMG, color: cColor, enabled: true });
-                
-                div = $("<div id=mascot" + (config["Mascots"].length - 1) + " class=selected><a title=Delete>X</a><a title=Edit>E</a><img src='" + nMascot.image() + "'>");
-                options.bindMascotInputs(div);
-                
-                $("#tMascot").append(div);
-            }
-            
-            return overlay.remove();
-        },
-        deleteMascot: function(mIndex)
-        {
-            if (typeof mIndex !== "number")
-                return;
-            else if (confirm("Are you sure?"))
-            {
-                config["Mascots"].splice(mIndex, 1);
-                $("#mascot" + mIndex).remove();
-                
-                var mascot = $("#overlay #tMascot div").each(function(index){ $(this).attr("id", "mascot" + index); });
-            }
-        },
-        getMascot: function()
-        {
-            var eMascot = [], rand, m;
-            
-            for (var i = 0, MAX = config["Mascots"].length; i < MAX; i++)
-                if (config["Mascots"][i].enabled)
-                    eMascot.push(config["Mascots"][i]);
-            
-            rnd = Math.round(Math.random() * (eMascot.length - 1));
-            m = eMascot[rnd];
-            
-            if (eMascot.length == 0)
-            {
-                rnd = Math.round(Math.random() * (config["Mascots"].length - 1));
-                m = config["Mascots"][rnd];
-            }
-            
-            return new $SS.Mascot(m.img, m.color, true);
-        },
-        bindMascotInputs: function(div)
-        {
-            $(div).bind("click", function(){ $(this).toggleClass("selected"); });
-            
-            $("a[title=Delete]", div).bind("click", function(e)
-            {
-                e.stopPropagation();
-                options.deleteMascot(parseInt(e.target.parentNode.id.substr(6)));
-            });
-            $("a[title=Edit]", div).bind("click", function(e)
-            {
-                e.stopPropagation();
-                options.showMascot(parseInt(e.target.parentNode.id.substr(6)));
-            });
-        },
-        config:
-        {
-            hasGM: typeof GM_deleteValue !== "undefined",
-            get: function(name, namespace)
-            {
-                namespace = namespace == null ? "4chanSS." : namespace;
-                var val, key = namespace + name;
-                
-                if (this.hasGM && (val = GM_getValue(key)) != null)
-                        return JSON.parse(val);
-                else if ((val = localStorage.getItem(key)) != null)
-                    return JSON.parse(val);
-                    
-                return defaultConfig[name];
-            },
-            set: function(name, val)
-            {
-                name = "4chanSS." + name;
-                val = JSON.stringify(val);
-                
-                if (this.hasGM)
-                    return GM_setValue(name, val);
-                    
-                return localStorage.setItem(name, val);
-            }
-        },
-        loadConf: function()
-        {
-            function parseVal(val)
-            {
-                return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
-            };
-            
-            config = {};
-            
-            for (var key in defaultConfig)
-                config[key] = parseVal(this.config.get(key));
-        }
-    };
-    /* END OPTIONS */
-    
     /* STYLE SCRIPT CLASSES & METHODS */
     $SS =
     {
+        init: function()
+        {
+            var a = $("<a>SS</a>").bind("click", $SS.options.show);
+            return $("#navtopr").append(a);
+        },
+        
+        /* OPTIONS */
+        options:
+        {
+            show: function()
+            {
+                if ($("#overlay").exists())
+                    return $SS.options.close();
+                else
+                {
+                    var key, val, des,
+                        overlay = $("<div id=overlay>"),
+                        tOptions = $("<div id=themeoptions class=reply>"),
+                        optionsHTML = "<ul id=toNav>\
+                    <li><label class=selected for=tcbMain>Main</label></li>\
+                    <li><label for=tcbMascots>Mascots</label></li>\
+                    <li><label for=tcbNavLinks>Nav Links</label></li>\
+                    </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>";
+                    
+                    for (key in config)
+                    {
+                        if (key == "Fonts") continue;
+                        val = config[key];
+                        des = defaultConfig[key][1];
+                        
+                        if (key == "Font")
+                        {
+                            var fonts = config["Fonts"][0];
+                            optionsHTML += "<label title='" + des + "'><span>" + key + "</span><select name=Font>";
+                            
+                            for (var i = 0, MAX = fonts.length; i < MAX; i++)
+                                 optionsHTML += "<option value='" + fonts[i] + "'" + (fonts[i] == config["Font"] ? " selected" : "") + ">" + fonts[i] + "</option>";
+                            
+                            optionsHTML += "</select></label>";
+                        }
+                        else if (key == "Font Size")
+                            optionsHTML += "<label title='" + des + "'><span>" + key + "</span><input type=text name='Font Size' value=" + config["Font Size"] + "px></label>";
+                        else if (key != "Nav Links" && key != "Mascots" && key != "Themes")
+                            optionsHTML += "<label title='" + des + "'><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
+                        else if (key == "Mascots")
+                        {
+                            var mascots = config["Mascots"];
+                            optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot><a class=trbtn name=addMascot>add</a>";
+                            
+                            for (var i = 0, MAX = mascots.length, tMascot; i < MAX; i++)
+                            {
+                                tMascot = new $SS.Mascot(mascots[i].img, mascots[i].color, mascots[i].enabled);
+                                optionsHTML += "<div id=mascot" + i + (tMascot.enabled ? " class=selected" : "") + ">\
+                                <a title=Delete>X</a><a title=Edit>E</a>\
+                                <img src='" + tMascot.img.get() + "'></div>";
+                            }
+                        }
+                        else if (key == "Nav Links")
+                        {
+                            var links = config["Nav Links"];
+                            optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks><a class=trbtn name=addLink>add</a>";
+                            
+                            for (var i = 0, MAX = links.length; i < MAX; i++)
+                                optionsHTML += "<div><label>Text: <input type=text value='" + links[i].text + "'></label>" +
+                                                    "<label>Link: <input type=text value='" + links[i].link + "'></label>" +
+                                                    "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a></div>";
+                            
+                            optionsHTML += "</div>";
+                        }
+                    }
+                    
+                    optionsHTML += "</div><div><a class=trbtn name=save>save</a><a class=trbtn name=cancel>cancel</a></div>";
+                    tOptions.html(optionsHTML);
+                    overlay.append(tOptions);
+                    
+                    $("#toNav li label", tOptions).bind("click", function(e)
+                    {
+                        if ($(this).hasClass("selected")) return;
+                        
+                        $("#toNav li label.selected").removeClass("selected");
+                        $(this).addClass("selected");
+                    });
+                    
+                    $("#tMascot div", tOptions).each(function(){ $SS.options.bindMascotInputs(this); });
+                    
+                    function bindLinkButtons(el)
+                    {
+                        $("a[name=upLink]", el).bind("click", function()
+                        {
+                            var p = $(this).parent(), n;
+                            if ((n = p.previousSibling()))
+                                n.before(p);
+                        });
+                        $("a[name=downLink]", el).bind("click", function()
+                        {
+                            var p = $(this).parent(), n;
+                            if ((n = p.nextSibling()))
+                                n.after(p);
+                        });
+                        $("a[name=delLink]", el).bind("click", function(){ $(this).parent().remove(); });
+                    }
+                    
+                    $("a[name=addMascot]", tOptions).bind("click", $SS.options.showMascot);
+                    $("a[name=addLink]", tOptions).bind("click", function()
+                    {
+                        var el = $("<div><label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label>" +
+                                    "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a>");
+                        bindLinkButtons(el);
+                        $("#tNavLinks").append(el);
+                    });
+                    bindLinkButtons(tOptions);
+                    $("a[name=save]", tOptions).bind("click", $SS.options.save);
+                    $("a[name=cancel]",tOptions).bind("click", function(){ $("#overlay").remove(); });
+                    
+                    return $(document.body).append(overlay);
+                }
+            },
+            save: function()
+            {
+                var div, themes = [], mascots = [], links = [];
+                div = $("#themeoptions");
+                
+                // Save main
+                $("#themeoptions input:not([name=toTab]), #themeoptions select").each(function()
+                {
+                    $SS.options.config.set($(this).attr("name"),
+                        $(this).attr("name") == "Font Size" ? Math.max(Math.min(parseInt($(this).val()), 16), 10) : $(this).val());
+                });
+                
+                // Save Mascots
+                $("#themeoptions #tMascot div").each(function(index)
+                {
+                    config["Mascots"][index].enabled = $(this).hasClass("selected");
+                    mascots.push(config["Mascots"][index]);
+                });
+                
+                $SS.options.config.set("Mascots", mascots);
+                
+                // Save nav links
+                $("#themeoptions #tNavLinks div").each(function()
+                {
+                    var nLink = {};
+                    
+                    $(this).children("input").each(function(index)
+                    {
+                        if (index == 0)
+                            nLink.text = $(this).val();
+                        else if (index == 1)
+                            nLink.link = $(this).val();
+                    });
+                    
+                    links.push(nLink);
+                });
+                
+                $SS.options.config.set("Nav Links", links);
+                
+                return window.location.reload(true); // TENTATIVE TODO: Just update theme instead of reloading page.
+            },
+            showMascot: function(mIndex) // TODO: Fix base64 input element- why cant chrome hold all these chars- why is firefox and opera so slow
+            {
+                var div, overly;
+                
+                if (typeof mIndex === "number")
+                    var bEdit = true, mEdit = config["Mascots"][mIndex];
+                
+                div = $("<div id=addMascot>");
+                div.html("<label><span title='URL or base64'>Background:</span><textarea name=customIMG>" + (bEdit ? mEdit.img : "") + "</textarea></label>\
+                        <label title='i.e. #FF6999'><span>Link Color (Hex.):</span><input type=text name=customColor value='#" + (bEdit ? mEdit.color : "") + "'></label>\
+                        <div><a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>");
+                
+                overlay = $("<div id=overlay2>");
+                overlay.append(div);
+                
+                if (bEdit)
+                    $("a[name=edit]", div).bind("click", function(){ $SS.options.addMascot(mIndex); });
+                else
+                    $("a[name=add]", div).bind("click", $SS.options.addMascot);
+                
+                $("a[name=cancel]", div).bind("click", function(){ $("#overlay2").remove(); });
+                
+                return $(document.body).append(overlay);
+            },
+            addMascot: function(mIndex)
+            {
+                var overlay, nMascot, div, cIMG, cColor;
+                overlay = $("#overlay2");
+                cIMG = decodeURIComponent($("textarea[name=customIMG]", overlay).val());
+                cColor = $("input[name=customColor]", overlay).val();
+                
+                if (!/^https?:\/\/.+/.test(cIMG) && !$SS.validBase64(cIMG))
+                {
+                    alert("Invalid bg image URL/base64.");
+                    return;
+                }
+                else if (!$SS.validHexColor(cColor))
+                {
+                    alert("Invalid link color! Hexadecimal values only (6 characters).");
+                    return;
+                }
+                
+                if (cColor[0] == "#")
+                    cColor = cColor.substr(1);
+                                
+                cIMG = $SS.cleanBase64(cIMG);
+                
+                if (typeof mIndex === "number")
+                {
+                    config["Mascots"][mIndex].img = cIMG;
+                    config["Mascots"][mIndex].color = cColor;
+                }
+                else
+                {
+                    nMascot = new $SS.Mascot(cIMG, cColor, true);
+                    config["Mascots"].push({ img: cIMG, color: cColor, enabled: true });
+                    
+                    div = $("<div id=mascot" + (config["Mascots"].length - 1) + " class=selected><a title=Delete>X</a><a title=Edit>E</a><img src='" + nMascot.img.get() + "'>");
+                    $SS.options.bindMascotInputs(div);
+                    
+                    $("#tMascot").append(div);
+                }
+                
+                return overlay.remove();
+            },
+            deleteMascot: function(mIndex)
+            {
+                if (typeof mIndex !== "number")
+                    return;
+                else if (confirm("Are you sure?"))
+                {
+                    config["Mascots"].splice(mIndex, 1);
+                    $("#mascot" + mIndex).remove();
+                    
+                    var mascot = $("#overlay #tMascot div").each(function(index){ $(this).attr("id", "mascot" + index); });
+                }
+            },
+            getMascot: function()
+            {
+                var mascots = config["Mascots"], eMascot = [], rand, m;
+                
+                for (var i = 0, MAX = mascots.length; i < MAX; i++)
+                    if (mascots[i].enabled)
+                        eMascot.push(mascots[i]);
+                
+                if (eMascot.length == 0)
+                {
+                    rnd = Math.round(Math.random() * (mascots.length - 1));
+                    m = mascots[rnd];
+                }
+                else
+                {
+                    rnd = Math.round(Math.random() * (eMascot.length - 1));
+                    m = eMascot[rnd];
+                }
+                
+                return new $SS.Mascot(m.img, m.color, true);
+            },
+            bindMascotInputs: function(div)
+            {
+                $(div).bind("click", function(){ $(this).toggleClass("selected"); });
+                
+                $("a[title=Delete]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.deleteMascot(parseInt(e.target.parentNode.id.substr(6)));
+                });
+                $("a[title=Edit]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.showMascot(parseInt(e.target.parentNode.id.substr(6)));
+                });
+            },
+            getTheme: function()
+            {
+                var themes = config["Themes"];
+                
+                for (var i = 0, MAX = themes.length; i < MAX; i++)
+                    if (themes[i].enabled == true)
+                        return new $SS.Theme(themes[i]);
+            },
+            config:
+            {
+                hasGM: typeof GM_deleteValue !== "undefined",
+                get: function(name, namespace)
+                {
+                    namespace = namespace == null ? "4chanSS." : namespace;
+                    var val, key = namespace + name;
+                    
+                    if (this.hasGM && (val = GM_getValue(key)) != null)
+                            return JSON.parse(val);
+                    else if ((val = localStorage.getItem(key)) != null)
+                        return JSON.parse(val);
+                        
+                    return defaultConfig[name];
+                },
+                set: function(name, val)
+                {
+                    name = "4chanSS." + name;
+                    val = JSON.stringify(val);
+                    
+                    if (this.hasGM)
+                        return GM_setValue(name, val);
+                        
+                    return localStorage.setItem(name, val);
+                }
+            },
+            loadConf: function()
+            {
+                function parseVal(val)
+                {
+                    return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
+                };
+                
+                config = {};
+                
+                for (var key in defaultConfig)
+                    config[key] = parseVal(this.config.get(key));
+            }
+        },
+        
         Color: function(hex)
         {
             this.hex = "#" + hex;
@@ -685,30 +704,47 @@
             {
                 var rgb = [], hex;
                 hex = parseInt(this.hex.substr(1), 16);
+                offset = offset == null || typeof offset !== "number" ? 0 : offset;
                     
-                rgb[0] = (hex >> 16) & 0xFF;
-                rgb[1] = (hex >> 8) & 0xFF;
-                rgb[2] = hex & 0xFF;
+                rgb[0] = Math.min(Math.max((hex >> 16) & 0xFF + offset, 0), 255);
+                rgb[1] = Math.min(Math.max((hex >> 8) & 0xFF + offset, 0), 255);
+                rgb[2] = Math.min(Math.max(hex & 0xFF + offset, 0), 255);
                 
                 return rgb.join(",");
             };
         },
         
-        Mascot: function(img, hex, enabled)
+        Image: function(img)
         {
             this.img = img;
-            this.color = new $SS.Color(hex);
-            this.enabled = enabled;
-            
-            this.image = function()
+            this.get = function()
             {
-                if (!/^https?:\/\/.+$/i.test(this.img))
+                if ($SS.validBase64(this.img))
                     return "data:image/png;base64," + this.img;
                     
                 return this.img;
             };
         },
         
+        Mascot: function(img, hex, enabled)
+        {
+            this.img = new $SS.Image(img);
+            this.color = new $SS.Color(hex);
+            this.enabled = enabled;
+        },
+        
+        Theme: function(theme)
+        {
+            this.bgImg = new $SS.Image(theme.bgImg);
+            this.nameColor  = "#" + theme.nameColor;
+            this.quoteColor = "#" + theme.quoteColor;
+            this.sageColor  = "#" + theme.sageColor;
+            this.textColor  = "#" + theme.textColor;
+            this.titleColor = "#" + theme.titleColor;
+            this.tripColor  = "#" + theme.tripColor;
+        },
+        
+        /* HELPER METHODS */
         cleanBase64: function(b64)
         {
             return b64.replace(/^(data:image\/(?:gif|jpe?p|png);base64,)(\r\n|\r|\n)/gmi, "");
@@ -736,17 +772,16 @@
         $("#navtop").html(a.join(" - "));
     }
 
-    options.loadConf();
-    console.log(config);
-    mascot = options.getMascot();
-    console.log(mascot);
+    $SS.options.loadConf();
+    mascot = $SS.options.getMascot();
+    theme = $SS.options.getTheme();
     
     /* STYLING */
     css = // TODO: Consolidate css, prepare for color customization.
     "*{font-family:" + config["Font"] + ",Calibri,Helvetica,sans-serif!important;font-size:" + config["Font Size"] + "px!important}\
     body>form *{font-family:" + config["Font"] + ",Calibri,Helvetica,sans-serif!important}\
     *:focus{outline:none!important}\
-    input:focus,select:focus,textarea:focus{box-shadow:inset " + mascot.color.hex +" 0 0 3px}\
+    input:focus,select:focus,textarea:focus{box-shadow:inset " + mascot.color.hex +" 0 -1px 0,inset " + mascot.color.hex +" 0 1px 0,inset " + mascot.color.hex +" -1px 0 0,inset " + mascot.color.hex +" 1px 0 0}\
     ::selection{background:" + mascot.color.hex + ";color:#fff}\
     ::-moz-selection{background:" + mascot.color.hex + ";color:#fff}\
     *::-webkit-input-placeholder{color:#999!important}\
@@ -761,22 +796,24 @@
     img{border:none!important}\
     hr{border:none!important;border-top:1px solid rgba(36,36,36,.9)!important;margin:1px 0!important;box-shadow:rgba(0,0,0,.6) 0 0 3px}\
     h1,h2,h3,h4,h5{margin:.4em 0!important}\
-    h3,.commentpostername,.postername,body>center:nth-of-type(2)>font[color=red]>b,.pages b,.filetitle{font-weight:400!important}\
+    h3,.commentpostername,.postername,.replytitle,body>center:nth-of-type(2)>font[color=red]>b,.pages b,.filetitle{font-weight:400!important}\
     a{text-decoration:none!important;color:" + mascot.color.hex + "!important;font-weight:normal!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:not([href]){-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}\
     a:hover{color:#eee!important}\
     a:not([href]),a[href='javascript:;']{color:#fff!important}\
-    .postertrip,.trip{color:#a7dce7!important}\
-    .unkfunc{color:#789922!important}\
-    .filetitle,.replytitle{color:#aaa!important}\
+    .commentpostername,.postername,.commentpostername a,.postername a{color:" + theme.nameColor + "!important}\
+    .postertrip,.trip{color:" + theme.tripColor + "!important}\
+    .unkfunc{color:" + theme.quoteColor + "!important}\
+    .filetitle,.replytitle{color:" + theme.titleColor + "!important}\
+    a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:" + theme.sageColor + "!important}\
     .reply,td.replyhl,div.stub,option,div[id*=jsMath],#jsMath_float>*,.logo,a.trbtn,#thread_filter:hover>div,#imgControls,\
     .pages,#imgControls #imageType,body>center:nth-of-type(2)>font[color=red],.deletebuttons,.deletebuttons:before,\
     .postarea,#qr,#post,a.omittedposts:hover{background:rgba(40,40,40,.9)!important}\
     #options label,#options a,#themeoptions label,#themeoptions a,.pointer,a.trbtn,#themeoptions #toNav li label,#themeoptions #tMascot div,\
     input[type=checkbox],input[type=radio],input[type=submit],button{cursor:pointer}\
-    body{color:#fff!important;background:url(data:image/gif;base64," + bgPattern + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
+    body{color:" + theme.textColor + "!important;background:url(data:image/gif;base64," + theme.bgImg.get() + ") #202020!important;border-right:1px solid #161616;margin:0 315px 0 0!important;padding:0!important}\
     body:before{border-left:1px solid #161616;content:'';height:100%;width:312px;position:fixed;right:0;bottom:18px;z-index:-1}\
-    body:after{background:url("+ mascot.image() + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
+    body:after{background:url("+ mascot.img.get() + ") no-repeat center bottom rgba(22,22,22,.8);content:'';height:100%;width:313px;\
     border-left:2px solid rgba(40,40,40,.9);position:fixed;right:0;bottom:18px;z-index:-2}\
     #jsmath_button,#jsMath_panel,#jsMath_float{border:1px solid #161616!important}\
     #jsmath_button{bottom:auto!important;left:0!important;top:1px!important;right:auto!important}\
@@ -786,7 +823,6 @@
     div.thread:after,#updater div>label:after,form[name=delform] div.op:after,#addMascot>label:after{clear:both;color:transparent!important;content:'.';display:block;font-size:0!important}\
     div.op{border:none!important;position:relative}\
     div.op>a:first-child:not([name]):not(.reportbutton){position:absolute;right:2px;top:0}\
-    span.plus{color:#fff!important}\
     form[name=delform]{border-left:2px solid rgba(40,40,40,.9);border-bottom:2px solid rgba(40,40,40,.9);margin:" + (config["Show Announcements"] ? "19px" : "0") + " 0 42px 10px;padding-left:1px;position:relative;border-radius:0 0 0 6px}\
     form[name=delform] table{border-spacing:0;margin:1px 0 0;position:relative;table-layout:fixed;width:100%}\
     body>span[style]~form[name=delform]{padding-bottom:1px}\
@@ -806,12 +842,10 @@
     .qphl{outline:none!important}\
     #qp{background:rgba(36,36,36,.98)!important;border:1px solid rgba(" + mascot.color.rgb() + ",.4)!important;margin:0 10px!important;max-width:65%;padding:5px;position:fixed!important;z-index:11!important;box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:3px}\
     table.inline td.reply{background:rgba(0,0,0,.1)!important;border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:5px!important;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}\
-    a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover{color:#f66!important}\
     a.linkmail[href='mailto:sage']:after{font-size:10px;content:' (SAGE)'}\
     .omittedposts{color:#fff;}\
     a.omittedposts{background:rgba(36,36,36,.9);color:#aaa!important;margin:0 10px!important;padding:2px 6px;border-radius:3px 3px 0 0}\
     a.omittedposts:hover{color:#fff!important}\
-    .replytitle {color:#999!important}\
     .deletebuttons{border-left:1px solid #161616!important;border-top:1px solid #161616!important;position:fixed;bottom:18px;right:315px;\
     height:22px;width:0px;overflow:hidden;white-space:nowrap;padding:1px 2px 0 16px!important;z-index:2;\
     -webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}\
@@ -841,7 +875,6 @@
     .recaptcha_input_area{padding:0!important}\
     .recaptcha_image_cell{padding-right:2px!important}\
     div{color:#fff!important}\
-    .commentpostername,.postername,.commentpostername a,.postername a{color:#fff!important}\
     blockquote{margin:1em 12px 2em 40px!important}\
     blockquote a{color:#999!important}\
     blockquote>.abbr{color:#fff!important}\
@@ -883,8 +916,9 @@
     td.doubledash{padding:0;text-indent:-9999px}\
     .logo{position:fixed;right:0;top:19px;text-align:center;padding:2px 6px;width:300px!important;z-index:3}\
     .logo img{margin:0!important;opacity:0.4;border:1px solid #161616!important}\
-    .logo span{color:#eee;text-shadow:#000 0 0 10px;display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px}\
-    .logo font[size='1']{text-shadow:#000 0 0 5px;color:#ccc;position:absolute;bottom:8px;left:7px;text-align:center;width:300px}\
+    .logo span{color:#eee;text-shadow:rgba(0,0,0,.4) 2px 0 4px,rgba(0,0,0,.4) -2px 0 4px,rgba(0,0,0,.4) 0 -2px 4px,rgba(0,0,0,.4) 0 2px 4px;\
+    display:block;font-size:20px!important;text-align:center;width:300px;position:absolute;font-family:Trebuchet MS,sans-serif!important;bottom:-12px}\
+    .logo font[size='1']{text-shadow:#000 0 0 3px;color:#ccc;position:absolute;bottom:8px;left:7px;text-align:center;width:300px}\
     .logo font[size='1']>a{padding:0 2px;text-transform:none!important}\
     div.autohide>a[title='Auto-hide dialog box']{color:#fff!important;text-decoration:underline!important}#captchas{padding:0 3px}\
     .postarea table, .postarea table td{padding:0!important;border-spacing:0px!important;border-collapse:collapse!important}\
@@ -1035,7 +1069,7 @@
     #navtop,#navtopr{float:none!important}\
     #navtop{padding:1px 0;color:#aaa!important}\
     #navtop a{text-shadow:rgba(0,0,0,.3) 0 0 5px}\
-    #navtopr{position:absolute;right:5px!important;top:0;font-size:0!important;color:transparent}\
+    #navtopr{position:absolute;right:5px!important;top:0;font-size:0!important;color:transparent!important}\
     #navtopr>a:not(:first-child):last-child:before{content:'/';padding:0 2px}\
     .pages{border-top:1px solid #161616!important;border-right:1px solid #161616!important;margin:0!important;padding-top:1px;width:auto!important;height:24px;\
     position:fixed!important;bottom:18px;left:-370px!important;z-index:2;-webkit-transition:left .1s ease-in-out 1s;-moz-transition:left .1s ease-in-out 1s;-o-transition:left .1s ease-in-out 1s}\
@@ -1081,8 +1115,8 @@
     
     function DOMLoaded()
     {
-        // Add theme options link
-        options.init();
+        // Add options link
+        $SS.init();
         
         var postLoadCSS = "#navtop,#navtopr{display:inline!important}";
             
@@ -1160,7 +1194,6 @@
                             .exPopup{background:rgba(36,36,36,.9)!important;display:none;left:0;padding:5px;position:absolute!important;white-space:nowrap;z-index:8!important;\
                             box-shadow:rgba(0,0,0,.3) 0 2px 5px;-moz-box-shadow:rgba(0,0,0,.3) 0 2px 5px;border-radius:0 3px 3px 3px;-o-border-radius:0 3px 3px 3px}\
                             .exPopup a{display:block}";
-            //$("#ch4SS").appendText(postLoadCSS);
             
             addLinks(document);
             $(document).bind("DOMNodeInserted", function(e)
@@ -1169,8 +1202,8 @@
                     addLinks(e.target);
             });
         }
-        //else
-            $("#ch4SS").appendText(postLoadCSS);
+        
+        $("#ch4SS").appendText(postLoadCSS);
     }
     /* END DOM MANIPULATION */
     
@@ -1179,7 +1212,7 @@
     /* EXHENTAI SOURCE */
     function addLinks(x)
     {
-        var targets = $("img[md5]:not([addingexs])", x);
+        var targets = $("img[md5]:not([exSourceAdded])", x);
         targets.each(function()
         {
             var node = $(this).parent().previousSibling(".filesize");
@@ -1188,9 +1221,9 @@
                 var a = $("<a class=exSource href='" + this.parentNode.href + "'>exhentai");
                 a.bind("click", fetchImage);
                 
-                // tries to ensure this link is inserted after 4chan x's source links
+                // try to insert this link after 4chan x's source links
                 setTimeout(function(){ node.append(document.createTextNode(" ")).append(a); }, 1);
-                $(this).attr("addingexs", "");
+                $(this).attr("exSourceAdded", "true");
             }
         });
     }
