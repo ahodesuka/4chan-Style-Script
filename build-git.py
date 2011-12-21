@@ -3,9 +3,15 @@ import re
 f = open("style.css")
 css = f.read()
 
+# Strip Comments
+pattern = re.compile("/\*[^\*]+\*/")
+css = pattern.sub("", css)
+
+# Make it all one line
 pattern = re.compile("(\t|\r|\n)")
 css = pattern.sub("", css)
 
+# Remove unneeded semicolon
 pattern = re.compile(";}")
 css = pattern.sub("}", css)
 
