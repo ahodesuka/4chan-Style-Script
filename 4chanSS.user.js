@@ -585,12 +585,6 @@
                 }
             }
             
-            var addLinksHandler = function(e)
-            {
-                if (e.target.nodeName == "TABLE")
-                    addLinks(e.target);
-            };
-            
             // Add ExHentai source link
             if (config["ExHentai Source"])
             {
@@ -607,15 +601,15 @@
                     addLinks(document);
                     
                     if (!reload)
-                        window.addEventListener("load", function(){ $(document).bind("DOMNodeInserted", addLinksHandler); });
+                        window.addEventListener("load", function(){ $(document).bind("DOMNodeInserted", $SS.addLinksHandler); });
                     else
-                        $(document).bind("DOMNodeInserted", addLinksHandler);
+                        $(document).bind("DOMNodeInserted", $SS.addLinksHandler);
                 }
             }
             else if (reload)
             {
                 $(".exSource").remove();
-                $(document).unbind("DOMNodeInserted", addLinksHandler);
+                $(document).unbind("DOMNodeInserted", $SS.addLinksHandler);
             }
             
             if (reload)
@@ -668,6 +662,11 @@
                     }
                 }, 1);
             }
+        },
+        addLinksHandler: function(e)
+        {
+            if (e.target.nodeName == "TABLE")
+                addLinks(e.target);
         },
         
         /* CONFIG */
@@ -1164,8 +1163,8 @@
             
             if (!$(".exSource", node).exists())
             {
-                var a = $("<a class=exSource href='" + this.parentNode.href + "'>exhentai").bind("click", fetchImage);
-                setTimeout(function(){ node.append(document.createTextNode(" ")).append(a); }, 1);
+                var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>exhentai").bind("click", fetchImage);
+                setTimeout(function(){ node.append(document.createTextNode(" ")).append(a); });
             }
         });
     }
