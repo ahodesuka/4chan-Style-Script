@@ -145,7 +145,7 @@
             /* CONSTRUCTOR */
             init: function(selector, root)
             {
-                if (selector == null) return;
+                if (selector == null || selector == undefined) return;
                 
                 if (typeof selector === "string")
                 {
@@ -186,7 +186,7 @@
                     this.elems = [ selector ];
                 else if (Array.isArray(selector))
                     this.elems = Array.prototype.slice.call(selector);
-                else if (selector.constructor == SSf) return selector; // if this becomes a problem add a clone method
+                else if (selector.constructor == SSf) return selector;
                 
                 return this;
             },
@@ -585,6 +585,12 @@
                 }
             }
             
+            var addLinksHandler = function(e)
+            {
+                if (e.target.nodeName == "TABLE")
+                    addLinks(e.target);
+            };
+            
             // Add ExHentai source link
             if (config["ExHentai Source"])
             {
@@ -599,15 +605,18 @@
                 if (!reload || !$(".exSource").exists())
                 {
                     addLinks(document);
-                    $(document).bind("DOMNodeInserted", function(e)
-                    {
-                        if (e.target.nodeName == "TABLE")
-                            addLinks(e.target);
-                    });
+                    
+                    if (!reload)
+                        window.addEventListener("load", function(){ $(document).bind("DOMNodeInserted", addLinksHandler); });
+                    else
+                        $(document).bind("DOMNodeInserted", addLinksHandler);
                 }
             }
             else if (reload)
+            {
                 $(".exSource").remove();
+                $(document).unbind("DOMNodeInserted", addLinksHandler);
+            }
             
             if (reload)
                 setTimeout(function(){ $("#ch4SSPost").text(postLoadCSS); }, 1);
@@ -1147,8 +1156,6 @@
     /* EXHENTAI SOURCE */
     function addLinks(x)
     {
-        if ($(".exSource", x).exists()) return;
-        
         var targets = $("img[md5]", x);
         
         targets.each(function()
