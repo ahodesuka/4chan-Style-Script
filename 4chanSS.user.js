@@ -12,7 +12,6 @@
 
 /* 
  *  TODO LIST:
- *    - Rice: style checkbox with javascript.
  *    - Add jscolor, and trim it down a bit.
  *    - Create create theme/edit theme ui.
  *    - Create add/delete font ui.
@@ -187,7 +186,8 @@
     MAX_FONT_SIZE = 16,
     MIN_FONT_SIZE = 10,
     NAMESPACE     = "4chanSS.",
-    inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQVJREFUeNpi1NZUZcABkoFYngWHpAUQBwPxOyYskpJAXAjEv4C4EaTADoh1oZJcQFwBxGJAPBeIb4MUlANxHhCLAnECEOsB8Tog3gzSwSwmKvwfSLsCsSEQWwHxFSDug1rBADJhBRDvBWIVIP4AxB1A/BnmIJAvQCZMBmJ+IN4CxM+RXcx45dqtQR8OIAVLoF5sA+IgIL4ExAtg9lEhHP7//8+AD4DDQUdLTRhI+QKxA1T8AMiRwEB8CwsokGQ8kkYYewEsoBywmO4A8wVewIRkJzo4AHckLNTQHUmUNwm6AWzF1eu3BYCUNxC7QMX3APFWYKb6AHNDAFo4pAAx65AJB4AAAwAw/Uz3NoqiVgAAAABJRU5ErkJggg==";
+    inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQVJREFUeNpi1NZUZcABkoFYngWHpAUQBwPxOyYskpJAXAjEv4C4EaTADoh1oZJcQFwBxGJAPBeIb4MUlANxHhCLAnECEOsB8Tog3gzSwSwmKvwfSLsCsSEQWwHxFSDug1rBADJhBRDvBWIVIP4AxB1A/BnmIJAvQCZMBmJ+IN4CxM+RXcx45dqtQR8OIAVLoF5sA+IgIL4ExAtg9lEhHP7//8+AD4DDQUdLTRhI+QKxA1T8AMiRwEB8CwsokGQ8kkYYewEsoBywmO4A8wVewIRkJzo4AHckLNTQHUmUNwm6AWzF1eu3BYCUNxC7QMX3APFWYKb6AHNDAFo4pAAx65AJB4AAAwAw/Uz3NoqiVgAAAABJRU5ErkJggg==",
+    defaultIcons  = "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";
     
     if (!Array.isArray)
         Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
@@ -429,7 +429,7 @@
                         this.className = "";
                         
                         for (var k = 0, kMAX = cclassNames.length; k < kMAX; k++)
-                            if (classNames[j] != cclassNames[k])
+                            if (classNames[k] != cclassNames[j])
                                 this.className += (this.className ? " " : "") + cclassNames[k];
                     }
             }, classNames);
@@ -543,7 +543,6 @@
             return this.elems.length == 1;
         },
         
-    
         /* INPUT RICE */
         riceFile: function()
         {
@@ -589,6 +588,9 @@
                 });
                 
                 $(this).attr("riced", true).attr("hidden", true).after(div);
+                
+                if ($(this).attr("id") == "autohide")
+                    div.bind("click", $SS.fixQRhide);
             });
         }
     };
@@ -776,16 +778,18 @@
                         // Clone to remove event listeners and delete text
                         var move  = qr.children("div.move"),
                             moveC = move.clone(true),
-                            check = qr.children("#autohide");
+                            check = qr.children("#autohide"), rcheck;
                             
                         if (check.nextSibling(".riceCheck").exists())
-                            check = check.nextSibling(".riceCheck");
+                            rcheck = check.nextSibling(".riceCheck");
                         
                         move.remove();
-                        check.after(moveC);
                         
-                        // Fix posiiton when autohide unchecked
-                        check.bind("click", $SS.fixQRhide);
+                        if (rcheck)
+                            rcheck.after(moveC);
+                        else
+                            check.after(moveC).bind("click", $SS.fixQRhide);
+                        
                         $SS.fixQuote(document);
                         $SS.fixQRhide();
                         
@@ -1525,6 +1529,7 @@
             this.tripColor   = new $SS.Color(theme.tripColor);
             this.checkMark   = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? 0 : -8) + "px");
             this.radioCheck  = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? -16 : -24) + "px");
+            this.icons       = new $SS.Image(defaultIcons);
         },
         
         /* HELPER METHODS */
