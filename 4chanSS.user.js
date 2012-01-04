@@ -1503,14 +1503,6 @@
                 return typeof mixed === 'string' ? document.getElementById(mixed): mixed;
             },
 
-            addEvent: function(el, evnt, func) {
-                if(el.addEventListener) {
-                    el.addEventListener(evnt, func, false);
-                } else if(el.attachEvent) {
-                    el.attachEvent('on'+evnt, func);
-                }
-            },
-
             fireEvent: function(el, evnt) {
                 if(!el) {
                     return;
