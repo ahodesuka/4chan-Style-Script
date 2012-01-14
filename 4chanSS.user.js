@@ -373,6 +373,10 @@
             if (val == undefined)
             {
                 var el = this.elems[0];
+                
+                if (el == undefined)
+                    return false;
+                
                 switch(el.type)
                 {
                     case "checkbox":
@@ -1107,8 +1111,8 @@
             {
                 if (!$SS.options.saveAndClose)
                 {
-                    $("a[name=save]").text("save");
                     $SS.options.saveAndClose = true;
+                    $("a[name=save]").text("save");
                 }
             },
             save: function()
