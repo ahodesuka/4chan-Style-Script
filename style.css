@@ -1115,6 +1115,7 @@ textarea
 " + (config["Auto Hide Thread Watcher"] ? "
 #watcher:hover
 {
+    padding-bottom:16px;
     width:" + (config["Sidebar Size"] - 4) + "px!important;
 	-webkit-transition:none;
 	-moz-transition:none;
