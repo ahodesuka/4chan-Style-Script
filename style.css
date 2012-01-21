@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Jura);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
 *
 {
 	font-family:" + config["Font"] + "!important;
@@ -154,7 +154,7 @@ div[id*=jsMath],
 .deletebuttons,
 .deletebuttons::before,
 .postarea,
-a.omittedposts:hover
+a.omittedposts
 {
 	background:rgba(" + theme.mainColor.rgb + ",.9)!important;
 }
@@ -363,10 +363,6 @@ form[name=delform]>.thread>table
 	position:relative;
 	width:100%;
 }
-form[name=delform]>table:not(.pages)
-{
-	margin-left:" + (config["Sidebar Position"] == 1 ? 1 : -1) + "px!important;
-}
 form[name=delform]>table:nth-last-of-type(3)
 {
 	margin-bottom:1px;
@@ -455,11 +451,7 @@ div.stub
 }
 div.thread.stub
 {
-	margin:1px 0!important;
-}
-#imgcontrols + div.thread.stub
-{
-	margin-top:0!important;
+	margin:1px 0 1px " + (config["Sidebar Position"] == 1 ? 1 : -1) + "px!important;
 }
 div.stub>a,.stub>.block>a
 {
@@ -513,7 +505,6 @@ div.stub>a,.stub>.block>a
 }
 a.omittedposts
 {
-	background:rgba(" + theme.mainColor.shiftRGB(-8) + ",.9);
 	height:14px;
 	margin:0 10px!important;
 	margin-top:-17px!important;
@@ -601,15 +592,17 @@ a.omittedposts
 {
 	margin-left:0!important;
 }
-" + (config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") + (!config["Show Announcements"] ? "body>center:nth-of-type(2)>font[color=red]," : "") +
-(!config["Show Board Name"] ? ".logo span," : "") + (!config["Show Text Board"] ? ".logo font[size='1']," : "") + (!config["Show Logo"] ? ".logo img," : "") +
+" + (config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
+(!config["Show Board Name"] ? ".logo span," : "") +
+(!config["Show Text Board"] ? ".logo font[size='1']," : "") +
+(!config["Show Logo"] ? ".logo img," : "") +
 (config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + "
 #recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
 #hd,#ft,td small,#footer,.rules,center font small,body>br,td.reply>br,td.replyhl>br,body>hr,form[name=delform]>span[style],div.thread>br,td.postblock,
 .deletebuttons br,table[width='100%'],form[name=delform]>br[clear],form[name=delform]>.filesize+br,#qp>br,.logo>br,body>div[style*='center'],body>center:nth-of-type(1),
 form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),
 form[name=delform] hr:nth-last-of-type(1),[hidden],body>span[style]~#navlinks,#navtop,#navtopr,#navtop>a,#navtop>span,.pages,#imgControls #imageExpand,#imgControls #imageExpand+.riceCheck,
-body>table[style='text-align:center;width:100%;height:300px;']
+body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javascript:;']:not([class])
 {
 	display:none!important;
 }
@@ -781,10 +774,14 @@ input#recaptcha_response_field,
 {
 	border:1px solid " + theme.inputbColor.hex + "!important;
 }
-textarea,
 button,
-input:not([type=checkbox]):not([type=radio]):not(.jsColor),
+input[type=button],
+input[type=file],
+input[type=password],
+input[type=submit],
+input[type=text]:not(.jsColor),
 select,
+textarea,
 .riceFile
 {
 	background:rgba(" + theme.inputColor.rgb + ",.9)!important;
@@ -822,7 +819,10 @@ textarea,
 	-o-transition:box-shadow .2s linear;
 }
 button:hover,
-input:not([type=file]):not(.jsColor):not([disabled]):hover,
+input[type=button]:hover,
+input[type=password]:hover,
+input[type=submit]:hover,
+input[type=text]:not(.jsColor):not([disabled]):hover,
 select:hover,
 textarea:hover,
 .riceFile input:hover~div
@@ -899,7 +899,7 @@ input[type=radio]
 input[type=checkbox],
 .riceCheck
 {
-	box-shadow:rgba(" + theme.mainColor.shiftRGB(64) + ",.6) 0 1px;
+	box-shadow:rgba(" + theme.mainColor.shiftRGB(64) + ",.3) 0 1px;
 }
 input[type=checkbox]:hover,
 input[type=radio]:hover,
@@ -1022,18 +1022,17 @@ td.doubledash
 }
 .logo span
 {
-	bottom:-18px;
-	color:#eee;
+	bottom:-16px;
 	cursor:default!important;
 	display:block;
-	font-family:'Jura',sans-serif!important;
+	font-family:'PT Sans Narrow',sans-serif!important;
 	font-size:28px!important;
 	height:36px;
+    letter-spacing:-1px;
 	padding:0 10px;
 	position:absolute;
 	text-align:center;
-	text-shadow:rgba(" + mascot.color.rgb + ",.2) 0 0 10px,rgba(0,0,0,.2) 0 0 10px,
-	            #bbb 1px 1px,#b6b6b6 -1px 1px,#b0b0b0 1px 2px,#aaa -1px 2px,#a4a4a4 1px 3px,#9c9c9c -1px 3px,#000 0 4px 5px;
+    text-shadow:" + theme.mainColor.hex + " -1px -1px," + theme.mainColor.hex + " 1px -1px," + theme.mainColor.hex + " -1px 1px," + theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.6) 0 2px 4px,rgba(0,0,0,.6) 0 0 10px;
 	z-index:3;
 }
 .logo span::selection
@@ -1106,17 +1105,19 @@ textarea
 	background:none!important;
 	bottom:auto!important;
 	position:fixed!important;
-	max-width:" + (config["Sidebar Size"] - 4) + "px!important;
+	max-width:" + (config["Auto Hide Thread Watcher"] ? 200 : (config["Sidebar Size"] - 4)) + "px!important;
+	min-width:" + (config["Auto Hide Thread Watcher"] ? 0 : (config["Sidebar Size"] - 4)) + "px!important;
 	z-index:4!important;
-	-webkit-transition:width .1s linear .1s;
-	-moz-transition:width .1s linear .1s;
-	-o-transition:width .1s linear .1s;
+	-webkit-transition:max-width .1s linear .1s,min-width .1s linear .1s;
+	-moz-transition:max-width .1s linear .1s,min-width .1s linear .1s;
+	-o-transition:max-width .1s linear .1s,min-width .1s linear .1s;
 }
 " + (config["Auto Hide Thread Watcher"] ? "
 #watcher:hover
 {
     padding-bottom:16px;
-    width:" + (config["Sidebar Size"] - 4) + "px!important;
+    max-width:" + (config["Sidebar Size"] - 4) + "px!important;
+    min-width:" + (config["Sidebar Size"] - 4) + "px!important;
 	-webkit-transition:none;
 	-moz-transition:none;
 	-o-transition:none;
