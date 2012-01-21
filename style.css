@@ -114,7 +114,8 @@ a:hover
 	color:" + theme.linkHColor.hex + "!important;
 	text-shadow:rgba(" + theme.linkHColor.rgb + ",.2) 0 0 2px!important;
 }
-a:not([href]),a[href='javascript:;']
+a:not([href]),
+a[href='javascript:;']
 {
 	color:" + theme.jlinkColor.hex + "!important;
 }
@@ -144,7 +145,8 @@ a.linkmail[href='mailto:sage']:hover
 " + ( config["Pages Position"] != 2 ? ".pages td:nth-of-type(2)," : "" ) + "
 .reply,
 .replyhl,
-div.stub,
+div.stub>a,
+div.stub>.block>a,
 option,
 div[id*=jsMath],
 #jsMath_float>*,
@@ -179,12 +181,12 @@ input[type=submit],
 {
 	cursor:pointer;
 }
-body,.reply,.replyhl,input:not(.jsColor),select,.omittedposts,a.omittedposts,a.omittedposts:hover,blockquote>.abbr,
+.reply,.replyhl,input:not(.jsColor),select,.omittedposts,a.omittedposts,a.omittedposts:hover,blockquote>.abbr,
 .deletebuttons::before,.replymode,tr,div,textarea,div.autohide>a,#themeoptions #toNav li label.selected,
 #themeoptions #toNav li label:hover,#qr .move::before,
 #stats span,body>center:nth-of-type(2)>font[color=red]::before,.pages b,#navtopr span,
 .pages td,input[type=submit],button,form[name=post] input[name=email]+label,form[name=post] #com_submit+label,
-.deletebuttons::after
+.deletebuttons::after,form[name=delform]
 {
 	color:" + theme.textColor.hex + "!important;
 }
@@ -252,6 +254,7 @@ body>center:nth-of-type(2)>font[color=red],
 	left:0!important;
 	right:auto!important;") + "
 }
+" + (config["Layout"] == 2 ? "div.op," : "") + "
 #qr,
 #jsmath_button,
 #jsMath_panel,
@@ -259,7 +262,11 @@ body>center:nth-of-type(2)>font[color=red],
 #themeoptions #toWrapper,
 #options ul,
 #updater:hover,
-body>a[style='cursor: pointer; float: right;']+div
+body>a[style='cursor: pointer; float: right;']+div,
+.reply,
+.replyhl,
+.stub>a,
+.stub>.block>a
 {
 	border:1px solid " + theme.brderColor.hex + "!important;
 }
@@ -314,17 +321,26 @@ select *,
 {
 	font:" + config["Small Font Size"] + "px " + config["Font"] + "!important;
 }
-div.thread,
-body>span[style]~form[name=delform]
+" + (config["Layout"] != 2 ? "
+div.thread:not(.stub),
+body>span[style]~form[name=delform]" : "
+div.op") + "
 {
-	background:rgba(" + theme.mainColor.rgb + ",.3);
+	background:rgba(" + theme.mainColor.rgb + ",.5);
 }
 div.thread
 {
+    clear:both;
 	margin:0 0 1px;
-	padding:" + (config["Sidebar Position"] == 1 ? "3px 0 0 1px" : "3px 1px 0 0") + "!important;
+	padding:" + (config["Layout"] == 3 ? "3px 1px 0 1px" :
+    (config["Sidebar Position"] == 1 ? (config["Layout"] == 2 ? 0 : 3) + "px 0 0 1px" : (config["Layout"] == 2 ? 0 : 3) + "px 1px 0 0")) + "!important;
 	position:relative;
-	border-radius:2px 0 0 2px;
+	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
+}
+form[name=delform]>div:nth-last-of-type(2):not(.riceCheck):not(.stub)
+{
+    margin:0!important;
+    padding-bottom:1px!important;
 }
 div.thread::after,
 #updater div>label::after,
@@ -340,21 +356,27 @@ div.op
 	border:0!important;
 	padding-bottom:12px;
 	position:relative;
+    " + (config["Layout"] == 2 ? "
+	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
 }
-div.op>a:first-child:not([name]):not(.reportbutton)
+.op>a:first-child[href='javascript:;']:not(.reportbutton)
 {
-	position:absolute;
+	" + (config["Layout"] != 2 ? "
+    position:absolute;
 	right:2px;
-	top:0;
+	top:0;" : "/*"*/
+    position:relative;
+    top:-1px;") + "
 }
 form[name=delform]
 {
-	border:1px solid rgba(" + theme.brderColor.rgb + ",.9);
-	border-" + config["Sidebar Position String"] + ":0!important;
-	margin:" + (config["Sidebar Position"] == 1 ? "0 0 44px 30px" : "0 30px 44px 0") + ";
+	" + (config["Layout"] != 2 ? "
+    border:1px solid rgba(" + theme.brderColor.rgb + ",.9);
+	" + (config["Layout"] == 1 ? "border-" + config["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
+	margin:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "0 0 44px 30px" : "0 30px 44px 0") : "0 10% 44px") + ";
 	padding:0;
 	position:relative;
-	border-radius:" + (config["Sidebar Position"] == 1 ? "4px 0 0 4px" : "0 4px 4px 0") + ";
+	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
 }
 form[name=delform]>table,
 form[name=delform]>.thread>table
@@ -363,6 +385,10 @@ form[name=delform]>.thread>table
 	position:relative;
 	width:100%;
 }
+form[name=delform]>table
+{
+    margin-left:" + (config["Sidebar Position"] == 1 ? 1 : -1) + "px!important;
+}
 form[name=delform]>table:nth-last-of-type(3)
 {
 	margin-bottom:1px;
@@ -370,7 +396,7 @@ form[name=delform]>table:nth-last-of-type(3)
 
 body>span[style]~form[name=delform]>table
 {
-	margin-left:0;
+	margin-left:0!important;
 }
 body>span[style]~form[name=delform]>table:nth-last-of-type(3)
 {
@@ -379,12 +405,14 @@ body>span[style]~form[name=delform]>table:nth-last-of-type(3)
 body>span[style]~form[name=delform]
 {
 	margin-bottom:43px!important;
-	padding:" + (config["Sidebar Position"] == 1 ? "4px 0 1px 1px" : "4px 1px 1px 0") + "!important;
+	padding:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px") + "!important;
 }
 body,
 td.reply,
 td.replyhl,
-div.stub,
+div.stub>a,
+div.stub>.block>a,
+div.thread.stub,
 .riceFile,
 .riceCheck,
 .logo span,
@@ -394,28 +422,82 @@ body>a[style='cursor: pointer; float: right;']+div
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 }
-" + (theme.replyBrder ? "
+" + (config["Layout"] == 2 ? "div.op," : "") + "
 .reply,
 .replyhl,
-.stub
+.stub>a,
+.stub>.block>a
 {
-	border:1px solid " + theme.brderColor.hex + "!important;
-	border-" + config["Sidebar Position String"] + "/*"*/:0!important;
-}" : "") + "
+	" + (config["Layout"] != 3 ? "border-" + config["Sidebar Position String"] + ":0!important;" : "") + "/*"*/
+}
 .reply,
 .replyhl
 {
 	display:inline-block;
 	position:relative!important;
 }
+.reportbutton
+{
+    background-position:0 -16px;
+    position:relative;
+    " + (config["Layout"] != 2 ? "
+    float:right;
+    right:8px;
+    top:-4px;" : "top:-1px;") + "/*"*/
+}
+.inline .reportbutton,
+#qp .reportbutton
+{
+    right:auto;
+    top:1px;
+}
+" + (config["Layout"] != 2 ? "
+.op>.reportbutton
+{
+    right:14px;
+    top:-20px;
+}" : "") + "
 .replyhider
 {
-	margin:0!important;
-	padding:1px 0 0!important;
 	position:absolute;
+    " + (config["Layout"] == 2 ? "
+    left:3px;
+    top:20px;" : "/*"*/
 	right:2px;
-	width:auto!important;
+    top:2px;") + "
 	z-index:1;
+}
+.replyhider a,
+.op>a:first-child[href='javascript:;']:not(.reportbutton)
+{
+	background-position:-80px 0;
+}
+div.stub>a>span,
+div.stub>.block>a>span
+{
+	background-position:-80px -16px;
+    position:relative;
+    top:1px;
+	-webkit-transition:all .1s ease-in-out;
+	-moz-transition:all .1s ease-in-out;
+	-o-transition:all .1s ease-in-out;
+}
+.reportbutton,
+.replyhider a,
+.op>a:first-child[href='javascript:;']:not(.reportbutton),
+div.stub>a>span,
+div.stub>.block>a>span
+{
+	margin:0!important;
+    opacity:.5;
+}
+.reportbutton:hover,
+.replyhider a:hover,
+.op>a:first-child[href='javascript:;']:not(.reportbutton):hover,
+div.stub>a:hover>span,
+div.stub>.block>a:hover>span
+{
+    opacity:.75;
 }
 td.reply,
 td.replyhl
@@ -431,11 +513,13 @@ td.replyhl>img
 }
 td.reply,
 td.replyhl,
-div.stub
+div.stub,
+div.stub>a,
+div.stub>.block>a
 {
 	padding:5px!important;
-	width:100%;
-	border-radius:" + (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") + ";
+	" + (config["Layout"] != 2 ? "width:100%;" : "") + "/*"*/
+	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
 td.replyhl,
 td.qphl
@@ -446,17 +530,18 @@ td.qphl
 div.stub
 {
 	margin:1px 0 0!important;
-	opacity:.75;
-	padding-right:1px!important;
+	padding:0 1px 0 0!important;
 }
 div.thread.stub
 {
-	margin:1px 0 1px " + (config["Sidebar Position"] == 1 ? 1 : -1) + "px!important;
+	margin:1px 0px!important;
+    padding:0 1px!important;
 }
-div.stub>a,.stub>.block>a
+div.stub>a,
+div.stub>.block>a
 {
-	display:block;
-	padding:2px;
+	display:" + (config["Layout"] == 2 ? "inline-" : "") + "block;
+	padding:7px;
 }
 .container
 {
@@ -487,8 +572,12 @@ div.stub>a,.stub>.block>a
 	padding:5px 5px 20px;
 	position:fixed!important;
 	z-index:11!important;
-	box-shadow:rgba(0,0,0,.3) 0 2px 5px;
 	border-radius:3px;
+}
+#qp,
+.inline td.reply
+{
+	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
 }
 .inline td.reply
 {
@@ -496,7 +585,6 @@ div.stub>a,.stub>.block>a
 	border:1px solid rgba(" + theme.brderColor.rgb + ",.4)!important;
 	padding:5px!important;
 	border-radius:3px;
-	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
 }
 .commentpostername a.linkmail[href='mailto:sage']::after
 {
@@ -507,21 +595,22 @@ a.omittedposts
 {
 	height:14px;
 	margin:0 10px!important;
-	margin-top:-17px!important;
-	padding:2px 6px;
+	margin-top:" + (config["Layout"] == 2 ? -22 : -15) + "px!important;
+	padding:1px 6px 2px;
 	position:absolute;
-	border-radius:3px 3px 0 0;
+	border-radius:3px" + (config["Layout"] != 2 ? " 3px 0 0" : "") + ";
 }
 .deletebuttons
 {
 	position:fixed;
-	" + config["Sidebar Position String"] + "/*"*/:" + (config["Sidebar Size"] - 1) + "px;
+	" + config["Sidebar Position String"] + ":" + (config["Sidebar Size"] - 1) + "px;
 	height:22px;
 	width:0;
 	overflow:hidden;
 	white-space:nowrap;
 	padding:1px 2px 0 18px!important;
 	z-index:2;
+    " + (config["Layout"] == 3 ? "border-radius:" + (config["Sidebar Position"] == 1 ? "3px 0 0 0" : "0 3px 0 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
 	-o-transition:all .2s ease-in-out;
@@ -531,7 +620,7 @@ a.omittedposts
 	" + (config["Sidebar Position"] == 1 ? "
 	padding-left:2px!important;" : "/*"*/
 	padding-left:0!important;
-	padding-right:4px!important;") + "
+	padding-right:3px!important;") + "
 	width:238px;
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
@@ -596,7 +685,8 @@ a.omittedposts
 (!config["Show Board Name"] ? ".logo span," : "") +
 (!config["Show Text Board"] ? ".logo font[size='1']," : "") +
 (!config["Show Logo"] ? ".logo img," : "") +
-(config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + "
+(config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + 
+(config["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
 #recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
 #hd,#ft,td small,#footer,.rules,center font small,body>br,td.reply>br,td.replyhl>br,body>hr,form[name=delform]>span[style],div.thread>br,td.postblock,
 .deletebuttons br,table[width='100%'],form[name=delform]>br[clear],form[name=delform]>.filesize+br,#qp>br,.logo>br,body>div[style*='center'],body>center:nth-of-type(1),
@@ -681,11 +771,17 @@ img[alt=sticky],
 body>span[style] a,
 body>a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
-#imgControls>label
+#imgControls>label,
+.reportbutton,
+.replyhider a,
+.op>a:first-child[href='javascript:;']:not(.reportbutton),
+div.stub>a>span,
+div.stub>.block>a>span
 {
 	background-image:" + theme.icons.get() + "!important;
 	background-color:transparent!important;
 	background-repeat:no-repeat;
+    display:inline-block;
 	height:0!important;
 	padding-top:16px!important;
 	vertical-align:bottom;
@@ -1065,7 +1161,7 @@ div.autohide>a[title='Auto-hide dialog box']
 .filesize
 {
 	display:block!important;
-	margin:2px 6px!important;
+	margin:2px " + (config["Layout"] != 2 ? 6 : 0) + "px!important;
 }
 div.op .filesize
 {
@@ -1569,9 +1665,12 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-48px 0;
 	content:'';
-	display:inline-block;
 	float:right;
 	margin:1px;
+}
+#imgControls>label.imgExpanded
+{
+	background-position:-48px -16px;
 }
 .deletebuttons::before,
 .postarea form[name=post]::before,
@@ -1791,13 +1890,15 @@ body>span[style]~#qr .autohide,body>span[style]~#qr #autohide:checked~.autohide
 	z-index:2;
 }
 #qr input[name=upfile]+a::before,
-#qr #close::before
+#qr #close::before,
+.close::before
 {
 	content:'[';
 	padding-right:2px;
 }
 #qr input[name=upfile]+a::after,
-#qr #close::after
+#qr #close::after,
+.close::after
 {
 	content:']';
 	padding-left:2px;
@@ -1942,6 +2043,7 @@ body>center:nth-of-type(2)>font[color=red]
 	top:-18px;
 	white-space:nowrap;
 	z-index:10;
+	" + (config["Layout"] != 1 ? "border-radius:" + (config["Sidebar Position"] == 1 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
 	-o-transition:all .2s ease-in-out;
@@ -1959,7 +2061,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	max-width:600px;
 	padding:0 10px 10px;
 	white-space:normal;
-	border-radius:" + (config["Sidebar Position"] == 1 ? "0 0 0 3px " : "0 0 3px 0") +";
+	border-radius:" + (config["Sidebar Position"] == 1 ? "0 0 0 3px " : "0 0 3px 0") + ";
 }
 #header
 {
@@ -2038,7 +2140,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	position:fixed!important;
 	visibility:hidden;
 	width:auto!important;
-	" + ( config["Pages Position"] == 1 ? "/*"*/
+	" + ( config["Pages Position"] == 1 ? "
 	height:21px!important;
 	bottom:22px!important;
 	" + (config["Sidebar Position"] == 1 ? "
@@ -2102,7 +2204,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	margin:0!important;
 	padding:0 10px!important;
 	width:50px!important;
-	" + (config["Pages Position"] != 3 ? "height:21px!important;" : "height:24px!important;") + "/*"*/
+	height:" + (config["Pages Position"] == 3 ? 24 : (config["Pages Position"] == 2 ? 20 : 21)) + "px!important;
 }
 " + (config["Pages Position"] == 1 ? "
 .pages:hover
@@ -2144,7 +2246,12 @@ body>a[style='cursor: pointer; float: right;'],
 #navtop,
 #navtopr,
 #qr>div.move,
-#imgControls>label
+#imgControls>label,
+.reportbutton,
+.replyhider a,
+.op>a:first-child[href='javascript:;']:not(.reportbutton),
+div.stub>a>span,
+div.stub>.block>a>span
 {
 	font-size:0!important;
 	color:transparent!important;
@@ -2158,7 +2265,6 @@ body>a[style='cursor: pointer; float: right;']::after
 body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-32px 0;
-	opacity:.5;
 	position:fixed;
 	" + (config["Sidebar Position"] == 1 ? "right:5px;" : "/*"*/
 	left:" + (config["Sidebar Size"] - 24) + "px;") + "
@@ -2196,7 +2302,8 @@ body>a[style='cursor: pointer; float: right;'],
 body>span[style] a:hover,
 body>a[href='.././']:hover,
 body>a[style='cursor: pointer; float: right;']:hover,
-#imgControls>label:hover
+#imgControls>label:hover,
+#imgControls>label.imgExpanded
 {
 	opacity:1;
 }
@@ -2299,7 +2406,6 @@ body>span[style] a,
 body>a[href='.././']
 {
 	background-position:-64px 0;
-	display:inline-block;
 	position:fixed!important;
 	text-indent:-9999px;
 	top:2px;
