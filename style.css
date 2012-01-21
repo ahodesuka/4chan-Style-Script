@@ -1498,6 +1498,18 @@ body>a[style='cursor: pointer; float: right;']
 	-moz-transform:translateX(-500px) scale(10);
 	-o-transform:translateX(-500px) scale(10);
 }
+#addMascot a[name=clearIMG]
+{
+    float:left;
+    opacity:0;
+	-webkit-transition:all .2s ease-in-out;
+	-moz-transition:all .2s ease-in-out;
+	-o-transition:all .2s ease-in-out;
+}
+#addMascot input[name=customIMGB64]+a[name=clearIMG]
+{
+    opacity:1;
+}
 #themeoptions,
 #options.dialog,
 #themeoptions #toNav li label.selected,
@@ -1672,6 +1684,9 @@ form[name=post] input[name=email]+label
 {
 	height:100px!important;
 	resize:none;
+	-webkit-transition:box-shadow .2s linear,width .2s ease-in-out!important;
+	-moz-transition:box-shadow .2s linear,width .2s ease-in-out!important;
+	-o-transition:box-shadow .2s linear,width .2s ease-in-out!important;
 }
 " + (config["Sidebar Position"] == 1 ? "
 .postarea textarea,
