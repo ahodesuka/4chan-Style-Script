@@ -443,7 +443,7 @@ body>a[style='cursor: pointer; float: right;']+div
     background-position:0 -16px;
     " + (config["Layout"] != 2 ? "
     position:absolute;
-    right:14px;
+    right:13px;
     top:1px;" : "/*"*/
     position:relative;
     top:-1px;") + "
@@ -458,6 +458,7 @@ body>a[style='cursor: pointer; float: right;']+div
 " + (config["Layout"] != 2 ? "
 .op>.reportbutton
 {
+    right:14px;
     top:0;
 }" : "") + "
 .replyhider
