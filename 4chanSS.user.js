@@ -13,11 +13,11 @@
 /* 
  *  TODO LIST:
  *    - Create add/delete font ui.
- *    - Create create theme/edit theme ui.
  *    - Add delimiter setting for custom nav.
+ *    - Create create theme/edit theme ui.
  *    - Add some more themes.
  *    - Style sys/rs.
- *    - Script is becoming extremly obese, clean it up a bit.
+ *    - Clean jscolor, move styling into css.
  */
 
 (function()
@@ -250,13 +250,13 @@
             { text: "video games",   link: "http://boards.4chan.org/v/"  },
             { text: "otaku culture", link: "http://boards.4chan.org/jp/" }
         ]
-    }, SSf, $SS, config, theme, mascot, css, bHideSidebar,
+    }, SSf, $SS, config, theme, mascot, css, bHideSidebar, fontList,
     MAX_FONT_SIZE = 16,
     MIN_FONT_SIZE = 10,
     NAMESPACE     = "4chanSS.",
     inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQVJREFUeNpi1NZUZcABkoFYngWHpAUQBwPxOyYskpJAXAjEv4C4EaTADoh1oZJcQFwBxGJAPBeIb4MUlANxHhCLAnECEOsB8Tog3gzSwSwmKvwfSLsCsSEQWwHxFSDug1rBADJhBRDvBWIVIP4AxB1A/BnmIJAvQCZMBmJ+IN4CxM+RXcx45dqtQR8OIAVLoF5sA+IgIL4ExAtg9lEhHP7//8+AD4DDQUdLTRhI+QKxA1T8AMiRwEB8CwsokGQ8kkYYewEsoBywmO4A8wVewIRkJzo4AHckLNTQHUmUNwm6AWzF1eu3BYCUNxC7QMX3APFWYKb6AHNDAFo4pAAx65AJB4AAAwAw/Uz3NoqiVgAAAABJRU5ErkJggg==",
     defaultIcons  = "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",
-    RbotDOTexe    = "http://ahodesuka.github.com/FontList.swf";
+    fontListSWF   = "http://ahodesuka.github.com/FontList.swf";
     
     if (!Array.isArray)
         Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
@@ -761,8 +761,34 @@
             {
                 if (!reload)
                 {
+                    // get font list - This will be moved into the options dialog.
+                    // Instead of loading every time make a update fonts button, store values in config
+                    $(document.head).append($('<script type="text/javascript">\
+                    function populateFontList(fontArr)\
+                    {\
+                        var fontList = [];\
+                        \
+                        for (var key in fontArr)\
+                        {\
+                            var fontName = fontArr[key].replace(/^\s\s*/, "").replace(/\s\s*$/, "");\
+                            \
+                            if (!(fontName.match(/[_\-\s]Italic$/)\
+                                || fontName.match(/[_\-\s](Demi)?[Bb]old$/)\
+                                || fontName.match(/[_\-\s]Medium$/)\
+                                || fontName.match(/[_\-\s](Ultra)?[Ll]ight$/)\
+                                || fontName.match(/[_\-\s]Condensed$/)))\
+                                fontList.push(fontName.replace(/\s*Regular$/, ""));\
+                        }\
+                        var el = document.createElement("div");\
+                            el.id = "ch4SSfontList";\
+                            el.setAttribute("hidden", true);\
+                            el.textContent = fontList.join("|");\
+                        document.body.appendChild(el);\
+                    }'));
+                    
                     $SS.options.init();
                     
+                    $(document.body).append($("<div id=fontListSWF hidden><object type='application/x-shockwave-flash' data='" + fontListSWF + "'><param name=allowScriptAccess value=always></object>"));
                     $(".logo>img").attr("id", "logo");
                     
                     $("form[name=post]:not(#qr_form)").elements().each(function()
@@ -878,7 +904,7 @@
                 }
                 else
                 {
-                    $(document.head).append($("<style type='text/css' id=ch4SSPost>" + postLoadCSS));
+                    $(document.head).append($("<style type='text/css' id=ch4SSPost>" + postLoadCSS)); // Appending to current css causes flicker, so create another style node
                     
                     // Change some of 4chan x quick reply events
                     if ((qr = $("body>span[style]~#qr")).exists())
@@ -935,7 +961,14 @@
         {
             if (e.target.nodeName == "DIV")
             {
-                if ((config["Rice Inputs"] == 2 || config["Rice Inputs"] == 4) && (e.target.className != "riceFile" || $SS.incRice))
+                if (e.target.id == "ch4SSfontList")
+                {
+                    var fontListEL = $(e.target);
+                    fontList = fontListEL.text().split("|");
+                    fontListEL.remove();
+                    $("#fontListSWF").remove();
+                }
+                else if ((config["Rice Inputs"] == 2 || config["Rice Inputs"] == 4) && (e.target.className != "riceFile" || $SS.incRice))
                 {
                     $SS.incRice = false;
                     
@@ -1087,14 +1120,7 @@
                                 optionsHTML += "<option" + (key == "Font" ? " style='font-family:" + value + "!important'" : "") + " value='" + value + "'" + (value == val ? " selected" : "") + ">" + name + "</option>";
                             }
                             
-                            if (key == "Font")
-                            {
-                                optionsHTML += "</select>\
-                                <div hidden><object id=fontListSWF type='application/x-shockwave-flash' data='" + RbotDOTexe + "' width=1 height=1></object></div>\
-                                </label>";
-                            }
-                            else
-                                optionsHTML += "</select></label>";
+                            optionsHTML += "</select></label>";
                         }
                         else if (key == "Font Size")
                         {
