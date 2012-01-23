@@ -2457,7 +2457,7 @@ body>a[href='.././']
 	position:absolute!important;
 	top:16px;
 	white-space:nowrap;
-	z-index:8!important;
+	z-index:9!important;
 	box-shadow:rgba(0,0,0,.3) 0 2px 2px;
 	border-radius:0 3px 3px 3px;
 }
