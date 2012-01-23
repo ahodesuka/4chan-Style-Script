@@ -1152,7 +1152,8 @@
                             var links = config["Nav Links"];
                             optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks>\
                                             <p><a class=trbtn name=addLink>add</a>\
-                                            <label>Delimiter: <input type=text name='Nav Link Delimiter' value='" + config["Nav Link Delimiter"] + "' style='width:40px'></p>";
+                                            <label>Delimiter: \
+                                            <input type=text name='Nav Link Delimiter' value='" + config["Nav Link Delimiter"] + "' style='width:40px' title='" + defaultConfig["Nav Link Delimiter"][1] + "'></p>";
                             
                             for (var i = 0, MAX = links.length; i < MAX; i++)
                                 optionsHTML += "<div><label>Text: <input type=text value='" + links[i].text + "'></label>" +
