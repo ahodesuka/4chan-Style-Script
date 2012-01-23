@@ -600,7 +600,7 @@ a.omittedposts
 {
 	height:14px;
 	margin:0 10px!important;
-	margin-top:" + (config["Layout"] == 2 ? -22 : -15) + "px!important;
+	margin-top:" + (config["Layout"] == 2 ? -22 : -16) + "px!important;
 	padding:1px 6px 2px;
 	position:absolute;
 	border-radius:3px" + (config["Layout"] != 2 ? " 3px 0 0" : "") + ";
@@ -2383,9 +2383,9 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 	right:0;
 	z-index:1;
 	opacity:0;
-	-webkit-transform:translateX(-1300px) scale(10);
-	-moz-transform:translateX(-1300px) scale(10);
-	-o-transform:translateX(-1300px) scale(10);
+	-webkit-transform:translateX(-1000px) scale(10);
+	-moz-transform:translateX(-1000px) scale(10);
+	-o-transform:translateX(-1000px) scale(10);
 }
 #qr .riceFile input[type=file]
 {
