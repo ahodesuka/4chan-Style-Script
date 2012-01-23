@@ -1,12 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
 *
 {
-	font-family:" + config["Font"] + "!important;
+	font-family:'" + config["Font"] + "'!important;
 	font-size:" + config["Font Size"] + "px!important;
 }
 body>form *
 {
-	font-family:" + config["Font"] + "!important;
+	font-family:'" + config["Font"] + "'!important;
 }
 *:focus
 {
@@ -319,7 +319,7 @@ select *,
 .pages td:nth-of-type(2) *,
 .filesize span::after
 {
-	font:" + config["Small Font Size"] + "px " + config["Font"] + "!important;
+	font:" + config["Small Font Size"] + "px '" + config["Font"] + "'!important;
 }
 " + (config["Layout"] != 2 ? "
 .thread:not(.stub),
@@ -1423,6 +1423,13 @@ body>a[style='cursor: pointer; float: right;']
 #themeoptions #tMain label:hover
 {
 	border-left:2px solid " + theme.mainColor.hex + ";
+}
+#themeoptions #tMain select[name=Font] option
+{
+    max-width:150px;
+    overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
 }
 #updater label:hover,
 #addMascot label:hover>span
