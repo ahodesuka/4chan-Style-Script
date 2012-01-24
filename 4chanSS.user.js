@@ -1342,7 +1342,7 @@
                     var bEdit = true,
                         mEdit = config["Mascots"][mIndex];
                 
-                div = $("<div id=addMascot>").html("<label><span>Image:</span><input type=text name=customIMG value='" + (bEdit ? ($SS.validImageURL(mEdit.img) ? mEdit.img : "[Base 64 Encoded Image]' disabled") : "'") + "></label>\
+                div = $("<div id=addMascot>").html("<label><span>Image:</span><input type=text name=customIMG value='" + (bEdit ? ($SS.validImageURL(mEdit.img) ? mEdit.img : "[Base 64 Encoded Image]' disabled") : "") + "'></label>\
                         <label title='i.e. #FF6999'><span>Color (Hex.):</span><input type=text name=customColor class=jsColor value='" + (bEdit ? mEdit.color : "") + "'></label>\
                         <label title='Auto goes according to the post forms position' for=null><span>Alignment/Offset:</span>\
                         <select name=mPosition>\
