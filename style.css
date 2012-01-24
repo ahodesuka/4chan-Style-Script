@@ -699,15 +699,16 @@ a.omittedposts
 (config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + 
 (config["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
 #recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
-#hd,#ft,td small,#footer,.rules,center font small,body>br,td.reply>br,td.replyhl>br,body>hr,form[name=delform]>span[style],.thread>br,td.postblock,
-.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],form[name=delform]>.filesize+br,#qp>br,.logo>br,body>div[style*='center'],body>center:nth-of-type(1),
+#hd,#ft,td small,#footer,.rules,center font small,body>br,body>hr,form[name=delform]>span[style],td.postblock,.thread>br:last-child,
+.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],.logo>br,body>div[style*='center'],body>center:nth-of-type(1),
 form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),
 form[name=delform] hr:nth-last-of-type(1),[hidden],body>span[style]~#navlinks,#navtop,#navtopr,#navtop>a,#navtop>span,.pages,#imgControls #imageExpand,#imgControls #imageExpand+.riceCheck,
-body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javascript:;']:not([class])
+body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javascript:;']:not([class]),.inline .reply>a:first-child
 {
 	display:none!important;
 }
-table,td
+table,
+td
 {
 	border:0!important;
 	border-spacing:0!important;
@@ -924,9 +925,9 @@ select,
 textarea,
 .riceFile input~div
 {
-	-webkit-transition:box-shadow .2s linear;
-	-moz-transition:box-shadow .2s linear;
-	-o-transition:box-shadow .2s linear;
+	-webkit-transition:background .2s linear,box-shadow .2s linear;
+	-moz-transition:background .2s linear,box-shadow .2s linear;
+	-o-transition:background .2s linear,box-shadow .2s linear;
 }
 button:hover,
 input[type=button]:hover,
@@ -1073,6 +1074,13 @@ td.replyhl .riceCheck
 {
 	margin-left:" + (config["Layout"] == 2 ? 13 : 0) + "px!important;
 }
+.inline td.reply input[type=checkbox],
+.inline td.replyhl input[type=checkbox],
+.inline td.reply .riceCheck,
+.inline td.replyhl .riceCheck
+{
+    margin-left:0!important;
+}
 span.filesize~input[type=checkbox],
 span.filesize~.riceCheck
 {
@@ -1171,18 +1179,14 @@ div.autohide>a[title='Auto-hide dialog box']
 {
 	text-decoration:underline!important;
 }
-.filesize
-{
-	display:block!important;
-	margin:2px " + (config["Layout"] != 2 ? 6 : 0) + "px!important;
-}
 .op .filesize
 {
 	display:inline-block!important;
+    margin:2px " + (config["Layout"] != 2 ? 6 : 0) + "px!important;
 }
-td .filesize
+.inline .filesize
 {
-	margin:2px 18px!important;
+	margin:2px 0!important;
 }
 .filesize span
 {
@@ -1804,9 +1808,9 @@ form[name=post] input[name=email]+label
 {
 	height:100px!important;
 	resize:none;
-	-webkit-transition:box-shadow .2s linear,width .2s ease-in-out!important;
-	-moz-transition:box-shadow .2s linear,width .2s ease-in-out!important;
-	-o-transition:box-shadow .2s linear,width .2s ease-in-out!important;
+	-webkit-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
+	-moz-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
+	-o-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
 }
 " + (config["Sidebar Position"] == 1 ? "
 .postarea textarea,
@@ -1854,7 +1858,6 @@ body>span[style]~#qr div.move
 body>span[style]~#qr>#autohide,
 body>span[style]~#qr>.riceCheck
 {
-	right:" + (config["Replace Reply Form"] ? 0 : 21) + "px;
 	top:0;
 }
 #qr #autohide:checked~.autohide
@@ -1911,6 +1914,10 @@ body>span[style]~#qr .autohide,body>span[style]~#qr #autohide:checked~.autohide
 #qr #close
 {
 	margin-top:4px!important;
+}
+body>span[style]~#qr>#close
+{
+    margin-top:1px!important;
 }
 #qr input[name=upfile]+a,
 #qr #close,
