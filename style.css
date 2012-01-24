@@ -1,12 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
 *
 {
-	font-family:'" + config["Font"] + "'!important;
+	font-family:" + $SS.FormatFont(config["Font"]) + "!important;
 	font-size:" + config["Font Size"] + "px!important;
-}
-body>form *
-{
-	font-family:'" + config["Font"] + "'!important;
 }
 *:focus
 {
@@ -29,12 +25,12 @@ input::-moz-focus-inner
 ::selection
 {
 	background:" + mascot.color.hex + ";
-	color:#fff;
+	color:#" + (mascot.color.isLight ? "000" : "fff") +"!important;
 }
 ::-moz-selection
 {
 	background:" + mascot.color.hex + ";
-	color:#fff;
+	color:#" + (mascot.color.isLight ? "000" : "fff") +"!important;
 }
 " + (config["Style Scrollbars"] ? "::-webkit-scrollbar
 {
@@ -319,7 +315,7 @@ select *,
 .pages td:nth-of-type(2) *,
 .filesize span::after
 {
-	font:" + config["Small Font Size"] + "px '" + config["Font"] + "'!important;
+	font:" + config["Small Font Size"] + "px " + $SS.FormatFont(config["Font"]) + "!important;
 }
 " + (config["Layout"] != 2 ? "
 .thread:not(.stub),
@@ -374,7 +370,7 @@ form[name=delform]
 	" + (config["Layout"] != 2 ? "
     border:1px solid rgba(" + theme.brderColor.rgb + ",.9);
 	" + (config["Layout"] == 1 ? "border-" + config["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
-	margin:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "0 0 44px 30px" : "0 30px 44px 0") : "0 10% 44px") + ";
+	margin:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "0 0 43px 30px" : "0 30px 43px 0") : "0 10% 43px") + ";
 	padding:0;
 	position:relative;
 	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
@@ -891,6 +887,7 @@ input[type=file],
 input[type=password],
 input[type=submit],
 input[type=text]:not(.jsColor),
+input#fs_search,
 select,
 textarea,
 .riceFile
@@ -934,6 +931,7 @@ input[type=button]:hover,
 input[type=password]:hover,
 input[type=submit]:hover,
 input[type=text]:not(.jsColor):not([disabled]):hover,
+input#fs_search:hover,
 select:hover,
 textarea:hover,
 .riceFile input:hover~div
@@ -1021,9 +1019,6 @@ input[type=radio]:hover,
 input[type=checkbox]:checked,
 input[type=checkbox]:checked+.riceCheck
 {
-	background:-webkit-gradient(linear,left top,left bottom,from(rgba(" + theme.inputColor.shiftRGB(40) + ",.9)),color-stop(.35,rgba(" + theme.inputColor.shiftRGB(20) + ",.9)),to(rgba(" + theme.inputColor.rgb + ",.9)))!important;
-	background:-moz-linear-gradient(to bottom,rgba(" + theme.inputColor.shiftRGB(40) + ",.9),rgba(" + theme.inputColor.shiftRGB(20) + ",.9) 35%,rgba(" + theme.inputColor.rgb + ",.9))!important;
-	background:-o-gradient(linear,left top,left bottom,from(rgba(" + theme.inputColor.shiftRGB(40) + ",.9)),color-stop(.35,rgba(" + theme.inputColor.shiftRGB(20) + ",.9)),to(rgba(" + theme.inputColor.rgb + ",.9)))!important;
 	box-shadow:inset rgba(0,0,0,.2) 0 1px 2px,rgba(" + (theme.mainColor.isLight ? "255,255,255" : "100,100,100")  + ",.6) 0 1px;
 }
 input[type=radio]:checked
@@ -2391,9 +2386,9 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 	right:0;
 	z-index:1;
 	opacity:0;
-	-webkit-transform:translateX(-1000px) scale(10);
-	-moz-transform:translateX(-1000px) scale(10);
-	-o-transform:translateX(-1000px) scale(10);
+	-webkit-transform:translateX(-1300px) scale(10);
+	-moz-transform:translateX(-1300px) scale(10);
+	-o-transform:translateX(-1300px) scale(10);
 }
 #qr .riceFile input[type=file]
 {
