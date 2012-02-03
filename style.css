@@ -167,9 +167,6 @@ input[type=checkbox],
 input[type=radio],
 input[type=button],
 input[type=submit],
-#options label,
-#themeoptions label,
-#themeoptions #toNav li label,
 #themeoptions #tMascot div,
 .pointer,
 .riceCheck,
@@ -413,7 +410,8 @@ td.replyhl,
 .riceCheck,
 .logo span,
 body>a[style='cursor: pointer; float: right;']+div,
-iframe+#qr
+.postarea,
+#qr
 {
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
@@ -853,8 +851,7 @@ body>span[style]~#qr input[name=recaptcha_response_field]
 	width:" + (config["Sidebar Size"] - 10) + "px!important;
 }
 .postarea table td:last-of-type,
-#recaptcha_table td:first-of-type,
-body>span[style]~#qr
+#recaptcha_table td:first-of-type
 {
 	max-width:" + (config["Sidebar Size"] - 10) + "px!important;
 	min-width:" + (config["Sidebar Size"] - 10) + "px!important;
@@ -1209,7 +1206,8 @@ textarea
 #watcher .move,
 #updater .move,
 #options .move,
-#stats .move
+#stats .move,
+#iframe~#qr>.move
 {
 	cursor:default!important;
 }
@@ -1700,7 +1698,7 @@ body>a[style='cursor: pointer; float: right;']
 .deletebuttons::before,
 .postarea form[name=post]::before,
 #qr .move::before,
-iframe+#qr>form #spoilerLabel,
+#iframe~#qr>form #spoilerLabel,
 .logo font[size='1'],
 .trbtn
 {
@@ -1731,11 +1729,14 @@ body>a[style='cursor: pointer; float: right;']
 	border-collapse:collapse!important;
 }
 .postarea,
-body>span[style]~#qr
+body>span[style]~#qr,
+#iframe~#qr
 {
-	top:auto!important;
 	padding:3px;
-	" + (config["Post Form"] == 1 ? "/*"*/
+	top:auto!important;
+    " + config["Sidebar Position String"] + ":0!important;
+    " + config["Sidebar Position oString"] + ":auto!important;
+	" + (config["Post Form"] == 1 ? "
 	bottom:-280px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
@@ -1746,19 +1747,22 @@ body>span[style]~#qr
 	-webkit-transition:opacity .2s ease-in-out 1s;
 	-moz-transition:opacity .2s ease-in-out 1s;
 	-o-transition:opacity .2s ease-in-out 1s;" : "/*"*/
-	bottom:21px!important;")) + "/*"*/
+	bottom:21px!important;")) + "
 }
 .postarea,
 #qr
 {
-	position:fixed!important;
-	z-index:5!important;
 	margin:0!important;
+	position:fixed!important;
+	width:" + (config["Sidebar Size"] - 4) + "px!important;
+	z-index:5!important;
 }
 .postarea:hover,
-body>span[style]~#qr:hover
+body>span[style]~#qr:hover,
+#iframe~#qr:hover
 {
-	" + (config["Post Form"] == 1 ? "/*"*/
+	bottom:21px!important;
+	" + (config["Post Form"] == 1 ? "
 	-webkit-transition:bottom .2s ease-in-out;
 	-moz-transition:bottom .2s ease-in-out;
 	-o-transition:bottom .2s ease-in-out;" :
@@ -1767,11 +1771,6 @@ body>span[style]~#qr:hover
 	-webkit-transition:opacity .2s ease-in-out;
 	-moz-transition:opacity .2s ease-in-out;
 	-o-transition:opacity .2s ease-in-out;" : "")) + "/*"*/
-}
-.postarea:hover,
-body>span[style]~#qr:hover
-{
-	bottom:21px!important;
 }
 .postarea form[name=post]
 {
@@ -1815,11 +1814,13 @@ form[name=post] input[name=email]+label
 }
 " + (config["Sidebar Position"] == 1 ? "
 .postarea textarea,
+#iframe~#qr textarea,
 body>span[style]~#qr textarea
 {
 	float:right;
 }" : "") + "
 .postarea textarea:focus,
+#iframe~#qr textarea:focus,
 body>span[style]~#qr textarea:focus
 {
 	position:relative;
@@ -1833,7 +1834,7 @@ body>span[style]~#qr textarea:focus
 {
 	height:auto!important;
     overflow:hidden!important;
-	width:" + (config["Sidebar Size"] - 5) + "px!important;
+	width:" + (config["Sidebar Size"] - 3) + "px!important;
 }
 #qr .move
 {
@@ -1845,6 +1846,7 @@ body>span[style]~#qr
 	border:0!important;
 	border-top:1px solid " + theme.brderColor.hex + "!important;
 	overflow:visible!important;
+	width:" + (config["Sidebar Size"] - 4) + "px!important;
 }
 body>span[style]~#qr div.move
 {
@@ -2482,91 +2484,102 @@ body>a[href='.././']
 {
     text-decoration:underline!important;
 }
-iframe+#qr,
-body>span[style]~iframe+#qr
+#iframe~#qr,
+body>span[style]~#iframe~#qr
 {
+    border:0!important;
 	border-top:1px solid " + theme.brderColor.hex + "!important;
     max-width:" + (config["Sidebar Size"] - 4) + "!important;
     min-width:" + (config["Sidebar Size"] - 4) + "!important;
-    padding:3px 3px 5px!important;
-    width:" + (config["Sidebar Size"] - 3) + "!important;
+    padding-top:0!important;
+    overflow:visible!important;
+    width:" + (config["Sidebar Size"] - 4) + "!important;
 }
-iframe+#qr>.move::before
+#iframe~#qr>.move::before
 {
     content:''!important;
 }
-iframe+#qr>.move
+#iframe~#qr>.move
 {
 	color:" + theme.textColor.hex + "!important;
-	font:" + config["Small Font Size"] + "px " + $SS.FormatFont(config["Font"]) + "!important;
+	font-size:10px!important;
     height:auto!important;
+    line-height:18px!important;
     min-width:0!important;
+    padding:1px 0!important;
     text-align:left!important;
+    text-transform:uppercase;
 }
-iframe+#qr>.move .close
+body>span[style]~#iframe~#qr>.move
+{
+    text-align:center!important;
+}
+body>span[style]~#iframe~#qr>.move #autohide,
+body>span[style]~#iframe~#qr>.move .riceCheck
+{
+    position:absolute;
+    right:3px;
+}
+#iframe~#qr>.move *
+{
+    text-transform:none;
+}
+#iframe~#qr>.move .close
 {
     position:relative;
     top:-1px;
 }
-iframe+#qr>form
-{
-    padding-bottom:18px!important;
-}
-iframe+#qr.autohide>form
+#iframe~#qr.autohide>form
 {
     display:block!important;
 }
-iframe+#qr>form>div:first-child #dump,
-iframe+#qr>form>.captcha>img[src*='recaptcha/api'],
-iframe+#qr>form input[type=submit],
-iframe+#qr>form .riceFile,
-body>span[style]~iframe+#qr .riceFile
+#iframe~#qr>form>div:first-child #dump,
+#iframe~#qr>form>.captcha>img[src*='recaptcha/api'],
+#iframe~#qr>form input[type=submit],
+#iframe~#qr>form .riceFile,
+body>span[style]~#iframe~#qr .riceFile
 {
     margin-top:0!important;
 }
-iframe+#qr>form>div:first-child #dump
+#iframe~#qr>form>div:first-child #dump
 {
-    width:22px!important;
+    width:24px!important;
 }
-body>span[style]~iframe+#qr>form>div:first-child #dump
-{
-    width:23px!important;
-}
-iframe+#qr>form>div:first-child .field:not(#dump)
+#iframe~#qr>form>div:first-child .field:not(#dump)
 {
     margin-left:1px!important;
     width:" + Math.floor((config["Sidebar Size"] - 36) / 3) + "!important;
 }
-iframe+#qr>form>div:first-child .field[name=sub]
+#iframe~#qr>form>div:first-child .field[name=sub]
 {
     margin-right:0!important;
 }
-iframe+#qr>form .field,
-iframe+#qr>form>.captcha
+#iframe~#qr>form .field,
+#iframe~#qr>form>.captcha
 {
     margin-bottom:1px!important;
 }
-iframe+#qr>form>.captcha
+#iframe~#qr>form>.captcha
 {
     background:none!important;
     outline:none!important;
 }
-iframe+#qr>form>.captcha+div
+#iframe~#qr>form>.captcha+div
 {
     float:left;
     margin-right:1px;
 }
-iframe+#qr>form>.captcha+div input
+#iframe~#qr>form>.captcha+div input
 {
-    width:" + (config["Sidebar Size"] - 78) + "!important;
+    width:" + (config["Sidebar Size"] - 77) + "!important;
 }
-iframe+#qr>form input[type=submit]
+#iframe~#qr>form input[type=submit]
 {
     width:65px!important;
 }
-iframe+#qr>form #spoilerLabel
+#iframe~#qr>form #spoilerLabel
 {
-    bottom:25px;
+    bottom:5px;
     line-height:16px;
     position:absolute;
     right:7px;
