@@ -10,14 +10,6 @@
 // @updateURL     https://github.com/ahodesuka/4chan-Style-Script/raw/master/4chanSS.user.js
 // ==/UserScript==
 
-/* 
- *  TODO LIST:
- *    - Create create theme/edit theme ui.
- *    - Add some more themes.
- *    - Style sys/rs.
- *    - Clean jscolor, move styling into css.
- */
-
 (function()
 {
     var defaultConfig =
