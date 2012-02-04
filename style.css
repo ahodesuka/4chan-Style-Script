@@ -76,7 +76,7 @@ hr
 	border:0!important;
 	border-top:1px solid rgba(" + theme.brderColor.rgb + ",.9)!important;
 	clear:left;
-	margin:1px 0!important;
+	margin:0!important;
 }
 h1,
 h2,
@@ -174,12 +174,56 @@ input[type=submit],
 {
 	cursor:pointer;
 }
+body,
+form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),
+.pages td:nth-of-type(2),
+img[alt=closed],
+img[alt=sticky],
+body>span[style],
+body>span[style] a,
+body>a[href='.././'],
+body>a[style='cursor: pointer; float: right;'],
+.deletebuttons,
+#navtop,
+#navtopr,
+#qr>div.move,
+#imgControls>label,
+#qr input[name=upfile]+a,
+#qr #close,
+#iframe~#qr>form #spoilerLabel,
+.preview>label,
+.close,
+.remove,
+.reportbutton,
+.replyhider a,
+.op>a:first-child,
+.stub>a>span,
+.stub>.block>a>span
+{
+	color:transparent!important;
+	font-size:0!important;
+}
+" + (config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
+(!config["Show Board Name"] ? ".logo span," : "") +
+(!config["Show Text Board"] ? ".logo font[size='1']," : "") +
+(!config["Show Logo"] ? ".logo img," : "") +
+(config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + 
+(config["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
+#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
+#hd,#ft,td small,#footer,.rules,center font small,body>br,body>hr,form[name=delform]>span[style],td.postblock,.thread>br:last-child,
+.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],.logo>br,body>div[style*='center'],body>center:nth-of-type(1),
+form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),
+form[name=delform] hr:nth-last-of-type(1),[hidden],body>span[style]~#navlinks,#navtop,#navtopr,#navtop>a,#navtop>span,.pages,#imgControls #imageExpand,#imgControls #imageExpand+.riceCheck,
+body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javascript:;']:not([class]),.inline .reply>a:first-child,.postarea>h1
+{
+	display:none!important;
+}
 .reply,.replyhl,input:not(.jsColor),select,.omittedposts,a.omittedposts,a.omittedposts:hover,blockquote>.abbr,
 .deletebuttons::before,.replymode,tr,div,textarea,div.autohide>a,#themeoptions #toNav li label.selected,
 #themeoptions #toNav li label:hover,#qr .move::before,
 #stats span,body>center:nth-of-type(2)>font[color=red]::before,.pages b,#navtopr span,
 .pages td,input[type=submit],button,form[name=post] input[name=email]+label,form[name=post] #com_submit+label,
-.deletebuttons::after,form[name=delform]
+.deletebuttons::after,form[name=delform],#iframe~#qr>form #spoilerLabel::after,.preview>label::after
 {
 	color:" + theme.textColor.hex + "!important;
 }
@@ -196,10 +240,10 @@ textarea:-moz-placeholder
 body
 {
 	background:" + theme.bgImg.get() + theme.bgColor.hex +"!important;
-	margin:" + (!bHideSidebar && config["Sidebar Position"] == 1 ? "0 " + config["Sidebar Size"] + "px 0 0" : (!bHideSidebar ? "0 0 0 " + config["Sidebar Size"] + "px" : 0)) + "!important;
+	margin:" + (!$SS.bHideSidebar && config["Sidebar Position"] == 1 ? "0 " + config["Sidebar Size"] + "px 0 0" : (!$SS.bHideSidebar ? "0 0 0 " + config["Sidebar Size"] + "px" : 0)) + "!important;
 	padding:18px 0 0!important;
 }
-" + (!bHideSidebar ? "
+" + (!$SS.bHideSidebar ? "
 body::before
 {
 	background:rgba(" + theme.mainColor.shiftRGB(-18) + ",.8);
@@ -300,7 +344,6 @@ select,
 select *,
 #updater span,
 #navtop,
-#navtopr,
 #navtop a,
 #navtopr a,
 #navlinks,
@@ -323,7 +366,7 @@ body>span[style]~form[name=delform]" : "
 .thread
 {
     clear:both;
-	margin:0 0 1px;
+	margin:1px 0;
 	padding:" + (config["Layout"] == 3 ? "3px 1px 0 1px"/*"*/ :
     (config["Sidebar Position"] == 1 ? (config["Layout"] == 2 ? 0 : 3) + "px 0 0 1px" : (config["Layout"] == 2 ? 0 : 3) + "px 1px 0 0")) + "/*"*/!important;
 	position:relative;
@@ -482,6 +525,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 #qr input[name=upfile]+a,
 #qr #close,
 .close,
+.remove,
 .reportbutton,
 .replyhider a,
 .op>a:first-child,
@@ -490,10 +534,12 @@ body>a[style='cursor: pointer; float: right;']+div,
 {
 	margin:0!important;
     opacity:.5;
+    text-indent:-9999px!important;
 }
 #qr input[name=upfile]+a:hover,
 #qr #close:hover,
 .close:hover,
+.remove:hover,
 .reportbutton:hover,
 .replyhider a:hover,
 .op>a:first-child:hover,
@@ -501,7 +547,6 @@ body>a[style='cursor: pointer; float: right;']+div,
 .stub>.block>a:hover>span
 {
     opacity:.75;
-    text-indent:-9999px!important;
 }
 td.reply,
 td.replyhl
@@ -686,21 +731,6 @@ a.omittedposts
 {
 	margin-left:0!important;
 }
-" + (config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
-(!config["Show Board Name"] ? ".logo span," : "") +
-(!config["Show Text Board"] ? ".logo font[size='1']," : "") +
-(!config["Show Logo"] ? ".logo img," : "") +
-(config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + 
-(config["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
-#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
-#hd,#ft,td small,#footer,.rules,center font small,body>br,body>hr,form[name=delform]>span[style],td.postblock,.thread>br:last-child,
-.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],.logo>br,body>div[style*='center'],body>center:nth-of-type(1),
-form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),
-form[name=delform] hr:nth-last-of-type(1),[hidden],body>span[style]~#navlinks,#navtop,#navtopr,#navtop>a,#navtop>span,.pages,#imgControls #imageExpand,#imgControls #imageExpand+.riceCheck,
-body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javascript:;']:not([class]),.inline .reply>a:first-child,.postarea>h1
-{
-	display:none!important;
-}
 table,
 td
 {
@@ -781,6 +811,7 @@ body>a[style='cursor: pointer; float: right;'],
 #qr input[name=upfile]+a,
 #qr #close,
 .close,
+.remove,
 .reportbutton,
 .replyhider a,
 .op>a:first-child,
@@ -826,11 +857,11 @@ input[type=file]
 #qr input[name=recaptcha_response_field]
 {
 	margin-top:1px!important;
-	width:" + (config["Sidebar Size"] - 11) + "px!important;
+	width:" + (config["Sidebar Size"] - 10) + "px!important;
 }
 #qr img[src*='recaptcha/api']
 {
-	width:" + (config["Sidebar Size"] - 13) + "px!important;
+	width:" + (config["Sidebar Size"] - 12) + "px!important;
 }
 #qr input[name=sub]
 {
@@ -1695,10 +1726,9 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-48px 0;
 }
+#qr .move::before,
 .deletebuttons::before,
 .postarea form[name=post]::before,
-#qr .move::before,
-#iframe~#qr>form #spoilerLabel,
 .logo font[size='1'],
 .trbtn
 {
@@ -1711,10 +1741,12 @@ form[name=post] #com_submit+label,
 #qr #captchas,
 #qr #attach,
 form[name=post] input[name=email]+label,
+#iframe~#qr>form #spoilerLabel::after,
 #watcher .move,
 #updater span,
 #updater .move,
 #stats .move,
+.preview>label::after,
 body>a[style='cursor: pointer; float: right;']
 {
 	font-size:9px!important;
@@ -1737,7 +1769,7 @@ body>span[style]~#qr,
     " + config["Sidebar Position String"] + ":0!important;
     " + config["Sidebar Position oString"] + ":auto!important;
 	" + (config["Post Form"] == 1 ? "
-	bottom:-280px!important;
+	bottom:-231px;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -1759,7 +1791,8 @@ body>span[style]~#qr,
 }
 .postarea:hover,
 body>span[style]~#qr:hover,
-#iframe~#qr:hover
+#iframe~#qr:hover,
+#qr.focus
 {
 	bottom:21px!important;
 	" + (config["Post Form"] == 1 ? "
@@ -1767,7 +1800,7 @@ body>span[style]~#qr:hover,
 	-moz-transition:bottom .2s ease-in-out;
 	-o-transition:bottom .2s ease-in-out;" :
 	(config["Post Form"] == 2 ? "/*"*/
-	opacity:1;
+	opacity:1!important;
 	-webkit-transition:opacity .2s ease-in-out;
 	-moz-transition:opacity .2s ease-in-out;
 	-o-transition:opacity .2s ease-in-out;" : "")) + "/*"*/
@@ -1821,7 +1854,8 @@ body>span[style]~#qr textarea
 }" : "") + "
 .postarea textarea:focus,
 #iframe~#qr textarea:focus,
-body>span[style]~#qr textarea:focus
+body>span[style]~#qr textarea:focus,
+#iframe~#qr>form>div:first-child .field:not(#dump):focus
 {
 	position:relative;
 	width:" + (config["Sidebar Size"] + 150) + "px!important;
@@ -1925,7 +1959,8 @@ body>span[style]~#qr>#close
 }
 #qr input[name=upfile]+a,
 #qr #close,
-.close
+.close,
+.remove
 {
     background-position:-16px -16px;
 }
@@ -2116,7 +2151,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 {
 	position:absolute;
 	right:5px!important;
-	top:2px;
+	top:0;
 }
 " + (!config["Custom Navigation Links"] ? "
 #navtop
@@ -2255,32 +2290,6 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	position:absolute;
 	top:0;
 }" : "" ) + "
-body,
-form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),
-.pages td:nth-of-type(2),
-img[alt=closed],
-img[alt=sticky],
-body>span[style],
-body>span[style] a,
-body>a[href='.././'],
-body>a[style='cursor: pointer; float: right;'],
-.deletebuttons,
-#navtop,
-#navtopr,
-#qr>div.move,
-#imgControls>label,
-#qr input[name=upfile]+a,
-#qr #close,
-.close,
-.reportbutton,
-.replyhider a,
-.op>a:first-child,
-.stub>a>span,
-.stub>.block>a>span
-{
-	color:transparent!important;
-	font-size:0!important;
-}
 body>a[style='cursor: pointer; float: right;'],
 body>a[style='cursor: pointer; float: right;']::before,
 body>a[style='cursor: pointer; float: right;']::after
@@ -2421,6 +2430,7 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 .riceFile span
 {
 	display:inline-block;
+    font-size:10px!important;
 	max-width:223px;
 	overflow:hidden;
 	padding:0 5px!important;
@@ -2503,10 +2513,10 @@ body>span[style]~#iframe~#qr
 {
 	color:" + theme.textColor.hex + "!important;
 	font-size:10px!important;
-    height:auto!important;
+    height:22px!important;
     line-height:18px!important;
     min-width:0!important;
-    padding:1px 0!important;
+    padding:2px 0 0!important;
     text-align:left!important;
     text-transform:uppercase;
 }
@@ -2533,6 +2543,10 @@ body>span[style]~#iframe~#qr>.move .riceCheck
 {
     display:block!important;
 }
+#iframe~#qr>form .field
+{
+    height:22px;
+}
 #iframe~#qr>form>div:first-child #dump,
 #iframe~#qr>form>.captcha>img[src*='recaptcha/api'],
 #iframe~#qr>form input[type=submit],
@@ -2541,18 +2555,51 @@ body>span[style]~#iframe~#qr .riceFile
 {
     margin-top:0!important;
 }
+#iframe~#qr>form>div:first-child
+{
+    position:relative;
+}
 #iframe~#qr>form>div:first-child #dump
 {
+    float:left;
     width:24px!important;
 }
 #iframe~#qr>form>div:first-child .field:not(#dump)
 {
+    float:" + config["Sidebar Position String"] + ";
     margin-left:1px!important;
-    width:" + Math.floor((config["Sidebar Size"] - 36) / 3) + "!important;
+    width:" + Math.floor((config["Sidebar Size"] - 36) / 3) + "px!important;
+}
+#iframe~#qr>form>div:first-child .field:not(#dump):focus
+{
+    left:24px!important;
+    position:absolute;
+	width:" + (config["Sidebar Size"] - 35) + "px!important;
+}
+#iframe~#qr>form>div:first-child .field:not(#dump)+span
+{
+    color:rgba(" + theme.textColor.rgb + ",0);
+    position:absolute;
+    right:" + config["Sidebar Size"] + "px;
+    top:4px;
+    white-space:nowrap;
+    z-index:3;
+}
+#iframe~#qr>form>div:first-child .field:not(#dump):focus+span
+{
+    color:rgba(" + theme.textColor.rgb + ",.4);
+    right:6px;
+    -webkit-transition:all .3s ease-in-out;
+    -moz-transition:all .3s ease-in-out;
+    -o-transition:all .3s ease-in-out;
 }
 #iframe~#qr>form>div:first-child .field[name=sub]
 {
     margin-right:0!important;
+}
+#iframe~#qr>form>div:first-child+div
+{
+    clear:both;
 }
 #iframe~#qr>form .field,
 #iframe~#qr>form>.captcha
@@ -2571,7 +2618,7 @@ body>span[style]~#iframe~#qr .riceFile
 }
 #iframe~#qr>form>.captcha+div input
 {
-    width:" + (config["Sidebar Size"] - 77) + "!important;
+    width:" + (config["Sidebar Size"] - 76) + "!important;
 }
 #iframe~#qr>form input[type=submit]
 {
@@ -2579,9 +2626,14 @@ body>span[style]~#iframe~#qr .riceFile
 }
 #iframe~#qr>form #spoilerLabel
 {
-    bottom:5px;
-    line-height:16px;
+    bottom:4px;
     position:absolute;
-    right:7px;
+    right:8px;
     z-index:2;
+}
+#iframe~#qr>form #spoilerLabel::after,
+.preview>label::after
+{
+    content:'SPOILER';
+    line-height:18px;
 }
