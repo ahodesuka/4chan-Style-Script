@@ -1107,6 +1107,7 @@
                         tOptions = $("<div id=themeoptions class=reply>"),
                         optionsHTML = "<ul id=toNav>\
                     <li><label class=selected for=tcbMain>Main</label></li>\
+                    <li><label for=tcbThemes>Themes</label></li>\
                     <li><label for=tcbMascots>Mascots</label></li>\
                     <li><label for=tcbNavLinks>Nav Links</label></li>\
                     </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>\
@@ -1151,6 +1152,18 @@
                         {
                             optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + config["Font Size"] + "px></label>";
                         }
+                        else if (key == "Themes")
+                        {
+                            var themes = config["Themes"];
+                            optionsHTML += "</div><input type=radio name=toTab id=tcbThemes hidden><div id=tThemes>\
+                                            <p><a class=trbtn name=addTheme>add</a></p>";
+                            
+                            for (var i = 0, MAX = themes.length, tTheme; i < MAX; i++)
+                            {
+                                tTheme = new $SS.Theme(themes[i]);
+                                optionsHTML += "<div id=theme" + i + (tTheme.enabled ? " class=selected" : "") + ">" + tTheme.name + "</div>";
+                            }
+                        }
                         else if (key == "Mascots")
                         {
                             var mascots = config["Mascots"];
@@ -1181,7 +1194,7 @@
                             
                             optionsHTML += "</div>";
                         }
-                        else if (key != "Nav Link Delimiter" && key != "Themes" && key != "Theme Inputs") // make Themes tab
+                        else if (key != "Nav Link Delimiter" && key != "Theme Inputs") // make Themes tab
                             optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
                     }
                     
@@ -2338,6 +2351,7 @@
         },
         Theme: function(theme)
         {
+            this.name        = theme.name;
             this.replyBrder  = theme.replyBrder;
             this.bgImg       = new $SS.Image(theme.bgImg, theme.bgRPA);
             this.bgColor     = new $SS.Color(theme.bgColor);
