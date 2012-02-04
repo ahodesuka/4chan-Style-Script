@@ -1356,12 +1356,14 @@ body>a[style='cursor: pointer; float: right;']
 }
 .trbtn
 {
+	color:" + theme.jlinkColor.hex + ";
 	display:inline-block;
 	line-height:18px;
 	margin:0 2px;
+	min-width:40px;
 	padding:2px 10px;
 	text-align:center;
-	min-width:40px;
+    text-shadow:rgba(" + (theme.jlinkColor.isLight ? "0,0,0" : "255,255,255") + ",.2) 0 -1px;
 	background:-webkit-linear-gradient(top,rgba(" + theme.mainColor.shiftRGB(20) + ",.9),rgba(" + theme.mainColor.rgb + ",.9));
 	background:-moz-linear-gradient(top,rgba(" + theme.mainColor.shiftRGB(20) + ",.9),rgba(" + theme.mainColor.rgb + ",.9));
 	background:-o-linear-gradient(top,rgba(" + theme.mainColor.shiftRGB(20) + ",.9),rgba(" + theme.mainColor.rgb + ",.9));
@@ -1650,6 +1652,7 @@ body>a[style='cursor: pointer; float: right;']
 }
 #addMascot a[name=clearIMG]
 {
+    display:none;
     float:left;
     opacity:0;
 	-webkit-transition:all .2s ease-in-out;
@@ -1658,6 +1661,7 @@ body>a[style='cursor: pointer; float: right;']
 }
 #addMascot input[name=customIMGB64]+a[name=clearIMG]
 {
+    display:inline-block;
     opacity:1;
 }
 #themeoptions,
