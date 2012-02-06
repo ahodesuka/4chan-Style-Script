@@ -133,7 +133,8 @@ a[href='javascript:;']
 	color:" + theme.titleColor.hex + "!important;
 }
 a.linkmail[href='mailto:sage'],
-a.linkmail[href='mailto:sage']:hover
+a.linkmail[href='mailto:sage']:hover,
+#iframe~#qr .warning
 {
 	color:" + theme.sageColor.hex + "!important;
 	text-shadow:none!important;
@@ -145,9 +146,10 @@ a.linkmail[href='mailto:sage']:hover
 .stub>.block>a,
 option,
 div[id*=jsMath],
-#jsMath_float>*,
+#iframe~#qr .warning,
 #imgControls,
 #imgControls #imageType,
+#jsMath_float>*,
 #watcher>div,
 .deletebuttons,
 .deletebuttons::before,
@@ -218,12 +220,36 @@ body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javas
 {
 	display:none!important;
 }
-.reply,.replyhl,input:not(.jsColor),select,.omittedposts,a.omittedposts,a.omittedposts:hover,blockquote>.abbr,
-.deletebuttons::before,.replymode,tr,div,textarea,div.autohide>a,#themeoptions #toNav li label.selected,
-#themeoptions #toNav li label:hover,#qr .move::before,
-#stats span,body>center:nth-of-type(2)>font[color=red]::before,.pages b,#navtopr span,
-.pages td,input[type=submit],button,form[name=post] input[name=email]+label,form[name=post] #com_submit+label,
-.deletebuttons::after,form[name=delform],#iframe~#qr>form #spoilerLabel::after,.preview>label::after
+a.omittedposts,
+a.omittedposts:hover,
+blockquote>.abbr,
+body>center:nth-of-type(2)>font[color=red]::before,
+button,
+div,
+div.autohide>a,
+form[name=delform],
+form[name=post] input[name=email]+label,
+form[name=post] #com_submit+label,
+input:not(.jsColor),
+select,
+textarea,
+tr,
+#iframe~#qr>.move,
+#iframe~#qr>form #spoilerLabel::after,
+#qr .move::before,
+#navtopr span,
+#stats span,
+#themeoptions #toNav li label.selected,
+#themeoptions #toNav li label:hover,
+.deletebuttons::before,
+.deletebuttons::after,
+.omittedposts,
+.pages b,
+.pages td,
+.preview>label::after,
+.reply,
+.replyhl,
+.replymode
 {
 	color:" + theme.textColor.hex + "!important;
 }
@@ -292,12 +318,13 @@ body>center:nth-of-type(2)>font[color=red],
 	right:auto!important;") + "
 }
 " + (config["Layout"] == 2 ? ".op," : "") + "
-#qr,
+#iframe~#qr .warning,
 #jsmath_button,
 #jsMath_panel,
 #jsMath_float,
-#themeoptions #toWrapper,
 #options ul,
+#qr,
+#themeoptions #toWrapper,
 #updater:hover,
 body>a[style='cursor: pointer; float: right;']+div,
 .reply,
@@ -1730,6 +1757,7 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-48px 0;
 }
+#iframe~#qr>.move,
 #qr .move::before,
 .deletebuttons::before,
 .postarea form[name=post]::before,
@@ -2515,14 +2543,11 @@ body>span[style]~#iframe~#qr
 }
 #iframe~#qr>.move
 {
-	color:" + theme.textColor.hex + "!important;
-	font-size:10px!important;
     height:22px!important;
     line-height:18px!important;
     min-width:0!important;
-    padding:2px 0 0!important;
+    padding:2px 0 0 3px!important;
     text-align:left!important;
-    text-transform:uppercase;
 }
 body>span[style]~#iframe~#qr>.move
 {
@@ -2639,5 +2664,35 @@ body>span[style]~#iframe~#qr .riceFile
 .preview>label::after
 {
     content:'SPOILER';
-    line-height:18px;
+}
+.preview>label
+{
+    background:rgba(0,0,0,.75)!important;
+    color:#fff!important;
+}
+#addReply
+{
+    font-size:3.5em!important;
+}
+#iframe~#qr .warning
+{
+    height:16px;
+    left:5px;
+    opacity:0;
+    padding:2px 0;
+    position:absolute;
+    text-align:center;
+    top:24px;
+    width:" + (config["Sidebar Size"] - 17) + ";
+    z-index:-1;
+    border-radius:4px;
+    -webkit-transition:all .2s cubic-bezier(0,.3,.35,1.3);
+    -moz-transition:all .2s cubic-bezier(0,0.3,.35,1.3);
+    -o-transition:all .2s cubic-bezier(0,.3,.35,1.3);
+}
+#iframe~#qr .warning.showWarning
+{
+    opacity:1;
+    top:-24px;
+    z-index:1;
 }
