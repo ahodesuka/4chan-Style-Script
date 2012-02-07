@@ -1025,7 +1025,7 @@
                     
                 $(".riceFile>span", $("#qr")).text("");
             }
-            else if (e.target.parentNode.className == "warning") // warning text inserted
+            else if ($(e.target.parentNode).hasClass("warning")) // warning text inserted
                 $(e.target.parentNode).addClass("showWarning");
         },
         qrMouseOver: function()
