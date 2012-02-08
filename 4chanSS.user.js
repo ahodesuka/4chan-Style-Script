@@ -18,7 +18,6 @@
         "Show Text Board":          [ true, "Toggle visibility of the text board link" ],
         "Show Logo":                [ true, "Toggle visibility of the logo" ],
         "Auto Hide Thread Watcher": [ true, "Hides watched threads unless the mouse is over the watcher" ],
-        "Replace Reply Form":       [ true, "Replaces the default reply form with 4chan x QR form" ],
         "Custom Navigation Links":  [ true, "Use specified links instead of showing all boards" ],
         "Style Scrollbars":         [ true, "Make the scroll bar match the theme" ],
         "Layout":
@@ -109,23 +108,6 @@
             ]
         ],
         "Font Size": [ 12, "Set the general size of text (Pixels)" ],
-        "Theme Inputs":
-        [
-            "bgColor",
-            "mainColor",
-            "brderColor",
-            "inputColor",
-            "inputbColor",
-            "jlinkColor",
-            "linkColor",
-            "linkHColor",
-            "nameColor",
-            "quoteColor",
-            "textColor",
-            "sageColor",
-            "tripColor",
-            "titleColor"
-        ],
         "Themes":
         [
             {
@@ -250,7 +232,24 @@
     NAMESPACE     = "4chanSS.",
     inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQVJREFUeNpi1NZUZcABkoFYngWHpAUQBwPxOyYskpJAXAjEv4C4EaTADoh1oZJcQFwBxGJAPBeIb4MUlANxHhCLAnECEOsB8Tog3gzSwSwmKvwfSLsCsSEQWwHxFSDug1rBADJhBRDvBWIVIP4AxB1A/BnmIJAvQCZMBmJ+IN4CxM+RXcx45dqtQR8OIAVLoF5sA+IgIL4ExAtg9lEhHP7//8+AD4DDQUdLTRhI+QKxA1T8AMiRwEB8CwsokGQ8kkYYewEsoBywmO4A8wVewIRkJzo4AHckLNTQHUmUNwm6AWzF1eu3BYCUNxC7QMX3APFWYKb6AHNDAFo4pAAx65AJB4AAAwAw/Uz3NoqiVgAAAABJRU5ErkJggg==",
     defaultIcons  = "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",
-    fontListSWF   = "http://ahodesuka.github.com/FontList.swf";
+    fontListSWF   = "http://ahodesuka.github.com/FontList.swf",
+    themeInputs   =
+    [
+        { name: "bgColor",     property: "background-color" },
+        { name: "mainColor",   property: "background-color" },
+        { name: "brderColor",  property: "border-color"     },
+        { name: "inputColor",  property: "background-color" },
+        { name: "inputbColor", property: "border-color"     },
+        { name: "jlinkColor",  property: "color"            },
+        { name: "linkColor",   property: "color"            },
+        { name: "linkHColor",  property: "color"            },
+        { name: "nameColor",   property: "color"            },
+        { name: "quoteColor",  property: "color"            },
+        { name: "textColor",   property: "color"            },
+        { name: "sageColor",   property: "color"            },
+        { name: "tripColor",   property: "color"            },
+        { name: "titleColor",  property: "color"            }
+    ];
     
     if (!Array.isArray)
         Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
@@ -400,17 +399,6 @@
                 return this.elems[0].innerHTML;
                 
             return this.each(function(){ this.innerHTML = html; });
-        },
-        wrap: function(el)
-        {
-            if (el.constructor !== SSf)
-                el = new SSf(el);
-                
-            return this.each(function()
-            {
-                $(this).before(el);
-                el.append(this);
-            });
         },
         text: function(text)
         {
@@ -714,7 +702,7 @@
             }
             else
             {
-                $SS.location = $SS.getLocation(window.location);
+                $SS.location = $SS.getLocation();
                 
                 $(document).bind("DOMNodeInserted", $SS.insertCSS);
                 $SS.insertCSS();
@@ -735,7 +723,7 @@
                 obj.href = url;
             }
             else
-                obj = url;
+                obj = window.location;
             
             var pathname = obj.pathname.substr(1).split("/");
             
@@ -823,7 +811,7 @@
                 var ann, pages, qr,
                     postLoadCSS = "#navtop,#navtopr{display:inline-block!important}.pages{display:table!important}";
                     
-                if($("#iframe+#qr").exists()) // persistent QR 2.25.0+
+                if ($("#iframe+#qr").exists()) // persistent QR 2.25.0+
                     postLoadCSS += ".postarea,#qr .close{display:none!important}";
 
                 if (config["Custom Navigation Links"])
@@ -1166,7 +1154,7 @@
                             for (var i = 0, MAX = themes.length, tTheme; i < MAX; i++)
                             {
                                 tTheme = new $SS.Theme(themes[i]);
-                                optionsHTML += "<div id=theme" + i + (tTheme.enabled ? " class=selected" : "") + ">" + tTheme.name + "</div>";
+                                optionsHTML += "<div id=theme" + i + (tTheme.name == theme.name ? " class=selected>" : ">") + $SS.themePreview(tTheme) + "</div>";
                             }
                         }
                         else if (key == "Mascots")
@@ -1199,7 +1187,7 @@
                             
                             optionsHTML += "</div>";
                         }
-                        else if (key != "Nav Link Delimiter" && key != "Theme Inputs") // make Themes tab
+                        else if (key != "Nav Link Delimiter")
                             optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
                     }
                     
@@ -1225,6 +1213,7 @@
                         $(this).addClass("selected");
                     });
                     
+                    $("#tThemes>div", tOptions).each(function(){ $SS.options.bindThemeInputs(this); });
                     $("#tMascot div", tOptions).each(function(){ $SS.options.bindMascotInputs(this); });
                     
                     var bindLinkButtons = function(el)
@@ -1317,8 +1306,10 @@
             },
             save: function()
             {
-                var div, themes = [], mascots = [], links = [];
-                div = $("#themeoptions");
+                var div     = $("#themeoptions"),
+                    themes  = [],
+                    mascots = [],
+                    links   = [];
                 
                 // Save main
                 $("#themeoptions input:not([name=toTab]), #themeoptions select").each(function()
@@ -1333,6 +1324,15 @@
                     
                     $SS.config.set($(this).attr("name"), val);
                 });
+                
+                // Save Themes
+                $("#themeoptions #tThemes>div").each(function(index)
+                {
+                    config["Themes"][index].enabled = $(this).hasClass("selected");
+                    themes.push(config["Themes"][index]);
+                });
+                
+                $SS.config.set("Themes", themes);
                 
                 // Save Mascots
                 $("#themeoptions #tMascot div").each(function(index)
@@ -1370,6 +1370,24 @@
                 }
                 
                 return $SS.init(true);
+            },
+            bindThemeInputs: function(div)
+            {
+                $(div).bind("click", function()
+                {
+                    var $this = $(this);
+                    
+                    if ($this.hasClass("selected")) return;
+                    
+                    $this.parent().children(".selected").removeClass("selected");
+                    $this.addClass("selected");
+                });
+                
+                /*$("a[title=Edit]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.showTheme(parseInt(e.target.parentNode.id.substr(5)));
+                });*/
             },
             showMascot: function(mIndex)
             {
@@ -2443,6 +2461,24 @@
                     ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
                 
             $("#header").prepend($("<div id=boardLinks>").html(a.join(config["Nav Link Delimiter"])));
+        },
+        themePreview: function(theme)
+        {
+            return "<div class=reply\
+                style='background-color:" + theme.mainColor.hex + "!important;border:1px solid " + theme.brderColor.hex + "!important;color:" + theme.textColor.hex + "!important'>\
+                <input riced=true hidden=true type=checkbox>\
+                <div class=riceCheck style='background-color:" + theme.inputColor.hex + "!important;border:1px solid " + theme.inputbColor.hex + "!important'></div>\
+                <span style='color:" + theme.titleColor.hex + "!important'>" + theme.name + "</span> \
+                <span style='color:" + theme.nameColor.hex + "!important'>Anonymous</span>\
+                <span style='color:" + theme.tripColor.hex + "!important'>!IMATRIPFAG</span>\
+                <time> 20XX.01.01 12:00 </time>\
+                <a href='javascript:;' style='color:" + theme.linkColor.hex + "!important' \
+                onmouseover='this.setAttribute(\"style\",\"color:" + theme.linkHColor.hex + "!important\")' \
+                onmouseout='this.setAttribute(\"style\",\"color:" + theme.linkColor.hex + "!important\")'>No.22772469</a>\
+                <br>\
+                <blockquote>Post content is right here.</blockquote>\
+                <h3>SELECTED</h3>\
+            </div>";
         }
     };
     /* END STYLE SCRIPT CLASSES */

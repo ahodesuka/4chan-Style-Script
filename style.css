@@ -170,6 +170,7 @@ input[type=radio],
 input[type=button],
 input[type=submit],
 #themeoptions #tMascot div,
+#themeoptions #tThemes>div,
 .pointer,
 .riceCheck,
 .trbtn
@@ -471,6 +472,7 @@ body>span[style]~form[name=delform]
 	padding:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px") + "!important;
 }
 body,
+body>a[style='cursor: pointer; float: right;']+div,
 td.reply,
 td.replyhl,
 .stub>a,
@@ -479,9 +481,9 @@ td.replyhl,
 .riceFile,
 .riceCheck,
 .logo span,
-body>a[style='cursor: pointer; float: right;']+div,
 .postarea,
-#qr
+#qr,
+#themeoptions #tThemes .reply
 {
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
@@ -1506,6 +1508,46 @@ body>a[style='cursor: pointer; float: right;']
 #addMascot label:hover>span
 {
 	border-left:2px solid rgba(" + theme.mainColor.shiftRGB(-32, true) + ",.6);
+}
+#themeoptions #tThemes>div
+{
+    opacity:.5;
+    overflow:hidden;
+	-webkit-transition:opacity .2s ease-in-out;
+	-moz-transition:opacity .2s ease-in-out;
+	-o-transition:opacity .2s ease-in-out;
+}
+#themeoptions #tThemes>div:hover,
+#themeoptions #tThemes>div.selected
+{
+    opacity:1;
+    overflow:visible;
+}
+#themeoptions #tThemes .reply
+{
+    margin:2px 0!important;
+    padding:2px!important;
+    text-align:left;
+    width:100%;
+    border-radius:2px!important;
+}
+#themeoptions #tThemes>div h3
+{
+    bottom:-64px;
+    font-size:32px!important;
+    margin:0!important;
+    opacity:0;
+    position:absolute;
+    right:3px;
+	-webkit-transition:all .2s ease-in-out;
+	-moz-transition:all .2s ease-in-out;
+	-o-transition:all .2s ease-in-out;
+}
+#themeoptions #tThemes>div.selected h3
+{
+    bottom:0;
+    opacity:1;
+    z-index:1;
 }
 #themeoptions #tMascot
 {
