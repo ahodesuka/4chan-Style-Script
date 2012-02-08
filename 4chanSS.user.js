@@ -941,6 +941,7 @@
                     }
                     
                     $(document).bind("DOMNodeInserted", $SS.nodeInsertedHandler);
+                    $(document).bind("DOMSubtreeModified", $SS.subtreeModifiedHandler);
                 }
                 
             }, 10);
@@ -1013,8 +1014,15 @@
                     
                 $(".riceFile>span", $("#qr")).text("");
             }
-            else if ($(e.target.parentNode).hasClass("warning")) // warning text inserted
+            else if (e.target.parentNode.className == "warning") // warning text inserted
                 $(e.target.parentNode).addClass("showWarning");
+        },
+        subtreeModifiedHandler: function(e)
+        {
+            var $warning;
+            
+            if (($warning = $(e.target)).hasClass("warning") && $warning.text() == "") // warning text removed
+                $warning.removeClass("showWarning");
         },
         qrMouseOver: function()
         {
@@ -2470,7 +2478,7 @@
                 <div class=riceCheck style='background-color:" + theme.inputColor.hex + "!important;border:1px solid " + theme.inputbColor.hex + "!important'></div>\
                 <span style='color:" + theme.titleColor.hex + "!important'>" + theme.name + "</span> \
                 <span style='color:" + theme.nameColor.hex + "!important'>Anonymous</span>\
-                <span style='color:" + theme.tripColor.hex + "!important'>!IMATRIPFAG</span>\
+                <span style='color:" + theme.tripColor.hex + "!important'>!.pC/AHOKAg</span>\
                 <time> 20XX.01.01 12:00 </time>\
                 <a href='javascript:;' style='color:" + theme.linkColor.hex + "!important' \
                 onmouseover='this.setAttribute(\"style\",\"color:" + theme.linkHColor.hex + "!important\")' \
