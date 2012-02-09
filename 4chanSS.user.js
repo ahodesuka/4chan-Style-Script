@@ -681,6 +681,7 @@
     {
         incRice: false,
         bHideSidebar: false,
+        bNewQR: false,
         bWebKit: /AppleWebKit/.test(navigator.userAgent),
         location: { },
         init: function(reload)
@@ -761,6 +762,7 @@
                 if (!reload)
                 {
                     $SS.options.init();
+                    $SS.bNewQR = $("#iframe~#qr").exists();
                     
                     $(".logo>img").attr("id", "logo");
                     
@@ -790,6 +792,7 @@
                     });
                 
                     var next, prev, imgCtrl;
+                    
                     if ((prev = $(".pages td input[value='Previous']")).exists())
                         prev.val("Prev");
                     else if ((prev = $(".pages td:first-child")).exists())
@@ -804,15 +807,23 @@
                             $(this).toggleClass("imgExpanded");
                         });
                 }
-                
-                if (reload && $("#navtop>div").exists())
-                    $("#navtop>div").remove();
+                else
+                {
+                    var boardLinks;
+                    
+                    if ((boardLinks = $("#boardLinks")).exists())
+                        boardLinks.remove();
+                }
                 
                 var ann, pages, qr,
                     postLoadCSS = "#navtop,#navtopr{display:inline-block!important}.pages{display:table!important}";
                     
-                if ($("#iframe+#qr").exists()) // persistent QR 2.25.0+
+                if ($("#qr").exists()) // persistent QR
                     postLoadCSS += ".postarea,#qr .close{display:none!important}";
+                    
+                if (!$SS.bNewQR && !mascot.bOffset && config["Post Form"] != 1) // old QR and auto mascot offset
+                    postLoadCSS += "body::after{margin-bottom:325px!important}";
+                    
 
                 if (config["Custom Navigation Links"])
                     $SS.buildCustomNav();
@@ -857,10 +868,6 @@
                         $("input[type=checkbox]").riceCheck();
                     }
                 }
-                else if (reload && config["Rice Inputs"] == 1)
-                {
-                    // TODO: unrice? is it even worth it?
-                }
                 
                 if (reload)
                 {
@@ -887,7 +894,7 @@
                 }
                 else
                 {
-                    $(document.head).append($("<style type='text/css' id=ch4SSPost>" + postLoadCSS)); // Appending to current css causes flicker, so create another style node
+                    $(document.head).append($("<style type='text/css' id=ch4SSPost>" + postLoadCSS));
                     
                     // Change some of 4chan x quick reply events
                     if ((qr = $("#iframe~#qr")).exists() || (qr = $("body>span[style]~#qr")).exists())
@@ -896,12 +903,11 @@
                         var move  = qr.children("div.move"),
                             moveC = move.clone(true),
                             check = qr.children("#autohide"),
-                            rcheck = check.nextSibling(".riceCheck"),
-                            bNewQR = $("#iframe~#qr").exists();
+                            rcheck = check.nextSibling(".riceCheck");
                         
                         move.remove();
                         
-                        if (bNewQR)
+                        if ($SS.bNewQR)
                         {
                             check = $("#autohide", moveC);
                             qr.prepend(moveC);
@@ -925,10 +931,9 @@
                         else
                             check.after(moveC).bind("click", $SS.fixQRhide);
                         
-                        $SS.fixQuote(document);
                         $SS.fixQRhide();
                         
-                        if (config["Post Form"] == 1)
+                        if (config["Post Form"] == 1 && ($SS.bNewQR || $SS.location.reply))
                         {
                             qr.bind("mouseover", $SS.qrMouseOver)
                               .bind("mouseout", $SS.qrMouseOut);
@@ -940,28 +945,26 @@
                                                       .bind("blur", function(){ $("#qr").removeClass("focus"); });
                     }
                     
-                    $(document).bind("DOMNodeInserted", $SS.nodeInsertedHandler);
-                    $(document).bind("DOMSubtreeModified", $SS.subtreeModifiedHandler);
+                    $(document).bind("DOMNodeInserted", $SS.nodeInsertedHandler)
+                               .bind("DOMSubtreeModified", $SS.subtreeModifiedHandler); // this may be deprecated
+                                                                                        // but there is no (good?) alternative.
                 }
-                
             }, 10);
-        },
-        fixQuote: function(x)
-        {
-            $("a.quotejs", x).bind("click", $SS.fixQRhide);
         },
         fixQRhide: function()
         {
-            var qr = $("#iframe~#qr") || $("body>span[style]~#qr"),
-                autohide = qr.children("#autohide"),
-                parent = $("#iframe~#qr").exists() ? autohide.parent().parent() : autohide.parent();
+            var autohide = $("#autohide");
+            
+            if (!autohide.exists() || (!$SS.bNewQR && !$SS.location.reply)) return;
+            
+            var parent = $SS.bNewQR ? autohide.parent().parent() : autohide.parent();
 
             if (!autohide.val())
             {
                 if (config["Post Form"] == 1)
                     parent.attr("style", "bottom:21px!important;-webkit-transition:bottom .1s;-moz-transition:bottom .1s;-o-transition:bottom .1s");
                 else if (config["Post Form"] == 2)
-                    parent.attr("style", "opacity:1!important;-webkit-transition:opacity .1s;-moz-transition:opacity .1s;-o-transition:opacity .1s");
+                    parent.attr("style", "opacity:1!important;-webkit-transition:none;-moz-transition:none;-o-transition:none");
             }
             else
                 parent.attr("style", "");
@@ -989,8 +992,6 @@
             }
             else if (e.target.nodeName == "TABLE") // replies
             {
-                $SS.fixQuote(e.target);
-                
                 if (config["ExHentai Source"] != 1)
                     $SS.exsauce.addLinks(e.target);
 
@@ -1019,10 +1020,12 @@
         },
         subtreeModifiedHandler: function(e)
         {
-            var $warning;
+            var node = $(e.target);
             
-            if (($warning = $(e.target)).hasClass("warning") && $warning.text() == "") // warning text removed
-                $warning.removeClass("showWarning");
+            if (node.hasClass("warning") && node.text() == "") // warning text removed
+                node.removeClass("showWarning");
+            else if (node.attr("id") == "qr" && node.hasClass("focus")) // quote link clicked
+                $SS.fixQRhide();
         },
         qrMouseOver: function()
         {
@@ -2378,7 +2381,8 @@
             this.enabled  = mascot.enabled;
             this.small    = mascot.small;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
-            this.offset   = typeof mascot.offset === "number" ? mascot.offset : (config["Post Form"] != 1 ? 276 : 24);
+            this.bOffset  = typeof mascot.offset === "number";
+            this.offset   = this.bOffset ? mascot.offset : (config["Post Form"] != 1 ? 276 : 24);
         },
         Theme: function(theme)
         {
@@ -2472,6 +2476,7 @@
         },
         themePreview: function(theme)
         {
+            // add names to elements for editing/making themes
             return "<div class=reply\
                 style='background-color:" + theme.mainColor.hex + "!important;border:1px solid " + theme.brderColor.hex + "!important;color:" + theme.textColor.hex + "!important'>\
                 <input riced=true hidden=true type=checkbox>\
