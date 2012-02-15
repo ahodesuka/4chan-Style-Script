@@ -15,7 +15,7 @@ input:focus,
 select:focus,
 textarea:focus
 {
-	box-shadow:inset " + mascot.color.hex +" 0 -1px 0,inset " + mascot.color.hex +" 0 1px 0,inset " + mascot.color.hex +" -1px 0 0,inset " + mascot.color.hex +" 1px 0 0;
+	box-shadow:inset " + theme.linkColor.hex +" 0 -1px 0,inset " + theme.linkColor.hex +" 0 1px 0,inset " + theme.linkColor.hex +" -1px 0 0,inset " + theme.linkColor.hex +" 1px 0 0;
 }
 input::-moz-focus-inner
 {
@@ -24,13 +24,13 @@ input::-moz-focus-inner
 }
 ::selection
 {
-	background:" + mascot.color.hex + ";
-	color:#" + (mascot.color.isLight ? "000" : "fff") +"!important;
+	background:" + theme.linkColor.hex + ";
+	color:#" + (theme.linkColor.isLight ? "000" : "fff") +"!important;
 }
 ::-moz-selection
 {
-	background:" + mascot.color.hex + ";
-	color:#" + (mascot.color.isLight ? "000" : "fff") +"!important;
+	background:" + theme.linkColor.hex + ";
+	color:#" + (theme.linkColor.isLight ? "000" : "fff") +"!important;
 }
 " + (config["Style Scrollbars"] ? "::-webkit-scrollbar
 {
@@ -134,7 +134,7 @@ a[href='javascript:;']
 }
 a.linkmail[href='mailto:sage'],
 a.linkmail[href='mailto:sage']:hover,
-#iframe~#qr .warning
+body[class*='chanx_']>#qr .warning
 {
 	color:" + theme.sageColor.hex + "!important;
 	text-shadow:none!important;
@@ -146,7 +146,7 @@ a.linkmail[href='mailto:sage']:hover,
 .stub>.block>a,
 option,
 div[id*=jsMath],
-#iframe~#qr .warning,
+body[class*='chanx_']>#qr .warning,
 #imgControls,
 #imgControls #imageType,
 #jsMath_float>*,
@@ -193,7 +193,7 @@ body>a[style='cursor: pointer; float: right;'],
 #imgControls>label,
 #qr input[name=upfile]+a,
 #qr #close,
-#iframe~#qr>form #spoilerLabel,
+body[class*='chanx_']>#qr>form #spoilerLabel,
 .preview>label,
 .close,
 .remove,
@@ -214,7 +214,7 @@ body>a[style='cursor: pointer; float: right;'],
 (config["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
 #recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
 #hd,#ft,td small,#footer,.rules,center font small,body>br,body>hr,form[name=delform]>span[style],td.postblock,.thread>br:last-child,
-.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],.logo>br,body>div[style*='center'],body>center:nth-of-type(1),
+.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],.logo>br,body>div[style*='center'],body>center:nth-of-type(1),body[class*='chanx_']>#qr>.move .close,
 form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),
 form[name=delform] hr:nth-last-of-type(1),[hidden],body>span[style]~#navlinks,#navtop,#navtopr,#navtop>a,#navtop>span,.pages,#imgControls #imageExpand,#imgControls #imageExpand+.riceCheck,
 body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javascript:;']:not([class]),.inline .reply>a:first-child,.postarea>h1
@@ -235,8 +235,8 @@ input:not(.jsColor),
 select,
 textarea,
 tr,
-#iframe~#qr>.move,
-#iframe~#qr>form #spoilerLabel::after,
+body[class*='chanx_']>#qr>.move,
+body[class*='chanx_']>#qr>form #spoilerLabel::after,
 #qr .move::before,
 #navtopr span,
 #stats span,
@@ -319,7 +319,7 @@ body>center:nth-of-type(2)>font[color=red],
 	right:auto!important;") + "
 }
 " + (config["Layout"] == 2 ? ".op," : "") + "
-#iframe~#qr .warning,
+body[class*='chanx_']>#qr .warning,
 #jsmath_button,
 #jsMath_panel,
 #jsMath_float,
@@ -371,9 +371,6 @@ input:not([type=submit]),
 select,
 select *,
 #updater span,
-#navtop,
-#navtop a,
-#navtopr a,
 #navlinks,
 #updater label,
 #themeoptions label,
@@ -396,7 +393,8 @@ body>span[style]~form[name=delform]" : "
     clear:both;
 	margin:1px 0;
 	padding:" + (config["Layout"] == 3 ? "3px 1px 0 1px"/*"*/ :
-    (config["Sidebar Position"] == 1 ? (config["Layout"] == 2 ? 0 : 3) + "px 0 0 1px" : (config["Layout"] == 2 ? 0 : 3) + "px 1px 0 0")) + "/*"*/!important;
+    (config["Sidebar Position"] == 1 ? (config["Layout"] == 2 ? 0 : "3px 0 0 1px") :
+    (config["Layout"] == 2 ? 0 : "3px 1px 0 0"))) + "/*"*/!important;
 	position:relative;
 	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
@@ -517,9 +515,7 @@ td.replyhl,
 .inline .reportbutton,
 #qp .reportbutton
 {
-    position:relative!important;
-    right:auto!important;
-    top:-1px!important;
+    position:static!important;
 }
 .op>.reportbutton
 {
@@ -596,7 +592,7 @@ td.replyhl,
 .stub>.block>a
 {
 	padding:5px!important;
-	" + (config["Layout"] != 2 ? "width:100%;" : "") + "/*"*/
+	" + (config["Layout"] != 2 ? "width:100%;" : (config["Sidebar Position"] == 1 ? "margin-right:1px!important;" : "")) + "/*"*/
 	border-radius:" + (config["Layout"] != 3 && !(config["Sidebar Position"] == 1 && config["Layout"] == 2) ?
     (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
@@ -609,12 +605,12 @@ td.qphl
 .stub
 {
 	margin:1px 0 0!important;
-	padding:0 1px 0 0!important;
+    padding:0!important;
 }
 .thread.stub
 {
 	margin:1px 0px!important;
-    padding:0!important;
+	padding:0 " + (config["Sidebar Position"] == 1 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .stub>a,
 .stub>.block>a
@@ -1016,7 +1012,7 @@ input.field:focus,
 select:focus,
 textarea:focus
 {
-	box-shadow:inset rgba(0,0,0,.2) 0 1px 2px, inset " + mascot.color.hex +" 0 -1px 0,inset " + mascot.color.hex +" 0 1px 0,inset " + mascot.color.hex +" -1px 0 0,inset " + mascot.color.hex +" 1px 0 0!important;
+	box-shadow:inset rgba(0,0,0,.2) 0 1px 2px, inset " + theme.linkColor.hex +" 0 -1px 0,inset " + theme.linkColor.hex +" 0 1px 0,inset " + theme.linkColor.hex +" -1px 0 0,inset " + theme.linkColor.hex +" 1px 0 0!important;
 }
 textarea:focus,
 input[type=text]:not(.jsColor):not([disabled]):focus,
@@ -1223,7 +1219,8 @@ td.doubledash
 	left:0;
 	position:absolute;
 	text-shadow:" + theme.mainColor.hex + " -1px -1px," + theme.mainColor.hex + " 1px -1px," + theme.mainColor.hex + " -1px 1px," + theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.2) 0 0 10px,#000 0 1px 5px,#000 0 -1px 5px;
-	width:100%;
+	text-transform:uppercase;
+    width:100%;
 	z-index:3;
 }
 .logo font[size='1']>a
@@ -1266,7 +1263,7 @@ textarea
 #updater .move,
 #options .move,
 #stats .move,
-#iframe~#qr>.move
+body[class*='chanx_']>#qr>.move
 {
 	cursor:default!important;
 }
@@ -1530,6 +1527,30 @@ body>a[style='cursor: pointer; float: right;']
     width:100%;
     border-radius:2px!important;
 }
+#themeoptions #tThemes>div p
+{
+    bottom:4px;
+    left:2px;
+    margin:0;
+    opacity:0;
+    position:absolute;
+	-webkit-transition:all .2s ease-in-out;
+	-moz-transition:all .2s ease-in-out;
+	-o-transition:all .2s ease-in-out;
+}
+#themeoptions #tThemes>div:hover p
+{
+    opacity:1;
+}
+#themeoptions #tThemes>div p a
+{
+    display:inline-block;
+    margin:0 2px;
+    padding:2px 5px;
+    text-align:center;
+    width:50px;
+    border-radius:3px;
+}
 #themeoptions #tThemes>div h3
 {
     bottom:-64px;
@@ -1786,6 +1807,7 @@ body>a[style='cursor: pointer; float: right;']
 	margin:0!important;
 	height:18px!important;
 	padding:1px 1px 1px 0;
+    width:77px!important;
 }
 #imgControls>label
 {
@@ -1799,11 +1821,11 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-48px 0;
 }
-#iframe~#qr>.move,
+body[class*='chanx_']>#qr>.move,
 #qr .move::before,
+#themeoptions #tThemes>div p a,
 .deletebuttons::before,
 .postarea form[name=post]::before,
-.logo font[size='1'],
 .trbtn
 {
 	font-size:10px!important;
@@ -1815,7 +1837,7 @@ form[name=post] #com_submit+label,
 #qr #captchas,
 #qr #attach,
 form[name=post] input[name=email]+label,
-#iframe~#qr>form #spoilerLabel::after,
+body[class*='chanx_']>#qr>form #spoilerLabel::after,
 #watcher .move,
 #updater span,
 #updater .move,
@@ -1836,7 +1858,7 @@ body>a[style='cursor: pointer; float: right;']
 }
 .postarea,
 body>span[style]~#qr,
-#iframe~#qr
+body[class*='chanx_']>#qr
 {
 	padding:3px;
 	top:auto!important;
@@ -1865,7 +1887,7 @@ body>span[style]~#qr,
 }
 .postarea:hover,
 body>span[style]~#qr:hover,
-#iframe~#qr:hover,
+body[class*='chanx_']>#qr:hover,
 #qr.focus
 {
 	bottom:21px!important;
@@ -1921,15 +1943,15 @@ form[name=post] input[name=email]+label
 }
 " + (config["Sidebar Position"] == 1 ? "
 .postarea textarea,
-#iframe~#qr textarea,
+body[class*='chanx_']>#qr textarea,
 body>span[style]~#qr textarea
 {
 	float:right;
 }" : "") + "
 .postarea textarea:focus,
-#iframe~#qr textarea:focus,
+body[class*='chanx_']>#qr textarea:focus,
 body>span[style]~#qr textarea:focus,
-#iframe~#qr>form>div:first-child .field:not(#dump):focus
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
 {
 	position:relative;
 	width:" + (config["Sidebar Size"] + 150) + "px!important;
@@ -2259,7 +2281,8 @@ body>center:nth-of-type(2)>font[color=red]:hover
 {
 	padding:2px!important;
 }
-#navtop>a,#navtop>span
+#navtop>a,
+#navtop>span
 {
 	display:inline!important;
 	line-height:18px;
@@ -2568,8 +2591,8 @@ body>a[href='.././']
 {
     text-decoration:underline!important;
 }
-#iframe~#qr,
-body>span[style]~#iframe~#qr
+body[class*='chanx_']>#qr,
+body[class*='chanx_']>span[style]~body[class*='chanx_']>#qr
 {
     border:0!important;
 	border-top:1px solid " + theme.brderColor.hex + "!important;
@@ -2579,11 +2602,11 @@ body>span[style]~#iframe~#qr
     overflow:visible!important;
     width:" + (config["Sidebar Size"] - 4) + "!important;
 }
-#iframe~#qr>.move::before
+body[class*='chanx_']>#qr>.move::before
 {
     content:''!important;
 }
-#iframe~#qr>.move
+body[class*='chanx_']>#qr>.move
 {
     height:22px!important;
     line-height:18px!important;
@@ -2591,63 +2614,62 @@ body>span[style]~#iframe~#qr
     padding:2px 0 0 3px!important;
     text-align:left!important;
 }
-body>span[style]~#iframe~#qr>.move
+body>span[style]~body[class*='chanx_']>#qr>.move
 {
     text-align:center!important;
 }
-body>span[style]~#iframe~#qr>.move #autohide,
-body>span[style]~#iframe~#qr>.move .riceCheck
+body[class*='chanx_']>span[style]~#qr>.move #autohide,
+body[class*='chanx_']>span[style]~#qr>.move .riceCheck
 {
     position:absolute;
     right:3px;
 }
-#iframe~#qr>.move *
+body[class*='chanx_']>#qr>.move *
 {
     text-transform:none;
 }
-#iframe~#qr>.move .close
+body[class*='chanx_']>#qr>.move select
 {
-    position:relative;
-    top:-1px;
+    height:19px!important;
 }
-#iframe~#qr.autohide>form
+body[class*='chanx_']>#qr.autohide>form
 {
     display:block!important;
 }
-#iframe~#qr>form .field
+body[class*='chanx_']>#qr>form .field
 {
     height:22px;
 }
-#iframe~#qr>form>div:first-child #dump,
-#iframe~#qr>form>.captcha>img[src*='recaptcha/api'],
-#iframe~#qr>form input[type=submit],
-#iframe~#qr>form .riceFile,
-body>span[style]~#iframe~#qr .riceFile
+body[class*='chanx_']>#qr>form>div:first-child #dump,
+body[class*='chanx_']>#qr>form>.captcha>img[src*='recaptcha/api'],
+body[class*='chanx_']>#qr>form input[type=submit],
+body[class*='chanx_']>#qr>form .riceFile,
+body[class*='chanx_']>span[style]~#qr .riceFile
 {
     margin-top:0!important;
 }
-#iframe~#qr>form>div:first-child
+body[class*='chanx_']>#qr>form>div:first-child
 {
     position:relative;
 }
-#iframe~#qr>form>div:first-child #dump
+body[class*='chanx_']>#qr>form>div:first-child #dump
 {
     float:left;
     width:24px!important;
 }
-#iframe~#qr>form>div:first-child .field:not(#dump)
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)
 {
     float:" + config["Sidebar Position String"] + ";
     margin-left:1px!important;
     width:" + Math.floor((config["Sidebar Size"] - 36) / 3) + "px!important;
 }
-#iframe~#qr>form>div:first-child .field:not(#dump):focus
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
 {
     left:24px!important;
     position:absolute;
 	width:" + (config["Sidebar Size"] - 35) + "px!important;
 }
-#iframe~#qr>form>div:first-child .field:not(#dump)+span
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
 {
     color:rgba(" + theme.textColor.rgb + ",0);
     position:absolute;
@@ -2656,7 +2678,7 @@ body>span[style]~#iframe~#qr .riceFile
     white-space:nowrap;
     z-index:3;
 }
-#iframe~#qr>form>div:first-child .field:not(#dump):focus+span
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span
 {
     color:rgba(" + theme.textColor.rgb + ",.4);
     right:6px;
@@ -2664,45 +2686,45 @@ body>span[style]~#iframe~#qr .riceFile
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
 }
-#iframe~#qr>form>div:first-child .field[name=sub]
+body[class*='chanx_']>#qr>form>div:first-child .field[name=sub]
 {
     margin-right:0!important;
 }
-#iframe~#qr>form>div:first-child+div
+body[class*='chanx_']>#qr>form>div:first-child+div
 {
     clear:both;
 }
-#iframe~#qr>form .field,
-#iframe~#qr>form>.captcha
+body[class*='chanx_']>#qr>form .field,
+body[class*='chanx_']>#qr>form>.captcha
 {
     margin-bottom:1px!important;
 }
-#iframe~#qr>form>.captcha
+body[class*='chanx_']>#qr>form>.captcha
 {
     background:none!important;
     outline:none!important;
 }
-#iframe~#qr>form>.captcha+div
+body[class*='chanx_']>#qr>form>.captcha+div
 {
     float:left;
     margin-right:1px;
 }
-#iframe~#qr>form>.captcha+div input
+body[class*='chanx_']>#qr>form>.captcha+div input
 {
     width:" + (config["Sidebar Size"] - 76) + "!important;
 }
-#iframe~#qr>form input[type=submit]
+body[class*='chanx_']>#qr>form input[type=submit]
 {
     width:65px!important;
 }
-#iframe~#qr>form #spoilerLabel
+body[class*='chanx_']>#qr>form #spoilerLabel
 {
     bottom:4px;
     position:absolute;
     right:8px;
     z-index:2;
 }
-#iframe~#qr>form #spoilerLabel::after,
+body[class*='chanx_']>#qr>form #spoilerLabel::after,
 .preview>label::after
 {
     content:'SPOILER';
@@ -2716,7 +2738,7 @@ body>span[style]~#iframe~#qr .riceFile
 {
     font-size:3.5em!important;
 }
-#iframe~#qr .warning
+body[class*='chanx_']>#qr .warning
 {
     height:16px;
     left:5px;
@@ -2732,9 +2754,10 @@ body>span[style]~#iframe~#qr .riceFile
     -moz-transition:all .2s cubic-bezier(0,0.3,.35,1.3);
     -o-transition:all .2s cubic-bezier(0,.3,.35,1.3);
 }
-#iframe~#qr .warning.showWarning
+body[class*='chanx_']>#qr .warning.showWarning
 {
     opacity:1;
     top:-24px;
     z-index:1;
 }
+" + theme.customCSS + "
