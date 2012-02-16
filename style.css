@@ -2695,6 +2695,10 @@ body[class*='chanx_']>#qr.autohide>form
 {
     display:block!important;
 }
+body[class*='chanx_']>#qr>form>div
+{
+    position:relative;
+}
 body[class*='chanx_']>#qr>form .field
 {
     height:22px;
@@ -2775,6 +2779,12 @@ body[class*='chanx_']>#qr>form>.captcha+div input
 body[class*='chanx_']>#qr>form input[type=submit]
 {
     width:65px!important;
+}
+body[class*='chanx_']>#qr>form input[type=file]+input[type=submit]
+{
+    position:absolute;
+    right:0;
+    top:0;
 }
 body[class*='chanx_']>#qr>form #spoilerLabel
 {
