@@ -2446,6 +2446,11 @@ body>a[style='cursor: pointer; float: right;']::after
     right:-4px;
     " + (config["Sidebar Position"] == 1 ? "border-radius:0 0 2px 0;" : "") + "/*"*/
 }
+body>div[style='width: 100%;']+form[name=delform]
+{
+    display:block!important;
+    position:fixed;
+}
 body>span[style] a,
 body>a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
@@ -2683,7 +2688,7 @@ body[class*='chanx_']>#qr>form>div:first-child #dump
 }
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)
 {
-    float:" + config["Sidebar Position String"] + ";
+    float:left;
     margin-left:1px!important;
     width:" + Math.floor((config["Sidebar Size"] - 36) / 3) + "px!important;
 }
