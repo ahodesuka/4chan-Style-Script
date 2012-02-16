@@ -141,7 +141,8 @@ span[style='color:#FF0000;font-weight:normal']
 	color:" + theme.sageColor.hex + "!important;
 	text-shadow:none!important;
 }
-" + ( config["Pages Position"] != 2 ? ".pages td:nth-of-type(2)," : "" ) + "
+" + ( config["Pages Position"] != 2 ? ".pages td:nth-of-type(2)," : "") + 
+(config["Layout"] == 2 ? ".replyhider," : "") + "
 .reply,
 .replyhl,
 .stub>a,
@@ -553,12 +554,12 @@ td.replyhl,
     " + (config["Layout"] != 2 ? "
     position:absolute;
     right:13px;
-    top:1px;" : "/*"*/
-    position:relative;
-    top:-1px;") + "
+    top:1px;" : "") + "/*"*/
 }
+" + (config["Layout"] == 2 ? "
+.reportbutton" : "
 .inline .reportbutton,
-#qp .reportbutton
+#qp .reportbutton") + "
 {
     position:static!important;
 }
@@ -577,11 +578,13 @@ td.replyhl,
 .replyhider
 {
 	position:absolute;
-    " + (config["Layout"] == 2 ? "
-    left:2px;
-    top:7px;" : "/*"*/
+    " + (config["Layout"] != 2 ? "
 	right:2px;
-    top:2px;") + "
+    top:2px;" : "/*"*/
+    left:-18px;
+    padding:2px 0 2px 2px;
+    top:7px;
+    border-radius:4px 0 0 4px;") + "
 }
 .replyhider a,
 .op>a:first-child
@@ -671,7 +674,11 @@ td.qphl
 }
 .container
 {
-	" + (config["Backlinks Position"] != 1 ? "bottom:2px;position:absolute;" + (config["Backlinks Position"] == 2 ? "right" : "left") + ":2px;z-index:1;" : "") + "/*"*/
+	" + (config["Backlinks Position"] != 1 ? "
+    bottom:" + (config["Slim Replies"] ? 0 : 2) + "px;
+    position:absolute;
+    " + (config["Backlinks Position"] == 2 ? "right" : "left") + ":2px;
+    z-index:1;" : "") + "/*"*/
 	margin-left:2px;
 }
 .container *
@@ -856,7 +863,7 @@ tr[height='73']
 blockquote
 {
 	margin:0!important;
-	padding:12px 12px 24px 40px!important;
+	padding:" + (config["Slim Replies"] ? (config["Backlinks Position"] != 1 ? 8 : 4) + "px 16px" : "12px 12px 24px 40px") + "!important;
 }
 blockquote>div[style]
 {
@@ -871,7 +878,7 @@ div.reply
 form[name=delform] .filesize+br+a[target='_blank'] img
 {
 	float:left;
-	margin:2px 24px 24px!important;
+	margin:2px 24px" + (!config["Slim Replies"] ? " 24px" : "") + "!important;
 }
 form[name=delform] .filesize+br+a[target='_blank'] img+img
 {
@@ -1180,13 +1187,6 @@ td.reply input[type=checkbox],
 td.replyhl input[type=checkbox],
 td.reply .riceCheck,
 td.replyhl .riceCheck
-{
-	margin-left:" + (config["Layout"] == 2 ? 13 : 0) + "px!important;
-}
-.inline td.reply input[type=checkbox],
-.inline td.replyhl input[type=checkbox],
-.inline td.reply .riceCheck,
-.inline td.replyhl .riceCheck
 {
     margin-left:0!important;
 }

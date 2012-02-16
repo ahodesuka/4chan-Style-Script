@@ -1,7 +1,7 @@
 Create theme tab.
-- Create theme previews similar to mascot list.
 - Add create/edit theme ui.
 - Add some more themes.
 
-Style sys/rs.
+Add `iconify 4chan x` option.
+Style /f/, sys, and rs.
 Clean jscolor, move styling into css.
