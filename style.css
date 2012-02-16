@@ -208,8 +208,7 @@ body[class*='chanx_']>#qr>form #spoilerLabel,
 	color:transparent!important;
 	font-size:0!important;
 }
-" + 
-(config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
+" + (config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
 (!config["Show Board Name"] ? ".logo span," : "") +
 (!config["Show Text Board"] ? ".logo font[size='1']," : "") +
 (!config["Show Logo"] ? ".logo img," : "") +
