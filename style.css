@@ -208,14 +208,34 @@ body[class*='chanx_']>#qr>form #spoilerLabel,
 	color:transparent!important;
 	font-size:0!important;
 }
-" + (config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
+" + 
+(config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
 (!config["Show Board Name"] ? ".logo span," : "") +
 (!config["Show Text Board"] ? ".logo font[size='1']," : "") +
 (!config["Show Logo"] ? ".logo img," : "") +
 (config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + 
 (config["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
-#recaptcha_tagline,td[align=right],td.rules,img+br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
-#hd,#ft,td small,#footer,.rules,center font small,body>br,body>hr,form[name=delform]>span[style],td.postblock,.thread>br:last-child,
+#recaptcha_tagline,
+td[align=right],
+img+br,
+iframe,
+#BF_WIDGET,
+.bf,
+.yui-g,
+#option-button,
+#recaptcha_table td:nth-of-type(2),
+#recaptcha_table td:nth-of-type(3),
+#hd,
+#ft,
+td small,
+#footer,
+.rules,
+center font small,
+body>br,
+body>hr,
+form[name=delform]>span[style],
+td.postblock,
+.thread>br:last-child,
 .deletebuttons br,
 table[width='100%'],
 form[name=delform]>br[clear],
