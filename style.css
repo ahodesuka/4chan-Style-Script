@@ -736,7 +736,7 @@ a.omittedposts
 	overflow:hidden;
 	white-space:nowrap;
 	padding:1px 2px 0 18px!important;
-	z-index:2;
+	z-index:4;
     " + (config["Layout"] != 1 ? "border-radius:" + (config["Sidebar Position"] == 1 ? "3px 0 0 0" : "0 3px 0 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
@@ -2753,7 +2753,8 @@ body[class*='chanx_']>#qr>form>div:first-child .field[name=sub]
 {
     margin-right:0!important;
 }
-body[class*='chanx_']>#qr>form>div:first-child+div
+body[class*='chanx_']>#qr>form>div:first-child+div,
+body[class*='chanx_']>#qr>form>.captcha
 {
     clear:both;
 }
@@ -2771,6 +2772,8 @@ body[class*='chanx_']>#qr>form>.captcha+div
 {
     float:left;
     margin-right:1px;
+    position:relative;
+    z-index:1;
 }
 body[class*='chanx_']>#qr>form>.captcha+div input
 {
