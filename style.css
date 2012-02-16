@@ -212,12 +212,36 @@ body[class*='chanx_']>#qr>form #spoilerLabel,
 (!config["Show Logo"] ? ".logo img," : "") +
 (config["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + 
 (config["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
-#recaptcha_tagline,td[align=right],td.rules,img + br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
+#recaptcha_tagline,td[align=right],td.rules,img+br,iframe,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),
 #hd,#ft,td small,#footer,.rules,center font small,body>br,body>hr,form[name=delform]>span[style],td.postblock,.thread>br:last-child,
-.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],.logo>br,body>div[style*='center'],body>center:nth-of-type(1),body[class*='chanx_']>#qr>.move .close,
-form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>span[style]~form[name=delform]>hr,form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),
-form[name=delform] hr:nth-last-of-type(1),[hidden],body>span[style]~#navlinks,#navtop,#navtopr,#navtop>a,#navtop>span,.pages,#imgControls #imageExpand,#imgControls #imageExpand+.riceCheck,
-body>table[style='text-align:center;width:100%;height:300px;'],#qp>a[href='javascript:;']:not([class]),.inline .reply>a:first-child,.postarea>h1
+.deletebuttons br,
+table[width='100%'],
+form[name=delform]>br[clear],
+.logo>br,body>div[style*='center'],
+body>center:nth-of-type(1),
+body[class*='chanx_']>#qr>.move .close,
+form[name=delform]>center,
+.hidden,
+body>span[style]~form[name=delform]>br,
+body>a[href='.././']~form[name=delform]>br,
+body>span[style]~form[name=delform]>hr,
+form[name=delform] center+hr,
+center~form[name=delform] hr:nth-last-of-type(2),
+form[name=delform] hr:nth-last-of-type(1),
+[hidden],
+body>span[style]~#navlinks,
+#navtop,
+#navtopr,
+#navtop>a,
+#navtop>span,
+.pages,
+#imgControls #imageExpand,
+#imgControls #imageExpand+.riceCheck,
+body>table[style='text-align:center;width:100%;height:300px;'],
+#qp>a[href='javascript:;']:not([class]),
+.inline .reply>a:first-child,
+.postarea>h1,
+a[href='#bottom']
 {
 	display:none!important;
 }
@@ -287,6 +311,7 @@ body::after
 {
 	background:" + mascot.img.get() + ";
 	" + (!mascot.small ? "background-size:contain;" : "") + "/*"*/
+    bottom:21px!important;
 	content:'';
 	height:100%;
 	margin-bottom:" + mascot.offset + "px;
@@ -298,11 +323,6 @@ body::after
 	-moz-transform:scaleX(-1);
 	-o-transform:scaleX(-1);" : "") + "/*"*/
 }" : "") + "
-body::after,
-.deletebuttons
-{
-	bottom:20px!important;
-}
 body::after,
 body::before,
 body>span[style]~#qr,
@@ -456,15 +476,18 @@ form[name=delform]>table:nth-last-of-type(3)
 	margin-bottom:1px;
 }
 
-body>span[style]~form[name=delform]>table
+body>span[style]~form[name=delform]>table,
+body>a[href='.././']~form[name=delform]>table
 {
 	margin-left:0!important;
 }
-body>span[style]~form[name=delform]>table:nth-last-of-type(3)
+body>span[style]~form[name=delform]>table:nth-last-of-type(3),
+body>a[href='.././']~form[name=delform]>table:nth-last-of-type(3)
 {
 	margin-bottom:0;
 }
-body>span[style]~form[name=delform]
+body>span[style]~form[name=delform],
+body>a[href='.././']~form[name=delform]
 {
 	margin-bottom:43px!important;
 	padding:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px") + "!important;
@@ -679,6 +702,7 @@ a.omittedposts
 {
 	position:fixed;
 	" + config["Sidebar Position String"] + ":" + (config["Sidebar Size"] - 1) + "px;
+    bottom:20px!important;
 	height:22px;
 	width:0;
 	overflow:hidden;
@@ -2614,7 +2638,7 @@ body[class*='chanx_']>#qr>.move
     padding:2px 0 0 3px!important;
     text-align:left!important;
 }
-body>span[style]~body[class*='chanx_']>#qr>.move
+body[class*='chanx_']>span[style]~#qr>.move
 {
     text-align:center!important;
 }
