@@ -168,6 +168,34 @@
                 titleColor:  "b294bb"
             },
             {
+                name:        "Yotsuba",
+                enabled:     true,
+                bgImg:       "http://static.4chan.org/image/fade.png",
+                bgRPA:       "top center repeat-x fixed",
+                bgColor:     "ffffee",
+                mainColor:   "f0e0d6",
+                brderColor:  "d9bFb7",
+                inputColor:  "ffffff",
+                inputbColor: "aaaaaa",
+                blinkColor:  "dd0000",
+                jlinkColor:  "800000",
+                linkColor:   "0000ee",
+                linkHColor:  "dd0000",
+                nameColor:   "117743",
+                quoteColor:  "789922",
+                textColor:   "800000",
+                sageColor:   "990000",
+                tripColor:   "228854",
+                titleColor:  "cc1105",
+                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\
+                              body>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\
+                              .thread{padding:3px 0 0!important}\
+                              form[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\
+                              .pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\
+                              td.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\
+                              .reply>.reportbutton{right:14px!important;top:2px!important}"
+            },
+            {
                 name:        "Yotsuba B",
                 enabled:     true,
                 bgImg:       "http://static.4chan.org/image/fade-blue.png",
@@ -707,10 +735,11 @@
             config["Sidebar Position String"]  = config["Sidebar Position"] == 1 ? "right" : "left";
             config["Sidebar Position oString"] = config["Sidebar Position"] == 1 ? "left" : "right";
             
+            if (!reload)
+                $SS.location = $SS.getLocation();
+            
             mascot = $SS.options.getMascot();
             theme  = $SS.options.getTheme();
-            
-            if (!mascot.enabled) mascot.color = theme.linkColor;
                         
             if (reload)
             {
@@ -719,8 +748,6 @@
             }
             else
             {
-                $SS.location = $SS.getLocation();
-                
                 $(document).bind("DOMNodeInserted", $SS.insertCSS);
                 $SS.insertCSS();
                 
@@ -1524,6 +1551,7 @@
                         <label title='Prevent streching with smaller images (Width < 313px)'><span>Prevent stretching:</span><input type=checkbox name=mSmall" + (bEdit && mEdit.small ? " checked" : "") + "></label>\
                         <label title='Horizontally flip the mascot when sidebar is on the left'><span>Flip with sidebar:</span><input type=checkbox name=mFlip" + (!bEdit || (bEdit && (mEdit.flip || mEdit.flip == undefined)) ? " checked" : "") + "></label>\
                         <label title='Allows the mascot to be shown outside the sidebar, forces auto offset and ignores `Prevent stretching` option'><span>Allow overflow:</span><input type=checkbox name=mOverflow" + (bEdit && mEdit.overflow ? " checked" : "") + "></label>\
+                        <label title='List of boards to display this mascot on, seperated by commas. Can be left blank to display on all boards'><span>Boards:</span><textarea name=mBoards>" + (bEdit && mEdit.boards ? mEdit.boards : "") + "</textarea></label>\
                         <div>\
                         <div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>\
                         <span class=trbtn>Select Image</span></div>\
@@ -1556,6 +1584,7 @@
                 cSmall    = $("input[name=mSmall]", overlay).val();
                 cFlip     = $("input[name=mFlip]", overlay).val();
                 cOverflow = $("input[name=mOverflow]", overlay).val();
+                cBoards   = $("textarea[name=mBoards]", overlay).val();
                 bSetPos   = cPosition != "auto";
                 
                 if (!$SS.validImageURL(cIMG) && !$SS.validBase64(cIMG))
@@ -1569,6 +1598,7 @@
                     config["Mascots"][mIndex].small    = cSmall;
                     config["Mascots"][mIndex].flip     = cFlip;
                     config["Mascots"][mIndex].overflow = cOverflow;
+                    config["Mascots"][mIndex].boards   = cBoards;
                     
                     if (bSetPos)
                     {
@@ -1586,8 +1616,8 @@
                 }
                 else
                 {
-                    var m = { img: cIMG, enabled: true, small: cSmall, flip: cFlip, overflow: cOverflow };
-                    tIMG = new $SS.Image(cIMG);
+                    var m = { img: cIMG, enabled: true, small: cSmall, flip: cFlip, overflow: cOverflow, boards: cBoards };
+                    tIMG  = new $SS.Image(cIMG);
                     
                     if (bSetPos)
                     {
@@ -1624,7 +1654,13 @@
                 
                 for (var i = 0, MAX = mascots.length; i < MAX; i++)
                     if (mascots[i].enabled)
+                    {
+                        if (mascots[i].boards != undefined &&
+                            mascots[i].boards.split(",").indexOf($SS.location.board) == -1)
+                            continue;
+                        
                         eMascot.push(mascots[i]);
+                    }
                 
                 if (eMascot.length == 0)
                     m = { img: null, color: null, enabled: false };
@@ -2474,6 +2510,7 @@
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
             this.offset   = this.bOffset && !this.overflow ? mascot.offset : (config["Post Form"] != 1 ? 275 : 23);
+            this.boards   = mascot.boards;
         },
         Theme: function(theme)
         {
