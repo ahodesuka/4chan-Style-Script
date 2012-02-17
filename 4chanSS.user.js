@@ -1552,7 +1552,7 @@
                         <label title='Prevent streching with smaller images (Width < 313px)'><span>Prevent stretching:</span><input type=checkbox name=mSmall" + (bEdit && mEdit.small ? " checked" : "") + "></label>\
                         <label title='Horizontally flip the mascot when sidebar is on the left'><span>Flip with sidebar:</span><input type=checkbox name=mFlip" + (!bEdit || (bEdit && (mEdit.flip || mEdit.flip == undefined)) ? " checked" : "") + "></label>\
                         <label title='Allows the mascot to be shown outside the sidebar, forces auto offset and ignores `Prevent stretching` option'><span>Allow overflow:</span><input type=checkbox name=mOverflow" + (bEdit && mEdit.overflow ? " checked" : "") + "></label>\
-                        <label title='List of boards to display this mascot on, seperated by commas. Can be left blank to display on all boards'><span>Boards:</span><textarea name=mBoards>" + (bEdit && mEdit.boards ? mEdit.boards : "") + "</textarea></label>\
+                        <label title='List of boards to display this mascot on, seperated by commas. Can be left blank to display on all boards'><span>Boards:</span><input type=text name=mBoards value='" + (bEdit && mEdit.boards ? mEdit.boards : "") + "'></label>\
                         <div>\
                         <div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>\
                         <span class=trbtn>Select Image</span></div>\
@@ -1585,7 +1585,7 @@
                 cSmall    = $("input[name=mSmall]", overlay).val();
                 cFlip     = $("input[name=mFlip]", overlay).val();
                 cOverflow = $("input[name=mOverflow]", overlay).val();
-                cBoards   = $("textarea[name=mBoards]", overlay).val();
+                cBoards   = $("input[name=mBoards]", overlay).val();
                 bSetPos   = cPosition != "auto";
                 
                 if (!$SS.validImageURL(cIMG) && !$SS.validBase64(cIMG))
