@@ -209,6 +209,75 @@ body[class*='chanx_']>#qr>form #spoilerLabel,
 	color:transparent!important;
 	font-size:0!important;
 }
+
+body[class*='chanx_']>#qr>.move,
+body>a[style='cursor: pointer; float: right;'],
+body[class*='chanx_']>#qr>form #spoilerLabel::after,
+button,
+form[name=post] input[name=email]+label,
+form[name=post] #com_submit+label,
+input[type=button],
+input[type=submit],
+#imgControls label,
+#qr input[name=upfile]+a,
+#qr #captchas,
+#qr #attach,
+#qr .move::before,
+#stats .move,
+#themeoptions #tThemes>div p a,
+#updater span,
+#updater .move,
+#watcher .move,
+.deletebuttons::before,
+.logo font[size='1'],
+.pages td,
+.postarea form[name=post]::before,
+.preview>label::after,
+.riceFile div,
+.trbtn
+{
+	text-transform:uppercase;
+}
+body>a[style='cursor: pointer; float: right;'],
+body[class*='chanx_']>#qr>form #spoilerLabel::after,
+button,
+form[name=post] input[name=email]+label,
+form[name=post] #com_submit+label,
+input[type=button],
+input[type=submit],
+#imgControls label,
+#qr input[name=upfile]+a,
+#qr #captchas,
+#qr #attach,
+#stats .move,
+#updater span,
+#updater .move,
+#watcher .move,
+#qr #captchas,
+#qr #attach,
+#stats span,
+.deletebuttons::after,
+.pages td,
+.preview>label::after,
+.riceFile div
+{
+	font-size:" + (config["Bitmap Font"] ? config["Font Size"] : 9) + "px!important;
+}
+body>center:nth-of-type(2)>font[color=red]::before,
+body[class*='chanx_']>#qr>.move,
+#qr .move::before,
+#themeoptions #tMascot div a,
+#themeoptions #tThemes>div p a,
+#watcher>div>a:first-child,
+.commentpostername a.linkmail[href='mailto:sage']::after,
+.container::before,
+.deletebuttons::before,
+.postarea form[name=post]::before,
+.riceFile span,
+.trbtn
+{
+	font-size:" + (config["Bitmap Font"] ? config["Font Size"] : 10) + "px!important;
+}
 " + (config["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
 (!config["Show Board Name"] ? ".logo span," : "") +
 (!config["Show Text Board"] ? ".logo font[size='1']," : "") +
@@ -409,18 +478,19 @@ body>center:nth-of-type(2)>font[color=red]
 	top:1.75em!important;
 	right:auto!important;
 }
-textarea,
 input:not([type=submit]),
 select,
 select *,
-#updater span,
+textarea,
 #navlinks,
-#updater label,
 #themeoptions label,
 #themeoptions label>span,
 #themeoptions #tMascot div a,
-.pages td:nth-of-type(2) *,
-.filesize span::after
+#updater label,
+#updater span,
+.container *,
+.filesize span::after,
+.pages td:nth-of-type(2) *
 {
 	font:" + config["Small Font Size"] + "px " + $SS.FormatFont(config["Font"]) + "!important;
 }
@@ -478,7 +548,7 @@ form[name=delform]
 	" + (config["Layout"] != 2 ? "
     border:1px solid rgba(" + theme.brderColor.rgb + ",.9);
 	" + (config["Layout"] == 1 ? "border-" + config["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
-	margin:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "0 0 43px 30px" : "0 30px 43px 0") : "0 10% 43px") + ";
+	margin:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "0 0 43px 26px" : "0 26px 43px 0") : "0 10% 43px") + ";
 	padding:0;
 	position:relative;
 	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
@@ -563,12 +633,21 @@ td.replyhl,
 {
     position:static!important;
 }
+td.reply input[type=checkbox],
+td.replyhl input[type=checkbox],
+td.reply .riceCheck,
+td.replyhl .riceCheck,
 .container,
+.inline,
 .op>a:first-child,
 .replyhider,
 .reportbutton
 {
     z-index:3!important;
+}
+.inline
+{
+    position:relative;
 }
 .op>.reportbutton
 {
@@ -681,10 +760,6 @@ td.qphl
     z-index:1;" : "") + "/*"*/
 	margin-left:2px;
 }
-.container *
-{
-	font-size:11px!important;
-}
 " + (config["Backlinks Position"] != 1 ? "
 .container::before
 {
@@ -721,7 +796,6 @@ td.qphl
 }
 .commentpostername a.linkmail[href='mailto:sage']::after
 {
-	font-size:10px;
 	content:' (SAGE)';
 }
 a.omittedposts
@@ -781,7 +855,6 @@ a.omittedposts
 }
 .deletebuttons::after
 {
-	font-size:9px!important;
 	content:'FILE ONLY';
 	position:absolute;
 	bottom:0;
@@ -878,7 +951,7 @@ div.reply
 form[name=delform] .filesize+br+a[target='_blank'] img
 {
 	float:left;
-	margin:2px 24px" + (!config["Slim Replies"] ? " 24px" : "") + "!important;
+	margin:2px 24px " + (!config["Slim Replies"] ? 24 : 6) + "px!important;
 }
 form[name=delform] .filesize+br+a[target='_blank'] img+img
 {
@@ -1095,12 +1168,10 @@ input[type=button],
 input[type=submit],
 .riceFile div
 {
-	font-size:9px!important;
 	height:22px!important;
 	margin-top:1px!important;
 	padding:0!important;
 	text-align:center!important;
-	text-transform:uppercase;
 	vertical-align:top;
 	width:50px;
 }
@@ -1189,6 +1260,7 @@ td.reply .riceCheck,
 td.replyhl .riceCheck
 {
     margin-left:0!important;
+    position:relative;
 }
 span.filesize~input[type=checkbox],
 span.filesize~.riceCheck
@@ -1275,7 +1347,6 @@ td.doubledash
 	left:0;
 	position:absolute;
 	text-shadow:" + theme.mainColor.hex + " -1px -1px," + theme.mainColor.hex + " 1px -1px," + theme.mainColor.hex + " -1px 1px," + theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.2) 0 0 10px,#000 0 1px 5px,#000 0 -1px 5px;
-	text-transform:uppercase;
     width:100%;
 	z-index:3;
 }
@@ -1395,12 +1466,6 @@ body[class*='chanx_']>#qr>.move
 body>a[style='cursor: pointer; float: right;']
 {
 	top:19px!important;
-}
-#watcher>div>a:first-child,
-.container::before,
-#themeoptions #tMascot div a
-{
-	font-size:10px!important;
 }
 #overlay,
 #overlay2
@@ -1791,9 +1856,9 @@ body>a[style='cursor: pointer; float: right;']
 }
 #addMascot #selectImage>input[type=file]
 {
-	-webkit-transform:translateX(-500px) scale(10);
-	-moz-transform:translateX(-500px) scale(10);
-	-o-transform:translateX(-500px) scale(10);
+	-webkit-transform:scale(100);
+	-moz-transform:scale(100);
+	-o-transform:scale(100);
 }
 #addMascot a[name=clearIMG]
 {
@@ -1877,33 +1942,21 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-48px 0;
 }
-body[class*='chanx_']>#qr>.move,
-#qr .move::before,
-#themeoptions #tThemes>div p a,
-.deletebuttons::before,
-.postarea form[name=post]::before,
-.trbtn
-{
-	font-size:10px!important;
-	text-transform:uppercase;
-}
-#imgControls label,
+body>a[style='cursor: pointer; float: right;']
+form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
+body[class*='chanx_']>#qr>form #spoilerLabel::after,
+#imgControls label,
 #qr input[name=upfile]+a,
 #qr #captchas,
 #qr #attach,
-form[name=post] input[name=email]+label,
-body[class*='chanx_']>#qr>form #spoilerLabel::after,
-#watcher .move,
+#stats .move,
 #updater span,
 #updater .move,
-#stats .move,
-.preview>label::after,
-body>a[style='cursor: pointer; float: right;']
+#watcher .move,
+.preview>label::after
 {
-	font-size:9px!important;
 	line-height:16px;
-	text-transform:uppercase;
 }
 .postarea table,
 .postarea table td
@@ -2094,7 +2147,6 @@ body>span[style]~#qr .autohide,body>span[style]~#qr #autohide:checked~.autohide
 #qr #captchas,
 #qr #attach
 {
-	font-size:9px!important;
 	line-height:20px;
 	position:absolute;
 	right:6px;
@@ -2207,17 +2259,13 @@ body>span[style]~#qr>#close
 	top:0!important;
 	z-index:8!important;
 	" + (config["Sidebar Position"] == 1 ? "
-	right:100px!important;
+	right:43px!important;
 	left:auto!important;
 	text-align:left;" : "/*"*/
 	right:auto!important;
-	left:100px!important;
+	left:43px!important;
 	text-align:right;") + "
-	width:40px;
-}
-#stats span
-{
-	font-size:9px!important;
+    width:100px;
 }
 #navlinks
 {
@@ -2261,7 +2309,6 @@ body>center:nth-of-type(2)>font[color=red]::before
 {
 	content:'ANNOUNCEMENT';
 	display:block;
-	font-size:10px!important;
 	line-height:18px;
 }
 body>center:nth-of-type(2)>font[color=red]:hover
@@ -2324,6 +2371,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	content:'Navigation';
 	display:block;
 	font-size:" + config["Small Font Size"] + "px;
+    line-height:14px!important;
 }
 #navtop:hover
 {
@@ -2350,8 +2398,8 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	position:fixed!important;
 	visibility:hidden;
 	width:auto!important;
-	" + ( config["Pages Position"] == 1 ? "
-	height:21px!important;
+	" + (config["Pages Position"] == 1 ? "
+	height:20px!important;
 	bottom:22px!important;
 	" + (config["Sidebar Position"] == 1 ? "
 	left:-375px;
@@ -2371,9 +2419,9 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	left:0!important;
 	z-index:9!important;" :
 	"/*"*/
-	bottom:18px!important;
+	bottom:17px!important;
 	height:24px!important;
-	" + config["Sidebar Position oString"] + "/*"*/:3px!important;
+	" + config["Sidebar Position oString"] + ":0!important;
 	z-index:2;
 	-webkit-transform:rotate(" + (config["Sidebar Position"] == 1 ? -90 : 90) + "deg);
 	-webkit-transform-origin:top " + config["Sidebar Position oString"] + ";
@@ -2389,14 +2437,12 @@ body>center:nth-of-type(2)>font[color=red]:hover
 }
 .pages td
 {
-	font-size:9px!important;
-	text-transform:uppercase;
 	" + ( config["Pages Position"] != 2 ? "padding:0 2px!important;" : "padding:0!important;") + "/*"*/
 	text-align:center;
 }
 .pages td:nth-of-type(2)
 {
-	" + ( config["Pages Position"] != 2 ? "border-radius:3px;" : "") + "/*"*/
+	" + ( config["Pages Position"] != 2 ? "border-radius:4px;" : "") + "/*"*/
 	padding:0 5px!important;
 }
 .pages b
@@ -2410,11 +2456,11 @@ body>center:nth-of-type(2)>font[color=red]:hover
 }
 .pages input[type=submit]
 {
-	" + (config["Pages Position"] != 2 ? "border-radius:3px;" : "") + "/*"*/
+	" + (config["Pages Position"] != 2 ? "border-radius:4px;" : "") + "/*"*/
 	margin:0!important;
 	padding:0 10px!important;
 	width:50px!important;
-	height:" + (config["Pages Position"] == 3 ? 24 : (config["Pages Position"] == 2 ? 20 : 21)) + "px!important;
+	height:" + (config["Pages Position"] == 3 ? 24 : 20) + "px!important;
 }
 " + (config["Pages Position"] == 1 ? "
 .pages:hover
@@ -2454,6 +2500,7 @@ body>a[style='cursor: pointer; float: right;']
 	background-position:-32px 0;
 	position:fixed;
     " + config["Sidebar Position String"] + ":241px;
+    text-indent:-9999px;
 	z-index:5;
 }
 body>a[style='cursor: pointer; float: right;']::before,
@@ -2560,15 +2607,9 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 	right:0;
 	z-index:1;
 	opacity:0;
-	-webkit-transform:translateX(-1300px) scale(10);
-	-moz-transform:translateX(-1300px) scale(10);
-	-o-transform:translateX(-1300px) scale(10);
-}
-#qr .riceFile input[type=file]
-{
-	-webkit-transform:translateX(-400px) scale(10);
-	-moz-transform:translateX(-400px) scale(10);
-	-o-transform:translateX(-400px) scale(10);
+	-webkit-transform:scale(100);
+	-moz-transform:scale(100);
+	-o-transform:scale(100);
 }
 #qr input[name=upfile]+a
 {
@@ -2580,13 +2621,13 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 .riceFile div
 {
 	display:inline-block;
+    line-height:20px!important;
 	margin:0!important;
 	padding:0 10px!important;
 }
 .riceFile span
 {
 	display:inline-block;
-    font-size:10px!important;
 	max-width:223px;
 	overflow:hidden;
 	padding:0 5px!important;
@@ -2754,6 +2795,7 @@ body[class*='chanx_']>#qr>form>div:first-child .field[name=sub]
     margin-right:0!important;
 }
 body[class*='chanx_']>#qr>form>div:first-child+div,
+body[class*='chanx_']>#qr>form>div#replies+div,
 body[class*='chanx_']>#qr>form>.captcha
 {
     clear:both;
@@ -2831,5 +2873,9 @@ body[class*='chanx_']>#qr .warning.showWarning
     opacity:1;
     top:-24px;
     z-index:1;
+}
+input[name=name].tripping:not(:hover):not(:focus)
+{
+    color:transparent!important;
 }
 " + theme.customCSS + "
