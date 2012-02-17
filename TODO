@@ -1,7 +1,3 @@
-Create theme tab.
-- Add create/edit theme ui.
-- Add some more themes.
-
 Add `iconify 4chan x` option.
 Style /f/, sys, and rs.
 Clean jscolor, move styling into css.

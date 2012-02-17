@@ -3,7 +3,7 @@
 // @author        ahoka
 // @description   Customize 4chan to you liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       1.2.2
+// @version       1.3
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*
@@ -20,9 +20,18 @@
         "Show Logo":                [ true, "Toggle visibility of the logo" ],
         "Auto Hide Thread Watcher": [ true, "Hides watched threads unless the mouse is over the watcher" ],
         "Slim Replies":             [ true, "Reduces the size of replies" ],
-        "Smart Tripcode Hider":     [ false, "Hides the name field is the value contains a tripcode" ],
+        "Smart Tripcode Hider":     [ false, "Hides the name field if the value contains a tripcode" ],
         "Custom Navigation Links":  [ true, "Use specified links instead of showing all boards" ],
         "Style Scrollbars":         [ true, "Make the scroll bar match the theme" ],
+        "Side Margin":
+        [
+            26, "Change the size of the margin opposite of the sidebar",
+            [
+                { name: "Normal",        value: 26 },
+                { name: "4chan Default", value: 5 },
+                { name: "None",          value: 1 }
+            ]
+        ],
         "Layout":
         [
             1, "Change the layout of the main content",
@@ -108,7 +117,7 @@
         [
             {
                 name:        "Dark Flat",
-                enabled:     false,
+                enabled:     true,
                 bgImg:       "R0lGODlhAwADAIAAAB0dHRkZGSH5BADoAwAALAAAAAADAAMAAAIDDG5YADs=",
                 bgRPA:       "repeat top left fixed",
                 bgColor:     "202020",
@@ -126,7 +135,7 @@
                 sageColor:   "c99090",
                 tripColor:   "d4c095",
                 titleColor:  "9390c9",
-                customCSS:   "td.reply,td.replyhl{border:0!important}.reply>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   "td.reply,td.replyhl{border:0!important}.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             },
             {
                 name:        "Photon",
@@ -170,9 +179,9 @@
             },
             {
                 name:        "Yotsuba",
-                enabled:     true,
+                enabled:     false,
                 bgImg:       "http://static.4chan.org/image/fade.png",
-                bgRPA:       "top center repeat-x fixed",
+                bgRPA:       "repeat-x top center fixed",
                 bgColor:     "ffffee",
                 mainColor:   "f0e0d6",
                 brderColor:  "d9bFb7",
@@ -185,7 +194,7 @@
                 nameColor:   "117743",
                 quoteColor:  "789922",
                 textColor:   "800000",
-                sageColor:   "990000",
+                sageColor:   "cc1111",
                 tripColor:   "228854",
                 titleColor:  "cc1105",
                 customCSS:   "form[name=delform],body>span[style]~form[name=delform],\
@@ -194,13 +203,13 @@
                               form[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\
                               .pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\
                               td.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\
-                              .reply>.reportbutton{right:14px!important;top:2px!important}"
+                              .reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             },
             {
                 name:        "Yotsuba B",
-                enabled:     true,
+                enabled:     false,
                 bgImg:       "http://static.4chan.org/image/fade-blue.png",
-                bgRPA:       "top center repeat-x fixed",
+                bgRPA:       "repeat-x top center fixed",
                 bgColor:     "eef2ff",
                 mainColor:   "d6daf0",
                 brderColor:  "b7c5d9",
@@ -222,7 +231,7 @@
                               form[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\
                               .pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\
                               td.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\
-                              .reply>.reportbutton{right:14px!important;top:2px!important}"
+                              .reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             }
         ],
         "Mascots":
@@ -267,21 +276,21 @@
     fontListSWF   = "http://ahodesuka.github.com/FontList.swf",
     themeInputs   =
     [
-        { name: "bgColor",     property: "background-color" },
-        { name: "mainColor",   property: "background-color" },
-        { name: "brderColor",  property: "border-color"     },
-        { name: "inputColor",  property: "background-color" },
-        { name: "inputbColor", property: "border-color"     },
-        { name: "blinkColor",  property: "color"            },
-        { name: "jlinkColor",  property: "color"            },
-        { name: "linkColor",   property: "color"            },
-        { name: "linkHColor",  property: "color"            },
-        { name: "nameColor",   property: "color"            },
-        { name: "quoteColor",  property: "color"            },
-        { name: "textColor",   property: "color"            },
-        { name: "sageColor",   property: "color"            },
-        { name: "tripColor",   property: "color"            },
-        { name: "titleColor",  property: "color"            }
+        { dName: "Body Background",  name: "bgColor",     property: "background-color" },
+        { dName: "Reply Background", name: "mainColor",   property: "background-color" },
+        { dName: "Reply Border",     name: "brderColor",  property: "border-color"     },
+        { dName: "Input Background", name: "inputColor",  property: "background-color" },
+        { dName: "Input Border",     name: "inputbColor", property: "border-color"     },
+        { dName: "Backlinks",        name: "blinkColor",  property: "color"            },
+        { dName: "4chan x Links",    name: "jlinkColor",  property: "color"            },
+        { dName: "Links",            name: "linkColor",   property: "color"            },
+        { dName: "Links Hovered",    name: "linkHColor",  property: "color"            },
+        { dName: "Names",            name: "nameColor",   property: "color"            },
+        { dName: "Quote",            name: "quoteColor",  property: "color"            },
+        { dName: "Text",             name: "textColor",   property: "color"            },
+        { dName: "Sage",             name: "sageColor",   property: "color"            },
+        { dName: "Tripcodes",        name: "tripColor",   property: "color"            },
+        { dName: "Titles",           name: "titleColor",  property: "color"            }
     ];
     
     if (!Array.isArray)
@@ -735,7 +744,8 @@
             config["Small Font Size"]          = config["Font Size"] > 11 && !config["Bitmap Font"] ? 12 : config["Font Size"];
             config["Sidebar Position String"]  = config["Sidebar Position"] == 1 ? "right" : "left";
             config["Sidebar Position oString"] = config["Sidebar Position"] == 1 ? "left" : "right";
-            
+            config["Side Margin"]              = config["Layout"] == 2 ? 26 : config["Side Margin"];
+
             if (!reload)
                 $SS.location = $SS.getLocation();
             
@@ -1112,6 +1122,13 @@
         config:
         {
             hasGM: typeof GM_deleteValue !== "undefined",
+            del: function(name)
+            {
+                if (this.hasGM)
+                    return GM_deleteValue(name);
+                else
+                    return delete localStorage[name];
+            },
             get: function(name)
             {
                 var val, key = NAMESPACE + name;
@@ -1128,7 +1145,8 @@
                     if (!isNaN(val) && typeof val === "string")
                         return parseInt(val);
                     
-                    return val;
+                    if (!Array.isArray(val) || (Array.isArray(val) && val[0] != undefined))
+                        return val;
                 }
                     
                 return defaultConfig[name];
@@ -1137,6 +1155,9 @@
             {
                 name = NAMESPACE + name;
                 val = JSON.stringify(val);
+                
+                if (val == undefined || (Array.isArray(val) && val[0] == undefined))
+                    return this.del(name);
                 
                 if (this.hasGM)
                     return GM_setValue(name, val);
@@ -1319,6 +1340,7 @@
                     if (!fontList)
                         $("a[name=loadSysFonts]", tOptions).bind("click", $SS.options.loadSystemFonts);
                     
+                    $("a[name=addTheme]", tOptions).bind("click", $SS.options.showTheme);
                     $("a[name=addMascot]", tOptions).bind("click", $SS.options.showMascot);
                     $("a[name=selectAll]", tOptions).bind("click", function(){ $("#tMascot div").each(function(){ $(this).addClass("selected") }); });
                     $("a[name=selectNone]", tOptions).bind("click", function(){ $("#tMascot div").each(function(){ $(this).removeClass("selected") }); });
@@ -1463,14 +1485,66 @@
             },
             showTheme: function(tIndex)
             {
-                return;
                 var div, overly;
                 
                 if (typeof tIndex === "number")
-                    var bEdit = true,
-                        tEdit = config["Themes"][tIndex];
+                {
+                    var bEdit  = true,
+                        tEdit  = config["Themes"][tIndex],
+                        RPA, themeR, themePY, themePX, themeA;
+                        
+                    if (tEdit.bgImg && tEdit.bgRPA)
+                    {
+                        RPA     = tEdit.bgRPA.split(" ");
+                        themeR  = RPA[0];
+                        themePY = RPA[1];
+                        themePX = RPA[2];
+                        themeA  = RPA[3];
+                    }
+                }
                 
                 div = $("<div id=addTheme>");
+                
+                var innerHTML = "<label>\
+                <span>Theme Name:</span><input type=text name=name value='" + (bEdit ? tEdit.name : "") + "'>\
+                </label><label>\
+                <span>BG Image:</span><input type=text name=bgImg value='" + (bEdit ? ($SS.validImageURL(tEdit.bgImg) ? tEdit.bgImg + "'" : 
+                ($SS.validBase64(tEdit.bgImg) ? "[Base 64 Encoded Image]' disabled=true" : "'")) : "'") + "></label><label>\
+                <span>BG Repeat:</span><select name=bgR>\
+                <option" + (bEdit && themeR == "no-repeat" ? " selected" : "") + ">no-repeat</option>\
+                <option" + (bEdit && themeR == "repeat" ? " selected" : "") + ">repeat</option>\
+                <option" + (bEdit && themeR == "repeat-x" ? " selected" : "") + ">repeat-x</option>\
+                <option" + (bEdit && themeR == "repeat-y" ? " selected" : "") + ">repeat-y</option>\
+                </select></label><label>\
+                <span>BG Attachment:</span><select name=bgA>\
+                <option" + (bEdit && themeA == "fixed" ? " selected" : "") + ">fixed</option>\
+                <option" + (bEdit && themeA == "scroll" ? " selected" : "") + ">scroll</option>\
+                </select></label><label>\
+                <span>BG Position-X:</span><select name=bgPX>\
+                <option" + (bEdit && themePX == "left" ? " selected" : "") + ">left</option>\
+                <option" + (bEdit && themePX == "center" ? " selected" : "") + ">center</option>\
+                <option" + (bEdit && themePX == "right" ? " selected" : "") + ">right</option>\
+                </select></label><label>\
+                <span>BG Position-Y:</span><select name=bgPY>\
+                <option" + (bEdit && themePY == "top" ? " selected" : "") + ">top</option>\
+                <option" + (bEdit && themePY == "center" ? " selected" : "") + ">center</option>\
+                <option" + (bEdit && themePY == "bottom" ? " selected" : "") + ">bottom</option>\
+                </select></label>";
+                
+                for (var i = 0, MAX = themeInputs.length; i < MAX; i++)
+                    innerHTML += "<label><span>" + themeInputs[i].dName + ":</span>\
+                    <input type=text class=jsColor name=" + themeInputs[i].name + " value=" + (bEdit ? tEdit[themeInputs[i].name] : "") + "></label>";
+                    
+                innerHTML += "<label id=customCSS><span>Custom CSS:</span><textarea name=customCSS>" + (bEdit ? tEdit.customCSS : "") + "</textarea>\
+                </label><div><div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>\
+                <span class=trbtn>Select Image</span></div>\
+                " + (bEdit && $SS.validBase64(tEdit.bgImg) ? "<input type=hidden name=customIMGB64 value='" + tEdit.bgImg + "'>" : "") + "\
+                <a class=trbtn name=clearIMG>Clear Image</a>\
+                <a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div>";
+                    
+                div.html(innerHTML);
+                $(".jsColor", div).jsColor();
+                
                 overlay = $("<div id=overlay2>").append(div);
                 
                 $("#selectImage>input[type=file]", div).bind("change", $SS.options.SelectImage);
@@ -1487,18 +1561,71 @@
             },
             addTheme: function(tIndex)
             {
-                var overlay = $("#overlay2");
+                var overlay = $("#overlay2"),
+                    tTheme  = { },
+                    makeRPA = function()
+                    {
+                        var RPA = [];
+                        
+                        RPA.push($("select[name=bgR]",  overlay).val());
+                        RPA.push($("select[name=bgPY]", overlay).val());
+                        RPA.push($("select[name=bgPX]", overlay).val());
+                        RPA.push($("select[name=bgA]",  overlay).val());
+                        
+                        return RPA.join(" ");
+                    };
+                    
+                $("input[type=text],textarea", overlay).each(function()
+                {
+                    var val;
+                    
+                    if (this.name == "bgImg")
+                    {
+                        var b64 = $("input[name=customIMGB64]", overlay);
+                        val     = b64.exists() ? decodeURIComponent(b64.val()) : this.value;
+                        
+                        if (val != "" && !$SS.validImageURL(val) && !$SS.validBase64(val))
+                            return alert("Invalid image URL/base64.");
+                        
+                        val = $SS.cleanBase64(val);
+                    }
+                    else
+                        val = this.value;
+                    
+                    if (val != "")
+                        tTheme[this.name] = val;
+                });
+                
+                if (tTheme.bgImg)
+                    tTheme.bgRPA = makeRPA();
+                    
+                if (typeof tIndex === "number")
+                {
+                    config["Themes"][tIndex] = tTheme;
+                    tTheme = new $SS.Theme(tTheme);
+                    
+                    $("#theme" + tIndex, $("#overlay")).html($SS.themePreview(tTheme));
+                    $SS.options.bindThemeInputs($("#theme" + tIndex, $("#overlay")));
+                }
+                else
+                {
+                    config["Themes"].push(tTheme);
+                    tTheme = new $SS.Theme(tTheme);
+                    
+                    $("#overlay #tThemes").append($("<div id=theme" + (config["Themes"].length - 1) + ">").html($SS.themePreview(tTheme)));
+                    $SS.options.bindThemeInputs($("#theme" + (config["Themes"].length - 1), $("#overlay")));
+                }
+                
                 return overlay.remove();
             },
             deleteTheme: function(tIndex)
             {
-                if (typeof tIndex !== "number") return;
-                else if (confirm("Are you sure?"))
+                if (confirm("Are you sure?"))
                 {
                     config["Themes"].splice(tIndex, 1);
                     $("#theme" + tIndex).remove();
                     
-                    return $("#overlay #tThemes div").each(function(index){ $(this).attr("id", "theme" + index); });
+                    return $("#overlay #tThemes>div").each(function(index){ $(this).attr("id", "theme" + index); });
                 }
             },
             getTheme: function()
@@ -1508,6 +1635,8 @@
                 for (var i = 0, MAX = themes.length; i < MAX; i++)
                     if (themes[i].enabled == true)
                         return new $SS.Theme(themes[i]);
+                        
+                return new $SS.Theme(themes[0]);
             },
             bindThemeInputs: function(div)
             {
@@ -1599,7 +1728,11 @@
                     config["Mascots"][mIndex].small    = cSmall;
                     config["Mascots"][mIndex].flip     = cFlip;
                     config["Mascots"][mIndex].overflow = cOverflow;
-                    config["Mascots"][mIndex].boards   = cBoards;
+                    
+                    if (cBoards != "")
+                        config["Mascots"][mIndex].boards   = cBoards;
+                    else
+                        delete config["Mascots"][mIndex].boards;
                     
                     if (bSetPos)
                     {
@@ -1617,7 +1750,7 @@
                 }
                 else
                 {
-                    var m = { img: cIMG, enabled: true, small: cSmall, flip: cFlip, overflow: cOverflow, boards: cBoards };
+                    var m = { img: cIMG, enabled: true, small: cSmall, flip: cFlip, overflow: cOverflow, boards: (cBoards == "" ? undefined : cBoards) };
                     tIMG  = new $SS.Image(cIMG);
                     
                     if (bSetPos)
@@ -1638,8 +1771,7 @@
             },
             deleteMascot: function(mIndex)
             {
-                if (typeof mIndex !== "number") return;
-                else if (confirm("Are you sure?"))
+                if (confirm("Are you sure?"))
                 {
                     config["Mascots"].splice(mIndex, 1);
                     $("#mascot" + mIndex).remove();
@@ -2605,14 +2737,14 @@
                 
             $("#header").prepend($("<div id=boardLinks>").html(a.join(config["Nav Link Delimiter"])));
         },
-        themePreview: function(t, bNew)
+        themePreview: function(t)
         {
-            // add names to elements for editing/making themes
             return "<div class=reply\
                 style='background-color:" + t.mainColor.hex + "!important;border:1px solid " + t.brderColor.hex + "!important;color:" + t.textColor.hex + "!important'>\
                 <div class=riceCheck style='background-color:" + t.inputColor.hex + "!important;border:1px solid " + t.inputbColor.hex + "!important;box-shadow:rgba(" + t.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>\
                 <span style='color:" + t.titleColor.hex + "!important'>" + t.name + "</span> \
                 <span style='color:" + t.nameColor.hex + "!important'>Anonymous</span>\
+                <span style='color:" + t.sageColor.hex + "!important'> (SAGE)</span>\
                 <span style='color:" + t.tripColor.hex + "!important'>!.pC/AHOKAg</span>\
                 <time> 20XX.01.01 12:00 </time>\
                 <a href='javascript:;' style='color:" + t.linkColor.hex + "!important' \
@@ -2620,10 +2752,10 @@
                 onmouseout='this.setAttribute(\"style\",\"color:" + t.linkColor.hex + "!important\")'>No.22772469</a>\
                 <br>\
                 <blockquote>Post content is right here.</blockquote>\
-                " + (!bNew ? "<p>\
+                <p>\
                 <a title=Edit style='background-color:" + t.inputColor.hex + "!important;border:1px solid " + t.inputbColor.hex + "!important;color:" + t.textColor.hex + "!important'>Edit</a>\
                 <a title=Delete style='background-color:" + t.inputColor.hex + "!important;border:1px solid " + t.inputbColor.hex + "!important;color:" + t.textColor.hex + "!important'>Delete</a></p>\
-                <h3>SELECTED</h3>" : "") + "\
+                <h3>SELECTED</h3>\
             </div>";
         }
     };
