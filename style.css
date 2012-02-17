@@ -767,6 +767,10 @@ td.qphl
 	content:'REPLIES:';
 	padding-right:2px;
 }" : "") + "
+.container>a
+{
+    color:" + theme.blinkColor.hex + "!important;
+}
 .qphl
 {
 	outline:none!important;
@@ -1856,9 +1860,9 @@ body>a[style='cursor: pointer; float: right;']
 }
 #addMascot #selectImage>input[type=file]
 {
-	-webkit-transform:scale(100);
-	-moz-transform:scale(100);
-	-o-transform:scale(100);
+	-webkit-transform:translateX(-500px) scale(10);
+	-moz-transform:translateX(-500px) scale(10);
+	-o-transform:translateX(-500px) scale(10);
 }
 #addMascot a[name=clearIMG]
 {
