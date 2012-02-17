@@ -3,7 +3,7 @@
 // @author        ahoka
 // @description   Customize 4chan to you liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       1.3
+// @version       1.3.1
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*
@@ -135,7 +135,7 @@
                 sageColor:   "c99090",
                 tripColor:   "d4c095",
                 titleColor:  "9390c9",
-                customCSS:   "td.reply,td.replyhl{border:0!important}.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             },
             {
                 name:        "Photon",
@@ -197,13 +197,7 @@
                 sageColor:   "cc1111",
                 tripColor:   "228854",
                 titleColor:  "cc1105",
-                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\
-                              body>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\
-                              .thread{padding:3px 0 0!important}\
-                              form[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\
-                              .pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\
-                              td.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\
-                              .reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\nbody>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\n.thread{padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             },
             {
                 name:        "Yotsuba B",
@@ -225,13 +219,7 @@
                 sageColor:   "990000",
                 tripColor:   "228854",
                 titleColor:  "0f0c5d",
-                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\
-                              body>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\
-                              .thread{padding:3px 0 0!important}\
-                              form[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\
-                              .pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\
-                              td.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\
-                              .reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\nbody>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\n.thread{padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             }
         ],
         "Mascots":
@@ -803,7 +791,10 @@
             if ($("#ch4SS").exists())
                 $("#ch4SS").text(css);
             else
-                $(document.head).append($("<style type='text/css' id=ch4SS>" + css));
+            {
+                $(document.head).append($("<style type='text/css' id=ch4SS>"));
+                $("#ch4SS").text(css);
+            }
         },
         DOMLoaded: function(reload)
         {
