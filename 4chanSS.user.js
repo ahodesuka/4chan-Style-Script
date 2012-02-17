@@ -1071,11 +1071,12 @@
         },
         tripCheck: function(e)
         {
-            var $this = this.nodeName == "INPUT" ? $(this) : $(e);
+            var $this = this.nodeName == "INPUT" ? $(this) : $(e),
+                check = /^#.+/.test($this.val());
             
-            if (/^#.+/.test($this.val()) && !$this.hasClass("tripping"))
+            if (check && !$this.hasClass("tripping"))
                 $this.addClass("tripping");
-            else if ($this.hasClass("tripping"))
+            else if (!check && $this.hasClass("tripping"))
                 $this.removeClass("tripping");
         },
         
