@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name          4chan Style Script
 // @author        ahoka
+// @description   Customize 4chan to you liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       1.2.1
+// @version       1.2.2
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*

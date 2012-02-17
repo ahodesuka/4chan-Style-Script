@@ -1,4 +1,4 @@
-# Work in progress do not install.
+## Before creating an issue view the TODO list.
 
 ## Known Issues
 For exhentai source to work (as intended) in chrome you must install with [Tampermonkey](https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo).
