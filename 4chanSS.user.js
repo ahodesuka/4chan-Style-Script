@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name          4chan Style Script
 // @author        ahoka
-// @description   Customize 4chan to you liking right on the page itself.
+// @description   Customize 4chan to your liking right on the page itself.
 // @namespace     ahodesuka.github.com
 // @version       1.3.1
 // @run-at        document-start
@@ -21,6 +21,7 @@
         "Auto Hide Thread Watcher": [ true, "Hides watched threads unless the mouse is over the watcher" ],
         "Slim Replies":             [ true, "Reduces the size of replies" ],
         "Smart Tripcode Hider":     [ false, "Hides the name field if the value contains a tripcode" ],
+        "Expanding Form Inputs":    [ true, "Makes certain form elements expand on focus" ],
         "Custom Navigation Links":  [ true, "Use specified links instead of showing all boards" ],
         "Style Scrollbars":         [ true, "Make the scroll bar match the theme" ],
         "Side Margin":
@@ -28,8 +29,8 @@
             26, "Change the size of the margin opposite of the sidebar",
             [
                 { name: "Normal",        value: 26 },
-                { name: "4chan Default", value: 5 },
-                { name: "None",          value: 1 }
+                { name: "Small",         value: 6 },
+                { name: "None",          value: 2 }
             ]
         ],
         "Layout":
@@ -69,7 +70,7 @@
         ],
         "Backlinks Position":
         [
-            2, "Change the position of 4chan x backlinks",
+            1, "Change the position of 4chan x backlinks",
             [
                 { name: "Default",      value: 1 },
                 { name: "Bottom Right", value: 2 },
@@ -78,7 +79,7 @@
         ],
         "Pages Position":
         [
-            3, "Change the location of the page links",
+            1, "Change the location of the page links",
             [
                 { name: "Slide Out",         value: 1 },
                 { name: "In Navigation Bar", value: 2 },
@@ -220,6 +221,26 @@
                 tripColor:   "228854",
                 titleColor:  "0f0c5d",
                 customCSS:   "form[name=delform],body>span[style]~form[name=delform],\nbody>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\n.thread{padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+            },
+            {
+                name:        "安心院なじみ",
+                enabled:     false,
+                bgImg:       "http://i.imgur.com/RewHm.png",
+                bgRPA:       "no-repeat fixed right bottom",
+                bgColor:     "ffffff",
+                mainColor:   "efefef",
+                brderColor:  "d6d6d6",
+                inputColor:  "cccccc",
+                inputbColor: "bbbbbb",
+                jlinkColor:  "4d4d4c",
+                linkColor:   "c82829",
+                linkHColor:  "f5871f",
+                nameColor:   "2b80c2",
+                quoteColor:  "718c00",
+                textColor:   "4d4d4c",
+                sageColor:   "c82829",
+                tripColor:   "3e999f",
+                titleColor:  "8959a8"
             }
         ],
         "Mascots":
@@ -255,7 +276,7 @@
         [
             "&nbsp;-&nbsp;", "Sets the character which will separate navigation links"
         ]
-    }, SSf, $SS, config, theme, mascot, css, fontList,
+    },
     MAX_FONT_SIZE = 16,
     MIN_FONT_SIZE = 10,
     NAMESPACE     = "4chanSS.",
@@ -279,7 +300,8 @@
         { dName: "Sage",             name: "sageColor",   property: "color"            },
         { dName: "Tripcodes",        name: "tripColor",   property: "color"            },
         { dName: "Titles",           name: "titleColor",  property: "color"            }
-    ];
+    ],
+    SSf, $SS, config, theme, mascot, css, fontList;
     
     if (!Array.isArray)
         Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
@@ -699,11 +721,15 @@
         {
             return this.each(function()
             {
+                if (this.riceCheckBind) return;
+                
                 $(this).bind("click", function(e)
                 {
                     e.preventDefault();
                     $(this).previousSibling("input[type=checkbox][riced]").get().click();
                 });
+                
+                this.riceCheckBind = true;
             });
         },
         jsColor: function()
@@ -726,7 +752,10 @@
         location: { },
         init: function(reload)
         {
-            if (/^about:neterror/.test(document.documentURI)) return;
+            if (!reload)
+                $SS.location = $SS.getLocation();
+
+            if (/^about:neterror/.test(document.documentURI) || $SS.location.sub != "boards") return;
             
             config                             = $SS.config.load();
             config["Small Font Size"]          = config["Font Size"] > 11 && !config["Bitmap Font"] ? 12 : config["Font Size"];
@@ -734,8 +763,6 @@
             config["Sidebar Position oString"] = config["Sidebar Position"] == 1 ? "left" : "right";
             config["Side Margin"]              = config["Layout"] == 2 ? 26 : config["Side Margin"];
 
-            if (!reload)
-                $SS.location = $SS.getLocation();
             
             mascot = $SS.options.getMascot();
             theme  = $SS.options.getTheme();
@@ -805,7 +832,16 @@
             setTimeout(function()
             {
                 var ann, pages, qr,
-                    postLoadCSS = "#navtop,#navtopr{display:inline-block!important}.pages{display:table!important}";
+                    postLoadCSS = "#navtop,#navtopr{display:inline-block!important}.pages{display:table!important}",
+                    addLabels   = function(qr)
+                    {
+                        $("form>div:first-child input:not(#dump)", qr).each(function()
+                        {
+                            if ($(this).nextSibling("span").exists()) return;
+                            
+                            $(this).after($("<span>" + $(this).attr("placeholder")));
+                        });
+                    };
                     
                 if (!reload)
                 {
@@ -932,6 +968,11 @@
                             qr.attr("style", "")
                               .unbind("mouseover", $SS.qrMouseOver)
                               .unbind("mouseout", $SS.qrMouseOut);
+                              
+                            if (config["Post Form"] == 3)
+                                qr.addClass("fixed");
+                            else
+                                qr.removeClass("fixed");
                         }
                         else
                         {
@@ -940,13 +981,17 @@
                             
                             $SS.qrMouseOut(qr.get());
                         }
+                        
+                        if ($SS.bNewQR && config["Expanding Form Inputs"])
+                            addLabels(qr);
                     
                         $SS.fixQRhide();
                     }
                 }
                 else
                 {
-                    $(document.head).append($("<style type='text/css' id=ch4SSPost>" + postLoadCSS));
+                    $(document.head).append($("<style type='text/css' id=ch4SSPost>"));
+                    $("#ch4SSPost").text(postLoadCSS);
                     
                     // Change some of 4chan x quick reply events
                     if ((qr = $("body[class*='chanx_']>#qr")).exists() || (qr = $("body>span[style]~#qr")).exists())
@@ -973,10 +1018,8 @@
                             $(".warning", qr).bind("click", function(){ $(this).removeClass("showWarning"); });
                             $("input[type=submit]", qr).bind("click", function(){ setTimeout($SS.fixQRhide, 10); });
                             
-                            $("form>div:first-child input:not(#dump)", qr).each(function()
-                            {
-                                $(this).after($("<span>" + $(this).attr("placeholder")));
-                            });
+                            if (config["Expanding Form Inputs"])
+                                addLabels(qr);
                         }
                         else if (rcheck.exists())
                             rcheck.after(moveC);
@@ -990,8 +1033,10 @@
                             qr.bind("mouseover", $SS.qrMouseOver)
                               .bind("mouseout", $SS.qrMouseOut);
                             
-                            $SS.qrMouseOut(qr.get());
+                            setTimeout(function(){ $SS.qrMouseOut(qr.get()); }, 1000);
                         }
+                        else if (config["Post Form"] == 3)
+                            qr.addClass("fixed");
                         
                         $("input,textarea,select", qr).bind("focus", function(){ $("#qr").addClass("focus"); })
                                                       .bind("blur", function(){ $("#qr").removeClass("focus"); });
@@ -1096,7 +1141,7 @@
             var qr = this.nodeName == "DIV" ? this : e;
             
             if ($("#autohide", qr).val() && !$(qr).hasClass("focus"))
-                $(qr).attr("style", "bottom:" + (-qr.offsetHeight + 44) + "px!important");
+                $(qr).attr("style", "bottom:-" + (qr.clientHeight - $(".move", qr).get().clientHeight) + "px!important");
         },
         tripCheck: function(e)
         {
@@ -1113,6 +1158,18 @@
         config:
         {
             hasGM: typeof GM_deleteValue !== "undefined",
+            contains: function(arr, val, key)
+            {
+                for (var i = 0, MAX = arr.length; i < MAX; i++)
+                    if (arr[i][key] === val)
+                        return true;
+                        
+                return false;
+            },
+            parseVal: function(val)
+            {
+                return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
+            },
             del: function(name)
             {
                 if (this.hasGM)
@@ -1157,17 +1214,25 @@
             },
             load: function()
             {
-                function parseVal(val)
-                {
-                    return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
-                };
                 
                 var ret = {};
                 
                 for (var key in defaultConfig)
-                    ret[key] = parseVal(this.get(key));
+                    ret[key] = this.parseVal(this.get(key));
                     
                 return ret;
+            },
+            update: function(name)
+            {
+                var current  = config[name],
+                    defaults = defaultConfig[name],
+                    key      = name == "Themes" ? "name" : "img";
+                    
+                for (var i = 0, MAX = defaults.length; i < MAX; i++)
+                    if (!this.contains(current, defaults[i][key], key))
+                        current.push(defaults[i]);
+                        
+                return current;
             }
         },
         
@@ -1183,7 +1248,7 @@
             show: function()
             {
                 if ($("#overlay").exists())
-                    return $("#overlay").remove();
+                    $SS.options.close();
                 else
                 {
                     var key, val, des,
@@ -1243,7 +1308,7 @@
                         {
                             var themes = config["Themes"];
                             optionsHTML += "</div><input type=radio name=toTab id=tcbThemes hidden><div id=tThemes>\
-                                            <p><a class=trbtn name=addTheme>add</a></p>";
+                                            <p><a class=trbtn name=addTheme>add</a><a class=trbtn name=updateThemes title='Adds all missing default themes'>update</a></p>";
                             
                             for (var i = 0, MAX = themes.length, tTheme; i < MAX; i++)
                             {
@@ -1255,9 +1320,7 @@
                         {
                             var mascots = config["Mascots"];
                             optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot>\
-                                            <p><a class=trbtn name=addMascot>add</a>\
-                                            <a class=trbtn name=selectAll>select all</a>\
-                                            <a class=trbtn name=selectNone>select none</a></p>";
+                                            <p><a class=trbtn name=addMascot>add</a><a class=trbtn name=updateMascots title='Adds all missing default mascots'>update</a><a class=trbtn name=selectAll>select all</a><a class=trbtn name=selectNone>select none</a></p>";
                             
                             for (var i = 0, MAX = mascots.length, tMascot; i < MAX; i++)
                             {
@@ -1332,25 +1395,55 @@
                         $("a[name=loadSysFonts]", tOptions).bind("click", $SS.options.loadSystemFonts);
                     
                     $("a[name=addTheme]", tOptions).bind("click", $SS.options.showTheme);
+                    $("a[name=updateThemes]", tOptions).bind("click", function()
+                    {
+                        config["Themes"] = $SS.config.update("Themes");
+                        $("#tThemes>div").remove();
+                        
+                        for (var i = 0, MAX = config["Themes"].length; i < MAX; i++)
+                        {
+                            var tTheme = new $SS.Theme(config["Themes"][i]),
+                                div    = $("<div id=theme" + i + (tTheme.name == theme.name ? " class=selected>" : ">"));
+                                
+                            div.html($SS.themePreview(tTheme));
+                            $SS.options.bindThemeInputs(div);
+                            $("#tThemes").append(div);
+                        }
+                    });
+                    $("a[name=updateMascots]", tOptions).bind("click", function()
+                    {
+                        config["Mascots"] = $SS.config.update("Mascots");
+                        $("#tMascot>div").remove();
+                        
+                        for (var i = 0, MAX = config["Mascots"].length; i < MAX; i++)
+                            $("#tMascot").append($SS.mascotPreview(i));
+                    });
                     $("a[name=addMascot]", tOptions).bind("click", $SS.options.showMascot);
-                    $("a[name=selectAll]", tOptions).bind("click", function(){ $("#tMascot div").each(function(){ $(this).addClass("selected") }); });
-                    $("a[name=selectNone]", tOptions).bind("click", function(){ $("#tMascot div").each(function(){ $(this).removeClass("selected") }); });
+                    $("a[name=selectAll]", tOptions).bind("click", function(){ $("#tMascot>div").each(function(){ $(this).addClass("selected") }); });
+                    $("a[name=selectNone]", tOptions).bind("click", function(){ $("#tMascot>div").each(function(){ $(this).removeClass("selected") }); });
+                    
                     $("a[name=addLink]", tOptions).bind("click", function()
                     {
-                        var el = $("<div><label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label>" +
+                        var el = $("<div>").html("<label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label>" +
                                     "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a>");
                         bindLinkButtons(el);
                         $("#tNavLinks").append(el);
                     });
                     bindLinkButtons(tOptions);
+                    
                     $("a[name=save]", tOptions).bind("click", $SS.options.save);
-                    $("a[name=cancel]",tOptions).bind("click", function(){ $("#overlay").remove(); });
+                    $("a[name=cancel]",tOptions).bind("click", $SS.options.close);
                     
                     $(document).bind("keydown", $SS.options.keydown)
                                .bind("keyup", $SS.options.keyup);
                     
-                    return $(document.body).append(overlay);
+                    return $(document.body).attr("style", "overflow:hidden;").append(overlay);
                 }
+            },
+            close: function()
+            {
+                $(document.body).attr("style", "");
+                return $("#overlay").remove();
             },
             keydown: function(e)
             {
@@ -1472,7 +1565,9 @@
                                .unbind("keyup", $SS.options.keydown);
                 }
                 
-                return $SS.init(true);
+                $SS.init(true)
+                
+                return $SS.options.close();
             },
             showTheme: function(tIndex)
             {
@@ -1526,7 +1621,7 @@
                     innerHTML += "<label><span>" + themeInputs[i].dName + ":</span>\
                     <input type=text class=jsColor name=" + themeInputs[i].name + " value=" + (bEdit ? tEdit[themeInputs[i].name] : "") + "></label>";
                     
-                innerHTML += "<label id=customCSS><span>Custom CSS:</span><textarea name=customCSS>" + (bEdit ? tEdit.customCSS : "") + "</textarea>\
+                innerHTML += "<label id=customCSS><span>Custom CSS:</span><textarea name=customCSS>" + (bEdit ? tEdit.customCSS || "" : "") + "</textarea>\
                 </label><div><div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>\
                 <span class=trbtn>Select Image</span></div>\
                 " + (bEdit && $SS.validBase64(tEdit.bgImg) ? "<input type=hidden name=customIMGB64 value='" + tEdit.bgImg + "'>" : "") + "\
@@ -1564,7 +1659,8 @@
                         RPA.push($("select[name=bgA]",  overlay).val());
                         
                         return RPA.join(" ");
-                    };
+                    },
+                    error = false;
                     
                 $("input[type=text],textarea", overlay).each(function()
                 {
@@ -1576,9 +1672,22 @@
                         val     = b64.exists() ? decodeURIComponent(b64.val()) : this.value;
                         
                         if (val != "" && !$SS.validImageURL(val) && !$SS.validBase64(val))
+                        {
+                            error = true;
                             return alert("Invalid image URL/base64.");
+                        }
                         
                         val = $SS.cleanBase64(val);
+                    }
+                    else if (this.name == "name") // names must be unique
+                    {
+                        val = this.value;
+                        
+                        if ($SS.config.contains(config["Themes"], val, "name"))
+                        {
+                            error = true;
+                            return alert("A theme with the name `" + val + "` already exists!\nTheme names must be unique.");
+                        }
                     }
                     else
                         val = this.value;
@@ -1586,6 +1695,8 @@
                     if (val != "")
                         tTheme[this.name] = val;
                 });
+                
+                if (error) return;
                 
                 if (tTheme.bgImg)
                     tTheme.bgRPA = makeRPA();
@@ -1697,7 +1808,7 @@
             addMascot: function(mIndex)
             {
                 var overlay = $("#overlay2"),
-                    bSetPos, tIMG, cIMG, cPosition, cOffset, cSmall, cFlip;
+                    bSetPos, cIMG, cPosition, cOffset, cSmall, cFlip;
                 
                 cIMG      = decodeURIComponent($("input[name=customIMGB64]", overlay).val() || $("input[name=customIMG]", overlay).val());
                 cPosition = $("select[name=mPosition]", overlay).val().toLowerCase();
@@ -1736,13 +1847,12 @@
                         delete config["Mascots"][mIndex].offset;
                     }
                     
-                    tIMG = new $SS.Image(cIMG);
+                    var tIMG = new $SS.Image(cIMG);
                     $("#mascot" + mIndex).attr("style", "background:" + tIMG.get());
                 }
                 else
                 {
                     var m = { img: cIMG, enabled: true, small: cSmall, flip: cFlip, overflow: cOverflow, boards: (cBoards == "" ? undefined : cBoards) };
-                    tIMG  = new $SS.Image(cIMG);
                     
                     if (bSetPos)
                     {
@@ -1751,11 +1861,7 @@
                     }
                     
                     config["Mascots"].push(m);
-                    
-                    var div = $("<div id=mascot" + (config["Mascots"].length - 1) + " class=selected style=\"background:" + tIMG.get() + "\"><a title=Delete>X</a><a title=Edit>E</a>");
-                    $SS.options.bindMascotInputs(div);
-                    
-                    $("#tMascot").append(div);
+                    $("#tMascot").append($SS.mascotPreview(config["Mascots"].length - 1));
                 }
                 
                 return overlay.remove();
@@ -2727,6 +2833,16 @@
                     ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
                 
             $("#header").prepend($("<div id=boardLinks>").html(a.join(config["Nav Link Delimiter"])));
+        },
+        mascotPreview: function(index)
+        {  
+            var tIMG = new $SS.Image(config["Mascots"][index].img),
+                div  = $("<div id=mascot" + index + (config["Mascots"][index].enabled ? " class=selected" : "") + " style=\"background:" + tIMG.get() + "\">")
+                       .html("<a title=Delete>X</a><a title=Edit>E</a>");
+
+            $SS.options.bindMascotInputs(div);
+            
+            return div;
         },
         themePreview: function(t)
         {

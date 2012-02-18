@@ -299,9 +299,12 @@ iframe,
 td small,
 #footer,
 .rules,
-center font small,
 body>br,
 body>hr,
+body[class*='chanx_']>#qr.fixed>.move #autohide,
+body[class*='chanx_']>#qr.fixed>.move .riceCheck,
+body>table[style='text-align:center;width:100%;height:300px;'],
+center font small,
 form[name=delform]>span[style],
 td.postblock,
 .thread>br:last-child,
@@ -328,7 +331,6 @@ body>span[style]~#navlinks,
 .pages,
 #imgControls #imageExpand,
 #imgControls #imageExpand+.riceCheck,
-body>table[style='text-align:center;width:100%;height:300px;'],
 #qp>a[href='javascript:;']:not([class]),
 .inline .reply>a:first-child,
 .postarea>h1,
@@ -382,7 +384,7 @@ textarea:-moz-placeholder
 body
 {
 	background:" + theme.bgImg.get() + theme.bgColor.hex +"!important;
-	margin:" + (!$SS.bHideSidebar && config["Sidebar Position"] == 1 ? "0 265px 0 0" : (!$SS.bHideSidebar ? "0 0 0 265px" : 0)) + "!important;
+	margin:" + (!$SS.bHideSidebar && config["Sidebar Position"] == 1 ? "0 265px 43px 0" : (!$SS.bHideSidebar ? "0 0 43px 265px" : "0 0 43px")) + "!important;
 	padding:18px 0 0!important;
 }
 " + (!$SS.bHideSidebar ? "
@@ -549,7 +551,7 @@ form[name=delform]
 	border:1px solid rgba(" + theme.brderColor.rgb + ",.9);
 	" + (config["Layout"] == 1 ? "border-" + config["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
 	margin:" + (config["Layout"] != 3 ?
-	(config["Sidebar Position"] == 1 ? "0 0 43px " + config["Side Margin"] + "px" : "0 " + config["Side Margin"] + "px 43px 0") : "0 10% 43px") + ";
+	(config["Sidebar Position"] == 1 ? "0 0 0 " + config["Side Margin"] + "px" : "0 " + config["Side Margin"] + "px 0 0") : "0 10% 0") + ";
 	padding:0;
 	position:relative;
 	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
@@ -561,7 +563,7 @@ form[name=delform]>.thread>table
 	position:relative;
 	width:100%;
 }
-form[name=delform]>table
+form[name=delform]>table:not(.pages)
 {
 	margin-left:" + (config["Sidebar Position"] == 1 ? 1 : -1) + "px!important;
 }
@@ -639,7 +641,6 @@ td.replyhl input[type=checkbox],
 td.reply .riceCheck,
 td.replyhl .riceCheck,
 .container,
-.inline,
 .op>a:first-child,
 .replyhider,
 .reportbutton
@@ -648,6 +649,7 @@ td.replyhl .riceCheck,
 }
 .inline
 {
+	z-index:6!important;
 	position:relative;
 }
 .op>.reportbutton
@@ -805,12 +807,12 @@ td.qphl
 }
 a.omittedposts
 {
+    display:inline-block;
 	height:14px;
-	margin:0 10px!important;
-	margin-top:" + (config["Layout"] == 2 ? -22 : -16) + "px!important;
+	margin:" + (config["Layout"] == 2 ? "-10px 10px -2px" : "-16px 10px 0") + "!important;
 	padding:1px 6px 2px;
-	position:absolute;
-	border-radius:3px" + (config["Layout"] != 2 ? " 3px 0 0" : "") + ";
+	position:" + (config["Layout"] == 2 ? "relative" : "absolute") + ";
+	border-radius:3px 3px 0 0;
 }
 .deletebuttons
 {
@@ -2010,22 +2012,23 @@ body[class*='chanx_']>#qr>form #spoilerLabel::after,
 body>span[style]~#qr,
 body[class*='chanx_']>#qr
 {
+    margin-bottom:21px!important;
 	padding:3px;
 	top:auto!important;
 	" + config["Sidebar Position String"] + ":0!important;
 	" + config["Sidebar Position oString"] + ":auto!important;
 	" + (config["Post Form"] == 1 ? "
-	bottom:-231px;
+	bottom:-252px;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
 	(config["Post Form"] == 2 ? "/*"*/
-	bottom:21px!important;
+	bottom:0!important;
 	opacity:.2;
 	-webkit-transition:opacity .2s ease-in-out 1s;
 	-moz-transition:opacity .2s ease-in-out 1s;
 	-o-transition:opacity .2s ease-in-out 1s;" : "/*"*/
-	bottom:21px!important;")) + "
+	bottom:0!important;")) + "
 }
 .postarea,
 #qr
@@ -2040,7 +2043,7 @@ body>span[style]~#qr:hover,
 body[class*='chanx_']>#qr:hover,
 #qr.focus
 {
-	bottom:21px!important;
+	bottom:0!important;
 	" + (config["Post Form"] == 1 ? "
 	-webkit-transition:bottom .2s ease-in-out;
 	-moz-transition:bottom .2s ease-in-out;
@@ -2085,8 +2088,8 @@ form[name=post] input[name=email]+label
 .postarea textarea,
 #qr textarea
 {
-	height:100px!important;
-	resize:none;
+	height:100px;
+	resize:vertical;
 	-webkit-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
 	-moz-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
 	-o-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
@@ -2104,7 +2107,7 @@ body>span[style]~#qr textarea:focus,
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
 {
 	position:relative;
-	width:415px!important;
+	" + (config["Expanding Form Inputs"] ? "width:415px!important;" : "") + "/*"*/
 	z-index:1;
 	-webkit-transition:box-shadow .2s linear,width .2s ease-in-out!important;
 	-moz-transition:box-shadow .2s linear,width .2s ease-in-out!important;
@@ -2672,8 +2675,8 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 	max-width:223px;
 	overflow:hidden;
 	padding:0 5px!important;
-	white-space:nowrap;
 	text-overflow:ellipsis;
+	white-space:nowrap;
 }
 ul#Alerts,
 ul#Alerts a:hover
@@ -2808,12 +2811,13 @@ body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)
 	margin-left:1px!important;
 	width:76px!important;
 }
+" + (config["Expanding Form Inputs"] ? "
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
 {
 	left:24px!important;
 	position:absolute;
 	width:230px!important;
-}
+}" : "") + "
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
 {
 	color:rgba(" + theme.textColor.rgb + ",0);
@@ -2898,10 +2902,13 @@ body[class*='chanx_']>#qr .warning
 	height:16px;
 	left:5px;
 	opacity:0;
+	overflow:hidden;
 	padding:2px 0;
 	position:absolute;
 	text-align:center;
+	text-overflow:ellipsis;
 	top:24px;
+	white-space:nowrap;
 	width:248px;
 	z-index:-1;
 	border-radius:4px;
@@ -2918,5 +2925,8 @@ body[class*='chanx_']>#qr .warning.showWarning
 input[name=name].tripping:not(:hover):not(:focus)
 {
 	color:transparent!important;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+.thread{padding-" + config["Sidebar Position oString"] + ":0!important;}
 }
 " + theme.customCSS + "

@@ -1,5 +1,22 @@
+1.3.2
+    added:
+        - theme and mascot update buttons,
+          which will restore/update the themes or mascots with default values while keeping any user defined ones
+        - `Expanding Form Inputs` setting
+        - ajimu najimi theme
+    modified:
+        - default settings back to originals from dark flat
+        - side margain options
+        - autohide checkbox will be hidden when post form is fixed
+        - only apply style to boards.4chan.org for now
+    fixed:
+        - error checking on theme edit/creation
+        - riceCheck from binding click event multiple times
+        - slide up post form offset
+        - delform padding in webkit
 1.3.1
-    - fixed a bug with newlines in theme's customCSS
+    fixed:
+        - a bug with newlines in theme's customCSS
     
 1.3
     - initial release
