@@ -2,6 +2,7 @@
     fixed:
         - themes can now be edited as intended
         - ajimu najimi backlink color
+        - delform being visible when 4sight is open
 1.3.2
     added:
         - theme and mascot update buttons,

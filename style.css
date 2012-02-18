@@ -2570,6 +2570,7 @@ body>a[style='cursor: pointer; float: right;']::after
 body>div[style='width: 100%;']+form[name=delform]
 {
 	display:block!important;
+    margin-top:43px!important;
 	position:fixed;
 }
 body>span[style] a,
