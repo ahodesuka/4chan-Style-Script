@@ -232,6 +232,7 @@
                 brderColor:  "d6d6d6",
                 inputColor:  "cccccc",
                 inputbColor: "bbbbbb",
+                blinkColor:  "f5871f",
                 jlinkColor:  "4d4d4c",
                 linkColor:   "c82829",
                 linkHColor:  "f5871f",
