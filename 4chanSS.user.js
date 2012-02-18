@@ -136,7 +136,7 @@
                 sageColor:   "c99090",
                 tripColor:   "d4c095",
                 titleColor:  "9390c9",
-                customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
             },
             {
                 name:        "Photon",
@@ -246,24 +246,27 @@
         ],
         "Mascots":
         [
-            { img: "http://i.imgur.com/DL5uR.png", enabled: true, overflow: true                           }, // asuka
-            { img: "http://i.imgur.com/zhPlM.png", enabled: true                                           }, // erio
-            { img: "http://i.imgur.com/b9KmB.png", enabled: true                                           }, // homu
-            { img: "http://i.imgur.com/bsLY4.png", offset: 0, enabled: true                                }, // horo
-            { img: "http://i.imgur.com/uO5qZ.png", enabled: true                                           }, // kuroko
-            { img: "http://i.imgur.com/Ht6dr.png", offset: -90, enabled: true, small: true                 }, // kuroneko
-            { img: "http://i.imgur.com/56oEl.png", enabled: true                                           }, // inori
-            { img: "http://i.imgur.com/AfjG9.png", offset: 0, enabled: true, flip: false, small: true      }, // lain
-            { img: "http://i.imgur.com/WUIMw.png", enabled: true                                           }, // luka
-            { img: "http://i.imgur.com/J1i26.png", offset: -90, enabled: true                              }, // madotsuki
-            { img: "http://i.imgur.com/H1pgZ.png", offset: 0, enabled: true, flip: false, small: true      }, // miku
-            { img: "http://i.imgur.com/MdE9K.png", enabled: true, flip: false, overflow: true              }, // mio
-            { img: "http://i.imgur.com/NaKmF.png", offset: 0, enabled: true                                }, // mokou
-            { img: "http://i.imgur.com/K1mLx.png", enabled: true, flip: false, samll: true                 }, // shana
-            { img: "http://i.imgur.com/FKDcd.png", enabled: true                                           }, // shiki
-            { img: "http://i.imgur.com/zu9nY.png", enabled: true                                           }, // tessa
-            { img: "http://i.imgur.com/haBSN.png", enabled: true                                           }, // yin
-            { img: "http://i.imgur.com/xwPrX.png", enabled: true                                           }  // yozora
+            { img: "http://i.imgur.com/DL5uR.png", enabled: true, overflow: true                                          }, // asuka
+            { img: "http://i.imgur.com/zhPlM.png", enabled: true                                                          }, // erio
+            { img: "http://i.imgur.com/b9KmB.png", enabled: true                                                          }, // homu
+            { img: "http://i.imgur.com/bsLY4.png", offset: 0, position: "center", enabled: true                           }, // horo
+            { img: "http://i.imgur.com/uO5qZ.png", enabled: true                                                          }, // kuroko
+            { img: "http://i.imgur.com/Ht6dr.png", offset: -90, position: "center", enabled: true, small: true            }, // kuroneko
+            { img: "http://i.imgur.com/56oEl.png", enabled: true                                                          }, // inori
+            { img: "http://i.imgur.com/ridLc.png", enabled: true, overflow: true                                          }, // kimi
+            { img: "http://i.imgur.com/AfjG9.png", offset: 0, position: "center", enabled: true, flip: false, small: true }, // lain
+            { img: "http://i.imgur.com/WUIMw.png", enabled: true                                                          }, // luka
+            { img: "http://i.imgur.com/J1i26.png", offset: -90, position: "center", enabled: true                         }, // madotsuki
+            { img: "http://i.imgur.com/53yAK.png", enabled: true, overflow: true                                          }, // ムゥ～りさ
+            { img: "http://i.imgur.com/H1pgZ.png", offset: 0, position: "center", enabled: true, flip: false, small: true }, // miku
+            { img: "http://i.imgur.com/MdE9K.png", enabled: true, flip: false, overflow: true                             }, // mio
+            { img: "http://i.imgur.com/NaKmF.png", offset: 0, position: "center", enabled: true                           }, // mokou
+            { img: "http://i.imgur.com/WWozC.png", enabled: true, overflow: true                                          }, // ran
+            { img: "http://i.imgur.com/K1mLx.png", enabled: true, flip: false, samll: true                                }, // shana
+            { img: "http://i.imgur.com/FKDcd.png", enabled: true                                                          }, // shiki
+            { img: "http://i.imgur.com/zu9nY.png", enabled: true                                                          }, // tessa
+            { img: "http://i.imgur.com/haBSN.png", enabled: true                                                          }, // yin
+            { img: "http://i.imgur.com/xwPrX.png", enabled: true                                                          }  // yozora
         ],
         "Nav Links":
         [

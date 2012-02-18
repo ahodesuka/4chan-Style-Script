@@ -480,6 +480,7 @@ body>center:nth-of-type(2)>font[color=red]
 	top:1.75em!important;
 	right:auto!important;
 }
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span,
 input:not([type=submit]),
 select,
 select *,
@@ -626,7 +627,7 @@ td.replyhl,
 	background-position:0 -16px;
 	" + (config["Layout"] != 2 ? "
 	position:absolute;
-	right:13px;
+	right:14px;
 	top:1px;" : "") + "/*"*/
 }
 " + (config["Layout"] == 2 ? "
@@ -654,7 +655,6 @@ td.replyhl .riceCheck,
 }
 .op>.reportbutton
 {
-	" + (config["Layout"] != 2 ? "right:14px;" : "") + "/*"*/
 	top:0;
 }
 .replyhider
@@ -2821,20 +2821,22 @@ body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
 }" : "") + "
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
 {
-	color:rgba(" + theme.textColor.rgb + ",0);
+	color:rgba(" + theme.textColor.rgb + ",0)!important;
+    font-size:0!important;
 	position:absolute;
 	right:265px;
 	top:4px;
 	white-space:nowrap;
-	z-index:3;
+	z-index:-1;
 }
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span
 {
-	color:rgba(" + theme.textColor.rgb + ",.4);
+	color:rgba(" + theme.textColor.rgb + ",.4)!important;
 	right:6px;
-	-webkit-transition:all .3s ease-in-out;
-	-moz-transition:all .3s ease-in-out;
-	-o-transition:all .3s ease-in-out;
+	z-index:3;
+	-webkit-transition:right .3s ease-in-out,color .3s ease-in-out;
+	-moz-transition:right .3s ease-in-out,color .3s ease-in-out;
+	-o-transition:right .3s ease-in-out,color .3s ease-in-out;
 }
 body[class*='chanx_']>#qr>form>div:first-child .field[name=sub]
 {
