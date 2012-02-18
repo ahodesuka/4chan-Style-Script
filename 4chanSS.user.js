@@ -3,7 +3,7 @@
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       1.3.2
+// @version       1.3.3
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*
@@ -1660,6 +1660,7 @@
                         
                         return RPA.join(" ");
                     },
+                    bEdit = typeof tIndex === "number",
                     error = false;
                     
                 $("input[type=text],textarea", overlay).each(function()
@@ -1683,7 +1684,7 @@
                     {
                         val = this.value;
                         
-                        if ($SS.config.contains(config["Themes"], val, "name"))
+                        if (!bEdit && $SS.config.contains(config["Themes"], val, "name"))
                         {
                             error = true;
                             return alert("A theme with the name `" + val + "` already exists!\nTheme names must be unique.");
@@ -1701,7 +1702,7 @@
                 if (tTheme.bgImg)
                     tTheme.bgRPA = makeRPA();
                     
-                if (typeof tIndex === "number")
+                if (bEdit)
                 {
                     config["Themes"][tIndex] = tTheme;
                     tTheme = new $SS.Theme(tTheme);
