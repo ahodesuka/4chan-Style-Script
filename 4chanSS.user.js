@@ -198,7 +198,7 @@
                 sageColor:   "cc1111",
                 tripColor:   "228854",
                 titleColor:  "cc1105",
-                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\nbody>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\n.thread{padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\nbody>a[href='.././']~form[name=delform]{padding:0!important}\n.thread{padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             },
             {
                 name:        "Yotsuba B",
@@ -220,7 +220,7 @@
                 sageColor:   "990000",
                 tripColor:   "228854",
                 titleColor:  "0f0c5d",
-                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\nbody>a[href='.././']~form[name=delform]{padding:4px 0 0!important}\n.thread{padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   "form[name=delform],body>span[style]~form[name=delform],\nbody>a[href='.././']~form[name=delform]{padding:0!important}\n.thread{padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
             },
             {
                 name:        "安心院なじみ",
@@ -1121,7 +1121,9 @@
                     else
                     {
                         $("input[type=file]", e.target).riceFile();
-                        $("input[type=checkbox]", e.target).riceCheck();
+                        
+                        if (config["Rice Inputs"] == 4)
+                            $("input[type=checkbox]", e.target).riceCheck();
                     }
                 }
             }
@@ -1307,7 +1309,7 @@
                     for (key in config)
                     {
                         if (!defaultConfig.hasOwnProperty(key) || 
-                            (key == "Style Scrollbars" && !$SS.bWebKit) ||
+                            (key == "Style Scrollbars" && !$SS.browser.webkit) ||
                             key == "Nav Link Delimiter")
                             continue;
                         
@@ -1603,14 +1605,12 @@
                 
                 if ($SS.options.saveAndClose)
                 {
-                    div.parent().remove();
+                    $SS.options.close();
                     $(document).unbind("keydown", $SS.options.keydown)
                                .unbind("keyup", $SS.options.keydown);
                 }
                 
-                $SS.init(true)
-                
-                return $SS.options.close();
+                return $SS.init(true);
             },
             showTheme: function(tIndex)
             {
