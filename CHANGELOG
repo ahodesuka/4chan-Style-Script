@@ -1,3 +1,9 @@
+1.3.6
+	added:
+		- `Midnight Caek` theme
+	fixed:
+		- chrome style bugs
+		- firefox users who updated to 1.3.4/5 will have their settings reset to fix my screw up
 1.3.5
     fixed:
         - some incorrect styling in Yotsuba/B themes
