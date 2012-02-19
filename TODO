@@ -1,3 +1,4 @@
-Add `iconify 4chan x` option.
 Style /f/, sys, and rs.
+Add `iconify 4chan x` option.
+Put an icon field in the theme editor window.
 Clean jscolor, move styling into css.

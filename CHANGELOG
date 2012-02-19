@@ -1,3 +1,9 @@
+1.3.4
+    fixed:
+        - issues with the autohide checkbox and un-riced checkboxes
+        - GM_setValue not working in tampermonkey, moved all setings to localStorage
+        - compatability with `Youtube Link Title` userscript
+        - some performance issues caused by DOMSubtreeModified event looping like crazy in chrome
 1.3.3
     fixed:
         - themes can now be edited as intended
