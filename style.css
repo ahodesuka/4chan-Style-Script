@@ -238,6 +238,24 @@ input[type=submit],
 {
 	text-transform:uppercase;
 }
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span,
+input:not([type=submit]),
+select,
+select *,
+textarea,
+#navlinks,
+#themeoptions label,
+#themeoptions label>span,
+#themeoptions #tMascot div a,
+#updater label,
+#updater span,
+.container *,
+.filesize span::after,
+.logo font[size='1'],
+.pages td:nth-of-type(2) *
+{
+	font:" + config["Small Font Size"] + "px " + $SS.FormatFont(config["Font"]) + "!important;
+}
 body>a[style='cursor: pointer; float: right;'],
 body[class*='chanx_']>#qr>form #spoilerLabel::after,
 button,
@@ -478,24 +496,6 @@ body>center:nth-of-type(2)>font[color=red]
 	left:1em!important;
 	top:1.75em!important;
 	right:auto!important;
-}
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span,
-input:not([type=submit]),
-select,
-select *,
-textarea,
-#navlinks,
-#themeoptions label,
-#themeoptions label>span,
-#themeoptions #tMascot div a,
-#updater label,
-#updater span,
-.container *,
-.filesize span::after,
-.logo font[size='1'],
-.pages td:nth-of-type(2) *
-{
-	font:" + config["Small Font Size"] + "px " + $SS.FormatFont(config["Font"]) + "!important;
 }
 " + (config["Layout"] != 2 ? "
 .thread:not(.stub),
