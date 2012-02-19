@@ -507,17 +507,10 @@ body>span[style]~form[name=delform]" : "
 .thread
 {
 	clear:both;
-	margin:1px 0;
-	padding:" + (config["Layout"] == 3 ? "3px 1px 0 1px"/*"*/ :
-	(config["Sidebar Position"] == 1 ? (config["Layout"] == 2 ? 0 : "3px 0 0 1px") :
-	(config["Layout"] == 2 ? 0 : "3px 1px 0 0"))) + "/*"*/!important;
+	margin:1px" + (config["Layout"] == 1 ? (config["Sidebar Position"] == 1 ? " 0 1px 1px" : " 1px 1px 0") : (config["Layout"] == 2 ? " 0 1px" : "")) + "!important;
+	padding:3px 0 0!important;
 	position:relative;
 	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
-}
-form[name=delform]>div:nth-last-of-type(2):not(.riceCheck):not(.stub)
-{
-	margin:0!important;
-	padding-bottom:1px!important;
 }
 .thread::after,
 #updater div>label::after,
@@ -806,7 +799,7 @@ td.qphl
 }
 a.omittedposts
 {
-    display:inline-block;
+	display:inline-block;
 	height:14px;
 	margin:" + (config["Layout"] == 2 ? "-10px 10px -2px" : "-16px 10px 0") + "!important;
 	padding:1px 6px 2px;
@@ -899,6 +892,7 @@ td
 {
 	border:0!important;
 	border-spacing:0!important;
+	table-layout:fixed!important;
 }
 tr,
 .replymode
@@ -1358,7 +1352,7 @@ td.doubledash
 	position:absolute;
 	text-shadow:" + theme.mainColor.hex + " -1px -1px," + theme.mainColor.hex + " 1px -1px," + theme.mainColor.hex + " -1px 1px," + theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.2) 0 0 10px,#000 0 1px 5px,#000 0 -1px 5px;
 	top:98px;
-    width:100%;
+	width:100%;
 	z-index:3;
 }
 .logo font[size='1']>a
@@ -1521,7 +1515,6 @@ body>a[style='cursor: pointer; float: right;']
 	min-width:40px;
 	padding:2px 10px;
 	text-align:center;
-	text-shadow:rgba(" + (theme.jlinkColor.isLight ? "0,0,0" : "255,255,255") + ",.2) 0 -1px;
 	background:-webkit-linear-gradient(top,rgba(" + theme.mainColor.shiftRGB(20) + ",.9),rgba(" + theme.mainColor.rgb + ",.9));
 	background:-moz-linear-gradient(top,rgba(" + theme.mainColor.shiftRGB(20) + ",.9),rgba(" + theme.mainColor.rgb + ",.9));
 	background:-o-linear-gradient(top,rgba(" + theme.mainColor.shiftRGB(20) + ",.9),rgba(" + theme.mainColor.rgb + ",.9));
@@ -2018,7 +2011,7 @@ body[class*='chanx_']>#qr>form #spoilerLabel::after,
 body>span[style]~#qr,
 body[class*='chanx_']>#qr
 {
-    margin-bottom:21px!important;
+	margin-bottom:21px!important;
 	padding:3px;
 	top:auto!important;
 	" + config["Sidebar Position String"] + ":0!important;
@@ -2576,7 +2569,7 @@ body>a[style='cursor: pointer; float: right;']::after
 body>div[style='width: 100%;']+form[name=delform]
 {
 	display:block!important;
-    margin-top:43px!important;
+	margin-top:43px!important;
 	position:fixed;
 }
 body>span[style] a,
@@ -2828,7 +2821,7 @@ body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
 {
 	color:rgba(" + theme.textColor.rgb + ",0)!important;
-    font-size:0!important;
+	font-size:0!important;
 	position:absolute;
 	right:265px;
 	top:4px;
@@ -2934,8 +2927,5 @@ body[class*='chanx_']>#qr .warning.showWarning
 input[name=name].tripping:not(:hover):not(:focus)
 {
 	color:transparent!important;
-}
-@media screen and (-webkit-min-device-pixel-ratio:0){
-.thread{padding-" + config["Sidebar Position oString"] + ":0!important;}
 }
 " + theme.customCSS + "

@@ -44,7 +44,7 @@
         ],
         "Post Form":
         [
-            1, "Change the transition for the post form",
+            2, "Change the transition for the post form",
             [
                 { name: "Slide Up", value: 1 },
                 { name: "Fade",     value: 2 },
@@ -242,6 +242,26 @@
                 sageColor:   "c82829",
                 tripColor:   "3e999f",
                 titleColor:  "8959a8"
+            },
+            {
+                name:        "Midnight Caek",
+                enabled:     false,
+                bgImg:       false,
+                bgColor:     "101010",
+                mainColor:   "1c1c1c",
+                brderColor:  "1c1c1c",
+                inputColor:  "1c1c1c",
+                inputbColor: "101010",
+                blinkColor:  "47475b",
+                jlinkColor:  "57577b",
+                linkColor:   "57577b",
+                linkHColor:  "47475b",
+                nameColor:   "7c2d2d",
+                quoteColor:  "71793e",
+                textColor:   "909090",
+                sageColor:   "7c2d2d",
+                tripColor:   "3e7157",
+                titleColor:  "aaaaaa"
             }
         ],
         "Mascots":
@@ -1241,25 +1261,15 @@
             {
                 var ret = { };
                 
-                /* REMOVE THIS AFTER PEOPLE HAVE ENOUGH TIME TO UPDATE */
-                if (this.get("UPDATED") == undefined)
+                if (this.get("UPDATED"))
                 {
-                    // Update old GM values to localStorage 1.3.4+
+					// Have to reset your setting sorry
                     if ($SS.browser.gecko && typeof GM_deleteValue !== "undefined")
                         for (var key in defaultConfig)
-                        {
-                            var oldVal = this.parseVal(GM_getValue(NAMESPACE + key));
-                            
-                            if (oldVal != undefined)
-                            {
-                                this.set(key, oldVal);
-                                GM_deleteValue(NAMESPACE + key);
-                            }
-                        }
+							localStorage.removeItem(NAMESPACE + key);
                         
-                    this.set("UPDATED", true);
+                    localStorage.removeItem(NAMESPACE + "UPDATED");
                 }
-                /* REMOVE */
                 
                 for (var key in defaultConfig)
                     ret[key] = this.parseVal(this.get(key));
