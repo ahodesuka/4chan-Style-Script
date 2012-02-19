@@ -287,7 +287,6 @@ body[class*='chanx_']>#qr>.move,
 #recaptcha_tagline,
 td[align=right],
 img+br,
-iframe,
 #BF_WIDGET,
 .bf,
 .yui-g,
@@ -493,6 +492,7 @@ textarea,
 #updater span,
 .container *,
 .filesize span::after,
+.logo font[size='1'],
 .pages td:nth-of-type(2) *
 {
 	font:" + config["Small Font Size"] + "px " + $SS.FormatFont(config["Font"]) + "!important;
@@ -553,7 +553,7 @@ form[name=delform]
 	" + (config["Layout"] == 1 ? "border-" + config["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
 	margin:" + (config["Layout"] != 3 ?
 	(config["Sidebar Position"] == 1 ? "0 0 0 " + config["Side Margin"] + "px" : "0 " + config["Side Margin"] + "px 0 0") : "0 10% 0") + ";
-	padding:0;
+	padding:0!important;
 	position:relative;
 	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
 }

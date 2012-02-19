@@ -29,8 +29,8 @@
             26, "Change the size of the margin opposite of the sidebar",
             [
                 { name: "Normal",        value: 26 },
-                { name: "Small",         value: 6 },
-                { name: "None",          value: 2 }
+                { name: "Small",         value: 6  },
+                { name: "None",          value: 2  }
             ]
         ],
         "Layout":
@@ -530,7 +530,7 @@
         },
         hasClass: function(className)
         {
-            if (!this.hasSingleEl())
+            if (!this.hasSingleEl() || this.elems[0].className == undefined)
                 return false;
             
             return this.elems[0].className.indexOf(className) != -1;
@@ -708,17 +708,16 @@
         {
             return this.each(function()
             {
-                if (this.id == "imageExpand")
+                var $this = $(this);
+                
+                if ($this.attr("id") == "imageExpand")
                     return;
-                else if ($(this).attr("riced") === "true")
-                    return $(this).nextSibling(".riceCheck").riceCheckBind();
+                else if ($this.attr("riced") === "true")
+                    return $this.nextSibling(".riceCheck").riceCheckBind();
                 
                 var div = $("<div class=riceCheck>").riceCheckBind();
                 
-                $(this).attr("riced", true).attr("hidden", true).after(div);
-                
-                if ($(this).attr("id") == "autohide")
-                    div.previousSibling("input[type=checkbox][riced]").bind("click", $SS.fixQRhide);
+                $this.attr("riced", true).attr("hidden", true).after(div);
             });
         },
         riceCheckBind: function()
@@ -752,12 +751,17 @@
         incRice: false,
         bHideSidebar: false,
         bNewQR: false,
-        bWebKit: /AppleWebKit/.test(navigator.userAgent),
+        browser: { gecko: false, opera: false, webkit: false },
         location: { },
         init: function(reload)
         {
             if (!reload)
-                $SS.location = $SS.getLocation();
+            {
+                $SS.browser.webkit = /AppleWebKit/.test(navigator.userAgent);
+                $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
+                $SS.browser.opera  = /Opera/.test(navigator.userAgent);
+                $SS.location       = $SS.getLocation();
+            }
 
             if (/^about:neterror/.test(document.documentURI) || $SS.location.sub != "boards") return;
             
@@ -832,7 +836,7 @@
             // ensure reload is a boolean
             reload = reload === true;
             
-            // Hopefully this will allow 4chan x to load first
+            // allow 4chan x to load first
             setTimeout(function()
             {
                 var ann, pages, qr,
@@ -854,7 +858,8 @@
                     
                     $(".logo>img").attr("id", "logo");
                 
-                    if ($SS.bNewQR && !$("#qr").exists() && $(".postarea").exists()) // force persistent QR with 2.25+
+                    // force persistent QR with 2.25+
+                    if ($SS.bNewQR && !$("#qr").exists() && $(".postarea h1 a").exists())
                     {
                         $(".postarea h1 a").get().click();
                         $("#qr textarea[name=com]").get().blur();
@@ -884,7 +889,8 @@
                                     break;
                             }
                         });
-                    else if (!$(".postarea").exists() && !mascot.bOffset) // fix auto offset mascot in locked threads
+                    // fix auto offset mascot in locked threads
+                    else if (!$(".postarea").exists() && !mascot.bOffset)
                         postLoadCSS += "body::after{margin-bottom:0!important}";
                 
                     var next, prev, imgCtrl;
@@ -910,11 +916,13 @@
                     if ((boardLinks = $("#boardLinks")).exists())
                         boardLinks.remove();
                 }
-                    
-                if ($("#qr").exists()) // persistent QR
+                
+                // persistent QR
+                if ($("#qr").exists())
                     postLoadCSS += ".postarea,#qr .close{display:none!important}";
                     
-                if (!$SS.bNewQR && !mascot.bOffset && config["Post Form"] != 1) // old QR and auto mascot offset
+                // old QR and auto mascot offset
+                if (!$SS.bNewQR && !mascot.bOffset && config["Post Form"] != 1)
                     postLoadCSS += "body::after{margin-bottom:324px!important}";
                     
                 if (config["Custom Navigation Links"])
@@ -948,17 +956,14 @@
                 else if (reload)
                     $(".exSource").remove();
                 
-                if (config["Rice Inputs"] != 1)
+                if (config["Rice Inputs"] == 2)
+                    $("input[type=file]").riceFile();
+                else if (config["Rice Inputs"] == 3)
+                  $("input[type=checkbox]").riceCheck();
+                else if (config["Rice Inputs"] == 4)
                 {
-                    if (config["Rice Inputs"] == 2)
-                        $("input[type=file]").riceFile();
-                    else if (config["Rice Inputs"] == 3)
-                      $("input[type=checkbox]").riceCheck();
-                    else if (config["Rice Inputs"] == 4)
-                    {
-                        $("input[type=file]").riceFile();
-                        $("input[type=checkbox]").riceCheck();
-                    }
+                    $("input[type=file]").riceFile();
+                    $("input[type=checkbox]").riceCheck();
                 }
                 
                 if (reload)
@@ -983,7 +988,7 @@
                             qr.bind("mouseover", $SS.qrMouseOver)
                               .bind("mouseout", $SS.qrMouseOut);
                             
-                            $SS.qrMouseOut(qr.get());
+                            setTimeout(function(){ $SS.qrMouseOut(qr.get()); }, 1000);
                         }
                         
                         if ($SS.bNewQR && config["Expanding Form Inputs"])
@@ -991,6 +996,19 @@
                     
                         $SS.fixQRhide();
                     }
+                    
+                    if (config["Smart Tripcode Hider"])
+                        $("input[name=name]").each(function()
+                        {
+                            $(this).bind("blur", $SS.tripCheck);
+                            $SS.tripCheck(this);
+                        });
+                    else
+                        $("input[name=name]").each(function()
+                        {
+                            $(this).unbind("blur", $SS.tripCheck)
+                                   .removeClass("tripping");
+                        });
                 }
                 else
                 {
@@ -1013,7 +1031,7 @@
                             check = $("#autohide", moveC);
                             qr.prepend(moveC);
                             
-                            if ((rcheck= $(".riceCheck", moveC)).exists())
+                            if ((rcheck = $(".riceCheck", moveC)).exists())
                             {
                                 rcheck.remove();
                                 check.attr("riced", false).riceCheck();
@@ -1028,8 +1046,11 @@
                         else if (rcheck.exists())
                             rcheck.after(moveC);
                         else
-                            check.after(moveC).bind("click", $SS.fixQRhide);
-                        
+                            check.after(moveC);
+                            
+                        check.bind("change", $SS.fixQRhide)
+                            
+                        $SS.fixQuote(document);
                         $SS.fixQRhide();
                         
                         if (config["Post Form"] == 1 && ($SS.bNewQR || $SS.location.reply))
@@ -1059,6 +1080,10 @@
                 }
             }, 10);
         },
+        fixQuote: function(x)
+        {
+            $("a.quotejs", x).bind("click", $SS.fixQRhide);
+        },
         fixQRhide: function()
         {
             var autohide = $("#autohide");
@@ -1070,16 +1095,18 @@
             if (!autohide.val())
             {
                 if (config["Post Form"] == 1)
-                    parent.attr("style", "bottom:21px!important;-webkit-transition:bottom .1s;-moz-transition:bottom .1s;-o-transition:bottom .1s");
+                    parent.attr("style", "bottom:0!important;-webkit-transition:bottom .1s;-moz-transition:bottom .1s;-o-transition:bottom .1s");
                 else if (config["Post Form"] == 2)
                     parent.attr("style", "opacity:1!important;-webkit-transition:none;-moz-transition:none;-o-transition:none");
             }
             else
                 parent.attr("style", "");
+                
+            return $SS.bQRhide = true;
         },
         nodeInsertedHandler: function(e)
         {
-            if (e.target.nodeName == "DIV")
+            if (e.target.nodeName === "DIV")
             {
                 if ((config["Rice Inputs"] == 2 || config["Rice Inputs"] == 4) && (e.target.className != "riceFile" || $SS.incRice))
                 {
@@ -1098,15 +1125,19 @@
                     }
                 }
             }
-            else if (e.target.nodeName == "TABLE") // replies
+            // replies
+            else if (e.target.nodeName === "TABLE")
             {
+                $SS.fixQuote(e.target);
+                
                 if (config["ExHentai Source"] != 1)
                     $SS.exsauce.addLinks(e.target);
 
                 if (config["Rice Inputs"] == 3 || config["Rice Inputs"] == 4)
                     $("input[type=checkbox]", e.target).riceCheck();
             }
-            else if (e.target.nodeName == "INPUT" && e.target.name == "upfile") // occurs after form is submitted
+            // occurs after form is submitted
+            else if (e.target.nodeName === "INPUT" && e.target.name === "upfile")
             {
                 $SS.fixQRhide();
                 
@@ -1116,24 +1147,28 @@
                     $SS.incRice = true;
                 }
             }
-            else if (e.target.className == "preview") // occurs after form is submitted (new QR) or multiple images added
+            // occurs after form is submitted (new QR) or multiple images added
+            else if (e.target.className === "preview")
             {
                 if (config["Rice Inputs"] == 3 || config["Rice Inputs"] == 4)
                     $("input[type=checkbox]", e.target).riceCheck();
                     
                 $(".riceFile>span", $("#qr")).text("");
             }
-            else if (e.target.parentNode.className == "warning") // warning text inserted
+            // warning text inserted
+            else if (e.target.parentNode.className == "warning")
                 $(e.target.parentNode).addClass("showWarning");
         },
         subtreeModifiedHandler: function(e)
         {
-            var node = $(e.target);
-            
-            if (node.hasClass("warning") && node.text() == "") // warning text removed
-                node.removeClass("showWarning");
-            else if (node.attr("id") == "qr" && node.hasClass("focus")) // quote link clicked
-                $SS.fixQRhide();
+            if (e.target.nodeName === "DIV")
+            {
+                var node = $(e.target);
+                
+                // warning text removed
+                if (node.hasClass("warning") && node.text() == "")
+                    node.removeClass("showWarning");
+            }
         },
         qrMouseOver: function()
         {
@@ -1161,7 +1196,6 @@
         /* CONFIG */
         config:
         {
-            hasGM: typeof GM_deleteValue !== "undefined",
             contains: function(arr, val, key)
             {
                 for (var i = 0, MAX = arr.length; i < MAX; i++)
@@ -1174,21 +1208,9 @@
             {
                 return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
             },
-            del: function(name)
-            {
-                if (this.hasGM)
-                    return GM_deleteValue(name);
-                else
-                    return delete localStorage[name];
-            },
             get: function(name)
             {
-                var val, key = NAMESPACE + name;
-                
-                if (this.hasGM)
-                    val = GM_getValue(key);
-                else
-                    val = localStorage.getItem(key);
+                var val = localStorage.getItem(NAMESPACE + name);
                     
                 if (val != null)
                 {
@@ -1206,24 +1228,40 @@
             set: function(name, val)
             {
                 name = NAMESPACE + name;
-                val = JSON.stringify(val);
+                val  = JSON.stringify(val);
                 
                 if (val == undefined || (Array.isArray(val) && val[0] == undefined))
-                    return this.del(name);
-                
-                if (this.hasGM)
-                    return GM_setValue(name, val);
+                    return localStorage.removeItem(name);
                     
                 return localStorage.setItem(name, val);
             },
             load: function()
             {
+                var ret = { };
                 
-                var ret = {};
+                /* REMOVE THIS AFTER PEOPLE HAVE ENOUGH TIME TO UPDATE */
+                if (this.get("UPDATED") == undefined)
+                {
+                    // Update old GM values to localStorage 1.3.4+
+                    if ($SS.browser.gecko && typeof GM_deleteValue !== "undefined")
+                        for (var key in defaultConfig)
+                        {
+                            var oldVal = this.parseVal(GM_getValue(NAMESPACE + key));
+                            
+                            if (oldVal != undefined)
+                            {
+                                this.set(key, oldVal);
+                                GM_deleteValue(NAMESPACE + key);
+                            }
+                        }
+                        
+                    this.set("UPDATED", true);
+                }
+                /* REMOVE */
                 
                 for (var key in defaultConfig)
                     ret[key] = this.parseVal(this.get(key));
-                    
+                
                 return ret;
             },
             update: function(name)
@@ -1447,6 +1485,7 @@
             close: function()
             {
                 $(document.body).attr("style", "");
+                
                 return $("#overlay").remove();
             },
             keydown: function(e)
@@ -1546,7 +1585,7 @@
                 // Save nav links
                 $("#themeoptions #tNavLinks div").each(function()
                 {
-                    var nLink = {};
+                    var nLink = { };
                     
                     $(this).children("input").each(function(index)
                     {
