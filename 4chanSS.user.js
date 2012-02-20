@@ -3,7 +3,7 @@
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       1.3.7
+// @version       1.4.0
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*
@@ -1287,16 +1287,6 @@
             load: function()
             {
                 var ret = { };
-                
-                if (this.get("UPDATED"))
-                {
-					// Have to reset your setting sorry
-                    if ($SS.browser.gecko && typeof GM_deleteValue !== "undefined")
-                        for (var key in defaultConfig)
-							localStorage.removeItem(NAMESPACE + key);
-                        
-                    localStorage.removeItem(NAMESPACE + "UPDATED");
-                }
                 
                 for (var key in defaultConfig)
                     ret[key] = this.parseVal(this.get(key));
