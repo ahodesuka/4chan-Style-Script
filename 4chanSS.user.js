@@ -3,7 +3,7 @@
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       1.3.6
+// @version       1.3.7
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*
@@ -802,8 +802,10 @@
             }
             else
             {
-                $(document).bind("DOMNodeInserted", $SS.insertCSS);
-                $SS.insertCSS();
+                if (!$(document.head).exists())
+                    $(document).bind("DOMNodeInserted", $SS.insertCSS);
+                else
+                    $SS.insertCSS();
                 
                 if (/complete|interactive/.test(document.readyState))
                     $SS.DOMLoaded();
