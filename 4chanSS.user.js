@@ -262,6 +262,26 @@
                 sageColor:   "7c2d2d",
                 tripColor:   "3e7157",
                 titleColor:  "aaaaaa"
+            },
+            {
+            	name:	"Solarized",
+            	enabled:	false,
+            	bgImg:	false,
+            	bgColor:	"072642",
+            	mainColor:	"002b36",
+            	brderColor:	"03303c",
+            	inputColor:	"002b36",
+            	inputbColor:	"03303c",
+            	blinkColor:	"696fc0",
+            	jlinkColor:	"696fc0",
+            	linkColor:	"696bba",
+            	linkHColor:	"d33682",
+            	nameColor:	"586e75",
+            	quoteColor:	"859990",
+            	textColor:	"ffffff",
+            	sageColor:	"780000",
+            	tripColor:	"2aa198",
+            	titleColor:	"bec2c4"
             }
         ],
         "Mascots":
