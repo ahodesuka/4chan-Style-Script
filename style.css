@@ -115,7 +115,10 @@ a[href='javascript:;']
 {
 	color:" + theme.jlinkColor.hex + "!important;
 }
-.commentpostername,.postername,.commentpostername a,.postername a
+.commentpostername,
+.postername,
+.commentpostername a,
+.postername a
 {
 	color:" + theme.nameColor.hex + "!important;
 }
@@ -409,7 +412,7 @@ body::before
 {
 	background:rgba(" + theme.mainColor.shiftRGB(-18) + ",.8);
 	border-" + config["Sidebar Position oString"] + ":2px solid rgba(" + theme.mainColor.rgb + ",.9);
-	box-shadow:" + (config["Sidebar Position"] == 1 ? "inset " : "") + theme.brderColor.hex + " 1px 0 0," + (config["Sidebar Position"] == 2 ? "inset " : "") + theme.brderColor.hex + " -1px 0 0;
+	box-shadow:" + (config["Sidebar Position"] != 2 ? "inset " : "") + theme.brderColor.hex + " 1px 0 0," + (config["Sidebar Position"] == 2 ? "inset " : "") + theme.brderColor.hex + " -1px 0 0;
 	content:'';
 	height:100%;
 	width:262px;
@@ -443,7 +446,7 @@ body>center:nth-of-type(2)>font[color=red],
 #watcher,
 .postarea
 {
-	" + (config["Sidebar Position"] == 1 ? "
+	" + (config["Sidebar Position"] != 2 ? "
 	right:0!important;
 	left:auto!important;" : "/*"*/
 	left:0!important;
@@ -471,10 +474,16 @@ body>center:nth-of-type(2)>font[color=red],
 {
 	border-bottom:1px solid " + theme.brderColor.hex + "!important;
 }
+" + (config["Sidebar Position"] == 3 ? "#imgControls," : "") + "
 .deletebuttons,
 body>center:nth-of-type(2)>font[color=red]
 {
-	border-" + config["Sidebar Position oString"] + "/*"*/:1px solid " + theme.brderColor.hex + "!important;
+	border-" + config["Sidebar Position oString"] + ":1px solid " + theme.brderColor.hex + "!important;
+}
+" + (config["Sidebar Position"] == 3 ? "body>center:nth-of-type(2)>font[color=red]," : "") + "
+#updater
+{
+	border-right:1px solid " + theme.brderColor.hex + "!important;
 }
 .deletebuttons,
 .postarea,
@@ -507,10 +516,10 @@ body>span[style]~form[name=delform]" : "
 .thread
 {
 	clear:both;
-	margin:1px" + (config["Layout"] == 1 ? (config["Sidebar Position"] == 1 ? " 0 1px 1px" : " 1px 1px 0") : (config["Layout"] == 2 ? " 0 1px" : "")) + "!important;
+	margin:1px" + (config["Layout"] == 1 ? (config["Sidebar Position"] != 2 ? " 0 1px 1px" : " 1px 1px 0") : (config["Layout"] == 2 ? " 0 1px" : "")) + "!important;
 	padding:3px 0 0!important;
 	position:relative;
-	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
+	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
 .thread::after,
 #updater div>label::after,
@@ -528,7 +537,7 @@ form[name=delform] .op::after,
 	padding-bottom:12px;
 	position:relative;
 	" + (config["Layout"] == 2 ? "
-	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
+	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
 }
 .op>a:first-child
 {
@@ -545,10 +554,10 @@ form[name=delform]
 	border:1px solid rgba(" + theme.brderColor.rgb + ",.9);
 	" + (config["Layout"] == 1 ? "border-" + config["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
 	margin:" + (config["Layout"] != 3 ?
-	(config["Sidebar Position"] == 1 ? "0 0 0 " + config["Side Margin"] + "px" : "0 " + config["Side Margin"] + "px 0 0") : "0 10% 0") + ";
+	(config["Sidebar Position"] != 2 ? "0 0 0 " + config["Side Margin"] + "px" : "0 " + config["Side Margin"] + "px 0 0") : "0 10% 0") + ";
 	padding:0!important;
 	position:relative;
-	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
+	border-radius:" + (config["Layout"] != 3 ? (config["Sidebar Position"] != 2 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
 }
 form[name=delform]>table,
 form[name=delform]>.thread>table
@@ -559,7 +568,7 @@ form[name=delform]>.thread>table
 }
 form[name=delform]>table:not(.pages)
 {
-	margin-left:" + (config["Sidebar Position"] == 1 ? 1 : -1) + "px!important;
+	margin-left:" + (config["Sidebar Position"] != 2 ? 1 : -1) + "px!important;
 }
 form[name=delform]>table:nth-last-of-type(3)
 {
@@ -579,7 +588,7 @@ body>a[href='.././']~form[name=delform]>table:nth-last-of-type(3)
 body>span[style]~form[name=delform],
 body>a[href='.././']~form[name=delform]
 {
-	padding:" + (config["Layout"] != 3 ? (config["Sidebar Position"] == 1 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px") + "!important;
+	padding:" + (config["Layout"] != 3 ? (config["Sidebar Position"] != 2 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px") + "!important;
 }
 body,
 body>a[style='cursor: pointer; float: right;']+div,
@@ -605,7 +614,7 @@ td.replyhl,
 .stub>a,
 .stub>.block>a
 {
-	" + (config["Layout"] != 3 && !(config["Sidebar Position"] == 1 && config["Layout"] == 2)
+	" + (config["Layout"] != 3 && !(config["Sidebar Position"] != 2 && config["Layout"] == 2)
 	? "border-" + config["Sidebar Position String"] + ":0!important;" : "") + "/*"*/
 }
 .reply,
@@ -720,9 +729,9 @@ td.replyhl,
 .stub>.block>a
 {
 	padding:5px!important;
-	" + (config["Layout"] != 2 ? "width:100%;" : (config["Sidebar Position"] == 1 ? "margin-right:1px!important;" : "")) + "/*"*/
-	border-radius:" + (config["Layout"] != 3 && !(config["Sidebar Position"] == 1 && config["Layout"] == 2) ?
-	(config["Sidebar Position"] == 1 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
+	" + (config["Layout"] != 2 ? "width:100%;" : (config["Sidebar Position"] != 2 ? "margin-right:1px!important;" : "")) + "/*"*/
+	border-radius:" + (config["Layout"] != 3 && !(config["Sidebar Position"] != 2 && config["Layout"] == 2) ?
+	(config["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
 td.replyhl,
 td.qphl
@@ -738,7 +747,7 @@ td.qphl
 .thread.stub
 {
 	margin:1px 0px!important;
-	padding:0 " + (config["Sidebar Position"] == 1 ? "0 0 1px" : "1px 0 0") + "!important;
+	padding:0 " + (config["Sidebar Position"] != 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .stub>a,
 .stub>.block>a
@@ -797,6 +806,15 @@ td.qphl
 {
 	content:' (SAGE)';
 }
+" + (config["Neko/Sega Icons"] ? "
+.commentpostername a.linkmail[href$='neko']::after
+{
+	content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAMAAAAIRmf1AAACoFBMVEUAAABnUFZoUVddU1T6+PvFwLzn4eFXVlT/+vZpZGCgm5dKU1Cfnpz//flbWljr5uLp5OCalpNZWFb//f3r6+n28ff9+PRaVVH59Pr//vr38vj57/Dp7eyjn5zq8O5aVVJbYV9nVFhjUFRiWFlZVlFgZGOboJzm5uZhamfz9/bt8fDw6+drb26bl5j/8/lkX1z06uldWFS5r61UT0tfWlbDwr3Ew76moqNRTU7Mx8P75OpeY19pWl1XW1qzr6x5eHaLiojv7+1UT0xIU0uzqadVS0nV0MxkZGT5+PPk497///ra29Xq5eFtY2H28e2hnJignJlUUE1dXV2vrqxkY2FkYF/m3d5vZmfDuruhl5aZlJHx8O75+PZWVVP29vT/9fTj3trv6ubh5eRdXFqTkpBOTUtqZmX88/RMQ0T78vPEvr7HwcHDwsDq6ef///3Gx8H++fXEv7tZWVedmZZXXVudnJp0c3FZU1f79fnb1dlXUVVjXWFrZmy8t7359/qLj455e3q4s69vamZjX1zy4+avpaReWFz/+f1NR0vu6Ozp4+f48/lnYmi8ur3Iw7/69fHz7+xbV1SZmJZVUk1ZV1zq5ez++f/c196uqbDn4uj9+P7z7vRVVVXt6ORiXl/OycXHw8CPi4ihoJ5aWF3/+v/k3+axrLOsp67LzMZYU1m2sq9dWF5WUU1WUk/Au7eYlJGqpqObmphYVV749f7p5Or38fPu6OpiXFz38fH79vLz7urv6+hhYF5cWWKal6D//f/Z09Xg29exraqbl5RqaW6kpKTq5uPv7Of/+PDj29D//vP18Ozs5+OloJymoZ1ZVVJZWVlkYF2hnpmblIyspJmVjYKQi4enop5STUlRTUpcWUhqY1BgWT9ZUjhcV1NiXVkkhke3AAAABHRSTlMA5vjapJ+a9wAAAP9JREFUGBk9wA1EAwEAhuHv3dTQAkLiUlJFJWF0QDLFYDRXIMkomBgxNIYxhOk4wwCqQhQjxgxSGIsALFA5BiYbMZHajz1oJlx51sBJpf6Gd3zONcrqm/r1W8ByK0r+XV1LXyOLLnjW6hMGpu0u1IzPSdO17DgrGC6AadrVodGcDQYbhguP6wAvAaC0BRZQalkUQ8UQDz5tAof0XbejOFcV5xiUoCfjj3O/nf0ZbqAMPYmzU18KSDaRQ08qnfw+B2JNdAEQt2O5vctUGjhoIBU4ygPsj2Vh5zYopDK73hsirdkPTwGCbSHpiYFwYVVC/17pCFSBeUmoqwYQuZtWxx+BVEz0LeVKIQAAAABJRU5ErkJggg==');
+}
+.commentpostername a.linkmail[href$='sega']::after
+{
+	content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAALBAMAAAD2A3K8AAAAMFBMVEUAAACMjpOChImytLmdnqMrKzDIyM55dnkODQ94foQ7PkXm5Olsb3VUUVVhZmw8Sl6klHLxAAAAAXRSTlMAQObYZgAAANFJREFUGJVjYIACRiUlJUUGDHBk4syTkxQwhO3/rQ/4ZYsuymi3YEFUqAhC4LCJZJGIi1uimKKjk3KysbOxsaMnAwNLyqoopaXhttf2it1anrJqke1pr1DlBAZhicLnM5YXZ4RWlIYoezx0zrjYqG6czCDsYRzxIko6Q/qFaKy0690Ij0MxN8K2MIhJXF+hsfxJxuwdpYGVaUU3Mm5bqgKFOZOFit3Vp23J3pgsqLxFUXpLtlD5bgcGBs45794dn6mkOVFQUOjNmXPPz8ysOcAAANw6SHLtrqolAAAAAElFTkSuQmCC');
+}" : "") + "
 a.omittedposts
 {
 	display:inline-block;
@@ -808,23 +826,24 @@ a.omittedposts
 }
 .deletebuttons
 {
-	position:fixed;
-	" + config["Sidebar Position String"] + ":264px;
 	bottom:20px!important;
 	height:22px;
-	width:0;
 	overflow:hidden;
-	white-space:nowrap;
 	padding:1px 2px 0 18px!important;
+	position:fixed;
+	" + (config["Sidebar Position"] == 3 ? "right:261px;" : 
+	config["Sidebar Position String"] + ":264px;") + "/*"*/
+	width:0;
+	white-space:nowrap;
 	z-index:4;
-	" + (config["Layout"] != 1 ? "border-radius:" + (config["Sidebar Position"] == 1 ? "3px 0 0 0" : "0 3px 0 0") : "") + ";
+	" + (config["Layout"] != 1 ? "border-radius:" + (config["Sidebar Position"] != 2 ? "3px 0 0 0" : "0 3px 0 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
 	-o-transition:all .2s ease-in-out;
 }
 .deletebuttons:hover
 {
-	" + (config["Sidebar Position"] == 1 ? "
+	" + (config["Sidebar Position"] != 2 ? "
 	padding-left:2px!important;" : "/*"*/
 	padding-left:0!important;
 	padding-right:3px!important;") + "
@@ -857,7 +876,7 @@ a.omittedposts
 	content:'FILE ONLY';
 	position:absolute;
 	bottom:0;
-	right:" + (config["Sidebar Position"] == 1 ? 120 : 122) + "px;
+	right:" + (config["Sidebar Position"] != 2 ? 120 : 122) + "px;
 	line-height:24px;
 }
 .deletebuttons *
@@ -869,7 +888,7 @@ a.omittedposts
 {
 	margin:2px!important;
 	position:absolute;
-	right:" + (config["Sidebar Position"] == 1 ? 103 : 105) + "px;
+	right:" + (config["Sidebar Position"] != 2 ? 103 : 105) + "px;
 	bottom:4px!important;
 	top:auto!important;
 }
@@ -2093,7 +2112,7 @@ form[name=post] input[name=email]+label
 	-moz-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
 	-o-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out!important;
 }
-" + (config["Sidebar Position"] == 1 ? "
+" + (config["Sidebar Position"] != 2 ? "
 .postarea textarea,
 body[class*='chanx_']>#qr textarea,
 body>span[style]~#qr textarea
@@ -2232,12 +2251,11 @@ body>span[style]~#qr>#close
 }
 #updater
 {
-	" + (config["Sidebar Position"] == 1 ? "
+	" + (config["Sidebar Position"] != 2 ? "
 	border-left:1px solid " + theme.brderColor.hex + "!important;
 	text-align:right!important;
 	left:auto!important;
 	right:0!important;" : "/*"*/
-	border-right:1px solid " + theme.brderColor.hex + "!important;
 	text-align:left!important;
 	left:0!important;
 	right:auto!important;") + "
@@ -2301,7 +2319,7 @@ body>span[style]~#qr>#close
 	bottom:auto!important;
 	top:0!important;
 	z-index:8!important;
-	" + (config["Sidebar Position"] == 1 ? "
+	" + (config["Sidebar Position"] != 2 ? "
 	right:43px!important;
 	left:auto!important;
 	text-align:left;" : "/*"*/
@@ -2312,7 +2330,7 @@ body>span[style]~#qr>#close
 }
 #navlinks
 {
-	" + (config["Sidebar Position"] == 1 ? "right:5px;" : "/*"*/
+	" + (config["Sidebar Position"] != 2 ? "right:5px;" : "/*"*/
 	left:5px;
 	right:auto!important;") + "
 	top:0!important;
@@ -2340,10 +2358,11 @@ body>center:nth-of-type(2)>font[color=red]
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
+	" + (config["Sidebar Position"] == 3 ? "right:262px!important;" : "") + "/*"*/
 	top:-18px;
 	white-space:nowrap;
 	z-index:10;
-	" + (config["Layout"] != 1 ? "border-radius:" + (config["Sidebar Position"] == 1 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
+	" + (config["Layout"] != 1 ? "border-radius:" + (config["Sidebar Position"] != 2 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
 	-o-transition:all .2s ease-in-out;
@@ -2360,7 +2379,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	max-width:600px;
 	padding:0 10px 10px;
 	white-space:normal;
-	border-radius:" + (config["Sidebar Position"] == 1 ? "0 0 0 3px " : "0 0 3px 0") + ";
+	border-radius:" + (config["Sidebar Position"] != 2 ? "0 0 0 3px " : "0 0 3px 0") + ";
 }
 #header
 {
@@ -2444,7 +2463,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	" + (config["Pages Position"] == 1 ? "
 	height:20px!important;
 	bottom:22px!important;
-	" + (config["Sidebar Position"] == 1 ? "
+	" + (config["Sidebar Position"] != 2 ? "
 	left:-375px;
 	right:auto!important;" : "/*"*/
 	left:auto!important;
@@ -2466,11 +2485,11 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	height:24px!important;
 	" + config["Sidebar Position oString"] + ":0!important;
 	z-index:2;
-	-webkit-transform:rotate(" + (config["Sidebar Position"] == 1 ? -90 : 90) + "deg);
+	-webkit-transform:rotate(" + (config["Sidebar Position"] != 2 ? -90 : 90) + "deg);
 	-webkit-transform-origin:top " + config["Sidebar Position oString"] + ";
-	-moz-transform:rotate(" + (config["Sidebar Position"] == 1 ? -90 : 90) + "deg);
+	-moz-transform:rotate(" + (config["Sidebar Position"] != 2 ? -90 : 90) + "deg);
 	-moz-transform-origin:top " + config["Sidebar Position oString"] + ";
-	-o-transform:rotate(" + (config["Sidebar Position"] == 1 ? -90 : 90) + "deg);
+	-o-transform:rotate(" + (config["Sidebar Position"] != 2 ? -90 : 90) + "deg);
 	-o-transform-origin:top " + config["Sidebar Position oString"] + ";")) + "
 }
 .pages *
@@ -2542,7 +2561,7 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-32px 0;
 	position:fixed;
-	" + config["Sidebar Position String"] + ":241px;
+	" + config["Sidebar Position String"] + ":" + (config["Sidebar Position"] == 3 ? 243 : 241) + "px;
 	text-indent:-9999px;
 	z-index:5;
 }
@@ -2559,12 +2578,12 @@ body>a[style='cursor: pointer; float: right;']::after
 body>a[style='cursor: pointer; float: right;']::before
 {
 	left:-4px;
-	" + (config["Sidebar Position"] == 2 ? "border-radius:0 0 0 2px;" : "") + "/*"*/
+	" + (config["Sidebar Position"] != 1 ? "border-radius:0 0 0 2px;" : "") + "/*"*/
 }
 body>a[style='cursor: pointer; float: right;']::after
 {
 	right:-4px;
-	" + (config["Sidebar Position"] == 1 ? "border-radius:0 0 2px 0;" : "") + "/*"*/
+	" + (config["Sidebar Position"] != 2 ? "border-radius:0 0 2px 0;" : "") + "/*"*/
 }
 body>div[style='width: 100%;']+form[name=delform]
 {
@@ -2610,7 +2629,6 @@ body>a[style='cursor: pointer; float: right;']+div>table td
 body>a[style='cursor: pointer; float: right;']+div>table td:first-child
 {
 	border-left:0!important;
-	width:200px!important;
 }
 body>a[style='cursor: pointer; float: right;']+div>table input[type=button]
 {
@@ -2690,7 +2708,7 @@ body>a[href='.././']
 	position:fixed!important;
 	text-indent:-9999px;
 	top:2px;
-	" + config["Sidebar Position String"] + ":" + (265 - (config["Sidebar Position"] == 1 ? 99 : 38)) + "px!important;
+	" + config["Sidebar Position String"] + ":" + (265 - (config["Sidebar Position"] != 2 ? 99 : 38)) + "px!important;
 	z-index:8;
 }
 .exSource
