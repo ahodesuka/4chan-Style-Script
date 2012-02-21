@@ -1,3 +1,9 @@
+1.4.1
+    added:
+        - `4chan rewired` theme, originally by !K.WeEabo0o
+        - theme customCSS can now hold javascript variables if written like; `new String(CSS/JS here)`
+    fixed:
+        - line height of #stats div
 1.4.0
     added:
         - `Solarized` theme
