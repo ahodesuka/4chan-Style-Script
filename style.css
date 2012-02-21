@@ -253,7 +253,7 @@ textarea,
 #updater label,
 #updater span,
 .container *,
-.filesize span::after,
+.filesize span:not([class])::after,
 .logo font[size='1'],
 .pages td:nth-of-type(2) *
 {
@@ -734,11 +734,15 @@ td.replyhl,
 	border-radius:" + (config["Layout"] != 3 && !(config["Sidebar Position"] != 2 && config["Layout"] == 2) ?
 	(config["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
-td.replyhl,
-td.qphl
+.replyhl,
+.qphl
 {
 	background:rgba(" + theme.linkColor.rgb + ",.2)!important;
-	box-shadow:inset rgba(" + (theme.mainColor.isLight ? "255,255,255" : "155,155,155") + ",.3) 0 0 3px;
+	box-shadow:inset rgba(" + theme.linkColor.rgb + ",.4) 0 0 5px;
+}
+.filter_highlight
+{
+\tbox-shadow:-5px 0 rgba(255,0,0,.5)!important;
 }
 .stub
 {
@@ -1393,12 +1397,12 @@ div.autohide>a[title='Auto-hide dialog box']
 {
 	margin:2px 0!important;
 }
-.filesize span
+.filesize span:not([class])
 {
 	font-size:0!important;
 	visibility:hidden;
 }
-.filesize span::after
+.filesize span:not([class])::after
 {
 	content:attr(title);
 	visibility:visible;

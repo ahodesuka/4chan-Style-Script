@@ -311,7 +311,7 @@
                 sageColor:   "cc6666",
                 tripColor:   "bf7f3f",
                 titleColor:  "4c4c4c",
-                customCSS:   'new String((config["Layout"]==2?".replyhider{border:1px solid "+this.brderColor.hex+"!important;border-right:0!important}":"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}")'
+                customCSS:   'new String((config["Layout"]==2?".replyhider{border:1px solid "+this.brderColor.hex+"!important;border-right:0!important}.op{border:1px solid "+this.brderColor.hex+"!important;"+(config["Sidebar Position"]==3?"left:-"+(config["Side Margin"]+2)+"px!important;padding-left:"+(config["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}")'
             }
         ],
         "Mascots":
@@ -2873,8 +2873,23 @@
             this.checkMark   = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? 0 : -8) + "px");
             this.radioCheck  = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? -16 : -24) + "px");
             this.icons       = new $SS.Image(theme.icons || defaultIcons);
-            this.customCSS   = theme.customCSS ?
-                                (theme.customCSS.substr(0, 10) === "new String" ? eval(theme.customCSS.replace(/(\r\n|\n|\r)/gm, "")) : theme.customCSS) : "";
+            if (theme.customCSS)
+            {
+                if (theme.customCSS.substr(0, 10) === "new String")
+                    try
+                    {
+                        this.customCSS = eval(theme.customCSS.replace(/(\r\n|\n|\r)/gm, ""));
+                    }
+                    catch (e)
+                    {
+                        alert("Error evaluating theme.customCSS!\n" + e.message);
+                        this.customCSS = theme.customCSS;
+                    }
+                else
+                    this.customCSS = theme.customCSS;
+            }
+            else
+                this.customCSS = "";
         },
         
         /* HELPER METHODS */
