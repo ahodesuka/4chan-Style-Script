@@ -162,6 +162,7 @@
             },
             {
                 name:        "Tomorrow Night", // Originally by Chris Kempson @ https://github.com/ChrisKempson/Tomorrow-Theme
+                author:      "Chris Kempson",
                 enabled:     false,
                 bgImg:       false,
                 bgColor:     "1d1f21",
@@ -200,7 +201,7 @@
                 sageColor:   "cc1111",
                 tripColor:   "228854",
                 titleColor:  "cc1105",
-                customCSS:   ".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+(config["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
             },
             {
                 name:        "Yotsuba B",
@@ -222,7 +223,7 @@
                 sageColor:   "990000",
                 tripColor:   "228854",
                 titleColor:  "0f0c5d",
-                customCSS:   ".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"
+                customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+(config["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
             },
             {
                 name:        "安心院なじみ",
@@ -247,6 +248,7 @@
             },
             {
                 name:        "Midnight Caek",
+                author:      "zixaphir",
                 enabled:     false,
                 bgImg:       false,
                 bgColor:     "101010",
@@ -266,7 +268,8 @@
                 titleColor:  "aaaaaa"
             },
             {
-                name:        "Solarized",
+                name:        "Solarized", // http://ethanschoonover.com/solarized
+                author:      "Ethan Schoonover",
                 enabled:     false,
                 bgImg:       false,
                 bgColor:     "073642",
@@ -288,6 +291,7 @@
             },
             {
                 name:        "4chan Rewired", // Originally by !K.WeEabo0o @ http://userstyles.org/styles/57787/4chan-rewired
+                author:      "!K.WeEabo0o",
                 enabled:     false,
                 bgImg:       "http://oi39.tinypic.com/2h51rb4.jpg",
                 bgRPA:       "no-repeat bottom right fixed",
@@ -295,7 +299,7 @@
                 mainColor:   "efefef",
                 brderColor:  "d4d4d4",
                 inputColor:  "e4e4e4",
-                inputbColor: "dfdfdf",
+                inputbColor: "cccccc",
                 blinkColor:  "bf7f3f",
                 jlinkColor:  "bf7f3f",
                 linkColor:   "bf7f3f",
@@ -2838,6 +2842,7 @@
         Theme: function(theme)
         {
             this.name        = theme.name;
+            this.author      = theme.author || "ahodesuka";
             this.replyBrder  = theme.replyBrder;
             this.bgImg       = new $SS.Image(theme.bgImg, theme.bgRPA);
             this.bgColor     = new $SS.Color(theme.bgColor);
@@ -2859,7 +2864,7 @@
             this.radioCheck  = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? -16 : -24) + "px");
             this.icons       = new $SS.Image(theme.icons || defaultIcons);
             this.customCSS   = theme.customCSS ?
-                                (theme.customCSS.substr(0, 10) === "new String" ? eval(theme.customCSS) : theme.customCSS) : "";
+                                (theme.customCSS.substr(0, 10) === "new String" ? eval(theme.customCSS.replace(/(\r\n|\n|\r)/gm, "")) : theme.customCSS) : "";
         },
         
         /* HELPER METHODS */
@@ -2944,7 +2949,7 @@
                 style='background-color:" + t.mainColor.hex + "!important;border:1px solid " + t.brderColor.hex + "!important;color:" + t.textColor.hex + "!important'>\
                 <div class=riceCheck style='background-color:" + t.inputColor.hex + "!important;border:1px solid " + t.inputbColor.hex + "!important;box-shadow:rgba(" + t.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>\
                 <span style='color:" + t.titleColor.hex + "!important'>" + t.name + "</span> \
-                <span style='color:" + t.nameColor.hex + "!important'>Anonymous</span>\
+                <span style='color:" + t.nameColor.hex + "!important'>" + t.author + "</span>\
                 <span style='color:" + t.sageColor.hex + "!important'> (SAGE)</span>\
                 <span style='color:" + t.tripColor.hex + "!important'>!.pC/AHOKAg</span>\
                 <time> 20XX.01.01 12:00 </time>\
