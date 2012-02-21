@@ -30,7 +30,8 @@
             26, "Change the size of the margin opposite of the sidebar",
             [
                 { name: "Normal",        value: 26 },
-                { name: "Small",         value: 6  },
+                { name: "Small",         value: 20  },
+                { name: "Slim",          value: 6  },
                 { name: "None",          value: 2  }
             ]
         ],
@@ -838,7 +839,7 @@
             config["Small Font Size"]          = config["Font Size"] > 11 && !config["Bitmap Font"] ? 12 : config["Font Size"];
             config["Sidebar Position String"]  = config["Sidebar Position"] != 2 ? "right" : "left";
             config["Sidebar Position oString"] = config["Sidebar Position"] != 2 ? "left" : "right";
-            config["Side Margin"]              = config["Layout"] == 2 ? 26 : config["Side Margin"];
+            config["Side Margin"]              = config["Layout"] == 2 ? Math.min(Math.max(20, config["Side Margin"]), 26) : config["Side Margin"];
 
             
             mascot = $SS.options.getMascot();
@@ -2021,7 +2022,7 @@
                     image    = this.files[0],
                     fileName = image.name.substr(image.name.lastIndexOf("\\") + 1),
                     reader   = new FileReader(),
-                    b64, val;
+                    b64, val, input;
                 
                 reader.onload = (function(tImage)
                 {
@@ -2037,7 +2038,10 @@
                         else
                             b64.val(val);
                         
-                        $("input[name=customIMG]", div).val(fileName).disabled(true);
+                        if ((input = $("input[name=bgImg]", div)).exists())
+                            input.val(fileName).disabled(true);
+                        else
+                            $("input[name=customIMG]", div).val(fileName).disabled(true);
                     }
                 })(image);
                 
@@ -2045,8 +2049,14 @@
             },
             ClearImage: function()
             {
+                var div = $("#overlay2"), input;
+                
                 $("input[name=customIMGB64]").remove();
-                $("input[name=customIMG]", $("#overlay2")).val("").disabled(false);
+                
+                if ((input = $("input[name=bgImg]", div)).exists())
+                    return input.val("").disabled(false);
+                    
+                return $("input[name=customIMG]", div).val("").disabled(false);
             }
         },
         
