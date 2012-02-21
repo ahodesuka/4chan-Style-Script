@@ -1226,14 +1226,14 @@
         },
         qrMouseOut: function(e)
         {
-            var qr = this.nodeName == "DIV" ? this : e;
+            var qr = this.nodeName ? this : e;
             
             if ($("#autohide", qr).val() && !$(qr).hasClass("focus"))
                 $(qr).attr("style", "bottom:-" + (qr.clientHeight - $(".move", qr).get().clientHeight) + "px!important");
         },
         tripCheck: function(e)
         {
-            var $this = this.nodeName == "INPUT" ? $(this) : $(e),
+            var $this = this.nodeName ? $(this) : $(e),
                 check = /^#.+/.test($this.val());
             
             if (check && !$this.hasClass("tripping"))
@@ -2059,7 +2059,7 @@
                 {
                     method: "GET",
                     url: a.attr("href"),
-                    overrideMimeType : "text/plain; charset=x-user-defined",
+                    overrideMimeType: "text/plain; charset=x-user-defined",
                     headers: { "Content-Type": "image/jpeg" },
                     onload: function(x) { $SS.exsauce.checkTitles(a, x.responseText); }
                 });
@@ -2078,9 +2078,9 @@
                     url: anchor.attr("href"),
                     onload: function(x)
                     {
-                        var temp = $("<div>").html(x.responseText);
-                        var results = $("div.it3 > a:not([rel='nofollow']), div.itd2 > a:not([rel='nofollow'])", temp);
-                        var MAX = results.length();
+                        var temp    = $("<div>").html(x.responseText),
+                            results = $("div.it3>a:not([rel='nofollow']),div.itd2>a:not([rel='nofollow'])", temp),
+                            MAX     = results.length();
                         
                         anchor.html("found: " + MAX).attr("target", "_blank");
                         
@@ -2091,8 +2091,8 @@
                             
                             for (var i = 0; i < MAX; i++)
                             {
-                                var ret = results.get(i);
-                                var a = $("<a href='" + ret.href + "' target=_blank>" + ret.innerHTML);
+                                var ret = results.get(i),
+                                    a   = $("<a href='" + ret.href + "' target=_blank>" + ret.innerHTML);
                                 div.append(a);
                             }
                         }
