@@ -3,7 +3,7 @@
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       1.4.1
+// @version       1.4.2
 // @run-at        document-start
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*

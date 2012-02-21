@@ -1,3 +1,12 @@
+1.4.2
+    added:
+        - author property to themes
+    modified:
+        - Yotsuba/B themes use some variables to better their style
+    fixed:
+        - z-index of misc fixe elements
+        - customCSS eval when there are line breaks in the css
+        - vertical-align of reportbutton's
 1.4.1
     added:
         - `4chan rewired` theme, originally by !K.WeEabo0o
