@@ -161,7 +161,7 @@
                 titleColor:  "002244"
             },
             {
-                name:        "Tomorrow Night", // Originally by Chris Kempson https://github.com/ChrisKempson/Tomorrow-Theme
+                name:        "Tomorrow Night", // Originally by Chris Kempson @ https://github.com/ChrisKempson/Tomorrow-Theme
                 enabled:     false,
                 bgImg:       false,
                 bgColor:     "1d1f21",
@@ -228,22 +228,22 @@
                 name:        "安心院なじみ",
                 enabled:     false,
                 bgImg:       "http://i.imgur.com/RewHm.png",
-                bgRPA:       "no-repeat fixed right bottom",
+                bgRPA:       "no-repeat right bottom fixed",
                 bgColor:     "ffffff",
                 mainColor:   "efefef",
                 brderColor:  "d6d6d6",
                 inputColor:  "cccccc",
                 inputbColor: "bbbbbb",
                 blinkColor:  "f5871f",
-                jlinkColor:  "4d4d4c",
-                linkColor:   "c82829",
-                linkHColor:  "f5871f",
+                jlinkColor:  "bf8040",
+                linkColor:   "bf8040",
+                linkHColor:  "bf8040",
                 nameColor:   "2b80c2",
                 quoteColor:  "718c00",
                 textColor:   "4d4d4c",
                 sageColor:   "c82829",
                 tripColor:   "3e999f",
-                titleColor:  "8959a8"
+                titleColor:  "4d4d4d"
             },
             {
                 name:        "Midnight Caek",
@@ -285,6 +285,28 @@
                 tripColor:   "2aa198",
                 titleColor:  "bec2c4",
                 customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
+            },
+            {
+                name:        "4chan Rewired", // Originally by !K.WeEabo0o @ http://userstyles.org/styles/57787/4chan-rewired
+                enabled:     false,
+                bgImg:       "http://oi39.tinypic.com/2h51rb4.jpg",
+                bgRPA:       "no-repeat bottom right fixed",
+                bgColor:     "f4f4f4",
+                mainColor:   "efefef",
+                brderColor:  "d4d4d4",
+                inputColor:  "e4e4e4",
+                inputbColor: "dfdfdf",
+                blinkColor:  "bf7f3f",
+                jlinkColor:  "bf7f3f",
+                linkColor:   "bf7f3f",
+                linkHColor:  "d33682",
+                nameColor:   "4c4c4c",
+                quoteColor:  "6b7a1e",
+                textColor:   "4c4c4c",
+                sageColor:   "cc6666",
+                tripColor:   "bf7f3f",
+                titleColor:  "4c4c4c",
+                customCSS:   'new String((config["Layout"]==2?".replyhider{border:1px solid "+this.brderColor.hex+"!important;border-right:0!important}":"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}")'
             }
         ],
         "Mascots":
@@ -2836,7 +2858,8 @@
             this.checkMark   = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? 0 : -8) + "px");
             this.radioCheck  = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? -16 : -24) + "px");
             this.icons       = new $SS.Image(theme.icons || defaultIcons);
-            this.customCSS   = theme.customCSS || "";
+            this.customCSS   = theme.customCSS ?
+                                (theme.customCSS.substr(0, 10) === "new String" ? eval(theme.customCSS) : theme.customCSS) : "";
         },
         
         /* HELPER METHODS */

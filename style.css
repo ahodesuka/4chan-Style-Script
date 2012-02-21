@@ -2313,8 +2313,9 @@ body>span[style]~#qr>#close
 }
 #stats
 {
-	height:18px;
 	bottom:auto!important;
+	height:18px;
+    line-height:18px;
 	top:0!important;
 	z-index:8!important;
 	" + (config["Sidebar Position"] != 2 ? "
