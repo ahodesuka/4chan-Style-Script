@@ -780,9 +780,7 @@
             {
                 var $this = $(this);
                 
-                if ($this.attr("id") == "imageExpand")
-                    return;
-                else if ($this.attr("riced") === "true")
+                if ($this.attr("riced") === "true")
                     return $this.nextSibling(".riceCheck").riceCheckBind();
                 
                 var div = $("<div class=riceCheck>").riceCheckBind();
@@ -1033,11 +1031,11 @@
                 if (config["Rice Inputs"] == 2)
                     $("input[type=file]").riceFile();
                 else if (config["Rice Inputs"] == 3)
-                  $("input[type=checkbox]").riceCheck();
+                  $("input[type=checkbox]:not(#imageExpand)").riceCheck();
                 else if (config["Rice Inputs"] == 4)
                 {
                     $("input[type=file]").riceFile();
-                    $("input[type=checkbox]").riceCheck();
+                    $("input[type=checkbox]:not(#imageExpand)").riceCheck();
                 }
                 
                 if (reload)

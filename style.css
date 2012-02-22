@@ -155,6 +155,7 @@ div[id*=jsMath],
 body[class*='chanx_']>#qr .warning,
 #imgControls,
 #imgControls #imageType,
+#imgControls .preload,
 #jsMath_float>*,
 #watcher>div,
 .deletebuttons,
@@ -196,7 +197,7 @@ body>a[style='cursor: pointer; float: right;'],
 #navtop,
 #navtopr,
 #qr>div.move,
-#imgControls>label,
+#imageType+label,
 #qr input[name=upfile]+a,
 #qr #close,
 body[class*='chanx_']>#qr>form #spoilerLabel,
@@ -993,7 +994,7 @@ img[alt=sticky],
 body>span[style] a,
 body>a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
-#imgControls>label,
+#imageType+label,
 #qr input[name=upfile]+a,
 #qr #close,
 .close,
@@ -1447,7 +1448,8 @@ body[class*='chanx_']>#qr>.move
 	-moz-transition:none;
 	-o-transition:none;
 }" : "") + "
-#watcher .move
+#watcher .move,
+#imgControls .preload
 {
 	display:inline-block;
 	margin:0 5px;
@@ -1584,7 +1586,6 @@ body>a[style='cursor: pointer; float: right;']
 	color:#888!important;
 	display:block;
 	height:16px;
-	line-height:16px;
 	margin:0 2px;
 	padding:5px 10px;
 	text-align:center;
@@ -1997,7 +1998,7 @@ input[name=customIMGB64]+a[name=clearIMG]
 	padding:1px 1px 1px 0;
 	width:77px!important;
 }
-#imgControls>label
+#imageType+label
 {
 	background-position:-48px -16px;
 	content:'';
@@ -2005,19 +2006,30 @@ input[name=customIMGB64]+a[name=clearIMG]
 	margin:1px;
 	overflow:hidden;
 }
-#imgControls>label.imgExpanded
+#imageType+label.imgExpanded
 {
 	background-position:-48px 0;
 }
-body>a[style='cursor: pointer; float: right;']
+#imgControls .preload
+{
+    bottom:-20px;
+    height:15px;
+    " + config["Sidebar Position oString"] + ":24px;
+    padding:1px 5px 3px!important;
+    position:absolute;
+}
+body>a[style='cursor: pointer; float: right;'],
 form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
 body[class*='chanx_']>#qr>form #spoilerLabel::after,
 #imgControls label,
+#navlinks,
+#qr div.move,
 #qr input[name=upfile]+a,
 #qr #captchas,
 #qr #attach,
 #stats .move,
+#themeoptions #toNav li label,
 #updater span,
 #updater .move,
 #watcher .move,
@@ -2239,7 +2251,6 @@ body>span[style]~#qr>#close
 #qr div.move
 {
 	height:18px!important;
-	line-height:16px;
 	text-align:center!important;
 }
 #qr div.move::before
@@ -2342,7 +2353,6 @@ body>span[style]~#qr>#close
 	right:auto!important;") + "
 	top:0!important;
 	height:20px;
-	line-height:16px;
 	z-index:6!important;
 }
 #ihover
@@ -2601,7 +2611,7 @@ body>div[style='width: 100%;']+form[name=delform]
 body>span[style] a,
 body>a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
-#imgControls>label
+#imageType+label
 {
 	opacity:.75;
 	-webkit-transition:opacity .1s ease-in-out;
@@ -2611,8 +2621,8 @@ body>a[style='cursor: pointer; float: right;'],
 body>span[style] a:hover,
 body>a[href='.././']:hover,
 body>a[style='cursor: pointer; float: right;']:hover,
-#imgControls>label:hover,
-#imgControls>label.imgExpanded
+#imageType+label:hover,
+#imageType+label.imgExpanded
 {
 	opacity:1;
 }
