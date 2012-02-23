@@ -30,7 +30,7 @@
             26, "Change the size of the margin opposite of the sidebar",
             [
                 { name: "Normal",        value: 26 },
-                { name: "Small",         value: 20  },
+                { name: "Small",         value: 20 },
                 { name: "Slim",          value: 6  },
                 { name: "None",          value: 2  }
             ]
@@ -117,227 +117,6 @@
         ],
         "Font Size": [ 12, "Set the general size of text (Pixels)" ],
         "Bitmap Font": [ false, "Check this if you are using a bitmap font" ],
-        "Themes":
-        [
-            {
-                name:        "Dark Flat",
-                enabled:     true,
-                bgImg:       "R0lGODlhAwADAIAAAB0dHRkZGSH5BADoAwAALAAAAAADAAMAAAIDDG5YADs=",
-                bgRPA:       "repeat top left fixed",
-                bgColor:     "202020",
-                mainColor:   "232425",
-                brderColor:  "292a2b",
-                inputColor:  "18191a",
-                inputbColor: "121314",
-                blinkColor:  "6f99b4",
-                jlinkColor:  "ac9bb0",
-                linkColor:   "ac9bb0",
-                linkHColor:  "6f99b4",
-                nameColor:   "a8c6d9",
-                quoteColor:  "b3c45e",
-                textColor:   "dddddd",
-                sageColor:   "c99090",
-                tripColor:   "d4c095",
-                titleColor:  "9390c9",
-                customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
-            },
-            {
-                name:        "Photon",
-                enabled:     false,
-                bgImg:       false,
-                bgColor:     "eeeeee",
-                mainColor:   "dddddd",
-                brderColor:  "cccccc",
-                inputColor:  "cccccc",
-                inputbColor: "bbbbbb",
-                blinkColor:  "0066ff",
-                jlinkColor:  "333333",
-                linkColor:   "ff6600",
-                linkHColor:  "0066ff",
-                nameColor:   "004a99",
-                quoteColor:  "789922",
-                textColor:   "333333",
-                sageColor:   "990000",
-                tripColor:   "ff3300",
-                titleColor:  "002244"
-            },
-            {
-                name:        "Tomorrow Night", // Originally by Chris Kempson @ https://github.com/ChrisKempson/Tomorrow-Theme
-                author:      "Chris Kempson",
-                enabled:     false,
-                bgImg:       false,
-                bgColor:     "1d1f21",
-                mainColor:   "282a2e",
-                brderColor:  "373b41",
-                inputColor:  "282a2e",
-                inputbColor: "1d1f21",
-                blinkColor:  "cc6666",
-                jlinkColor:  "81a2be",
-                linkColor:   "81a2be",
-                linkHColor:  "cc6666",
-                nameColor:   "81a2be",
-                quoteColor:  "b5bd68",
-                textColor:   "c5c8c6",
-                sageColor:   "cc6666",
-                tripColor:   "8abeb7",
-                titleColor:  "b294bb"
-            },
-            {
-                name:        "Yotsuba",
-                enabled:     false,
-                bgImg:       "http://static.4chan.org/image/fade.png",
-                bgRPA:       "repeat-x top center fixed",
-                bgColor:     "ffffee",
-                mainColor:   "f0e0d6",
-                brderColor:  "d9bFb7",
-                inputColor:  "ffffff",
-                inputbColor: "aaaaaa",
-                blinkColor:  "dd0000",
-                jlinkColor:  "800000",
-                linkColor:   "0000ee",
-                linkHColor:  "dd0000",
-                nameColor:   "117743",
-                quoteColor:  "789922",
-                textColor:   "800000",
-                sageColor:   "cc1111",
-                tripColor:   "228854",
-                titleColor:  "cc1105",
-                customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+(config["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
-            },
-            {
-                name:        "Yotsuba B",
-                enabled:     false,
-                bgImg:       "http://static.4chan.org/image/fade-blue.png",
-                bgRPA:       "repeat-x top center fixed",
-                bgColor:     "eef2ff",
-                mainColor:   "d6daf0",
-                brderColor:  "b7c5d9",
-                inputColor:  "ffffff",
-                inputbColor: "aaaaaa",
-                blinkColor:  "dd0000",
-                jlinkColor:  "34345C",
-                linkColor:   "34345C",
-                linkHColor:  "dd0000",
-                nameColor:   "117743",
-                quoteColor:  "789922",
-                textColor:   "000000",
-                sageColor:   "990000",
-                tripColor:   "228854",
-                titleColor:  "0f0c5d",
-                customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+(config["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
-            },
-            {
-                name:        "安心院なじみ",
-                enabled:     false,
-                bgImg:       "http://i.imgur.com/RewHm.png",
-                bgRPA:       "no-repeat right bottom fixed",
-                bgColor:     "ffffff",
-                mainColor:   "efefef",
-                brderColor:  "d6d6d6",
-                inputColor:  "cccccc",
-                inputbColor: "bbbbbb",
-                blinkColor:  "f5871f",
-                jlinkColor:  "bf8040",
-                linkColor:   "bf8040",
-                linkHColor:  "bf8040",
-                nameColor:   "2b80c2",
-                quoteColor:  "718c00",
-                textColor:   "4d4d4c",
-                sageColor:   "c82829",
-                tripColor:   "3e999f",
-                titleColor:  "4d4d4d"
-            },
-            {
-                name:        "Midnight Caek",
-                author:      "zixaphir",
-                enabled:     false,
-                bgImg:       false,
-                bgColor:     "101010",
-                mainColor:   "1c1c1c",
-                brderColor:  "1c1c1c",
-                inputColor:  "1c1c1c",
-                inputbColor: "101010",
-                blinkColor:  "47475b",
-                jlinkColor:  "57577b",
-                linkColor:   "57577b",
-                linkHColor:  "47475b",
-                nameColor:   "7c2d2d",
-                quoteColor:  "71793e",
-                textColor:   "909090",
-                sageColor:   "7c2d2d",
-                tripColor:   "3e7157",
-                titleColor:  "aaaaaa"
-            },
-            {
-                name:        "Solarized", // http://ethanschoonover.com/solarized
-                author:      "Ethan Schoonover",
-                enabled:     false,
-                bgImg:       false,
-                bgColor:     "073642",
-                mainColor:   "032b36",
-                brderColor:  "133942",
-                inputColor:  "073642",
-                inputbColor: "0d272e",
-                blinkColor:  "4f5f8f",
-                jlinkColor:  "696fc0",
-                linkColor:   "696bba",
-                linkHColor:  "d33682",
-                nameColor:   "586e75",
-                quoteColor:  "859900",
-                textColor:   "93a1a1",
-                sageColor:   "cc6666",
-                tripColor:   "2aa198",
-                titleColor:  "bec2c4",
-                customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
-            },
-            {
-                name:        "4chan Rewired", // Originally by !K.WeEabo0o @ http://userstyles.org/styles/57787/4chan-rewired
-                author:      "!K.WeEabo0o",
-                enabled:     false,
-                bgImg:       "http://oi39.tinypic.com/2h51rb4.jpg",
-                bgRPA:       "no-repeat bottom right fixed",
-                bgColor:     "f4f4f4",
-                mainColor:   "efefef",
-                brderColor:  "d4d4d4",
-                inputColor:  "e4e4e4",
-                inputbColor: "cccccc",
-                blinkColor:  "bf7f3f",
-                jlinkColor:  "bf7f3f",
-                linkColor:   "bf7f3f",
-                linkHColor:  "d33682",
-                nameColor:   "4c4c4c",
-                quoteColor:  "6b7a1e",
-                textColor:   "4c4c4c",
-                sageColor:   "cc6666",
-                tripColor:   "bf7f3f",
-                titleColor:  "4c4c4c",
-                customCSS:   'new String((config["Layout"]==2?".replyhider{border:1px solid "+this.brderColor.hex+"!important;border-right:0!important}.op{border:1px solid "+this.brderColor.hex+"!important;"+(config["Sidebar Position"]==3?"left:-"+(config["Side Margin"]+2)+"px!important;padding-left:"+(config["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}")'
-            }
-        ],
-        "Mascots":
-        [
-            { img: "http://i.imgur.com/DL5uR.png", enabled: true, overflow: true                                          }, // asuka
-            { img: "http://i.imgur.com/zhPlM.png", enabled: true                                                          }, // erio
-            { img: "http://i.imgur.com/b9KmB.png", enabled: true                                                          }, // homu
-            { img: "http://i.imgur.com/bsLY4.png", offset: 0, position: "center", enabled: true                           }, // horo
-            { img: "http://i.imgur.com/uO5qZ.png", enabled: true                                                          }, // kuroko
-            { img: "http://i.imgur.com/Ht6dr.png", offset: -90, position: "center", enabled: true, small: true            }, // kuroneko
-            { img: "http://i.imgur.com/56oEl.png", enabled: true                                                          }, // inori
-            { img: "http://i.imgur.com/ridLc.png", enabled: true, overflow: true                                          }, // kimi
-            { img: "http://i.imgur.com/AfjG9.png", offset: 0, position: "center", enabled: true, flip: false, small: true }, // lain
-            { img: "http://i.imgur.com/WUIMw.png", enabled: true                                                          }, // luka
-            { img: "http://i.imgur.com/J1i26.png", offset: -90, position: "center", enabled: true                         }, // madotsuki
-            { img: "http://i.imgur.com/53yAK.png", enabled: true, overflow: true                                          }, // ムゥ～りさ
-            { img: "http://i.imgur.com/H1pgZ.png", offset: 0, position: "center", enabled: true, flip: false, small: true }, // miku
-            { img: "http://i.imgur.com/MdE9K.png", enabled: true, flip: false, overflow: true                             }, // mio
-            { img: "http://i.imgur.com/NaKmF.png", offset: 0, position: "center", enabled: true                           }, // mokou
-            { img: "http://i.imgur.com/WWozC.png", enabled: true, overflow: true                                          }, // ran
-            { img: "http://i.imgur.com/K1mLx.png", enabled: true, flip: false, samll: true                                }, // shana
-            { img: "http://i.imgur.com/FKDcd.png", enabled: true                                                          }, // shiki
-            { img: "http://i.imgur.com/zu9nY.png", enabled: true                                                          }, // tessa
-            { img: "http://i.imgur.com/haBSN.png", enabled: true                                                          }, // yin
-            { img: "http://i.imgur.com/xwPrX.png", enabled: true                                                          }  // yozora
-        ],
         "Nav Links":
         [
             { text: "anime & manga", link: "http://boards.4chan.org/a/"  },
@@ -349,7 +128,13 @@
         "Nav Link Delimiter":
         [
             "&nbsp;-&nbsp;", "Sets the character which will separate navigation links"
-        ]
+        ],
+        "Themes"          : [],
+        "Hidden Themes"   : [],
+        "Selected Theme"  : 0,
+        "Selected Mascots": 0,
+        "Mascots"         : [],
+        "Hidden Mascots"  : []
     },
     MAX_FONT_SIZE = 16,
     MIN_FONT_SIZE = 10,
@@ -375,10 +160,11 @@
         { dName: "Tripcodes",        name: "tripColor",   property: "color"            },
         { dName: "Titles",           name: "titleColor",  property: "color"            }
     ],
-    SSf, $SS, config, theme, mascot, css, fontList;
+    SSf, $SS;
     
     if (!Array.isArray)
         Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
+
         
     Number.prototype.toHexStr = function()
     {
@@ -457,11 +243,11 @@
         },
         
         /* DOM NODE RETRIEVAL */
-        clone: function(deep)
+        clone: function()
         {
             var ret = [];
             
-            this.each(function(){ ret.push(this.cloneNode(deep)); });
+            this.each(function(){ ret.push(this.cloneNode(true)); });
             
             return new SSf(ret);
         },
@@ -519,6 +305,13 @@
                     this.parentNode.appendChild(el);
             });
         },
+        replace: function(el)
+        {
+            return this.each(function()
+            {
+                $(this).before(el).remove();
+            });
+        },
         html: function(html)
         {
             if (html == undefined)
@@ -540,7 +333,10 @@
         attr: function(name, val)
         {
             if (val == undefined)
-                return this.elems[0].getAttribute(name);
+                if (!this.hasSingleEl())
+                    return this;
+                else
+                    return this.elems[0].getAttribute(name);
                     
             return this.each(function(){ this.setAttribute(name, val); });
         },
@@ -550,6 +346,18 @@
                 return this.elems[0].disabled;
                 
             return this.each(function(){ this.disabled = bDisabled; });
+        },
+        hide: function(bHidden)
+        {
+            return this.each(function()
+            {
+                var $this = $(this);
+                
+                if (bHidden == undefined)
+                    bHidden = !($this.attr("disabled") === "true");
+                
+                $this.attr("hidden", bHidden);
+            });
         },
         val: function(val)
         {
@@ -566,6 +374,8 @@
                     case "radio":
                         return el.checked == true;
                     default:
+                        if (!isNaN(el.value) && typeof el.value === "string")
+                            return parseInt(el.value);
                         return el.value;
                 }
             }
@@ -785,7 +595,7 @@
                 
                 var div = $("<div class=riceCheck>").riceCheckBind();
                 
-                $this.attr("riced", true).attr("hidden", true).after(div);
+                $this.attr("riced", true).hide(true).after(div);
             });
         },
         riceCheckBind: function()
@@ -816,11 +626,14 @@
     /* STYLE SCRIPT CLASSES & METHODS */
     $SS =
     {
-        incRice: false,
-        bHideSidebar: false,
-        bNewQR: false,
+        bHideSidebar: false, // remove this later
         browser: { gecko: false, opera: false, webkit: false },
-        location: { },
+        conf: false,
+        fontList: false,
+        location: false,
+        mascot: false,
+        theme: false,
+        
         init: function(reload)
         {
             if (!reload)
@@ -829,19 +642,14 @@
                 $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
                 $SS.browser.opera  = /Opera/.test(navigator.userAgent);
                 $SS.location       = $SS.getLocation();
+                $SS.Config.hasGM   = $SS.browser.webkit ? false : $SS.Config.hasGM;
             }
 
             if (/^about:neterror/.test(document.documentURI) || $SS.location.sub != "boards") return;
             
-            config                             = $SS.config.load();
-            config["Small Font Size"]          = config["Font Size"] > 11 && !config["Bitmap Font"] ? 12 : config["Font Size"];
-            config["Sidebar Position String"]  = config["Sidebar Position"] != 2 ? "right" : "left";
-            config["Sidebar Position oString"] = config["Sidebar Position"] != 2 ? "left" : "right";
-            config["Side Margin"]              = config["Layout"] == 2 ? Math.min(Math.max(20, config["Side Margin"]), 26) : config["Side Margin"];
-
-            
-            mascot = $SS.options.getMascot();
-            theme  = $SS.options.getTheme();
+            $SS.Config.init();
+            $SS.Themes.init();
+            $SS.Mascots.init();
                         
             if (reload)
             {
@@ -861,35 +669,17 @@
                     $(document).bind("DOMContentLoaded", $SS.DOMLoaded);
             }
         },
-        getLocation: function(url)
-        {
-            var obj;
-            
-            if (typeof url === "string")
-            {
-                obj = document.createElement("a");
-                obj.href = url;
-            }
-            else
-                obj = window.location;
-            
-            var pathname = obj.pathname.substr(1).split("/");
-            
-            return {
-                sub  : obj.hostname.split(".")[0],
-                board: pathname[0],
-                reply: pathname[1] == "res"
-            };
-        },
         
         /* STYLING & DOM */
         insertCSS: function()
         {
+            var css;
+            
             if ($(document.head).exists())
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
             
-            $SS.bHideSidebar = (config["Sidebar Position"] == 3 ||
+            $SS.bHideSidebar = ($SS.conf["Sidebar Position"] == 3 ||
                                 $SS.location.sub != "boards" ||
                                 document.title == "Website is currently unreachable");
             
@@ -911,7 +701,7 @@
             // allow 4chan x to load first
             setTimeout(function()
             {
-                var ann, pages, qr,
+                var ann, pages, qr, openLink,
                     postLoadCSS = "#navtop,#navtopr{display:inline-block!important}.pages{display:table!important}",
                     addLabels   = function(qr)
                     {
@@ -925,47 +715,23 @@
                     
                 if (!reload)
                 {
+                    var next, prev, imgCtrl;
+                    
                     $SS.options.init();
                     $SS.bNewQR = /chanx_/.test(document.body.className);
                     
                     $(".logo>img").attr("id", "logo");
                 
-                    // force persistent QR with 2.25+
-                    if ($SS.bNewQR && !$("#qr").exists() && $(".postarea h1 a").exists())
+                    // force persistent QR
+                    if ($SS.bNewQR && !$("#qr").exists() && (openLink = $(".postarea h1 a")).exists())
                     {
-                        $(".postarea h1 a").get().click();
+                        openLink.fire("click");
                         $("#qr textarea[name=com]").get().blur();
                     }
-                    else if (!$SS.bNewQR)
-                        $(".postarea form[name=post]").elements().each(function()
-                        {
-                            switch ($(this).attr("name"))
-                            {
-                                case "name":
-                                    $(this).attr("placeholder", "Name");
-                                    break;
-                                case "email":
-                                    $(this).attr("placeholder", "E-mail");
-                                    break;
-                                case "sub":
-                                    $(this).attr("placeholder", "Subject");
-                                    break;
-                                case "com":
-                                    $(this).attr("placeholder", "Comment");
-                                    break;
-                                case "recaptcha_response_field":
-                                    $(this).attr("placeholder", "Verification");
-                                    break;
-                                case "pwd":
-                                    $(this).attr("placeholder", "Password");
-                                    break;
-                            }
-                        });
+                    
                     // fix auto offset mascot in locked threads
-                    else if (!$(".postarea").exists() && !mascot.bOffset)
+                    if (!$(".postarea").exists() && !mascot.bOffset)
                         postLoadCSS += "body::after{margin-bottom:0!important}";
-                
-                    var next, prev, imgCtrl;
                     
                     if ((prev = $(".pages td input[value='Previous']")).exists())
                         prev.val("Prev");
@@ -975,42 +741,31 @@
                     if ((next = $(".pages td:last-child")).exists() && !next.children("input").exists())
                         next.text("").attr("style", "padding:0 2px 0 0!important");
                     
-                    if ((imgCtrl = $("#imgControls>label")).exists())
+                    if ((imgCtrl = $("#imageType+label")).exists())
                         imgCtrl.bind("change", function()
                         {
                             $(this).toggleClass("imgExpanded");
                         });
                 }
-                else
-                {
-                    var boardLinks;
-                    
-                    if ((boardLinks = $("#boardLinks")).exists())
-                        boardLinks.remove();
-                }
                 
                 // persistent QR
-                if ($("#qr").exists())
+                if ((qr = $("#qr")).exists())
                     postLoadCSS += ".postarea,#qr .close{display:none!important}";
                     
-                // old QR and auto mascot offset
-                if (!$SS.bNewQR && !mascot.bOffset && config["Post Form"] != 1)
-                    postLoadCSS += "body::after{margin-bottom:324px!important}";
-                    
-                if (config["Custom Navigation Links"])
+                if ($SS.conf["Custom Navigation Links"])
                     $SS.buildCustomNav();
                     
                 if ((pages = $(".pages")).exists())
                 {
                     // Set left offset for slide out pages
-                    if (config["Pages Position"] == 1)
+                    if ($SS.conf["Pages Position"] == 1)
                     {
                         pages.attr("style", "display:table!important");
                         setTimeout(function()
                         {
                             pages.attr("style",
-                                config["Sidebar Position oString"] + ":" +
-                                    ((config["Sidebar Position"] != 2 ? $(".pages td:last-child").get().offsetWidth : 0) - pages.get().offsetWidth) + "px");
+                                $SS.conf["Sidebar Position oString"] + ":" + // FIXME: the last page will cause the pages to always be off the screen
+                                    (($SS.conf["Sidebar Position"] != 2 ? $(".pages td:last-child").get().offsetWidth : 0) - pages.get().offsetWidth) + "px");
                         }, 10);
                     }
                     else if (reload)
@@ -1018,9 +773,9 @@
                 }
                 
                 // Add ExHentai source link
-                if (config["ExHentai Source"] != 1)
+                if ($SS.conf["ExHentai Source"] != 1)
                 {
-                    config["ExType"] = config["ExHentai Source"] == 2 ? "exhentai" : "g.e-hentai";
+                    $SS.conf["ExType"] = $SS.conf["ExHentai Source"] == 2 ? "exhentai" : "g.e-hentai";
                     
                     if (!reload || !$(".exSource").exists())
                         $SS.exsauce.addLinks(document);
@@ -1028,29 +783,29 @@
                 else if (reload)
                     $(".exSource").remove();
                 
-                if (config["Rice Inputs"] == 2)
+                if ($SS.conf["Rice Inputs"] == 2)
                     $("input[type=file]").riceFile();
-                else if (config["Rice Inputs"] == 3)
-                  $("input[type=checkbox]:not(#imageExpand)").riceCheck();
-                else if (config["Rice Inputs"] == 4)
+                else if ($SS.conf["Rice Inputs"] == 3)
+                  $("input[type=checkbox]:not(#imageExpand):not(#autohide)").riceCheck();
+                else if ($SS.conf["Rice Inputs"] == 4)
                 {
                     $("input[type=file]").riceFile();
-                    $("input[type=checkbox]:not(#imageExpand)").riceCheck();
+                    $("input[type=checkbox]:not(#imageExpand):not(#autohide)").riceCheck();
                 }
                 
                 if (reload)
                 {
                     $("#ch4SSPost").text(postLoadCSS);
                     
-                    if ((qr = $("body>span[style]~#qr")).exists() || (qr = $("body[class*='chanx_']>#qr")).exists())
+                    if (qr.exists())
                     {
-                        if (config["Post Form"] != 1)
+                        if ($SS.conf["Post Form"] != 1)
                         {
                             qr.attr("style", "")
                               .unbind("mouseover", $SS.qrMouseOver)
                               .unbind("mouseout", $SS.qrMouseOut);
                               
-                            if (config["Post Form"] == 3)
+                            if ($SS.conf["Post Form"] == 3)
                                 qr.addClass("fixed");
                             else
                                 qr.removeClass("fixed");
@@ -1059,17 +814,13 @@
                         {
                             qr.bind("mouseover", $SS.qrMouseOver)
                               .bind("mouseout", $SS.qrMouseOut);
-                            
-                            setTimeout(function(){ $SS.qrMouseOut(qr.get()); }, 1000);
                         }
                         
-                        if ($SS.bNewQR && config["Expanding Form Inputs"])
+                        if ($SS.conf["Expanding Form Inputs"])
                             addLabels(qr);
-                    
-                        $SS.fixQRhide();
                     }
                     
-                    if (config["Smart Tripcode Hider"])
+                    if ($SS.conf["Smart Tripcode Hider"])
                         $("input[name=name]").each(function()
                         {
                             $(this).bind("blur", $SS.tripCheck);
@@ -1088,58 +839,41 @@
                     $("#ch4SSPost").text(postLoadCSS);
                     
                     // Change some of 4chan x quick reply events
-                    if ((qr = $("body[class*='chanx_']>#qr")).exists() || (qr = $("body>span[style]~#qr")).exists())
+                    if (qr.exists())
                     {
                         // Clone to remove event listeners and delete text
                         var move  = qr.children("div.move"),
-                            moveC = move.clone(true),
-                            check = qr.children("#autohide"),
-                            rcheck = check.nextSibling(".riceCheck");
+                            moveC = move.clone(),
+                            check = qr.children("#autohide");
                         
+                        qr.attr("style", "");
                         move.remove();
+                        check = $("#autohide", moveC);
+                        qr.prepend(moveC);
                         
-                        if ($SS.bNewQR)
-                        {
-                            check = $("#autohide", moveC);
-                            qr.prepend(moveC);
-                            
-                            if ((rcheck = $(".riceCheck", moveC)).exists())
-                            {
-                                rcheck.remove();
-                                check.attr("riced", false).riceCheck();
-                            }
-                            
-                            $(".warning", qr).bind("click", function(){ $(this).removeClass("showWarning"); });
-                            $("input[type=submit]", qr).bind("click", function(){ setTimeout($SS.fixQRhide, 10); });
-                            
-                            if (config["Expanding Form Inputs"])
-                                addLabels(qr);
-                        }
-                        else if (rcheck.exists())
-                            rcheck.after(moveC);
-                        else
-                            check.after(moveC);
-                            
-                        check.bind("change", $SS.fixQRhide)
-                            
-                        $SS.fixQuote(document);
-                        $SS.fixQRhide();
+                        $(".warning", qr).bind("click", function(){ $(this).removeClass("showWarning"); });
                         
-                        if (config["Post Form"] == 1 && ($SS.bNewQR || $SS.location.reply))
+                        if ($SS.conf["Expanding Form Inputs"])
+                            addLabels(qr);
+                            
+                        if ($SS.conf["Rice Inputs"] == 3 || $SS.conf["Rice Inputs"] == 4)
+                            check.riceCheck();
+                        
+                        check.bind("change", function(){ $("#qr").toggleClass("autohide"); });
+                        
+                        if ($SS.conf["Post Form"] == 1)
                         {
                             qr.bind("mouseover", $SS.qrMouseOver)
                               .bind("mouseout", $SS.qrMouseOut);
-                            
-                            setTimeout(function(){ $SS.qrMouseOut(qr.get()); }, 1000);
                         }
-                        else if (config["Post Form"] == 3)
+                        else if ($SS.conf["Post Form"] == 3)
                             qr.addClass("fixed");
                         
-                        $("input,textarea,select", qr).bind("focus", function(){ $("#qr").addClass("focus"); })
+                        $("input,textarea,select", qr).bind("focus", function(){ $("#qr").attr("style", "").addClass("focus"); })
                                                       .bind("blur", function(){ $("#qr").removeClass("focus"); });
                     }
                     
-                    if (config["Smart Tripcode Hider"])
+                    if ($SS.conf["Smart Tripcode Hider"])
                         $("input[name=name]").each(function()
                         {
                             $(this).bind("blur", $SS.tripCheck);
@@ -1147,40 +881,15 @@
                         });
                     
                     $(document).bind("DOMNodeInserted", $SS.nodeInsertedHandler)
-                               .bind("DOMSubtreeModified", $SS.subtreeModifiedHandler); // this may be deprecated
-                                                                                        // but there is no(?) alternative.
+                               .bind("DOMSubtreeModified", $SS.subtreeModifiedHandler);
                 }
             }, 10);
-        },
-        fixQuote: function(x)
-        {
-            $("a.quotejs", x).bind("click", $SS.fixQRhide);
-        },
-        fixQRhide: function()
-        {
-            var autohide = $("#autohide");
-            
-            if (!autohide.exists() || (!$SS.bNewQR && !$SS.location.reply)) return;
-            
-            var parent = $SS.bNewQR ? autohide.parent().parent() : autohide.parent();
-
-            if (!autohide.val())
-            {
-                if (config["Post Form"] == 1)
-                    parent.attr("style", "bottom:0!important;-webkit-transition:bottom .1s;-moz-transition:bottom .1s;-o-transition:bottom .1s");
-                else if (config["Post Form"] == 2)
-                    parent.attr("style", "opacity:1!important;-webkit-transition:none;-moz-transition:none;-o-transition:none");
-            }
-            else
-                parent.attr("style", "");
-                
-            return $SS.bQRhide = true;
         },
         nodeInsertedHandler: function(e)
         {
             if (e.target.nodeName === "DIV")
             {
-                if ((config["Rice Inputs"] == 2 || config["Rice Inputs"] == 4) && (e.target.className != "riceFile" || $SS.incRice))
+                if (($SS.conf["Rice Inputs"] == 2 || $SS.conf["Rice Inputs"] == 4) && (e.target.className != "riceFile" || $SS.incRice))
                 {
                     $SS.incRice = false;
                     
@@ -1194,7 +903,7 @@
                     {
                         $("input[type=file]", e.target).riceFile();
                         
-                        if (config["Rice Inputs"] == 4)
+                        if ($SS.conf["Rice Inputs"] == 4)
                             $("input[type=checkbox]", e.target).riceCheck();
                     }
                 }
@@ -1202,20 +911,16 @@
             // replies
             else if (e.target.nodeName === "TABLE")
             {
-                $SS.fixQuote(e.target);
-                
-                if (config["ExHentai Source"] != 1)
+                if ($SS.conf["ExHentai Source"] != 1)
                     $SS.exsauce.addLinks(e.target);
 
-                if (config["Rice Inputs"] == 3 || config["Rice Inputs"] == 4)
+                if ($SS.conf["Rice Inputs"] == 3 || $SS.conf["Rice Inputs"] == 4)
                     $("input[type=checkbox]", e.target).riceCheck();
             }
             // occurs after form is submitted
             else if (e.target.nodeName === "INPUT" && e.target.name === "upfile")
             {
-                $SS.fixQRhide();
-                
-                if (config["Rice Inputs"] == 2 || config["Rice Inputs"] == 4)
+                if ($SS.conf["Rice Inputs"] == 2 || $SS.conf["Rice Inputs"] == 4)
                 {
                     $(e.target).riceFileBind();
                     $SS.incRice = true;
@@ -1224,7 +929,7 @@
             // occurs after form is submitted (new QR) or multiple images added
             else if (e.target.className === "preview")
             {
-                if (config["Rice Inputs"] == 3 || config["Rice Inputs"] == 4)
+                if ($SS.conf["Rice Inputs"] == 3 || $SS.conf["Rice Inputs"] == 4)
                     $("input[type=checkbox]", e.target).riceCheck();
                     
                 $(".riceFile>span", $("#qr")).text("");
@@ -1246,14 +951,13 @@
         },
         qrMouseOver: function()
         {
-            if ($("#autohide", this).val())
-                $(this).attr("style", "");
+            $(this).attr("style", "");
         },
         qrMouseOut: function(e)
         {
             var qr = this.nodeName ? this : e;
-            
-            if ($("#autohide", qr).val() && !$(qr).hasClass("focus"))
+
+            if ($(qr).hasClass("autohide") && !$(qr).hasClass("focus"))
                 $(qr).attr("style", "bottom:-" + (qr.clientHeight - $(".move", qr).get().clientHeight) + "px!important");
         },
         tripCheck: function(e)
@@ -1268,33 +972,47 @@
         },
         
         /* CONFIG */
-        config:
+        Config:
         {
-            contains: function(arr, val, key)
+            hasGM: typeof GM_deleteValue !== "undefined",
+            
+            init: function()
             {
-                for (var i = 0, MAX = arr.length; i < MAX; i++)
-                    if (arr[i][key] === val)
-                        return true;
-                        
-                return false;
+                $SS.conf = [];
+                
+                for (var key in defaultConfig)
+                    $SS.conf[key] = this.parseVal(key, this.get(key));
+                    
+                $SS.conf["Small Font Size"]          = $SS.conf["Font Size"] > 11 && !$SS.conf["Bitmap Font"] ? 12 : $SS.conf["Font Size"];
+                $SS.conf["Sidebar Position String"]  = $SS.conf["Sidebar Position"] != 2 ? "right" : "left";
+                $SS.conf["Sidebar Position oString"] = $SS.conf["Sidebar Position"] != 2 ? "left" : "right";
+                $SS.conf["Side Margin"]              = $SS.conf["Layout"] == 2 ? Math.min(Math.max(20, $SS.conf["Side Margin"]), 26) : $SS.conf["Side Margin"];
             },
-            parseVal: function(val)
+            parseVal: function(key, val)
             {
+                if (/^(Selected|Hidden)+\s(Mascots|Themes?)+$/.test(key))
+                {
+                     if (key == "Selected Theme")
+                        return parseInt(val);
+                    
+                    for (var i = 0, MAX = val.length, ret = []; i < MAX; i++)
+                        ret[i] = parseInt(val[i]);
+                        
+                    return ret;
+                }
+                
                 return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
             },
             get: function(name)
             {
-                var val = localStorage.getItem(NAMESPACE + name);
+                var val = this.hasGM ?
+                            GM_getValue(NAMESPACE + name) :
+                            localStorage.getItem(NAMESPACE + name);
                     
-                if (val != null)
+                if (val != undefined)
                 {
                     val = JSON.parse(val);
-
-                    if (!isNaN(val) && typeof val === "string")
-                        return parseInt(val);
-                    
-                    if (!Array.isArray(val) || (Array.isArray(val) && val[0] != undefined))
-                        return val;
+                    return val;
                 }
                     
                 return defaultConfig[name];
@@ -1302,40 +1020,25 @@
             set: function(name, val)
             {
                 name = NAMESPACE + name;
-                val  = JSON.stringify(val);
                 
-                if (val == undefined || (Array.isArray(val) && val[0] == undefined))
-                    return localStorage.removeItem(name);
-                    
-                return localStorage.setItem(name, val);
-            },
-            load: function()
-            {
-                var ret = { };
+                if (typeof val !== "number")
+                    val = JSON.stringify(val);
                 
-                for (var key in defaultConfig)
-                    ret[key] = this.parseVal(this.get(key));
-                
-                return ret;
-            },
-            update: function(name)
-            {
-                var current  = config[name],
-                    defaults = defaultConfig[name],
-                    key      = name == "Themes" ? "name" : "img";
-                    
-                for (var i = 0, MAX = defaults.length; i < MAX; i++)
-                    if (!this.contains(current, defaults[i][key], key))
-                        current.push(defaults[i]);
-                        
-                return current;
+                return this.hasGM ?
+                        GM_setValue(name, val) :
+                        localStorage.setItem(name, val);
             }
         },
         
         /* OPTIONS */
         options:
         {
-            saveAndClose: true,
+            saveAndClose  : true,
+            hiddenThemes  : [],
+            deletedThemes : [],
+            hiddenMascots : [],
+            deletedMascots: [],
+            
             init: function()
             {
                 var a = $("<a>SS").bind("click", $SS.options.show);
@@ -1347,30 +1050,30 @@
                     $SS.options.close();
                 else
                 {
-                    var key, val, des,
-                        overlay = $("<div id=overlay>"),
-                        tOptions = $("<div id=themeoptions class=reply>"),
+                    var overlay     = $("<div id=overlay>"),
+                        tOptions    = $("<div id=themeoptions class=reply>"),
                         optionsHTML = "<ul id=toNav>\
-                    <li><label class=selected for=tcbMain>Main</label></li>\
-                    <li><label for=tcbThemes>Themes</label></li>\
-                    <li><label for=tcbMascots>Mascots</label></li>\
-                    <li><label for=tcbNavLinks>Nav Links</label></li>\
-                    </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>\
-                    <p><a class=trbtn name=loadSysFonts title='Reqiures flash'>" + (fontList ? "System Fonts Loaded!" : "Load System Fonts") + "</a></p>";
+                        <li><label class=selected for=tcbMain>Main</label></li>\
+                        <li><label for=tcbThemes>Themes</label></li>\
+                        <li><label for=tcbMascots>Mascots</label></li>\
+                        <li><label for=tcbNavLinks>Nav Links</label></li>\
+                        </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>\
+                        <p><a class=trbtn name=loadSysFonts title='Reqiures flash'>" + ($SS.fontList ? "System Fonts Loaded!" : "Load System Fonts") + "</a></p>",
+                        key, val, des;
                     
-                    for (key in config)
+                    for (key in defaultConfig)
                     {
-                        if (!defaultConfig.hasOwnProperty(key) || 
-                            (key == "Style Scrollbars" && !$SS.browser.webkit) ||
-                            key == "Nav Link Delimiter")
+                        if ((key == "Style Scrollbars" && !$SS.browser.webkit) ||
+                            key == "Nav Link Delimiter" ||
+                            /^(Selected|Hidden)+\s(Mascots|Themes?)+$/.test(key))
                             continue;
                         
-                        val = config[key];
+                        val = $SS.conf[key];
                         des = defaultConfig[key][1];
                         
                         if (Array.isArray(defaultConfig[key][2]))
                         {
-                            var opts = key == "Font" ? fontList || defaultConfig[key][2] : defaultConfig[key][2],
+                            var opts = key == "Font" ? $SS.fontList || defaultConfig[key][2] : defaultConfig[key][2],
                                 cFonts = [];
                             optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'>";
                             
@@ -1388,65 +1091,67 @@
                                     
                                 if (key == "Font") cFonts.push(value);
                                 
-                                optionsHTML += "<option" + (key == "Font" ? " style=\"font-family:" + $SS.FormatFont(value) + "!important\"" : "") + " value='" + value + "'" + (value == val ? " selected" : "") + ">" + name + "</option>";
+                                optionsHTML += "<option" + (key == "Font" ? " style=\"font-family:" + $SS.formatFont(value) + "!important\"" : "") + " value='" + value + "'" + (value == val ? " selected" : "") + ">" + name + "</option>";
                             }
                             
-                            if (key == "Font" && cFonts.indexOf(config["Font"]) == -1)
-                               optionsHTML += "<option style=\"font-family:" + $SS.FormatFont(config["Font"]) + "!important\" value='" + config["Font"] + "' selected>" + config["Font"] + "</option>"; 
+                            if (key == "Font" && cFonts.indexOf($SS.conf["Font"]) == -1)
+                               optionsHTML += "<option style=\"font-family:" + $SS.formatFont($SS.conf["Font"]) + "!important\" value='" + $SS.conf["Font"] + "' selected>" + $SS.conf["Font"] + "</option>"; 
                             
                             optionsHTML += "</select></label>";
                         }
                         else if (key == "Font Size")
                         {
-                            optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + config["Font Size"] + "px></label>";
+                            optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></label>";
                         }
                         else if (key == "Themes")
                         {
-                            var themes = config["Themes"];
                             optionsHTML += "</div><input type=radio name=toTab id=tcbThemes hidden><div id=tThemes>\
-                                            <p><a class=trbtn name=addTheme>add</a><a class=trbtn name=updateThemes title='Adds all missing default themes'>update</a></p>";
-                            
-                            for (var i = 0, MAX = themes.length, tTheme; i < MAX; i++)
-                            {
-                                tTheme = new $SS.Theme(themes[i]);
-                                optionsHTML += "<div id=theme" + i + (tTheme.name == theme.name ? " class=selected>" : ">") + $SS.themePreview(tTheme) + "</div>";
-                            }
+                                            <p><a class=trbtn name=addTheme>add</a><a class=trbtn name=restoreThemes title='Restore hidden default themes'>restore</a></p>";
                         }
                         else if (key == "Mascots")
                         {
-                            var mascots = config["Mascots"];
                             optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot>\
-                                            <p><a class=trbtn name=addMascot>add</a><a class=trbtn name=updateMascots title='Adds all missing default mascots'>update</a><a class=trbtn name=selectAll>select all</a><a class=trbtn name=selectNone>select none</a></p>";
-                            
-                            for (var i = 0, MAX = mascots.length, tMascot; i < MAX; i++)
-                            {
-                                tMascot = new $SS.Mascot(mascots[i]);
-                                optionsHTML += "<div id=mascot" + i + (tMascot.enabled ? " class=selected" : "") + " style=\"background:" + tMascot.img.get() + "\">\
-                                <a title=Delete>X</a><a title=Edit>E</a></div>";
-                            }
+                                            <p><a class=trbtn name=addMascot>add</a><a class=trbtn name=restoreMascots title='Restore hidden default mascots'>restore</a><a class=trbtn name=selectAll>select all</a><a class=trbtn name=selectNone>select none</a></p>";
                         }
                         else if (key == "Nav Links")
                         {
-                            var links = config["Nav Links"];
+                            var links = $SS.conf["Nav Links"];
                             optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks>\
                                             <p><a class=trbtn name=addLink>add</a>\
                                             <label>Delimiter: \
-                                            <input type=text name='Nav Link Delimiter' value='" + config["Nav Link Delimiter"] + "' style='width:40px' title='" + defaultConfig["Nav Link Delimiter"][1] + "'></p>";
+                                            <input type=text name='Nav Link Delimiter' value='" + $SS.conf["Nav Link Delimiter"] + "' style='width:40px' title='" + defaultConfig["Nav Link Delimiter"][1] + "'></p>";
                             
                             for (var i = 0, MAX = links.length; i < MAX; i++)
                                 optionsHTML += "<div><label>Text: <input type=text value='" + links[i].text + "'></label>" +
                                                     "<label>Link: <input type=text value='" + links[i].link + "'></label>" +
                                                     "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a></div>";
-                            
-                            optionsHTML += "</div>";
                         }
                         else
                             optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
                     }
                     
-                    optionsHTML += "</div><div><a class=trbtn name=save title='Hold any modifier to prevent window from closing'>save</a><a class=trbtn name=cancel>cancel</a></div>";
+                    optionsHTML += "</div></div><div><a class=trbtn name=save title='Hold any modifier to prevent window from closing'>save</a><a class=trbtn name=cancel>cancel</a></div>";
                     tOptions.html(optionsHTML);
                     overlay.append(tOptions);
+                    
+                    
+                    for (var i = 0, MAX = $SS.conf["Themes"].length,
+                             themes = $("#tThemes", tOptions), tTheme; i < MAX; i++)
+                    {
+                        tTheme = new $SS.Theme(i);
+                        
+                        if (!tTheme.hidden)
+                            themes.append(tTheme.preview());
+                    }
+                    
+                    for (var i = 0, MAX = $SS.conf["Mascots"].length,
+                             mascots = $("#tMascot", tOptions), tMascot; i < MAX; i++)
+                    {
+                        tMascot = new $SS.Mascot(i);
+                        
+                        if (!tMascot.hidden)
+                            mascots.append(tMascot.preview());
+                    }
                     
                     $("input[name='Font Size']", tOptions).bind("keydown", function(e)
                     {
@@ -1467,9 +1172,6 @@
                         $(this).addClass("selected");
                     });
                     
-                    $("#tThemes>div", tOptions).each(function(){ $SS.options.bindThemeInputs(this); });
-                    $("#tMascot div", tOptions).each(function(){ $SS.options.bindMascotInputs(this); });
-                    
                     var bindLinkButtons = function(el)
                     {
                         $("a[name=upLink]", el).bind("click", function()
@@ -1487,32 +1189,17 @@
                         $("a[name=delLink]", el).bind("click", function(){ $(this).parent().remove(); });
                     };
                     
-                    if (!fontList)
+                    if (!$SS.fontList)
                         $("a[name=loadSysFonts]", tOptions).bind("click", $SS.options.loadSystemFonts);
                     
                     $("a[name=addTheme]", tOptions).bind("click", $SS.options.showTheme);
-                    $("a[name=updateThemes]", tOptions).bind("click", function()
+                    $("a[name=restoreThemes]", tOptions).bind("click", function()
                     {
-                        config["Themes"] = $SS.config.update("Themes");
-                        $("#tThemes>div").remove();
-                        
-                        for (var i = 0, MAX = config["Themes"].length; i < MAX; i++)
-                        {
-                            var tTheme = new $SS.Theme(config["Themes"][i]),
-                                div    = $("<div id=theme" + i + (tTheme.name == theme.name ? " class=selected>" : ">"));
-                                
-                            div.html($SS.themePreview(tTheme));
-                            $SS.options.bindThemeInputs(div);
-                            $("#tThemes").append(div);
-                        }
+                        //TODO
                     });
-                    $("a[name=updateMascots]", tOptions).bind("click", function()
+                    $("a[name=restoreMascots]", tOptions).bind("click", function()
                     {
-                        config["Mascots"] = $SS.config.update("Mascots");
-                        $("#tMascot>div").remove();
-                        
-                        for (var i = 0, MAX = config["Mascots"].length; i < MAX; i++)
-                            $("#tMascot").append($SS.mascotPreview(i));
+                        //TODO
                     });
                     $("a[name=addMascot]", tOptions).bind("click", $SS.options.showMascot);
                     $("a[name=selectAll]", tOptions).bind("click", function(){ $("#tMascot>div").each(function(){ $(this).addClass("selected") }); });
@@ -1572,15 +1259,15 @@
                 }'));
                 window.addEventListener("message", getFontMessage = function(e)
                 {
-                    fontList = e.data;
+                    $SS.fontList = e.data;
                     var fontSelect = $("<select name=Font>");
                     
-                    for (var i = 0, MAX = fontList.length; i < MAX; i++)
+                    for (var i = 0, MAX = $SS.fontList.length; i < MAX; i++)
                     {
                         var name, value;
-                            name = value = fontList[i];
+                            name = value = $SS.fontList[i];
                             
-                        fontSelect.append($("<option" + " style=\"font-family:" + $SS.FormatFont(value) + "!important\"" + " value='" + value + "'" + (value == config["Font"] ? " selected=true" : "") + ">" + name));
+                        fontSelect.append($("<option" + " style=\"font-family:" + $SS.formatFont(value) + "!important\"" + " value='" + value + "'" + (value == $SS.conf["Font"] ? " selected=true" : "") + ">" + name));
                     }
                     
                     $("select[name=Font]").before(fontSelect).remove();
@@ -1594,13 +1281,15 @@
             },
             save: function()
             {
-                var div     = $("#themeoptions"),
-                    themes  = [],
-                    mascots = [],
-                    links   = [];
+                var div             = $("#themeoptions"),
+                    themes          = [],
+                    mascots         = [],
+                    links           = [],
+                    selectedMascots = [],
+                    selectedTheme;
                 
                 // Save main
-                $("#themeoptions input:not([name=toTab]), #themeoptions select").each(function()
+                $("#themeoptions input[name]:not([name=toTab]), #themeoptions select").each(function()
                 {
                     var name = $(this).attr("name"),
                         val  = $(this).val();
@@ -1615,31 +1304,57 @@
                     else if (name == "Nav Link Delimiter")
                         val = val.replace(/\s/g, "&nbsp;");
                     
-                    $SS.config.set($(this).attr("name"), val);
+                    $SS.Config.set($(this).attr("name"), val);
                 });
                 
                 // Save Themes
-                $("#themeoptions #tThemes>div").each(function(index)
+                $("#themeoptions #tThemes>div").each(function()
                 {
-                    config["Themes"][index].enabled = $(this).hasClass("selected");
-                    themes.push(config["Themes"][index]);
+                    var index = this.id.substr(5);
+                    if (!$SS.conf["Themes"][index].default)
+                        themes.push($SS.conf["Themes"][index]);
                 });
                 
-                $SS.config.set("Themes", themes);
+                selectedTheme = (selectedTheme = $("#themeoptions #tThemes>div.selected")).exists() ?
+                    parseInt(selectedTheme.attr("id").substr(5)) : 0;
+                
+                $SS.Config.set("Themes", themes);
+                $SS.Config.set("Selected Theme", selectedTheme);
+                $SS.Config.set("Hidden Themes", $SS.options.hiddenThemes);
+                
+                console.log($SS.conf["Themes"]);
+                
+                for (var i = 0, MAX = $SS.options.hiddenThemes.length; i < MAX; i++)
+                    delete $SS.conf["Themes"][$SS.options.hiddenThemes[i]];
+                
+                for (var i = 0, MAX = $SS.options.deletedThemes.length; i < MAX; i++)
+                    $SS.conf["Themes"].splice($SS.options.deletedThemes[i], 1);
                 
                 // Save Mascots
                 $("#themeoptions #tMascot div").each(function(index)
                 {
-                    config["Mascots"][index].enabled = $(this).hasClass("selected");
-                    mascots.push(config["Mascots"][index]);
+                    var index = parseInt(this.id.substr(6));
+                    if ($(this).hasClass("selected"))
+                        selectedMascots.push(index);
+                    
+                    if (!$SS.conf["Mascots"][index].default)
+                        mascots.push($SS.conf["Mascots"][index]);
                 });
                 
-                $SS.config.set("Mascots", mascots);
+                $SS.Config.set("Mascots", mascots);
+                $SS.Config.set("Selected Mascots", selectedMascots);
+                $SS.Config.set("Hidden Mascots", $SS.options.hiddenMascots);
+                    
+                for (var i = 0, MAX = $SS.options.hiddenMascots.length; i < MAX; i++)
+                    delete $SS.conf["Mascots"][$SS.options.hiddenMascots[i]];
+                
+                for (var i = 0, MAX = $SS.options.deletedMascots.length; i < MAX; i++)
+                    $SS.conf["Mascots"].splice($SS.options.deletedMascots[i], 1);
                 
                 // Save nav links
                 $("#themeoptions #tNavLinks div").each(function()
                 {
-                    var nLink = { };
+                    var nLink = {};
                     
                     $(this).children("input").each(function(index)
                     {
@@ -1653,7 +1368,7 @@
                         links.push(nLink);
                 });
                 
-                $SS.config.set("Nav Links", links);
+                $SS.Config.set("Nav Links", links);
                 
                 if ($SS.options.saveAndClose)
                 {
@@ -1671,7 +1386,7 @@
                 if (typeof tIndex === "number")
                 {
                     var bEdit  = true,
-                        tEdit  = config["Themes"][tIndex],
+                        tEdit  = $SS.conf["Themes"][tIndex],
                         RPA, themeR, themePY, themePX, themeA;
                         
                     if (tEdit.bgImg && tEdit.bgRPA)
@@ -1738,6 +1453,13 @@
                 
                 $("a[name=cancel]", div).bind("click", function(){ $("#overlay2").remove(); });
                 
+                if (bEdit)
+                    $("input,textarea,select", div).bind("change", tEdit.mHandler = function()
+                    {
+                        tEdit.modified = true;
+                        $("input,textarea,select", $("#addTheme")).unbind("change", tEdit.mHandler);
+                    });
+                
                 return $(document.body).append(overlay);
             },
             addTheme: function(tIndex)
@@ -1756,7 +1478,12 @@
                         return RPA.join(" ");
                     },
                     bEdit = typeof tIndex === "number",
-                    error = false;
+                    tEdit = bEdit ? $SS.conf["Themes"][tIndex] : null,
+                    error = false,
+                    div;
+                    
+                if (bEdit && !tEdit.modified)
+                    return overlay.remove();
                     
                 $("input[type=text],textarea", overlay).each(function()
                 {
@@ -1775,15 +1502,12 @@
                         
                         val = $SS.cleanBase64(val);
                     }
-                    else if (this.name == "name") // names must be unique
+                    else if (this.name == "name")
                     {
                         val = this.value;
                         
-                        if (!bEdit && $SS.config.contains(config["Themes"], val, "name"))
-                        {
-                            error = true;
-                            return alert("A theme with the name `" + val + "` already exists!\nTheme names must be unique.");
-                        }
+                        if (bEdit && tEdit.default && tEdit.name === val)
+                            val += " [Modded]"
                     }
                     else
                         val = this.value;
@@ -1797,67 +1521,39 @@
                 if (tTheme.bgImg)
                     tTheme.bgRPA = makeRPA();
                     
-                if (bEdit)
+                if (bEdit && !tEdit.default)
                 {
-                    config["Themes"][tIndex] = tTheme;
-                    tTheme = new $SS.Theme(tTheme);
+                    $SS.conf["Themes"][tIndex] = tTheme;
+                    tTheme = new $SS.Theme(tIndex);
+                    div    = $("#theme" + tIndex, $("#overlay"));
                     
-                    $("#theme" + tIndex, $("#overlay")).html($SS.themePreview(tTheme));
-                    $SS.options.bindThemeInputs($("#theme" + tIndex, $("#overlay")));
+                    div.replace(tTheme.preview());
                 }
                 else
                 {
-                    config["Themes"].push(tTheme);
-                    tTheme = new $SS.Theme(tTheme);
+                    tIndex = $SS.conf["Themes"].push(tTheme);
+                    tTheme = new $SS.Theme(--tIndex);
+                    div    = tTheme.preview();
                     
-                    $("#overlay #tThemes").append($("<div id=theme" + (config["Themes"].length - 1) + ">").html($SS.themePreview(tTheme)));
-                    $SS.options.bindThemeInputs($("#theme" + (config["Themes"].length - 1), $("#overlay")));
+                    $("#overlay #tThemes").append(div);
                 }
                 
+                div.fire("click")
+                   .get().scrollIntoView(true);
+                   
                 return overlay.remove();
             },
             deleteTheme: function(tIndex)
             {
                 if (confirm("Are you sure?"))
                 {
-                    config["Themes"].splice(tIndex, 1);
-                    $("#theme" + tIndex).remove();
+                    if ($SS.conf["Themes"][tIndex].default)
+                        $SS.options.hiddenThemes.push(tIndex);
+                    else
+                        $SS.options.deletedThemes.push(tIndex);
                     
-                    return $("#overlay #tThemes>div").each(function(index){ $(this).attr("id", "theme" + index); });
+                    return $("#theme" + tIndex).remove();
                 }
-            },
-            getTheme: function()
-            {
-                var themes = config["Themes"];
-                
-                for (var i = 0, MAX = themes.length; i < MAX; i++)
-                    if (themes[i].enabled == true)
-                        return new $SS.Theme(themes[i]);
-                        
-                return new $SS.Theme(themes[0]);
-            },
-            bindThemeInputs: function(div)
-            {
-                $(div).bind("click", function()
-                {
-                    var $this = $(this);
-                    
-                    if ($this.hasClass("selected")) return;
-                    
-                    $this.parent().children(".selected").removeClass("selected");
-                    $this.addClass("selected");
-                });
-                
-                $("a[title=Edit]", div).bind("click", function(e)
-                {
-                    e.stopPropagation();
-                    $SS.options.showTheme(parseInt(e.target.parentNode.parentNode.parentNode.id.substr(5)));
-                });
-                $("a[title=Delete]", div).bind("click", function(e)
-                {
-                    e.stopPropagation();
-                    $SS.options.deleteTheme(parseInt(e.target.parentNode.parentNode.parentNode.id.substr(5)));
-                });
             },
             showMascot: function(mIndex)
             {
@@ -1865,7 +1561,7 @@
                 
                 if (typeof mIndex === "number")
                     var bEdit = true,
-                        mEdit = config["Mascots"][mIndex];
+                        mEdit = $SS.conf["Mascots"][mIndex];
                 
                 div = $("<div id=addMascot>").html("<label><span>Image:</span><input type=text name=customIMG value='" + (bEdit ? ($SS.validImageURL(mEdit.img) ? mEdit.img + "'" : "[Base 64 Encoded Image]' disabled=true") : "'") + "></label>\
                         <label title='Auto goes according to the post forms position' for=null><span>Alignment/Offset:</span>\
@@ -1879,7 +1575,7 @@
                         <label title='Prevent streching with smaller images (Width < 313px)'><span>Prevent stretching:</span><input type=checkbox name=mSmall" + (bEdit && mEdit.small ? " checked" : "") + "></label>\
                         <label title='Horizontally flip the mascot when sidebar is on the left'><span>Flip with sidebar:</span><input type=checkbox name=mFlip" + (!bEdit || (bEdit && (mEdit.flip || mEdit.flip == undefined)) ? " checked" : "") + "></label>\
                         <label title='Allows the mascot to be shown outside the sidebar, forces auto offset and ignores `Prevent stretching` option'><span>Allow overflow:</span><input type=checkbox name=mOverflow" + (bEdit && mEdit.overflow ? " checked" : "") + "></label>\
-                        <label title='List of boards to display this mascot on, seperated by commas. Can be left blank to display on all boards'><span>Boards:</span><input type=text name=mBoards value='" + (bEdit && mEdit.boards ? mEdit.boards : "") + "'></label>\
+                        <label title='List of boards to display this mascot on, seperated by commas. Example: a,c,g,v,jp'><span>Boards:</span><input type=text name=mBoards value='" + (bEdit && mEdit.boards ? mEdit.boards : "") + "'></label>\
                         <div>\
                         <div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>\
                         <span class=trbtn>Select Image</span></div>\
@@ -1904,7 +1600,7 @@
             addMascot: function(mIndex)
             {
                 var overlay = $("#overlay2"),
-                    bSetPos, cIMG, cPosition, cOffset, cSmall, cFlip;
+                    bSetPos, cIMG, cPosition, cOffset, cSmall, cFlip, tMascot;
                 
                 cIMG      = decodeURIComponent($("input[name=customIMGB64]", overlay).val() || $("input[name=customIMG]", overlay).val());
                 cPosition = $("select[name=mPosition]", overlay).val().toLowerCase();
@@ -1922,33 +1618,33 @@
                 
                 if (typeof mIndex === "number")
                 {
-                    config["Mascots"][mIndex].img      = cIMG;
-                    config["Mascots"][mIndex].small    = cSmall;
-                    config["Mascots"][mIndex].flip     = cFlip;
-                    config["Mascots"][mIndex].overflow = cOverflow;
+                    $SS.conf["Mascots"][mIndex].img      = cIMG;
+                    $SS.conf["Mascots"][mIndex].small    = cSmall;
+                    $SS.conf["Mascots"][mIndex].flip     = cFlip;
+                    $SS.conf["Mascots"][mIndex].overflow = cOverflow;
                     
                     if (cBoards != "")
-                        config["Mascots"][mIndex].boards   = cBoards;
+                        $SS.conf["Mascots"][mIndex].boards   = cBoards;
                     else
-                        delete config["Mascots"][mIndex].boards;
+                        delete $SS.conf["Mascots"][mIndex].boards;
                     
                     if (bSetPos)
                     {
-                        config["Mascots"][mIndex].position = cPosition;
-                        config["Mascots"][mIndex].offset   = cOffset;
+                        $SS.conf["Mascots"][mIndex].position = cPosition;
+                        $SS.conf["Mascots"][mIndex].offset   = cOffset;
                     }
                     else
                     {
-                        delete config["Mascots"][mIndex].position;
-                        delete config["Mascots"][mIndex].offset;
+                        delete $SS.conf["Mascots"][mIndex].position;
+                        delete $SS.conf["Mascots"][mIndex].offset;
                     }
                     
-                    var tIMG = new $SS.Image(cIMG);
+                    tMascot = new $SS.Image(cIMG);
                     $("#mascot" + mIndex).attr("style", "background:" + tIMG.get());
                 }
                 else
                 {
-                    var m = { img: cIMG, enabled: true, small: cSmall, flip: cFlip, overflow: cOverflow, boards: (cBoards == "" ? undefined : cBoards) };
+                    var tMascot = { img: cIMG, small: cSmall, flip: cFlip, overflow: cOverflow, boards: (cBoards == "" ? undefined : cBoards) };
                     
                     if (bSetPos)
                     {
@@ -1956,8 +1652,9 @@
                         m.offset   = cOffset;
                     }
                     
-                    config["Mascots"].push(m);
-                    $("#tMascot").append($SS.mascotPreview(config["Mascots"].length - 1));
+                    mIndex  = $SS.conf["Mascots"].push(tMascot);
+                    tMascot = new $SS.Mascot(--mIndex);
+                    $("#tMascot").append(tMascot.preview());
                 }
                 
                 return overlay.remove();
@@ -1966,52 +1663,13 @@
             {
                 if (confirm("Are you sure?"))
                 {
-                    config["Mascots"].splice(mIndex, 1);
-                    $("#mascot" + mIndex).remove();
+                    if ($SS.conf["Mascots"][mIndex].default)
+                        $SS.options.hiddenMascots.push(mIndex);
+                    else
+                        $SS.options.deletedMascots.push(mIndex);
                     
-                    return $("#overlay #tMascot div").each(function(index){ $(this).attr("id", "mascot" + index); });
+                    return $("#mascot" + mIndex).remove();
                 }
-            },
-            getMascot: function()
-            {
-                var mascots = config["Mascots"],
-                    eMascot = [],
-                    rnd, m;
-                
-                for (var i = 0, MAX = mascots.length; i < MAX; i++)
-                    if (mascots[i].enabled)
-                    {
-                        if (mascots[i].boards != undefined &&
-                            mascots[i].boards.split(",").indexOf($SS.location.board) == -1)
-                            continue;
-                        
-                        eMascot.push(mascots[i]);
-                    }
-                
-                if (eMascot.length == 0)
-                    m = { img: null, color: null, enabled: false };
-                else
-                {
-                    rnd = Math.round(Math.random() * (eMascot.length - 1));
-                    m = eMascot[rnd];
-                }
-                
-                return new $SS.Mascot(m);
-            },
-            bindMascotInputs: function(div)
-            {
-                $(div).bind("click", function(){ $(this).toggleClass("selected"); });
-                
-                $("a[title=Delete]", div).bind("click", function(e)
-                {
-                    e.stopPropagation();
-                    $SS.options.deleteMascot(parseInt(e.target.parentNode.id.substr(6)));
-                });
-                $("a[title=Edit]", div).bind("click", function(e)
-                {
-                    e.stopPropagation();
-                    $SS.options.showMascot(parseInt(e.target.parentNode.id.substr(6)));
-                });
             },
             SelectImage: function()
             {
@@ -2058,6 +1716,286 @@
             }
         },
         
+        /* THEMES */
+        Themes:
+        {
+            defaults:
+            [
+                {
+                    name:        "Dark Flat",
+                    "default":   true,
+                    bgImg:       "R0lGODlhAwADAIAAAB0dHRkZGSH5BADoAwAALAAAAAADAAMAAAIDDG5YADs=",
+                    bgRPA:       "repeat top left fixed",
+                    bgColor:     "202020",
+                    mainColor:   "232425",
+                    brderColor:  "292a2b",
+                    inputColor:  "18191a",
+                    inputbColor: "121314",
+                    blinkColor:  "6f99b4",
+                    jlinkColor:  "ac9bb0",
+                    linkColor:   "ac9bb0",
+                    linkHColor:  "6f99b4",
+                    nameColor:   "a8c6d9",
+                    quoteColor:  "b3c45e",
+                    textColor:   "dddddd",
+                    sageColor:   "c99090",
+                    tripColor:   "d4c095",
+                    titleColor:  "9390c9",
+                    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
+                },
+                {
+                    name:        "Photon",
+                    "default":   true,
+                    bgImg:       false,
+                    bgColor:     "eeeeee",
+                    mainColor:   "dddddd",
+                    brderColor:  "cccccc",
+                    inputColor:  "cccccc",
+                    inputbColor: "bbbbbb",
+                    blinkColor:  "0066ff",
+                    jlinkColor:  "333333",
+                    linkColor:   "ff6600",
+                    linkHColor:  "0066ff",
+                    nameColor:   "004a99",
+                    quoteColor:  "789922",
+                    textColor:   "333333",
+                    sageColor:   "990000",
+                    tripColor:   "ff3300",
+                    titleColor:  "002244"
+                },
+                {
+                    name:        "Tomorrow Night", // Originally by Chris Kempson @ https://github.com/ChrisKempson/Tomorrow-Theme
+                    author:      "Chris Kempson",
+                    "default":   true,
+                    bgImg:       false,
+                    bgColor:     "1d1f21",
+                    mainColor:   "282a2e",
+                    brderColor:  "373b41",
+                    inputColor:  "282a2e",
+                    inputbColor: "1d1f21",
+                    blinkColor:  "cc6666",
+                    jlinkColor:  "81a2be",
+                    linkColor:   "81a2be",
+                    linkHColor:  "cc6666",
+                    nameColor:   "81a2be",
+                    quoteColor:  "b5bd68",
+                    textColor:   "c5c8c6",
+                    sageColor:   "cc6666",
+                    tripColor:   "8abeb7",
+                    titleColor:  "b294bb"
+                },
+                {
+                    name:        "Yotsuba",
+                    "default":   true,
+                    bgImg:       "http://static.4chan.org/image/fade.png",
+                    bgRPA:       "repeat-x top center fixed",
+                    bgColor:     "ffffee",
+                    mainColor:   "f0e0d6",
+                    brderColor:  "d9bFb7",
+                    inputColor:  "ffffff",
+                    inputbColor: "aaaaaa",
+                    blinkColor:  "dd0000",
+                    jlinkColor:  "800000",
+                    linkColor:   "0000ee",
+                    linkHColor:  "dd0000",
+                    nameColor:   "117743",
+                    quoteColor:  "789922",
+                    textColor:   "800000",
+                    sageColor:   "cc1111",
+                    tripColor:   "228854",
+                    titleColor:  "cc1105",
+                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
+                },
+                {
+                    name:        "Yotsuba B",
+                    "default":   true,
+                    bgImg:       "http://static.4chan.org/image/fade-blue.png",
+                    bgRPA:       "repeat-x top center fixed",
+                    bgColor:     "eef2ff",
+                    mainColor:   "d6daf0",
+                    brderColor:  "b7c5d9",
+                    inputColor:  "ffffff",
+                    inputbColor: "aaaaaa",
+                    blinkColor:  "dd0000",
+                    jlinkColor:  "34345C",
+                    linkColor:   "34345C",
+                    linkHColor:  "dd0000",
+                    nameColor:   "117743",
+                    quoteColor:  "789922",
+                    textColor:   "000000",
+                    sageColor:   "990000",
+                    tripColor:   "228854",
+                    titleColor:  "0f0c5d",
+                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
+                },
+                {
+                    name:        "安心院なじみ",
+                    "default":   true,
+                    bgImg:       "http://i.imgur.com/RewHm.png",
+                    bgRPA:       "no-repeat right bottom fixed",
+                    bgColor:     "ffffff",
+                    mainColor:   "efefef",
+                    brderColor:  "d6d6d6",
+                    inputColor:  "cccccc",
+                    inputbColor: "bbbbbb",
+                    blinkColor:  "f5871f",
+                    jlinkColor:  "bf8040",
+                    linkColor:   "bf8040",
+                    linkHColor:  "bf8040",
+                    nameColor:   "2b80c2",
+                    quoteColor:  "718c00",
+                    textColor:   "4d4d4c",
+                    sageColor:   "c82829",
+                    tripColor:   "3e999f",
+                    titleColor:  "4d4d4d"
+                },
+                {
+                    name:        "Midnight Caek",
+                    author:      "zixaphir",
+                    "default":   true,
+                    bgImg:       false,
+                    bgColor:     "101010",
+                    mainColor:   "1c1c1c",
+                    brderColor:  "1c1c1c",
+                    inputColor:  "1c1c1c",
+                    inputbColor: "101010",
+                    blinkColor:  "47475b",
+                    jlinkColor:  "57577b",
+                    linkColor:   "57577b",
+                    linkHColor:  "47475b",
+                    nameColor:   "7c2d2d",
+                    quoteColor:  "71793e",
+                    textColor:   "909090",
+                    sageColor:   "7c2d2d",
+                    tripColor:   "3e7157",
+                    titleColor:  "aaaaaa"
+                },
+                {
+                    name:        "Solarized", // http://ethanschoonover.com/solarized
+                    author:      "Ethan Schoonover",
+                    "default":   true,
+                    bgImg:       false,
+                    bgColor:     "073642",
+                    mainColor:   "032b36",
+                    brderColor:  "133942",
+                    inputColor:  "073642",
+                    inputbColor: "0d272e",
+                    blinkColor:  "4f5f8f",
+                    jlinkColor:  "696fc0",
+                    linkColor:   "696bba",
+                    linkHColor:  "d33682",
+                    nameColor:   "586e75",
+                    quoteColor:  "859900",
+                    textColor:   "93a1a1",
+                    sageColor:   "cc6666",
+                    tripColor:   "2aa198",
+                    titleColor:  "bec2c4",
+                    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
+                },
+                {
+                    name:        "4chan Rewired", // Originally by !K.WeEabo0o @ http://userstyles.org/styles/57787/4chan-rewired
+                    author:      "!K.WeEabo0o",
+                    "default":   true,
+                    bgImg:       "http://oi39.tinypic.com/2h51rb4.jpg",
+                    bgRPA:       "no-repeat bottom right fixed",
+                    bgColor:     "f4f4f4",
+                    mainColor:   "efefef",
+                    brderColor:  "d4d4d4",
+                    inputColor:  "e4e4e4",
+                    inputbColor: "cccccc",
+                    blinkColor:  "bf7f3f",
+                    jlinkColor:  "bf7f3f",
+                    linkColor:   "bf7f3f",
+                    linkHColor:  "d33682",
+                    nameColor:   "4c4c4c",
+                    quoteColor:  "6b7a1e",
+                    textColor:   "4c4c4c",
+                    sageColor:   "cc6666",
+                    tripColor:   "bf7f3f",
+                    titleColor:  "4c4c4c",
+                    customCSS:   'new String(($SS.conf["Layout"]==2?".replyhider{border:1px solid "+this.brderColor.hex+"!important;border-right:0!important}.op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]==3?"left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)}")'
+                }
+            ],
+            
+            init: function()
+            {
+                for (var i = 0, MAX = $SS.conf["Hidden Themes"]; i < MAX; i++)
+                    delete this.defaults[$SS.conf["Hidden Themes"][i]];
+                
+                $SS.conf["Themes"] = Array.isArray($SS.conf["Themes"]) ? 
+                    this.defaults.concat($SS.conf["Themes"]) : this.defaults;
+                
+                var tIndex = $SS.conf["Themes"][$SS.conf["Selected Theme"]] ?
+                    $SS.conf["Selected Theme"] : 0;
+                    
+                    
+                console.log($SS.conf["Themes"]);
+                    
+                $SS.theme = new $SS.Theme(tIndex); // Set the active theme.
+            }
+        },
+        
+        /* MASCOTS */
+        Mascots:
+        {
+            defaults:
+            [
+                { img: "http://i.imgur.com/DL5uR.png", overflow: true,                                          "default":   true }, //, asuka
+                { img: "http://i.imgur.com/zhPlM.png",                                                          "default":   true }, //, erio
+                { img: "http://i.imgur.com/b9KmB.png",                                                          "default":   true }, //, homu
+                { img: "http://i.imgur.com/bsLY4.png", offset: 0, position: "center",                           "default":   true }, //, horo
+                { img: "http://i.imgur.com/uO5qZ.png",                                                          "default":   true }, //, kuroko
+                { img: "http://i.imgur.com/Ht6dr.png", offset: -90, position: "center", small: true,            "default":   true }, //, kuroneko
+                { img: "http://i.imgur.com/56oEl.png",                                                          "default":   true }, //, inori
+                { img: "http://i.imgur.com/ridLc.png", overflow: true,                                          "default":   true }, //, kimi
+                { img: "http://i.imgur.com/AfjG9.png", offset: 0, position: "center", flip: false, small: true, "default":   true }, //, lain
+                { img: "http://i.imgur.com/WUIMw.png",                                                          "default":   true }, //, luka
+                { img: "http://i.imgur.com/J1i26.png", offset: -90, position: "center",                         "default":   true }, //, madotsuki
+                { img: "http://i.imgur.com/53yAK.png", overflow: true,                                          "default":   true }, //, ムゥ～りさ
+                { img: "http://i.imgur.com/H1pgZ.png", offset: 0, position: "center", flip: false, small: true, "default":   true }, //, miku
+                { img: "http://i.imgur.com/MdE9K.png", flip: false, overflow: true,                             "default":   true }, //, mio
+                { img: "http://i.imgur.com/NaKmF.png", offset: 0, position: "center",                           "default":   true }, //, mokou
+                { img: "http://i.imgur.com/WWozC.png", overflow: true,                                          "default":   true }, //, ran
+                { img: "http://i.imgur.com/K1mLx.png", flip: false, samll: true,                                "default":   true }, //, shana
+                { img: "http://i.imgur.com/FKDcd.png",                                                          "default":   true }, //, shiki
+                { img: "http://i.imgur.com/zu9nY.png",                                                          "default":   true }, //, tessa
+                { img: "http://i.imgur.com/haBSN.png",                                                          "default":   true }, //, yin
+                { img: "http://i.imgur.com/xwPrX.png",                                                          "default":   true }  // yozora
+            ],
+            
+            init: function()
+            {
+                for (var i = 0, MAX = $SS.conf["Hidden Mascots"]; i < MAX; i++)
+                    delete this.defaults[$SS.conf["Hidden Mascots"][i]];
+                    
+                $SS.conf["Mascots"] = Array.isArray($SS.conf["Mascots"]) ? 
+                    this.defaults.concat($SS.conf["Mascots"]) : this.defaults;
+                    
+                var eMascot = [],
+                    mIndex;
+                
+                if ($SS.conf["Selected Mascots"] === 0)
+                    eMascot = $SS.conf["Mascots"];
+                else
+                    for (var i = 0, MAX = $SS.conf["Selected Mascots"].length, j; i < MAX; i++)
+                    {
+                        j = $SS.conf["Selected Mascots"][i];
+                        if ($SS.conf["Mascots"][j].boards != undefined &&
+                            $SS.conf["Mascots"][j].boards.split(",").indexOf($SS.location.board) == -1)
+                            continue;
+                        
+                        eMascot.push(j);
+                    }
+                
+                if (eMascot.length == 0)
+                    mIndex = -1;
+                else
+                    mIndex = Math.floor(Math.random() * eMascot.length);
+                    
+                $SS.mascot = new $SS.Mascot($SS.conf["Selected Mascots"][mIndex]); // Set the active mascot.
+            }
+        },
+        
         /* Thanks to hurfdurf
          * http://pastebin.com/TTDJNH7c 
          * Modified by ahoka
@@ -2076,7 +2014,7 @@
                     
                     if (!$(".exSource", node).exists())
                     {
-                        var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>" + config["ExType"]).bind("click", $SS.exsauce.fetchImage);
+                        var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>" + $SS.conf["ExType"]).bind("click", $SS.exsauce.fetchImage);
                         node.append(document.createTextNode(" ")).append(a);
                     }
                 });
@@ -2103,7 +2041,7 @@
                 var hash = $SS.exsauce.sha1Hash($SS.exsauce.data_string(data));
                 
                 anchor.html("checking")
-                      .attr("href", "http://" + config["ExType"] + ".org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1")
+                      .attr("href", "http://" + $SS.conf["ExType"] + ".org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1")
                       .unbind("click", $SS.exsauce.fetchImage);
 
                 GM_xmlhttpRequest(
@@ -2835,22 +2773,65 @@
                 return ret + "')" + (this.RPA != undefined ? " " + this.RPA : "");
             };
         },
-        Mascot: function(mascot)
+        Mascot: function(index)
         {
+            if (index == -1 || index == undefined)
+            {
+                this.img    = new $SS.Image(null);
+                this.hidden = true;
+                return;
+            }
+            else
+                var mascot = $SS.conf["Mascots"][index];
+                
+            this.index    = index;
+            this.default  = mascot.default;
             this.position = mascot.position || "bottom";
             this.overflow = mascot.overflow;
             this.img      = new $SS.Image(mascot.img, this.overflow ? "" : "no-repeat " + this.position + " center");
-            this.enabled  = mascot.enabled;
             this.small    = mascot.small;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset && !this.overflow ? mascot.offset : (config["Post Form"] != 1 ? 275 : 23);
+            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 275 : 23);
             this.boards   = mascot.boards;
+            this.enabled  = $SS.conf["Selected Mascots"].indexOf(index) != -1;
+            
+            this.preview  = function()
+            {
+                var dText = this.default ? "Hide" : "Delete",
+                    div   = $("<div id=mascot" + this.index + (this.enabled ? " class=selected" : "") + " style=\"background:" + this.img.get() + "\">")
+                           .html("<a title=" + dText + ">X</a><a title=Edit>E</a>");
+                
+                $(div).bind("click", function(){ $(this).toggleClass("selected"); });
+                
+                $("a[title=" + dText + "]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.deleteMascot(index);
+                });
+                $("a[title=Edit]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.showMascot(index);
+                });
+                
+                return div;
+            }
         },
-        Theme: function(theme)
+        Theme: function(index)
         {
+            var theme;
+            
+            if ((theme = $SS.conf["Themes"][index]) == undefined)
+            {
+                this.hidden = true;
+                return;
+            }
+            
+            this.index       = index;
             this.name        = theme.name;
             this.author      = theme.author || "ahodesuka";
+            this.default     = theme.default;
             this.replyBrder  = theme.replyBrder;
             this.bgImg       = new $SS.Image(theme.bgImg, theme.bgRPA);
             this.bgColor     = new $SS.Color(theme.bgColor);
@@ -2871,12 +2852,13 @@
             this.checkMark   = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? 0 : -8) + "px");
             this.radioCheck  = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? -16 : -24) + "px");
             this.icons       = new $SS.Image(theme.icons || defaultIcons);
+            
             if (theme.customCSS)
             {
                 if (theme.customCSS.substr(0, 10) === "new String")
                     try
                     {
-                        this.customCSS = eval(theme.customCSS.replace(/(\r\n|\n|\r)/gm, ""));
+                        this.customCSS = eval($SS.trimLineBreaks(theme.customCSS));
                     }
                     catch (e)
                     {
@@ -2888,10 +2870,54 @@
             }
             else
                 this.customCSS = "";
+                
+            this.preview = function()
+            {
+                var dText = this.default ? "Hide" : "Delete",
+                    div   = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply\
+                        style='background-color:" + this.mainColor.hex + "!important;border:1px solid " + this.brderColor.hex + "!important;color:" + this.textColor.hex + "!important'>\
+                        <div class=riceCheck style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;box-shadow:rgba(" + this.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>\
+                        <span style='color:" + this.titleColor.hex + "!important'>" + this.name + "</span> \
+                        <span style='color:" + this.nameColor.hex + "!important'>" + this.author + "</span>\
+                        <span style='color:" + this.sageColor.hex + "!important'> (SAGE)</span>\
+                        <span style='color:" + this.tripColor.hex + "!important'>!.pC/AHOKAg</span>\
+                        <time> 20XX.01.01 12:00 </time>\
+                        <a href='javascript:;' style='color:" + this.linkColor.hex + "!important' \
+                        onmouseover='this.setAttribute(\"style\",\"color:" + this.linkHColor.hex + "!important\")' \
+                        onmouseout='this.setAttribute(\"style\",\"color:" + this.linkColor.hex + "!important\")'>No.22772469</a>\
+                        <br><blockquote>Post content is right here.</blockquote>\
+                        <p><a title=Edit style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>Edit</a>\
+                        <a title=" + dText + " style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>" + dText + "</a></p>\
+                        <h3>SELECTED</h3>\
+                    </div>");
+                    
+                $(div).bind("click", function()
+                {
+                    var $this = $(this);
+                    
+                    if ($this.hasClass("selected")) return;
+                    
+                    $this.parent().children(".selected").removeClass("selected");
+                    $this.addClass("selected");
+                });
+                
+                $("a[title=Edit]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.showTheme(index);
+                });
+                $("a[title=" + dText + "]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.deleteTheme(index);
+                });
+                
+                return div;
+            }
         },
         
         /* HELPER METHODS */
-        FormatFont: function(font)
+        formatFont: function(font)
         {
             if (font == "sans-serif" || font == "monospace")
                 return font;
@@ -2913,9 +2939,13 @@
         {
             return rgb[0] + rgb[1] + rgb[2] >= 400;
         },
+        trimLineBreaks: function(str)
+        {
+            return str.replace(/(\r\n|\r|\n)/gm, "");
+        },
         cleanBase64: function(b64)
         {
-            return b64.replace(/^(data:image\/(?:gif|jpe?g|png);base64,)(\r\n|\r|\n)?/gmi, "");
+            return b64.replace(/^(data:image\/(?:gif|jpe?g|png);base64,)(\r\n|\r|\n)/gmi, "");
         },
         typeofBase64: function(b64)
         {
@@ -2937,55 +2967,43 @@
         {
             return /^(?:data:image\/(?:gif|jpe?g|png);base64,)?(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})$/i.test(b64);
         },
-        validHexColor: function(c)
-        {
-            return /^#?[A-F0-9]{6}$/i.test(c);
-        },
         validImageURL: function(img)
         {
             return /^https?:\/\/.+$/i.test(img);
         },
+        getLocation: function(url)
+        {
+            var obj;
+            
+            if (typeof url === "string")
+            {
+                obj = document.createElement("a");
+                obj.href = url;
+            }
+            else
+                obj = window.location;
+            
+            var pathname = obj.pathname.substr(1).split("/");
+            
+            return {
+                sub  : obj.hostname.split(".")[0],
+                board: pathname[0],
+                reply: pathname[1] == "res"
+            };
+        },
         buildCustomNav: function()
         {
-            var links = config["Nav Links"],
-                a = [];
+            var links = $SS.conf["Nav Links"],
+                a = [], div;
             
             for (var i = 0, MAX = links.length; i < MAX; i++)
                 a.push("<a href='" + links[i].link + "'" +
                     ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
                 
-            $("#header").prepend($("<div id=boardLinks>").html(a.join(config["Nav Link Delimiter"])));
-        },
-        mascotPreview: function(index)
-        {  
-            var tIMG = new $SS.Image(config["Mascots"][index].img),
-                div  = $("<div id=mascot" + index + (config["Mascots"][index].enabled ? " class=selected" : "") + " style=\"background:" + tIMG.get() + "\">")
-                       .html("<a title=Delete>X</a><a title=Edit>E</a>");
-
-            $SS.options.bindMascotInputs(div);
-            
-            return div;
-        },
-        themePreview: function(t)
-        {
-            return "<div class=reply\
-                style='background-color:" + t.mainColor.hex + "!important;border:1px solid " + t.brderColor.hex + "!important;color:" + t.textColor.hex + "!important'>\
-                <div class=riceCheck style='background-color:" + t.inputColor.hex + "!important;border:1px solid " + t.inputbColor.hex + "!important;box-shadow:rgba(" + t.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>\
-                <span style='color:" + t.titleColor.hex + "!important'>" + t.name + "</span> \
-                <span style='color:" + t.nameColor.hex + "!important'>" + t.author + "</span>\
-                <span style='color:" + t.sageColor.hex + "!important'> (SAGE)</span>\
-                <span style='color:" + t.tripColor.hex + "!important'>!.pC/AHOKAg</span>\
-                <time> 20XX.01.01 12:00 </time>\
-                <a href='javascript:;' style='color:" + t.linkColor.hex + "!important' \
-                onmouseover='this.setAttribute(\"style\",\"color:" + t.linkHColor.hex + "!important\")' \
-                onmouseout='this.setAttribute(\"style\",\"color:" + t.linkColor.hex + "!important\")'>No.22772469</a>\
-                <br>\
-                <blockquote>Post content is right here.</blockquote>\
-                <p>\
-                <a title=Edit style='background-color:" + t.inputColor.hex + "!important;border:1px solid " + t.inputbColor.hex + "!important;color:" + t.textColor.hex + "!important'>Edit</a>\
-                <a title=Delete style='background-color:" + t.inputColor.hex + "!important;border:1px solid " + t.inputbColor.hex + "!important;color:" + t.textColor.hex + "!important'>Delete</a></p>\
-                <h3>SELECTED</h3>\
-            </div>";
+            if ((div = $("#boardLinks")).exists())
+                return div.innerHTML = a.join($SS.conf["Nav Link Delimiter"]);
+                
+            return $("#header").prepend($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
         }
     };
     /* END STYLE SCRIPT CLASSES */

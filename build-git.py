@@ -8,7 +8,7 @@ pattern = re.compile("/\*[^\*]+\*/")
 css = pattern.sub("", css)
 
 # Make it all one line
-pattern = re.compile("(\t|\r|\n)")
+pattern = re.compile("(\t|\r|\n|\s{4})")
 css = pattern.sub("", css)
 
 # Remove unneeded semicolon
