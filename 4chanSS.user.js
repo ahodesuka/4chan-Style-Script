@@ -1,4 +1,4 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @name          4chan Style Script
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
@@ -701,7 +701,7 @@
             // allow 4chan x to load first
             setTimeout(function()
             {
-                var ann, pages, qr, openLink,
+                var div, pages, qr, openLink,
                     postLoadCSS = "#navtop,#navtopr{display:inline-block!important}.pages{display:table!important}",
                     addLabels   = function(qr)
                     {
@@ -754,6 +754,8 @@
                     
                 if ($SS.conf["Custom Navigation Links"])
                     $SS.buildCustomNav();
+                else if (reload && (div = $("#boardLinks")).exists())
+                    div.remove();
                     
                 if ((pages = $(".pages")).exists())
                 {
@@ -1278,6 +1280,7 @@
                 }, false);
                 
                 $(document.body).append($("<div id=fontListSWF hidden><object type='application/x-shockwave-flash' data='" + fontListSWF + "'><param name=allowScriptAccess value=always></object>"));
+                return loadFontBTN.text("Loading...");
             },
             save: function()
             {
@@ -1322,8 +1325,6 @@
                 $SS.Config.set("Selected Theme", selectedTheme);
                 $SS.Config.set("Hidden Themes", $SS.options.hiddenThemes);
                 
-                console.log($SS.conf["Themes"]);
-                
                 for (var i = 0, MAX = $SS.options.hiddenThemes.length; i < MAX; i++)
                     delete $SS.conf["Themes"][$SS.options.hiddenThemes[i]];
                 
@@ -1344,7 +1345,7 @@
                 $SS.Config.set("Mascots", mascots);
                 $SS.Config.set("Selected Mascots", selectedMascots);
                 $SS.Config.set("Hidden Mascots", $SS.options.hiddenMascots);
-                    
+                                    
                 for (var i = 0, MAX = $SS.options.hiddenMascots.length; i < MAX; i++)
                     delete $SS.conf["Mascots"][$SS.options.hiddenMascots[i]];
                 
@@ -1653,8 +1654,9 @@
                     }
                     
                     mIndex  = $SS.conf["Mascots"].push(tMascot);
-                    tMascot = new $SS.Mascot(--mIndex);
-                    $("#tMascot").append(tMascot.preview());
+                    tMascot = new $SS.Mascot(--mIndex).preview();
+                    $("#tMascot").append(tMascot);
+                    tMascot.fire("click").get().scrollIntoView(true);
                 }
                 
                 return overlay.remove();
@@ -1919,17 +1921,16 @@
             
             init: function()
             {
+                var fThemes = this.defaults;
+                
                 for (var i = 0, MAX = $SS.conf["Hidden Themes"]; i < MAX; i++)
-                    delete this.defaults[$SS.conf["Hidden Themes"][i]];
+                    delete fThemes[$SS.conf["Hidden Themes"][i]];
                 
                 $SS.conf["Themes"] = Array.isArray($SS.conf["Themes"]) ? 
-                    this.defaults.concat($SS.conf["Themes"]) : this.defaults;
+                    fThemes.concat($SS.conf["Themes"]) : fThemes;
                 
                 var tIndex = $SS.conf["Themes"][$SS.conf["Selected Theme"]] ?
                     $SS.conf["Selected Theme"] : 0;
-                    
-                    
-                console.log($SS.conf["Themes"]);
                     
                 $SS.theme = new $SS.Theme(tIndex); // Set the active theme.
             }
@@ -1965,12 +1966,14 @@
             
             init: function()
             {
+                var fMascots = this.defaults;
+                
                 for (var i = 0, MAX = $SS.conf["Hidden Mascots"]; i < MAX; i++)
-                    delete this.defaults[$SS.conf["Hidden Mascots"][i]];
+                    delete fMascots[$SS.conf["Hidden Mascots"][i]];
                     
                 $SS.conf["Mascots"] = Array.isArray($SS.conf["Mascots"]) ? 
-                    this.defaults.concat($SS.conf["Mascots"]) : this.defaults;
-                    
+                    fMascots.concat($SS.conf["Mascots"]) : fMascots;
+
                 var eMascot = [],
                     mIndex;
                 
@@ -2945,7 +2948,7 @@
         },
         cleanBase64: function(b64)
         {
-            return b64.replace(/^(data:image\/(?:gif|jpe?g|png);base64,)(\r\n|\r|\n)/gmi, "");
+            return b64.replace(/^(data:image\/(?:gif|jpe?g|png);base64,)(\r\n|\r|\n)?/gmi, "");
         },
         typeofBase64: function(b64)
         {

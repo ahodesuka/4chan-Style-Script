@@ -130,6 +130,10 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.quoteColor.hex + "!important;
 }
+.quotelink
+{
+	color:" + $SS.theme.linkHColor.hex + "!important;
+}
 .filetitle,
 .replytitle
 {
@@ -2465,6 +2469,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	background:rgb(" + $SS.theme.mainColor.rgb + ");
 	bottom:48px;
 	height:64px;
+	line-height:0!important;
 	border-radius:3px;
 	box-shadow:rgba(0,0,0,.2) 0 0 5px;
 }
