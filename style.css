@@ -476,7 +476,6 @@ body[class*='chanx_']>#qr .warning,
 #options ul,
 #qr,
 #themeoptions #toWrapper,
-#updater:hover,
 body>a[style='cursor: pointer; float: right;']+div,
 .reply,
 .replyhl,
@@ -2279,13 +2278,16 @@ body>span[style]~#qr>#close
 #updater
 {
 	" + ($SS.conf["Sidebar Position"] != 2 ? "
-	border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
 	text-align:right!important;
 	left:auto!important;
 	right:0!important;" : "/*"*/
 	text-align:left!important;
 	left:0!important;
 	right:auto!important;") + "
+	border-top:0!important;
+	border-" + $SS.conf["Sidebar Position String"] + ":0!important;
+	border-" + $SS.conf["Sidebar Position oString"] + ":1px solid " + $SS.theme.brderColor.hex + "!important;
+	border-bottom:1px solid " + $SS.theme.brderColor.hex + "!important;
 	position:fixed!important;
 	bottom:auto!important;
 	top:0!important;
@@ -2303,8 +2305,6 @@ body>span[style]~#qr>#close
 }
 #updater:hover
 {
-	border-top:0!important;
-	border-" + $SS.conf["Sidebar Position String"] + "/*"*/:0!important;
 	height:auto!important;
 	max-height:180px!important;
 	min-height:160px!important;
@@ -2821,6 +2821,7 @@ body[class*='chanx_']>span[style]~#qr>.move .riceCheck
 {
 	position:absolute;
 	right:3px;
+    top:2px;
 }
 body[class*='chanx_']>#qr>.move *
 {
@@ -2877,6 +2878,15 @@ body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
 	left:24px!important;
 	position:absolute;
 	width:230px!important;
+}
+body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span
+{
+	color:rgba(" + $SS.theme.textColor.rgb + ",.4)!important;
+	right:6px;
+	z-index:3;
+	-webkit-transition:right .3s ease-in-out,color .3s ease-in-out;
+	-moz-transition:right .3s ease-in-out,color .3s ease-in-out;
+	-o-transition:right .3s ease-in-out,color .3s ease-in-out;
 }" : "") + "
 body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
 {
@@ -2887,15 +2897,6 @@ body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
 	top:4px;
 	white-space:nowrap;
 	z-index:-1;
-}
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span
-{
-	color:rgba(" + $SS.theme.textColor.rgb + ",.4)!important;
-	right:6px;
-	z-index:3;
-	-webkit-transition:right .3s ease-in-out,color .3s ease-in-out;
-	-moz-transition:right .3s ease-in-out,color .3s ease-in-out;
-	-o-transition:right .3s ease-in-out,color .3s ease-in-out;
 }
 body[class*='chanx_']>#qr>form>div:first-child .field[name=sub]
 {
