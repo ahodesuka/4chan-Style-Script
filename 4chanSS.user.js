@@ -209,7 +209,7 @@
                     
                 if (tagCheck)
                 {
-                    var tag = root.createElement(tagCheck[1]);
+                    var tag = document.createElement(tagCheck[1]);
                     
                     if (tagCheck[2])
                     {
@@ -337,6 +337,8 @@
                     return this;
                 else
                     return this.elems[0].getAttribute(name);
+            else if (val === "")
+                return this.each(function(){ this.removeAttribute(name); });
                     
             return this.each(function(){ this.setAttribute(name, val); });
         },
@@ -347,7 +349,7 @@
                 
             return this.each(function(){ this.disabled = bDisabled; });
         },
-        hide: function(bHidden)
+        toggle: function(bHidden)
         {
             return this.each(function()
             {
@@ -356,8 +358,16 @@
                 if (bHidden == undefined)
                     bHidden = !($this.attr("disabled") === "true");
                 
-                $this.attr("hidden", bHidden);
+                $this.attr("hidden", bHidden || "");
             });
+        },
+        hide: function()
+        {
+            return this.each(function(){ $(this).toggle(true); });
+        },
+        show: function()
+        {
+            return this.each(function(){ $(this).toggle(false); });
         },
         val: function(val)
         {
@@ -1036,9 +1046,7 @@
         options:
         {
             saveAndClose  : true,
-            hiddenThemes  : [],
             deletedThemes : [],
-            hiddenMascots : [],
             deletedMascots: [],
             
             init: function()
@@ -1077,7 +1085,7 @@
                         {
                             var opts = key == "Font" ? $SS.fontList || defaultConfig[key][2] : defaultConfig[key][2],
                                 cFonts = [];
-                            optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'>";
+                            optionsHTML += "<span title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'>";
                             
                             for (var i = 0, MAX = opts.length; i < MAX; i++)
                             {
@@ -1099,21 +1107,19 @@
                             if (key == "Font" && cFonts.indexOf($SS.conf["Font"]) == -1)
                                optionsHTML += "<option style=\"font-family:" + $SS.formatFont($SS.conf["Font"]) + "!important\" value='" + $SS.conf["Font"] + "' selected>" + $SS.conf["Font"] + "</option>"; 
                             
-                            optionsHTML += "</select></label>";
+                            optionsHTML += "</select></span>";
                         }
                         else if (key == "Font Size")
                         {
-                            optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></label>";
+                            optionsHTML += "<span title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></span>";
                         }
                         else if (key == "Themes")
                         {
-                            optionsHTML += "</div><input type=radio name=toTab id=tcbThemes hidden><div id=tThemes>\
-                                            <p><a class=trbtn name=addTheme>add</a><a class=trbtn name=restoreThemes title='Restore hidden default themes'>restore</a></p>";
+                            optionsHTML += "</div><input type=radio name=toTab id=tcbThemes hidden><div id=tThemes>";
                         }
                         else if (key == "Mascots")
                         {
-                            optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot>\
-                                            <p><a class=trbtn name=addMascot>add</a><a class=trbtn name=restoreMascots title='Restore hidden default mascots'>restore</a><a class=trbtn name=selectAll>select all</a><a class=trbtn name=selectNone>select none</a></p>";
+                            optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot>";
                         }
                         else if (key == "Nav Links")
                         {
@@ -1135,36 +1141,6 @@
                     optionsHTML += "</div></div><div><a class=trbtn name=save title='Hold any modifier to prevent window from closing'>save</a><a class=trbtn name=cancel>cancel</a></div>";
                     tOptions.html(optionsHTML);
                     overlay.append(tOptions);
-                    
-                    
-                    for (var i = 0, MAX = $SS.conf["Themes"].length,
-                             themes = $("#tThemes", tOptions), tTheme; i < MAX; i++)
-                    {
-                        tTheme = new $SS.Theme(i);
-                        
-                        if (!tTheme.hidden)
-                            themes.append(tTheme.preview());
-                    }
-                    
-                    for (var i = 0, MAX = $SS.conf["Mascots"].length,
-                             mascots = $("#tMascot", tOptions), tMascot; i < MAX; i++)
-                    {
-                        tMascot = new $SS.Mascot(i);
-                        
-                        if (!tMascot.hidden)
-                            mascots.append(tMascot.preview());
-                    }
-                    
-                    $("input[name='Font Size']", tOptions).bind("keydown", function(e)
-                    {
-                        var val    = parseInt($(this).val()),
-                            bitmap = $(this).parent().nextSibling().children("input[name='Bitmap Font']").val();
-                        
-                        if (e.keyCode == 38 && (val < MAX_FONT_SIZE || bitmap))
-                            $(this).val(++val + "px");
-                        else if (e.keyCode == 40 && (val > MIN_FONT_SIZE || bitmap))
-                            $(this).val(--val + "px");
-                    });
                     
                     $("#toNav li label", tOptions).bind("click", function(e)
                     {
@@ -1191,22 +1167,27 @@
                         $("a[name=delLink]", el).bind("click", function(){ $(this).parent().remove(); });
                     };
                     
+                    // main tab
+                    $("input[name='Font Size']", tOptions).bind("keydown", function(e)
+                    {
+                        var val    = parseInt($(this).val()),
+                            bitmap = $(this).parent().nextSibling().children("input[name='Bitmap Font']").val();
+                        
+                        if (e.keyCode == 38 && (val < MAX_FONT_SIZE || bitmap))
+                            $(this).val(++val + "px");
+                        else if (e.keyCode == 40 && (val > MIN_FONT_SIZE || bitmap))
+                            $(this).val(--val + "px");
+                    });
                     if (!$SS.fontList)
                         $("a[name=loadSysFonts]", tOptions).bind("click", $SS.options.loadSystemFonts);
+                        
+                    // themes tab
+                    $SS.options.createThemesTab(tOptions);
                     
-                    $("a[name=addTheme]", tOptions).bind("click", $SS.options.showTheme);
-                    $("a[name=restoreThemes]", tOptions).bind("click", function()
-                    {
-                        //TODO
-                    });
-                    $("a[name=restoreMascots]", tOptions).bind("click", function()
-                    {
-                        //TODO
-                    });
-                    $("a[name=addMascot]", tOptions).bind("click", $SS.options.showMascot);
-                    $("a[name=selectAll]", tOptions).bind("click", function(){ $("#tMascot>div").each(function(){ $(this).addClass("selected") }); });
-                    $("a[name=selectNone]", tOptions).bind("click", function(){ $("#tMascot>div").each(function(){ $(this).removeClass("selected") }); });
-                    
+                    // mascots tab
+                    $SS.options.createMascotsTab(tOptions);
+
+                    // nav links tab
                     $("a[name=addLink]", tOptions).bind("click", function()
                     {
                         var el = $("<div>").html("<label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label>" +
@@ -1216,18 +1197,82 @@
                     });
                     bindLinkButtons(tOptions);
                     
+                    // options window
                     $("a[name=save]", tOptions).bind("click", $SS.options.save);
                     $("a[name=cancel]",tOptions).bind("click", $SS.options.close);
                     
                     $(document).bind("keydown", $SS.options.keydown)
-                               .bind("keyup", $SS.options.keyup);
+                               .bind("keyup",   $SS.options.keyup);
                     
                     return $(document.body).attr("style", "overflow:hidden;").append(overlay);
+                }
+            },
+            createThemesTab: function(tOptions)
+            {
+                var themes = $("#tThemes", tOptions).html(""),
+                    p      = $("<p>");
+
+                p.append($("<a class=trbtn name=addTheme>add", tOptions).bind("click", $SS.options.showTheme));
+                p.append($("<a class=trbtn name=restoreThemes title='Restore hidden default themes'>restore", tOptions)
+                    .bind("click", function()
+                    {
+                        $SS.conf["Hidden Themes"] = [];
+                        $SS.options.createThemesTab(tOptions);
+                    })
+                );
+                
+                if ($SS.conf["Hidden Themes"].length == 0)
+                    $("a[name=restoreThemes]", p).hide();
+                    
+                themes.append(p);
+            
+                for (var i = 0, MAX = $SS.conf["Themes"].length, tTheme; i < MAX; i++)
+                {
+                    if ($SS.conf["Hidden Themes"].indexOf(i) != -1)
+                        continue;
+                        
+                    tTheme = new $SS.Theme(i);
+                    themes.append(tTheme.preview());
+                }
+            },
+            createMascotsTab: function(tOptions)
+            {
+                var mascots = $("#tMascot", tOptions).html(""),
+                    p       = $("<p>");
+
+                p.append($("<a class=trbtn name=addMascot>add", tOptions).bind("click", $SS.options.showMascot));
+                p.append($("<a class=trbtn name=restoreMascots title='Restore hidden default mascots'>restore", tOptions)
+                    .bind("click", function()
+                    {
+                        $SS.conf["Hidden Mascots"] = [];
+                        $SS.options.createMascotsTab(tOptions);
+                    })
+                );
+                
+                if ($SS.conf["Hidden Mascots"].length == 0)
+                    $("a[name=restoreMascots]", p).hide();
+                
+                p.append($("<a class=trbtn name=selectAll>select all", tOptions)
+                    .bind("click", function(){ $("#tMascot>div").each(function(){ $(this).addClass("selected") }); }));
+                p.append($("<a class=trbtn name=selectNone>select none", tOptions)
+                    .bind("click", function(){ $("#tMascot>div").each(function(){ $(this).removeClass("selected") }); }));
+                    
+                mascots.append(p);
+                
+                for (var i = 0, MAX = $SS.conf["Mascots"].length, tMascot; i < MAX; i++)
+                {
+                    if ($SS.conf["Hidden Mascots"].indexOf(i) != -1)
+                        continue;
+                        
+                    tMascot = new $SS.Mascot(i);
+                    mascots.append(tMascot.preview());
                 }
             },
             close: function()
             {
                 $(document.body).attr("style", "");
+                $(document).unbind("keydown", $SS.options.keydown)
+                           .unbind("keyup", $SS.options.keydown);
                 
                 return $("#overlay").remove();
             },
@@ -1313,7 +1358,7 @@
                 // Save Themes
                 $("#themeoptions #tThemes>div").each(function()
                 {
-                    var index = this.id.substr(5);
+                    var index = parseInt(this.id.substr(5));
                     if (!$SS.conf["Themes"][index].default)
                         themes.push($SS.conf["Themes"][index]);
                 });
@@ -1323,14 +1368,8 @@
                 
                 $SS.Config.set("Themes", themes);
                 $SS.Config.set("Selected Theme", selectedTheme);
-                $SS.Config.set("Hidden Themes", $SS.options.hiddenThemes);
-                
-                for (var i = 0, MAX = $SS.options.hiddenThemes.length; i < MAX; i++)
-                    delete $SS.conf["Themes"][$SS.options.hiddenThemes[i]];
-                
-                for (var i = 0, MAX = $SS.options.deletedThemes.length; i < MAX; i++)
-                    $SS.conf["Themes"].splice($SS.options.deletedThemes[i], 1);
-                
+                $SS.Config.set("Hidden Themes", $SS.conf["Hidden Themes"]);
+                                
                 // Save Mascots
                 $("#themeoptions #tMascot div").each(function(index)
                 {
@@ -1344,13 +1383,7 @@
                 
                 $SS.Config.set("Mascots", mascots);
                 $SS.Config.set("Selected Mascots", selectedMascots);
-                $SS.Config.set("Hidden Mascots", $SS.options.hiddenMascots);
-                                    
-                for (var i = 0, MAX = $SS.options.hiddenMascots.length; i < MAX; i++)
-                    delete $SS.conf["Mascots"][$SS.options.hiddenMascots[i]];
-                
-                for (var i = 0, MAX = $SS.options.deletedMascots.length; i < MAX; i++)
-                    $SS.conf["Mascots"].splice($SS.options.deletedMascots[i], 1);
+                $SS.Config.set("Hidden Mascots", $SS.conf["Hidden Mascots"]);
                 
                 // Save nav links
                 $("#themeoptions #tNavLinks div").each(function()
@@ -1372,11 +1405,7 @@
                 $SS.Config.set("Nav Links", links);
                 
                 if ($SS.options.saveAndClose)
-                {
                     $SS.options.close();
-                    $(document).unbind("keydown", $SS.options.keydown)
-                               .unbind("keyup", $SS.options.keydown);
-                }
                 
                 return $SS.init(true);
             },
@@ -1532,9 +1561,10 @@
                 }
                 else
                 {
-                    tIndex = $SS.conf["Themes"].push(tTheme);
-                    tTheme = new $SS.Theme(--tIndex);
-                    div    = tTheme.preview();
+                    tTheme.author = "You";
+                    tIndex         = $SS.conf["Themes"].push(tTheme);
+                    tTheme         = new $SS.Theme(--tIndex);
+                    div            = tTheme.preview();
                     
                     $("#overlay #tThemes").append(div);
                 }
@@ -1548,8 +1578,9 @@
             {
                 if (confirm("Are you sure?"))
                 {
-                    if ($SS.conf["Themes"][tIndex].default)
-                        $SS.options.hiddenThemes.push(tIndex);
+                    if ($SS.conf["Themes"][tIndex].default &&
+                        $SS.conf["Hidden Themes"].push(tIndex) == 1)
+                        $("#tThemes a[name=restoreThemes]").show();
                     else
                         $SS.options.deletedThemes.push(tIndex);
                     
@@ -1666,7 +1697,10 @@
                 if (confirm("Are you sure?"))
                 {
                     if ($SS.conf["Mascots"][mIndex].default)
-                        $SS.options.hiddenMascots.push(mIndex);
+                    {
+                        console.log($SS.conf["Hidden Mascots"].push(mIndex));
+                        $("#tMascot a[name=restoreMascots]").show();
+                    }
                     else
                         $SS.options.deletedMascots.push(mIndex);
                     
@@ -1921,13 +1955,12 @@
             
             init: function()
             {
-                var fThemes = this.defaults;
-                
-                for (var i = 0, MAX = $SS.conf["Hidden Themes"]; i < MAX; i++)
-                    delete fThemes[$SS.conf["Hidden Themes"][i]];
-                
+                console.log($SS.conf["Themes"]);
+                console.log(this.defaults);
                 $SS.conf["Themes"] = Array.isArray($SS.conf["Themes"]) ? 
-                    fThemes.concat($SS.conf["Themes"]) : fThemes;
+                    this.defaults.concat($SS.conf["Themes"]) : this.defaults.slice(0);
+                    
+                console.log($SS.conf["Themes"]);
                 
                 var tIndex = $SS.conf["Themes"][$SS.conf["Selected Theme"]] ?
                     $SS.conf["Selected Theme"] : 0;
@@ -1966,13 +1999,8 @@
             
             init: function()
             {
-                var fMascots = this.defaults;
-                
-                for (var i = 0, MAX = $SS.conf["Hidden Mascots"]; i < MAX; i++)
-                    delete fMascots[$SS.conf["Hidden Mascots"][i]];
-                    
                 $SS.conf["Mascots"] = Array.isArray($SS.conf["Mascots"]) ? 
-                    fMascots.concat($SS.conf["Mascots"]) : fMascots;
+                    this.defaults.concat($SS.conf["Mascots"]) : this.defaults.slice(0);
 
                 var eMascot = [],
                     mIndex;
@@ -1991,7 +2019,7 @@
                     }
                 
                 if (eMascot.length == 0)
-                    mIndex = -1;
+                    return $SS.mascot = new $SS.Mascot(-1);
                 else
                     mIndex = Math.floor(Math.random() * eMascot.length);
                     
@@ -2778,7 +2806,7 @@
         },
         Mascot: function(index)
         {
-            if (index == -1 || index == undefined)
+            if (index == -1) // no mascot
             {
                 this.img    = new $SS.Image(null);
                 this.hidden = true;

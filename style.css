@@ -101,14 +101,20 @@ a
 	text-decoration:none!important;
 	color:" + $SS.theme.linkColor.hex + "!important;
 	font-weight:normal!important;
-	-webkit-transition:all .1s ease-in-out;
-	-moz-transition:all .1s ease-in-out;
-	-o-transition:all .1s ease-in-out;
+	-webkit-transition:all .1s;
+	-moz-transition:all .1s;
+	-o-transition:all .1s;
 }
 a:hover
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 	text-shadow:rgba(" + $SS.theme.linkHColor.rgb + ",.2) 0 0 2px!important;
+}
+.spoiler a
+{
+	-webkit-transition:none;
+	-moz-transition:none;
+	-o-transition:none;
 }
 a:not([href]),
 a[href='javascript:;']
@@ -133,6 +139,12 @@ a[href='javascript:;']
 .quotelink
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
+}
+.spoiler:not(:hover),
+.spoiler:not(:hover) .unkfunc,
+.spoiler:not(:hover) a
+{
+  color:#000!important;
 }
 .filetitle,
 .replytitle
@@ -608,6 +620,7 @@ td.replyhl,
 .logo span,
 .postarea,
 #qr,
+#themeoptions #tMascot div,
 #themeoptions #tThemes .reply
 {
 	box-sizing:border-box;
@@ -1139,7 +1152,6 @@ input[type=file]::-webkit-file-upload-button:hover
 }
 button,
 input:not(.jsColor),
-select,
 textarea,
 .riceFile input~div
 {
@@ -1612,7 +1624,8 @@ body>a[style='cursor: pointer; float: right;']
 	display:none;
 }
 #updater label,
-#themeoptions #tMain label,
+#themeoptions #tMain>label,
+#themeoptions #tMain>span,
 #themeoptions #tNavLinks>div
 {
 	display:block;
@@ -1624,11 +1637,13 @@ body>a[style='cursor: pointer; float: right;']
 }
 .deletebuttons::before,
 #updater label,
-#themeoptions #tMain label span
+#themeoptions #tMain>label span,
+#themeoptions #tMain>span span
 {
+    float:left;
 	line-height:20px!important;
 }
-#themeoptions #tMain label:first-child,
+#themeoptions #tMain>label:first-child,
 #updater div:first-child label
 {
 	border-top:0!important;
@@ -1638,10 +1653,6 @@ body>a[style='cursor: pointer; float: right;']
 {
 	border-bottom:0!important;
 }
-#themeoptions #tMain label:hover
-{
-	border-left:2px solid " + $SS.theme.mainColor.hex + ";
-}
 #themeoptions #tMain select[name=Font] option
 {
 	max-width:150px;
@@ -1649,17 +1660,12 @@ body>a[style='cursor: pointer; float: right;']
 	white-space:nowrap;
 	text-overflow:ellipsis;
 }
-#updater label:hover,
-#addMascot label:hover>span
-{
-	border-left:2px solid rgba(" + $SS.theme.mainColor.shiftRGB(-32, true) + ",.6);
-}
 #themeoptions #tThemes>div
 {
 	opacity:.5;
-	-webkit-transition:opacity .2s ease-in-out;
-	-moz-transition:opacity .2s ease-in-out;
-	-o-transition:opacity .2s ease-in-out;
+	-webkit-transition:all .1s;
+	-moz-transition:all .1s;
+	-o-transition:all .1s;
 }
 #themeoptions #tThemes>div:hover,
 #themeoptions #tThemes>div.selected
@@ -1682,9 +1688,6 @@ body>a[style='cursor: pointer; float: right;']
 	opacity:0;
 	position:absolute;
 	z-index:3;
-	-webkit-transition:all .2s ease-in-out;
-	-moz-transition:all .2s ease-in-out;
-	-o-transition:all .2s ease-in-out;
 }
 #themeoptions #tThemes>div:hover p
 {
@@ -1707,9 +1710,9 @@ body>a[style='cursor: pointer; float: right;']
 	opacity:0;
 	position:absolute;
 	right:300px;
-	-webkit-transition:all .4s ease-in-out;
-	-moz-transition:all .4s ease-in-out;
-	-o-transition:all .4s ease-in-out;
+	-webkit-transition:all .3s;
+	-moz-transition:all .3s;
+	-o-transition:all .3s;
 }
 #themeoptions #tThemes>div.selected h3
 {
@@ -1734,20 +1737,22 @@ body>a[style='cursor: pointer; float: right;']
 #themeoptions #tMascot div
 {
 	background-position:center top!important;
+    background-repeat:no-repeat!important;
 	background-size:cover!important;
+	border:0 solid transparent!important;
 	display:inline-block;
 	position:relative;
 	margin:2px;
 	width:185px;
 	height:257px;
 	border-radius:10px;
-	-webkit-transition:all .2s ease-in-out;
-	-moz-transition:all .2s ease-in-out;
-	-o-transition:all .2s ease-in-out;
+	-webkit-transition:all .1s;
+	-moz-transition:all .1s;
+	-o-transition:all .1s;
 }
-#themeoptions #tMascot div:hover
+#themeoptions #tMascot div:not(.selected):hover
 {
-	background-color:rgba(" + $SS.theme.linkColor.rgb + ",.2)!important;
+	border:20px solid transparent!important;
 }
 #themeoptions #tMascot div.selected
 {
@@ -1799,18 +1804,14 @@ body>a[style='cursor: pointer; float: right;']
 {
 	width:180px;
 }
-#themeoptions label>span
-{
-	float:left;
-}
 #themeoptions label>input[type=checkbox],
 #themeoptions label>.riceCheck
 {
 	margin:4px 2px 0!important;
 	vertical-align:bottom!important;
 }
-#themeoptions label>select,
-#themeoptions label>input[type=text]
+#themeoptions span>select,
+#themeoptions span>input[type=text]
 {
 	width:125px;
 }
