@@ -1636,7 +1636,6 @@ body>a[style='cursor: pointer; float: right;']
 	vertical-align:top;
 }
 .deletebuttons::before,
-#updater label,
 #themeoptions #tMain>label span,
 #themeoptions #tMain>span span
 {
@@ -2317,6 +2316,7 @@ body>span[style]~#qr>#close
 }
 #updater label
 {
+	line-height:20px!important;
 	text-align:left!important;
 }
 #updater input,
