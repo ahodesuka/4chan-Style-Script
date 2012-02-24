@@ -1,3 +1,7 @@
+1.5.0
+    - nearly rewrote the entire script, this should fix all issues that have to due with the
+      random settings reset that people have reported.
+    - also fixed various CSS issues.
 1.4.2
     added:
         - author property to themes
