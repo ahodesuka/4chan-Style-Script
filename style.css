@@ -1739,7 +1739,7 @@ body>a[style='cursor: pointer; float: right;']
 	background-position:center top!important;
     background-repeat:no-repeat!important;
 	background-size:cover!important;
-	border:0 solid transparent!important;
+	border:1px solid transparent!important;
 	display:inline-block;
 	position:relative;
 	margin:2px;
@@ -1752,7 +1752,7 @@ body>a[style='cursor: pointer; float: right;']
 }
 #themeoptions #tMascot div:not(.selected):hover
 {
-	border:20px solid transparent!important;
+	border:1px solid " + $SS.theme.linkColor.hex + "!important;
 }
 #themeoptions #tMascot div.selected
 {
