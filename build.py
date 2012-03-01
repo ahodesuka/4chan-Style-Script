@@ -27,7 +27,7 @@ f      = open(INPUT_FILE)
 script = f.read()
 
 # Update CSS
-script  = re.sub("css = \"(.+)\";\r\n", css, script)
+script  = re.sub("(?<=css = \")(.+)(?=\";)", css, script)
 # Update Version
 script  = re.sub("(?<=// @version       )(\d+\.+\d+\.+\d+(-DEV)?)", VERSION, script)
 script  = re.sub("(?<=VERSION       = \")(\d+\.+\d+\.+\d+(-DEV)?)(?=\",)", VERSION, script)
