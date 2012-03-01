@@ -139,6 +139,7 @@
     MAX_FONT_SIZE = 16,
     MIN_FONT_SIZE = 10,
     NAMESPACE     = "4chanSS.",
+    VERSION       = "1.5.0",
     inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQVJREFUeNpi1NZUZcABkoFYngWHpAUQBwPxOyYskpJAXAjEv4C4EaTADoh1oZJcQFwBxGJAPBeIb4MUlANxHhCLAnECEOsB8Tog3gzSwSwmKvwfSLsCsSEQWwHxFSDug1rBADJhBRDvBWIVIP4AxB1A/BnmIJAvQCZMBmJ+IN4CxM+RXcx45dqtQR8OIAVLoF5sA+IgIL4ExAtg9lEhHP7//8+AD4DDQUdLTRhI+QKxA1T8AMiRwEB8CwsokGQ8kkYYewEsoBywmO4A8wVewIRkJzo4AHckLNTQHUmUNwm6AWzF1eu3BYCUNxC7QMX3APFWYKb6AHNDAFo4pAAx65AJB4AAAwAw/Uz3NoqiVgAAAABJRU5ErkJggg==",
     defaultIcons  = "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",
     fontListSWF   = "http://ahodesuka.github.com/FontList.swf",
@@ -651,7 +652,43 @@
                 $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
                 $SS.browser.opera  = /Opera/.test(navigator.userAgent);
                 $SS.location       = $SS.getLocation();
-                $SS.Config.hasGM   = $SS.browser.webkit ? false : $SS.Config.hasGM;
+                
+                if ($SS.browser.webkit)
+                    $SS.Config.hasGM = false;
+                
+                // correct selected theme/mascot after updating
+                // and the number defaults has changed.
+                if ($SS.Config.get("VERSION") !== VERSION)
+                {
+                    var ntMascots = $SS.Mascots.defaults.length, // new total
+                        ntThemes  = $SS.Themes.defaults.length,
+                        otMascots = $SS.Config.get("Total Mascots"), // old total
+                        otThemes  = $SS.Config.get("Total Themes"),
+                        sMascots  = $SS.Config.get("Selected Mascots"),
+                        sTheme    = $SS.Config.get("Selected Theme");
+                        
+                    if (otMascots !== ntMascots && otMascots != undefined)
+                    {
+                        var mDiff = ntMascots - otMascots;
+                        sMascots.reverse();
+                        
+                        for (var i = 0, MAX = sMascots.length; i < MAX; i++)
+                            if (sMascots[i] <= otMascots) break;
+                            else sMascots[i] += mDiff;
+                            
+                        $SS.Config.set("Selected Mascots", sMascots);
+                    }
+                    
+                    if (otThemes !== ntThemes && otThemes != undefined && sTheme >= otThemes)
+                    {
+                        sTheme += ntThemes - otThemes;
+                        $SS.Config.set("Selected Theme", sTheme);
+                    }
+                    
+                    $SS.Config.set("VERSION", VERSION);
+                    $SS.Config.set("Total Mascots", ntMascots);
+                    $SS.Config.set("Total Themes", ntThemes);
+                }
             }
 
             if (/^about:neterror/.test(document.documentURI) || $SS.location.sub != "boards") return;
@@ -1021,10 +1058,7 @@
                             localStorage.getItem(NAMESPACE + name);
                     
                 if (val != undefined)
-                {
-                    val = JSON.parse(val);
-                    return val;
-                }
+                    return JSON.parse(val);
                     
                 return defaultConfig[name];
             },

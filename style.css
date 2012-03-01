@@ -420,7 +420,7 @@ textarea:-moz-placeholder
 body
 {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
-	margin:" + (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] == 1 ? "0 265px 43px 0" : (!$SS.bHideSidebar ? "0 0 43px 265px" : "0 0 43px")) + "!important;
+	margin:" + (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] == 1 ? "0 265px 44px 0" : (!$SS.bHideSidebar ? "0 0 44px 265px" : "0 0 44px")) + "!important;
 	padding:18px 0 0!important;
 }
 " + (!$SS.bHideSidebar ? "
