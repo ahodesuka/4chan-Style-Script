@@ -140,8 +140,8 @@
     MIN_FONT_SIZE = 10,
     NAMESPACE     = "4chanSS.",
     VERSION       = "1.5.0",
-    inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQVJREFUeNpi1NZUZcABkoFYngWHpAUQBwPxOyYskpJAXAjEv4C4EaTADoh1oZJcQFwBxGJAPBeIb4MUlANxHhCLAnECEOsB8Tog3gzSwSwmKvwfSLsCsSEQWwHxFSDug1rBADJhBRDvBWIVIP4AxB1A/BnmIJAvQCZMBmJ+IN4CxM+RXcx45dqtQR8OIAVLoF5sA+IgIL4ExAtg9lEhHP7//8+AD4DDQUdLTRhI+QKxA1T8AMiRwEB8CwsokGQ8kkYYewEsoBywmO4A8wVewIRkJzo4AHckLNTQHUmUNwm6AWzF1eu3BYCUNxC7QMX3APFWYKb6AHNDAFo4pAAx65AJB4AAAwAw/Uz3NoqiVgAAAABJRU5ErkJggg==",
-    defaultIcons  = "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",
+    inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAP9JREFUOMvV0CFLQ2EYxfHfrtdiURgbmCxOmFPBJgZZ0CQD0Q+goFkwabWIyWIWFgwmy7Qp7DPI3GD7ACZlYLNcy31ljG0aDHrSy3N43nOef6ZULBiifczEQ8wV7OAtGmBO4wgfOI2whsXUnMAJ8rhCJ8IxDpHDHpZwixqM5XPZBBtYxioauEgjRLjBI2bRxTneQ6EYCS4xiTu89DbONJrtP88hwnV64hm28YRqyPsFDkmSGKUYFubnsqignM7rqDWa7dcAqoLdnsXwrgZQ5QG/l8MVIxX1ZPar/lUyUOsv+aMzv+0Qw3OrM4VNrKfzB9yXioVu6LDVx+EA4/+Gwycw/Uz36O07WwAAAABJRU5ErkJggg==",
+    defaultIcons  = "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",
     fontListSWF   = "http://ahodesuka.github.com/FontList.swf",
     themeInputs   =
     [
@@ -1163,9 +1163,8 @@
                                             <input type=text name='Nav Link Delimiter' value='" + $SS.conf["Nav Link Delimiter"] + "' style='width:40px' title='" + defaultConfig["Nav Link Delimiter"][1] + "'></p>";
                             
                             for (var i = 0, MAX = links.length; i < MAX; i++)
-                                optionsHTML += "<div><label>Text: <input type=text value='" + links[i].text + "'></label>" +
-                                                    "<label>Link: <input type=text value='" + links[i].link + "'></label>" +
-                                                    "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a></div>";
+                                optionsHTML += "<div id=navlink" + i + " class=navlink draggable=true><label>Text: <input type=text value='" + links[i].text + "'></label>" +
+                                                    "<label>Link: <input type=text value='" + links[i].link + "'></label><a class=trbtn name=delLink>remove</a></div>";
                         }
                         else
                             optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
@@ -1185,19 +1184,30 @@
                     
                     var bindLinkButtons = function(el)
                     {
-                        $("a[name=upLink]", el).bind("click", function()
+                        $(el).bind("dragstart", function(e)
                         {
-                            var p = $(this).parent(), n;
-                            if ((n = p.previousSibling()))
-                                n.before(p);
-                        });
-                        $("a[name=downLink]", el).bind("click", function()
+                            $(this).addClass("moving");
+                            e.dataTransfer.effectAllowed = "move";
+                            e.dataTransfer.setData("text/plain", this.id);
+                        })
+                        .bind("dragenter", function(e){ $(this).addClass("over"); })
+                        .bind("dragover", function(e)
                         {
-                            var p = $(this).parent(), n;
-                            if ((n = p.nextSibling()))
-                                n.after(p);
-                        });
-                        $("a[name=delLink]", el).bind("click", function(){ $(this).parent().remove(); });
+                            e.preventDefault();
+                            e.dataTransfer.dropEffect = "move";
+                        })
+                        .bind("dragleave", function(e){ $(this).removeClass("over"); })
+                        .bind("drop", function(e)
+                        {
+                            var node = $("#tNavLinks>#" + e.dataTransfer.getData("text/plain"));
+                            
+                            console.log(node);
+                            console.log(this);
+                            
+                            $(this).before(node).removeClass("over");
+                        })
+                        .bind("dragend", function(e){ $(this).removeClass("moving"); });
+                        $("a[name=delLink]", el).bind("click", function(){ alert(this.className);$(this).parent().remove(); });
                     };
                     
                     // main tab
@@ -1223,12 +1233,11 @@
                     // nav links tab
                     $("a[name=addLink]", tOptions).bind("click", function()
                     {
-                        var el = $("<div>").html("<label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label>" +
-                                    "<a class='trbtn trbtn-small' name=upLink>up</a><a class='trbtn trbtn-small' name=downLink>down</a><a class=trbtn name=delLink>remove</a>");
+                        var el = $("<div id=navlink" + $("#tNavLinks>.navlink").length() + " class=navlink draggable=true>").html("<label>Text: <input type=text></label><label>Link: <input type=text value='http://boards.4chan.org/'></label><a class=trbtn name=delLink>remove</a>");
                         bindLinkButtons(el);
                         $("#tNavLinks").append(el);
                     });
-                    bindLinkButtons(tOptions);
+                    $("#tNavLinks .navlink", tOptions).each(function(){ bindLinkButtons(this); });
                     
                     // options window
                     $("a[name=save]", tOptions).bind("click", $SS.options.save);
@@ -1595,9 +1604,9 @@
                 else
                 {
                     tTheme.author = "You";
-                    tIndex         = $SS.conf["Themes"].push(tTheme);
-                    tTheme         = new $SS.Theme(--tIndex);
-                    div            = tTheme.preview();
+                    tIndex        = $SS.conf["Themes"].push(tTheme);
+                    tTheme        = new $SS.Theme(--tIndex);
+                    div           = tTheme.preview();
                     
                     $("#overlay #tThemes").append(div);
                 }
@@ -1705,7 +1714,7 @@
                     }
                     
                     tMascot = new $SS.Image(cIMG);
-                    $("#mascot" + mIndex).attr("style", "background:" + tIMG.get());
+                    $("#mascot" + mIndex).attr("style", "background:" + tMascot.get());
                 }
                 else
                 {
@@ -2000,26 +2009,26 @@
         {
             defaults:
             [
-                { img: "http://i.imgur.com/DL5uR.png", overflow: true,                                          "default":   true }, //, asuka
-                { img: "http://i.imgur.com/zhPlM.png",                                                          "default":   true }, //, erio
-                { img: "http://i.imgur.com/b9KmB.png",                                                          "default":   true }, //, homu
-                { img: "http://i.imgur.com/bsLY4.png", offset: 0, position: "center",                           "default":   true }, //, horo
-                { img: "http://i.imgur.com/uO5qZ.png",                                                          "default":   true }, //, kuroko
-                { img: "http://i.imgur.com/Ht6dr.png", offset: -90, position: "center", small: true,            "default":   true }, //, kuroneko
-                { img: "http://i.imgur.com/56oEl.png",                                                          "default":   true }, //, inori
-                { img: "http://i.imgur.com/ridLc.png", overflow: true,                                          "default":   true }, //, kimi
-                { img: "http://i.imgur.com/AfjG9.png", offset: 0, position: "center", flip: false, small: true, "default":   true }, //, lain
-                { img: "http://i.imgur.com/WUIMw.png",                                                          "default":   true }, //, luka
-                { img: "http://i.imgur.com/J1i26.png", offset: -90, position: "center",                         "default":   true }, //, madotsuki
-                { img: "http://i.imgur.com/53yAK.png", overflow: true,                                          "default":   true }, //, ムゥ～りさ
-                { img: "http://i.imgur.com/H1pgZ.png", offset: 0, position: "center", flip: false, small: true, "default":   true }, //, miku
-                { img: "http://i.imgur.com/MdE9K.png", flip: false, overflow: true,                             "default":   true }, //, mio
-                { img: "http://i.imgur.com/NaKmF.png", offset: 0, position: "center",                           "default":   true }, //, mokou
-                { img: "http://i.imgur.com/WWozC.png", overflow: true,                                          "default":   true }, //, ran
-                { img: "http://i.imgur.com/K1mLx.png", flip: false, samll: true,                                "default":   true }, //, shana
-                { img: "http://i.imgur.com/FKDcd.png",                                                          "default":   true }, //, shiki
-                { img: "http://i.imgur.com/zu9nY.png",                                                          "default":   true }, //, tessa
-                { img: "http://i.imgur.com/haBSN.png",                                                          "default":   true }, //, yin
+                { img: "http://i.imgur.com/DL5uR.png", overflow: true,                                          "default":   true }, // asuka
+                { img: "http://i.imgur.com/zhPlM.png",                                                          "default":   true }, // erio
+                { img: "http://i.imgur.com/b9KmB.png",                                                          "default":   true }, // homu
+                { img: "http://i.imgur.com/bsLY4.png", offset: 0, position: "center",                           "default":   true }, // horo
+                { img: "http://i.imgur.com/uO5qZ.png",                                                          "default":   true }, // kuroko
+                { img: "http://i.imgur.com/Ht6dr.png", offset: -90, position: "center", small: true,            "default":   true }, // kuroneko
+                { img: "http://i.imgur.com/56oEl.png",                                                          "default":   true }, // inori
+                { img: "http://i.imgur.com/ridLc.png", overflow: true,                                          "default":   true }, // kimi
+                { img: "http://i.imgur.com/AfjG9.png", offset: 0, position: "center", flip: false, small: true, "default":   true }, // lain
+                { img: "http://i.imgur.com/WUIMw.png",                                                          "default":   true }, // luka
+                { img: "http://i.imgur.com/J1i26.png", offset: -90, position: "center",                         "default":   true }, // madotsuki
+                { img: "http://i.imgur.com/53yAK.png", overflow: true,                                          "default":   true }, // ムゥ～りさ
+                { img: "http://i.imgur.com/H1pgZ.png", offset: 0, position: "center", flip: false, small: true, "default":   true }, // miku
+                { img: "http://i.imgur.com/MdE9K.png", flip: false, overflow: true,                             "default":   true }, // mio
+                { img: "http://i.imgur.com/NaKmF.png", offset: 0, position: "center",                           "default":   true }, // mokou
+                { img: "http://i.imgur.com/WWozC.png", overflow: true,                                          "default":   true }, // ran
+                { img: "http://i.imgur.com/K1mLx.png", flip: false, samll: true,                                "default":   true }, // shana
+                { img: "http://i.imgur.com/FKDcd.png",                                                          "default":   true }, // shiki
+                { img: "http://i.imgur.com/zu9nY.png",                                                          "default":   true }, // tessa
+                { img: "http://i.imgur.com/haBSN.png",                                                          "default":   true }, // yin
                 { img: "http://i.imgur.com/xwPrX.png",                                                          "default":   true }  // yozora
             ],
             
@@ -2063,9 +2072,7 @@
         {
             addLinks: function(x)
             {
-                var targets = $("img[md5]", x);
-                
-                targets.each(function()
+                $("img[md5]", x).each(function()
                 {
                     var node = $(this).parent().previousSibling(".filesize");
                     

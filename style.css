@@ -16,6 +16,9 @@ select:focus,
 textarea:focus
 {
 	box-shadow:inset " + $SS.theme.linkColor.hex +" 0 -1px 0,inset " + $SS.theme.linkColor.hex +" 0 1px 0,inset " + $SS.theme.linkColor.hex +" -1px 0 0,inset " + $SS.theme.linkColor.hex +" 1px 0 0;
+    -webkit-transition:none!important;
+    -moz-transition:none!important;
+    -o-transition:none!important;
 }
 input::-moz-focus-inner
 {
@@ -205,7 +208,7 @@ form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),
 img[alt=closed],
 img[alt=sticky],
 body>span[style],
-body>span[style] a,
+body>span[style] a[href='.././'],
 body>a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
 .deletebuttons,
@@ -532,7 +535,7 @@ body>span[style]~form[name=delform]" : "
 {
 	clear:both;
 	margin:1px" + ($SS.conf["Layout"] == 1 ? ($SS.conf["Sidebar Position"] != 2 ? " 0 1px 1px" : " 1px 1px 0") : ($SS.conf["Layout"] == 2 ? " 0 1px" : "")) + "!important;
-	padding:3px 0 0!important;
+	padding:0!important;
 	position:relative;
 	border-radius:" + ($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
@@ -549,7 +552,7 @@ form[name=delform] .op::after,
 .op
 {
 	border:0!important;
-	padding-bottom:12px;
+	padding:3px 0 12px;
 	position:relative;
 	" + ($SS.conf["Layout"] == 2 ? "
 	border-radius:" + ($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
@@ -655,7 +658,7 @@ td .reportbutton:" : "
 #qp .reportbutton") + "
 {
 	position:static!important;
-	vertical-align:top!important;
+	vertical-align:middle!important;
 }
 td.reply input[type=checkbox],
 td.replyhl input[type=checkbox],
@@ -697,8 +700,7 @@ td.replyhl .riceCheck,
 .stub>.block>a>span
 {
 	background-position:-80px -16px;
-	position:relative;
-	top:1px;
+	vertical-align:middle!important;
 	-webkit-transition:all .1s ease-in-out;
 	-moz-transition:all .1s ease-in-out;
 	-o-transition:all .1s ease-in-out;
@@ -729,13 +731,6 @@ td.replyhl .riceCheck,
 {
 	opacity:.75;
 }
-td.reply,
-td.replyhl
-{
-	-webkit-transition:all .1s ease-in-out;
-	-moz-transition:all .1s ease-in-out;
-	-o-transition:all .1s ease-in-out;
-}
 td.reply>img,
 td.replyhl>img
 {
@@ -756,11 +751,11 @@ td.replyhl,
 .qphl
 {
 	background:rgba(" + $SS.theme.linkColor.rgb + ",.2)!important;
-	box-shadow:inset rgba(" + $SS.theme.linkColor.rgb + ",.4) 0 0 5px;
+	box-shadow:inset rgba(" + $SS.theme.linkColor.rgb + ",.4) 0 0 5px!important;
 }
 .filter_highlight
 {
-\tbox-shadow:-5px 0 rgba(255,0,0,.5)!important;
+    box-shadow:-5px 0 rgba(255,0,0,.5)!important;
 }
 .stub
 {
@@ -1007,7 +1002,7 @@ form[name=delform] .filesize+br+a[target='_blank'] img+img
 }
 img[alt=closed],
 img[alt=sticky],
-body>span[style] a,
+body>span[style] a[href='.././'],
 body>a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
 #imageType+label,
@@ -1238,7 +1233,7 @@ input[type=radio]
 input[type=checkbox],
 .riceCheck
 {
-	box-shadow:rgba(" + $SS.theme.mainColor.shiftRGB(64) + ",.3) 0 1px;
+	box-shadow:rgba(" + $SS.theme.mainColor.shiftRGB(32) + ",.3) 0 1px;
 }
 input[type=checkbox]:hover,
 input[type=radio]:hover,
@@ -1605,7 +1600,7 @@ body>a[style='cursor: pointer; float: right;']
 }
 #themeoptions #toWrapper
 {
-	background:rgba(" + $SS.theme.mainColor.shiftRGB(-96) + ",.3);
+	background:rgb(" + $SS.theme.mainColor.shiftRGB(-12) + ");
 	box-shadow:inset rgba(0,0,0,.3) 0 0 5px,rgba(" + $SS.theme.mainColor.shiftRGB(32) + ",.6) 0 1px 3px;
 	border-radius:5px;
 }
@@ -1779,10 +1774,19 @@ body>a[style='cursor: pointer; float: right;']
 	right:0;
 	border-radius:0 10px 0 10px;
 }
-#themeoptions #tNavLinks>div
+#themeoptions #tNavLinks .navlink
 {
+	cursor:move;
 	height:24px;
 	padding-top:1px;
+}
+#themeoptions #tNavLinks .navlink.moving
+{
+	opacity:.5;
+}
+#themeoptions #tNavLinks .navlink.over:not(.moving)
+{
+	border-top:4px double " + $SS.theme.brderColor.hex + ";
 }
 #themeoptions #tNavLinks label
 {
@@ -2293,21 +2297,14 @@ body>span[style]~#qr>#close
 	top:0!important;
 	height:18px;
 	line-height:18px;
-	max-height:18px!important;
-	min-height:18px!important;
 	overflow:hidden;
 	padding:0 3px;
-	z-index:11!important;
+	z-index:9!important;
 	width:140px;
-	-webkit-transition:all .2s ease-in-out;
-	-moz-transition:all .2s ease-in-out;
-	-o-transition:all .2s ease-in-out;
 }
 #updater:hover
 {
 	height:auto!important;
-	max-height:180px!important;
-	min-height:160px!important;
 	padding-bottom:3px;
 }
 #updater #count.new
@@ -2622,7 +2619,7 @@ body>div[style='width: 100%;']+form[name=delform]
 	margin-top:43px!important;
 	position:fixed;
 }
-body>span[style] a,
+body>span[style] a[href='.././'],
 body>a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
 #imageType+label
@@ -2632,7 +2629,7 @@ body>a[style='cursor: pointer; float: right;'],
 	-moz-transition:opacity .1s ease-in-out;
 	-o-transition:opacity .1s ease-in-out;
 }
-body>span[style] a:hover,
+body>span[style] a[href='.././']:hover,
 body>a[href='.././']:hover,
 body>a[style='cursor: pointer; float: right;']:hover,
 #imageType+label:hover,
@@ -2732,7 +2729,7 @@ ul#Alerts a:hover
 {
 	color:#222!important;
 }
-body>span[style] a,
+body>span[style] a[href='.././'],
 body>a[href='.././']
 {
 	background-position:-64px 0;
