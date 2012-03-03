@@ -1793,13 +1793,18 @@ body>a[style='cursor: pointer; float: right;']
 	padding-top:1px;
 	position:relative;
 }
-#themeoptions #tNavLinks .navlink.moving
+#themeoptions #tNavLinks .moving
 {
 	opacity:.5;
 }
-#themeoptions #tNavLinks .navlink.over:not(.moving)
+#themeoptions #tNavLinks .over:not(.moving)
 {
 	border-top:4px double " + $SS.theme.brderColor.hex + ";
+}
+#themeoptions #tNavLinks .moving~.over
+{
+	border-bottom:4px double " + $SS.theme.brderColor.hex + ";
+	border-top:0;
 }
 #themeoptions #tNavLinks .navlink .handle
 {
