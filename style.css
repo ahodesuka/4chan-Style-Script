@@ -10,6 +10,13 @@
 	-moz-outline:none!important;
 	-moz-user-focus:none!important;
 }
+[draggable]
+{
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -o-user-select:none;
+  user-select:none;
+}
 input:not([disabled]):active,
 input:focus,
 select:focus,
@@ -623,7 +630,8 @@ td.replyhl,
 .postarea,
 #qr,
 #themeoptions #tMascot div,
-#themeoptions #tThemes .reply
+#themeoptions #tThemes .reply,
+#themeoptions #tNavLinks .navlink .handle
 {
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
@@ -1774,11 +1782,16 @@ body>a[style='cursor: pointer; float: right;']
 	right:0;
 	border-radius:0 10px 0 10px;
 }
+#themeoptions #tNavLinks .navlink>*:not(.handle)
+{
+	position:relative;
+	z-index:1;
+}
 #themeoptions #tNavLinks .navlink
 {
-	cursor:move;
 	height:24px;
 	padding-top:1px;
+	position:relative;
 }
 #themeoptions #tNavLinks .navlink.moving
 {
@@ -1787,6 +1800,18 @@ body>a[style='cursor: pointer; float: right;']
 #themeoptions #tNavLinks .navlink.over:not(.moving)
 {
 	border-top:4px double " + $SS.theme.brderColor.hex + ";
+}
+#themeoptions #tNavLinks .navlink .handle
+{
+	border-left:16px solid " + $SS.theme.brderColor.hex + ";
+	border-bottom:1px solid rgb(" + $SS.theme.brderColor.shiftRGB(16, true) + ");
+	cursor:move;
+	height:26px;
+	left:0;
+	position:absolute;
+	top:0;
+	width:100%;
+	z-index:0;
 }
 #themeoptions #tNavLinks label
 {
@@ -1797,6 +1822,7 @@ body>a[style='cursor: pointer; float: right;']
 #themeoptions #tNavLinks label:first-child
 {
 	float:left;
+	margin-left:18px;
 }
 #themeoptions #tNavLinks label:first-child>input[type=text]
 {

@@ -1,3 +1,13 @@
+1.5.1
+    added:
+        - an easy way to keep selected theme/mascots when updating and the defaults have been changed.
+    modified:
+        - icons have been changed, old icons will be re-added when the icon option is added to the theme editor.
+        - nav links are now re-rearrangeable by drag and drop.
+        - some rgba colors have been replaced with just rgb to increase performance.
+        - ran icons and input images through pngcrush.
+    fixed:
+        - varius bugs javascript bugs that were preventing some functionality.
 1.5.0
     - nearly rewrote the entire script, this should fix all issues that have to due with the
       random settings reset that people have reported.
