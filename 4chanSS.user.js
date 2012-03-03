@@ -1200,11 +1200,12 @@
                                 var node = $("#tNavLinks>#" + e.dataTransfer.getData("text/plain"));
                                 
                                 if ($(this).nextSibling(node).exists())
-                                    $(this).before(node).removeClass("over");
+                                    $(this).before(node);
                                 else
-                                    $(this).after(node).removeClass("over");
+                                    $(this).after(node);
                             }
                             
+                            $(this).removeClass("over");
                             e.preventDefault();
                         })
                         .bind("dragover", function(e)
