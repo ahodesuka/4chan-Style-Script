@@ -8,7 +8,7 @@
 // @include       http://boards.4chan.org/*
 // @include       http://rs.4chan.org/*
 // @include       http://sys.4chan.org/*
-// @updateURL     https://github.com/ahodesuka/4chan-Style-Script/raw/master/4chanSS.user.js
+// @updateURL     https://github.com/ahodesuka/4chan-Style-Script/raw/stable/4chanSS.user.js
 // ==/UserScript==
 
 (function()
@@ -25,6 +25,15 @@
         "Expanding Form Inputs":    [ true,  "Makes certain form elements expand on focus" ],
         "Custom Navigation Links":  [ true,  "Use specified links instead of showing all boards" ],
         "Style Scrollbars":         [ true,  "Make the scroll bar match the theme" ],
+        "Sage Identification":
+        [
+            2, "Adds identification to posts that do not bump threads.",
+            [
+                { name: "None", value: 1 },
+                { name: "Text", value: 2 },
+                { name: "Icon", value: 3 }
+            ]
+        ],
         "Side Margin":
         [
             26, "Change the size of the margin opposite of the sidebar",
@@ -42,7 +51,15 @@
                 { name: "Fit Width",   value: 1 },
                 { name: "Fit Content", value: 2 },
                 { name: "Centered",    value: 3 }
-            ]
+            ], true
+        ],
+        "Thread Separators":
+        [
+            true,
+            "Show the lines between different threads",
+            "Layout",
+            2,
+            true
         ],
         "Post Form":
         [
@@ -50,7 +67,8 @@
             [
                 { name: "Slide Up", value: 1 },
                 { name: "Fade",     value: 2 },
-                { name: "Fixed",    value: 3 }
+                { name: "Fixed",    value: 3 },
+                { name: "Float",    value: 4 }
             ]
         ],
         "Sidebar Position":
@@ -60,7 +78,15 @@
                 { name: "Right",    value: 1 },
                 { name: "Left",     value: 2 },
                 { name: "Disabled", value: 3 }
-            ]
+            ], true
+        ],
+        "Reserve Edge":
+        [
+            true,
+            "Reserve the edge where the sidebar would be",
+            "Sidebar Position",
+            3,
+            true
         ],
         "ExHentai Source":
         [
@@ -91,7 +117,7 @@
         ],
         "Rice Inputs":
         [
-            2, "Style certain input elements to match theme (Styling checkbox's may impede load speed)",
+            2, "Style certain input elements to match theme",
             [
                 { name: "Disabled", value: 1 },
                 { name: "File",     value: 2 },
@@ -543,6 +569,17 @@
         },
         
         /* HELPER METHODS */
+        delay: function(func, time)
+        {
+            return this.each(function()
+            {
+                var $this = this;
+                setTimeout(function()
+                {
+                    func.call($this);
+                }, time);
+            });
+        },
         each: function(func, args)
         {
             if (args != null && !Array.isArray(args))
@@ -673,7 +710,7 @@
                         sMascots.reverse();
                         
                         for (var i = 0, MAX = sMascots.length; i < MAX; i++)
-                            if (sMascots[i] <= otMascots) break;
+                            if (sMascots[i] < otMascots) break;
                             else sMascots[i] += mDiff;
                             
                         $SS.Config.set("Selected Mascots", sMascots);
@@ -776,7 +813,7 @@
                     }
                     
                     // fix auto offset mascot in locked threads
-                    if (!$(".postarea").exists() && !mascot.bOffset)
+                    if (!$(".postarea").exists() && !$SS.mascot.bOffset)
                         postLoadCSS += "body::after{margin-bottom:0!important}";
                     
                     if ((prev = $(".pages td input[value='Previous']")).exists())
@@ -793,10 +830,6 @@
                             $(this).toggleClass("imgExpanded");
                         });
                 }
-                
-                // persistent QR
-                if ((qr = $("#qr")).exists())
-                    postLoadCSS += ".postarea,#qr .close{display:none!important}";
                     
                 if ($SS.conf["Custom Navigation Links"])
                     $SS.buildCustomNav();
@@ -808,13 +841,13 @@
                     // Set left offset for slide out pages
                     if ($SS.conf["Pages Position"] == 1)
                     {
-                        pages.attr("style", "display:table!important");
-                        setTimeout(function()
-                        {
-                            pages.attr("style",
-                                $SS.conf["Sidebar Position oString"] + ":" + // FIXME: the last page will cause the pages to always be off the screen
-                                    (($SS.conf["Sidebar Position"] != 2 ? $(".pages td:last-child").get().offsetWidth : 0) - pages.get().offsetWidth) + "px");
-                        }, 10);
+                        pages.attr("style", "display:table!important")
+                             .delay(function()
+                             {
+                                pages.attr("style",
+                                    $SS.conf["Sidebar Position oString"] + ":" + // FIXME: the last page will cause the pages to always be off the screen
+                                        (($SS.conf["Sidebar Position"] != 2 ? $(".pages td:last-child").get().offsetWidth : 0) - pages.get().offsetWidth) + "px");
+                             }, 10);
                     }
                     else if (reload)
                         pages.attr("style", "");
@@ -834,39 +867,19 @@
                 if ($SS.conf["Rice Inputs"] == 2)
                     $("input[type=file]").riceFile();
                 else if ($SS.conf["Rice Inputs"] == 3)
-                  $("input[type=checkbox]:not(#imageExpand):not(#autohide)").riceCheck();
+                  $("input[type=checkbox]:not(#imageExpand)").riceCheck();
                 else if ($SS.conf["Rice Inputs"] == 4)
                 {
                     $("input[type=file]").riceFile();
-                    $("input[type=checkbox]:not(#imageExpand):not(#autohide)").riceCheck();
+                    $("input[type=checkbox]:not(#imageExpand)").riceCheck();
                 }
                 
                 if (reload)
                 {
                     $("#ch4SSPost").text(postLoadCSS);
                     
-                    if (qr.exists())
-                    {
-                        if ($SS.conf["Post Form"] != 1)
-                        {
-                            qr.attr("style", "")
-                              .unbind("mouseover", $SS.qrMouseOver)
-                              .unbind("mouseout", $SS.qrMouseOut);
-                              
-                            if ($SS.conf["Post Form"] == 3)
-                                qr.addClass("fixed");
-                            else
-                                qr.removeClass("fixed");
-                        }
-                        else
-                        {
-                            qr.bind("mouseover", $SS.qrMouseOver)
-                              .bind("mouseout", $SS.qrMouseOut);
-                        }
-                        
-                        if ($SS.conf["Expanding Form Inputs"])
-                            addLabels(qr);
-                    }
+                    if (qr.exists() && $SS.conf["Expanding Form Inputs"])
+                        addLabels(qr);
                     
                     if ($SS.conf["Smart Tripcode Hider"])
                         $("input[name=name]").each(function()
@@ -886,38 +899,14 @@
                     $(document.head).append($("<style type='text/css' id=ch4SSPost>"));
                     $("#ch4SSPost").text(postLoadCSS);
                     
-                    // Change some of 4chan x quick reply events
-                    if (qr.exists())
+                    if ((qr = $("#qr")).exists())
                     {
-                        // Clone to remove event listeners and delete text
-                        var move  = qr.children("div.move"),
-                            moveC = move.clone(),
-                            check = qr.children("#autohide");
-                        
-                        qr.attr("style", "");
-                        move.remove();
-                        check = $("#autohide", moveC);
-                        qr.prepend(moveC);
-                        
                         $(".warning", qr).bind("click", function(){ $(this).removeClass("showWarning"); });
                         
                         if ($SS.conf["Expanding Form Inputs"])
                             addLabels(qr);
-                            
-                        if ($SS.conf["Rice Inputs"] == 3 || $SS.conf["Rice Inputs"] == 4)
-                            check.riceCheck();
                         
-                        check.bind("change", function(){ $("#qr").toggleClass("autohide"); });
-                        
-                        if ($SS.conf["Post Form"] == 1)
-                        {
-                            qr.bind("mouseover", $SS.qrMouseOver)
-                              .bind("mouseout", $SS.qrMouseOut);
-                        }
-                        else if ($SS.conf["Post Form"] == 3)
-                            qr.addClass("fixed");
-                        
-                        $("input,textarea,select", qr).bind("focus", function(){ $("#qr").attr("style", "").addClass("focus"); })
+                        $("input,textarea,select", qr).bind("focus", function(){ $("#qr").addClass("focus"); })
                                                       .bind("blur", function(){ $("#qr").removeClass("focus"); });
                     }
                     
@@ -997,17 +986,6 @@
                     node.removeClass("showWarning");
             }
         },
-        qrMouseOver: function()
-        {
-            $(this).attr("style", "");
-        },
-        qrMouseOut: function(e)
-        {
-            var qr = this.nodeName ? this : e;
-
-            if ($(qr).hasClass("autohide") && !$(qr).hasClass("focus"))
-                $(qr).attr("style", "bottom:-" + (qr.clientHeight - $(".move", qr).get().clientHeight) + "px!important");
-        },
         tripCheck: function(e)
         {
             var $this = this.nodeName ? $(this) : $(e),
@@ -1034,7 +1012,6 @@
                 $SS.conf["Small Font Size"]          = $SS.conf["Font Size"] > 11 && !$SS.conf["Bitmap Font"] ? 12 : $SS.conf["Font Size"];
                 $SS.conf["Sidebar Position String"]  = $SS.conf["Sidebar Position"] != 2 ? "right" : "left";
                 $SS.conf["Sidebar Position oString"] = $SS.conf["Sidebar Position"] != 2 ? "left" : "right";
-                $SS.conf["Side Margin"]              = $SS.conf["Layout"] == 2 ? Math.min(Math.max(20, $SS.conf["Side Margin"]), 26) : $SS.conf["Side Margin"];
             },
             parseVal: function(key, val)
             {
@@ -1102,6 +1079,40 @@
                         <li><label for=tcbNavLinks>Nav Links</label></li>\
                         </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>\
                         <p><a class=trbtn name=loadSysFonts title='Reqiures flash'>" + ($SS.fontList ? "System Fonts Loaded!" : "Load System Fonts") + "</a></p>",
+                        bindLinkButtons = function(el)
+                        {
+                            $(".handle", el).bind("dragstart", function(e)
+                            {
+                                $(this.parentNode).addClass("moving");
+                                e.dataTransfer.effectAllowed = "move";
+                                e.dataTransfer.setData("text/plain", this.parentNode.id);
+                            })
+                            .bind("dragend", function(e){ $(this.parentNode).delay(function(){ $(this).removeClass("moving"); }, 1); })
+                            .bind("dragenter", function(e){ $(this.parentNode).addClass("over"); })
+                            .bind("dragleave", function(e){ $(this.parentNode).removeClass("over"); });
+                            $(el).bind("drop", function(e)
+                            {
+                                var node = $("#tNavLinks>#" + e.dataTransfer.getData("text/plain"));
+                                
+                                if (e.dataTransfer.getData("text/plain") !== this.id)
+                                {
+                                    
+                                    if ($(this).nextSibling(node).exists())
+                                        $(this).before(node);
+                                    else
+                                        $(this).after(node);
+                                }
+                                
+                                $(this).removeClass("over");
+                                e.preventDefault();
+                            })
+                            .bind("dragover", function(e)
+                            {
+                                e.preventDefault();
+                                e.dataTransfer.dropEffect = "move";
+                            });
+                            $("a[name=delLink]", el.parentNode).bind("click", function(){ $(this).parent().remove(); });
+                        },
                         key, val, des;
                     
                     for (key in defaultConfig)
@@ -1114,11 +1125,17 @@
                         val = $SS.conf[key];
                         des = defaultConfig[key][1];
                         
-                        if (Array.isArray(defaultConfig[key][2]))
+                        if (defaultConfig[key][4] === true) // sub-option
+                        {
+                            var pVal = $SS.conf[defaultConfig[key][2]];
+                                id   = defaultConfig[key][2].replace(" ", "_") + defaultConfig[key][3];
+                            optionsHTML += "<label class='mOption subOption' id=" + id + " title=\"" + des + "\"" + (pVal != defaultConfig[key][3] ? "hidden" : "") + "><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
+                        }
+                        else if (Array.isArray(defaultConfig[key][2])) // select
                         {
                             var opts = key == "Font" ? $SS.fontList || defaultConfig[key][2] : defaultConfig[key][2],
                                 cFonts = [];
-                            optionsHTML += "<span title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'>";
+                            optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'" + (defaultConfig[key][3] === true ? " hasSub" : "")  + ">";
                             
                             for (var i = 0, MAX = opts.length; i < MAX; i++)
                             {
@@ -1144,7 +1161,7 @@
                         }
                         else if (key == "Font Size")
                         {
-                            optionsHTML += "<span title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></span>";
+                            optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></span>";
                         }
                         else if (key == "Themes")
                         {
@@ -1166,14 +1183,16 @@
                                 optionsHTML += "<div id=navlink" + i + " class=navlink><label>Text: <input type=text value='" + links[i].text + "'></label>" +
                                                     "<label>Link: <input type=text value='" + links[i].link + "'></label><a class=trbtn name=delLink>remove</a><div class=handle draggable=true></div></div>";
                         }
-                        else
-                            optionsHTML += "<label title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
+                        else // checkbox
+                            optionsHTML += "<label class=mOption title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
                     }
                     
                     optionsHTML += "</div></div><div><a class=trbtn name=save title='Hold any modifier to prevent window from closing'>save</a><a class=trbtn name=cancel>cancel</a></div>";
                     tOptions.html(optionsHTML);
                     overlay.append(tOptions);
                     
+                    
+                    // options window
                     $("#toNav li label", tOptions).bind("click", function(e)
                     {
                         if ($(this).hasClass("selected")) return;
@@ -1181,40 +1200,20 @@
                         $("#toNav li label.selected").removeClass("selected");
                         $(this).addClass("selected");
                     });
-                    
-                    var bindLinkButtons = function(el)
+                    $("[hasSub]", tOptions).bind("change", function()
                     {
-                        $(".handle", el).bind("dragstart", function(e)
-                        {
-                            $(this.parentNode).addClass("moving");
-                            e.dataTransfer.effectAllowed = "move";
-                            e.dataTransfer.setData("text/plain", this.parentNode.id);
-                        })
-                        .bind("dragend", function(e){ $(this.parentNode).removeClass("moving"); })
-                        .bind("dragenter", function(e){ $(this.parentNode).addClass("over"); })
-                        .bind("dragleave", function(e){ $(this.parentNode).removeClass("over"); });
-                        $(el).bind("drop", function(e)
-                        {
-                            if (e.dataTransfer.getData("text/plain") !== this.id)
-                            {
-                                var node = $("#tNavLinks>#" + e.dataTransfer.getData("text/plain"));
-                                
-                                if ($(this).nextSibling(node).exists())
-                                    $(this).before(node);
-                                else
-                                    $(this).after(node);
-                            }
+                        var id  = this.name.replace(" ", "_") + $(this).val(),
+                            sub = $("#" + id);
                             
-                            $(this).removeClass("over");
-                            e.preventDefault();
-                        })
-                        .bind("dragover", function(e)
-                        {
-                            e.preventDefault();
-                            e.dataTransfer.dropEffect = "move";
-                        });
-                        $("a[name=delLink]", el.parentNode).bind("click", function(){ $(this).parent().remove(); });
-                    };
+                        if (sub.exists())
+                            sub.show();
+                        else
+                            $("[id*='" + this.name.replace(" ", "_") + "']").hide();
+                    });
+                    $("a[name=save]", tOptions).bind("click", $SS.options.save);
+                    $("a[name=cancel]",tOptions).bind("click", $SS.options.close);
+                    $(document).bind("keydown", $SS.options.keydown)
+                               .bind("keyup",   $SS.options.keyup);
                     
                     // main tab
                     $("input[name='Font Size']", tOptions).bind("keydown", function(e)
@@ -1246,13 +1245,6 @@
                         $("#tNavLinks").append(el);
                     });
                     $("#tNavLinks .navlink", tOptions).each(function(){ bindLinkButtons(this); });
-                    
-                    // options window
-                    $("a[name=save]", tOptions).bind("click", $SS.options.save);
-                    $("a[name=cancel]",tOptions).bind("click", $SS.options.close);
-                    
-                    $(document).bind("keydown", $SS.options.keydown)
-                               .bind("keyup",   $SS.options.keyup);
                     
                     return $(document.body).attr("style", "overflow:hidden;").append(overlay);
                 }
@@ -1996,7 +1988,7 @@
                     sageColor:   "cc6666",
                     tripColor:   "bf7f3f",
                     titleColor:  "4c4c4c",
-                    customCSS:   'new String(($SS.conf["Layout"]==2?".replyhider{border:1px solid "+this.brderColor.hex+"!important;border-right:0!important}.op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]==3?"left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)}")'
+                    customCSS:   'new String(($SS.conf["Layout"]==2?".op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]==3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)}")'
                 }
             ],
             
@@ -2864,7 +2856,7 @@
             this.small    = mascot.small;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 275 : 23);
+            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 273 : 23);
             this.boards   = mascot.boards;
             this.enabled  = $SS.conf["Selected Mascots"].indexOf(index) != -1;
             

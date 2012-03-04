@@ -22,10 +22,8 @@ input:focus,
 select:focus,
 textarea:focus
 {
-	box-shadow:inset " + $SS.theme.linkColor.hex +" 0 -1px 0,inset " + $SS.theme.linkColor.hex +" 0 1px 0,inset " + $SS.theme.linkColor.hex +" -1px 0 0,inset " + $SS.theme.linkColor.hex +" 1px 0 0;
-    -webkit-transition:none!important;
-    -moz-transition:none!important;
-    -o-transition:none!important;
+	outline:1px solid " + $SS.theme.linkColor.hex + "!important;
+	outline-offset:-2px!important;
 }
 input::-moz-focus-inner
 {
@@ -42,41 +40,6 @@ input::-moz-focus-inner
 	background:" + $SS.theme.linkColor.hex + ";
 	color:#" + ($SS.theme.linkColor.isLight ? "000" : "fff") +"!important;
 }
-" + ($SS.conf["Style Scrollbars"] ? "::-webkit-scrollbar
-{
-	width:8px;
-	height:8px;
-}
-::-webkit-scrollbar-track-piece,
-::-webkit-scrollbar-track
-{
-	background:" + $SS.theme.brderColor.hex + ";
-}
-::-webkit-scrollbar-corner,
-::-webkit-scrollbar-resizer
-{
-	background:" + $SS.theme.brderColor.hex + ";
-}
-::-webkit-scrollbar-thumb
-{
-	background:rgb(" + $SS.theme.brderColor.shiftRGB(32, true) + ");
-	border:2px solid " + $SS.theme.brderColor.hex + ";
-	border-radius:5px;
-}
-::-webkit-scrollbar-thumb:hover,
-::-webkit-scrollbar-thumb:active
-{
-	background:rgb(" + $SS.theme.brderColor.shiftRGB(64, true) + ");
-}
-::-webkit-scrollbar-thumb:window-inactive
-{
-}
-.reply ::-webkit-scrollbar-track,
-.reply ::-webkit-scrollbar-track-piece
-{
-	border-radius:5px;
-}
-": "") + "
 img
 {
 	border:0!important;
@@ -163,29 +126,27 @@ a[href='javascript:;']
 }
 a.linkmail[href='mailto:sage'],
 a.linkmail[href='mailto:sage']:hover,
-body[class*='chanx_']>#qr .warning,
+#qr .warning,
 span[style='color:#F00000'],
 span[style='color:#FF0000;font-weight:normal']
 {
 	color:" + $SS.theme.sageColor.hex + "!important;
 	text-shadow:none!important;
 }
-" + ( $SS.conf["Pages Position"] != 2 ? ".pages td:nth-of-type(2)," : "") + 
-($SS.conf["Layout"] == 2 ? ".replyhider," : "") + "
+" + ( $SS.conf["Pages Position"] != 2 ? ".pages td:nth-of-type(2)," : "") + "
 .reply,
 .replyhl,
 .stub>a,
 .stub>.block>a,
 option,
 div[id*=jsMath],
-body[class*='chanx_']>#qr .warning,
+#qr .warning,
 #imgControls,
 #imgControls #imageType,
 #imgControls .preload,
 #jsMath_float>*,
 #watcher>div,
 .deletebuttons,
-.postarea,
 a.omittedposts
 {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.9)!important;
@@ -215,17 +176,13 @@ form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),
 img[alt=closed],
 img[alt=sticky],
 body>span[style],
-body>span[style] a[href='.././'],
-body>a[href='.././'],
+a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
 .deletebuttons,
 #navtop,
 #navtopr,
-#qr>div.move,
 #imageType+label,
-#qr input[name=upfile]+a,
-#qr #close,
-body[class*='chanx_']>#qr>form #spoilerLabel,
+#qr>form #spoilerLabel,
 .preview>label,
 .close,
 .remove,
@@ -239,19 +196,15 @@ body[class*='chanx_']>#qr>form #spoilerLabel,
 	font-size:0!important;
 }
 
-body[class*='chanx_']>#qr>.move,
+#qr>.move,
 body>a[style='cursor: pointer; float: right;'],
-body[class*='chanx_']>#qr>form #spoilerLabel::after,
+#qr>form #spoilerLabel::after,
 button,
 form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
 input[type=button],
 input[type=submit],
 #imgControls label,
-#qr input[name=upfile]+a,
-#qr #captchas,
-#qr #attach,
-#qr .move::before,
 #stats .move,
 #themeoptions #tThemes>div p a,
 #updater span,
@@ -260,14 +213,13 @@ input[type=submit],
 .deletebuttons::before,
 .logo font[size='1'],
 .pages td,
-.postarea form[name=post]::before,
 .preview>label::after,
 .riceFile div,
 .trbtn
 {
 	text-transform:uppercase;
 }
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span,
+#qr>form>div:first-child .field:not(#dump):focus+span,
 input:not([type=submit]),
 select,
 select *,
@@ -286,22 +238,17 @@ textarea,
 	font:" + $SS.conf["Small Font Size"] + "px " + $SS.formatFont($SS.conf["Font"]) + "!important;
 }
 body>a[style='cursor: pointer; float: right;'],
-body[class*='chanx_']>#qr>form #spoilerLabel::after,
+#qr>form #spoilerLabel::after,
 button,
 form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
 input[type=button],
 input[type=submit],
 #imgControls label,
-#qr input[name=upfile]+a,
-#qr #captchas,
-#qr #attach,
 #stats .move,
 #updater span,
 #updater .move,
 #watcher .move,
-#qr #captchas,
-#qr #attach,
 #stats span,
 .deletebuttons::after,
 .pages td,
@@ -311,25 +258,23 @@ input[type=submit],
 	font-size:" + ($SS.conf["Bitmap Font"] ? $SS.conf["Font Size"] : 9) + "px!important;
 }
 body>center:nth-of-type(2)>font[color=red]::before,
-body[class*='chanx_']>#qr>.move,
-#qr .move::before,
+#qr>.move,
 #themeoptions #tMascot div a,
 #themeoptions #tThemes>div p a,
 #watcher>div>a:first-child,
 .commentpostername a.linkmail[href='mailto:sage']::after,
 .container::before,
 .deletebuttons::before,
-.postarea form[name=post]::before,
 .riceFile span,
 .trbtn
 {
 	font-size:" + ($SS.conf["Bitmap Font"] ? $SS.conf["Font Size"] : 10) + "px!important;
 }
-" + ($SS.conf["Replace Reply Form"] ? "body>span[style]~.postarea,body>span[style]~#qr #close," : "") +
-(!$SS.conf["Show Board Name"] ? ".logo span," : "") +
+" + (!$SS.conf["Show Board Name"] ? ".logo span," : "") +
 (!$SS.conf["Show Text Board"] ? ".logo font[size='1']," : "") +
-($SS.conf["Post Form"] == 3 ? "body>span[style]~#qr>#autohide,body>span[style]~#qr>.riceCheck," : "") + 
-($SS.conf["Layout"] == 2 ? "form[name=delform]>hr," : "") + "
+($SS.conf["Post Form"] != 4 ? "#qr>.move .close," : "") + 
+($SS.conf["Post Form"] == 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") + 
+($SS.conf["Layout"] == 2 && !$SS.conf["Thread Separators"] ? "form[name=delform]>hr," : "") + "
 #recaptcha_tagline,
 td[align=right],
 img+br,
@@ -346,8 +291,6 @@ td small,
 .rules,
 body>br,
 body>hr,
-body[class*='chanx_']>#qr.fixed>.move #autohide,
-body[class*='chanx_']>#qr.fixed>.move .riceCheck,
 body>table[style='text-align:center;width:100%;height:300px;'],
 center font small,
 form[name=delform]>span[style],
@@ -358,7 +301,6 @@ table[width='100%'],
 form[name=delform]>br[clear],
 .logo>br,body>div[style*='center'],
 body>center:nth-of-type(1),
-body[class*='chanx_']>#qr>.move .close,
 form[name=delform]>center,
 .hidden,
 body>span[style]~form[name=delform]>br,
@@ -378,7 +320,7 @@ body>span[style]~#navlinks,
 #imgControls #imageExpand+.riceCheck,
 #qp>a[href='javascript:;']:not([class]),
 .inline .reply>a:first-child,
-.postarea>h1,
+.postarea,
 a[href='#bottom']
 {
 	display:none!important;
@@ -398,9 +340,8 @@ input:not(.jsColor),
 select,
 textarea,
 tr,
-body[class*='chanx_']>#qr>.move,
-body[class*='chanx_']>#qr>form #spoilerLabel::after,
-#qr .move::before,
+#qr>.move,
+#qr>form #spoilerLabel::after,
 #navtopr span,
 #stats span,
 #themeoptions #toNav li label.selected,
@@ -430,7 +371,7 @@ textarea:-moz-placeholder
 body
 {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
-	margin:" + (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] == 1 ? "0 265px 44px 0" : (!$SS.bHideSidebar ? "0 0 44px 265px" : "0 0 44px")) + "!important;
+	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] == 1) || ($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"]) ? "0 263px 44px 0" : (!$SS.bHideSidebar ? "0 0 44px 265px" : "0 0 44px")) + "!important;
 	padding:18px 0 0!important;
 }
 " + (!$SS.bHideSidebar ? "
@@ -465,21 +406,17 @@ body::after
 }" : "") + "
 body::after,
 body::before,
-body>span[style]~#qr,
 body>center:nth-of-type(2)>font[color=red],
-#updater,
 #imgControls,
-#watcher,
-.postarea
+" + ($SS.conf["Post Form"] != 4 ? "#qr," :"") + "
+#updater,
+#watcher
 {
-	" + ($SS.conf["Sidebar Position"] != 2 ? "
-	right:0!important;
-	left:auto!important;" : "/*"*/
-	left:0!important;
-	right:auto!important;") + "
+	" + $SS.conf["Sidebar Position String"] + ":0!important;
+	" + $SS.conf["Sidebar Position oString"] + ":auto!important;
 }
 " + ($SS.conf["Layout"] == 2 ? ".op," : "") + "
-body[class*='chanx_']>#qr .warning,
+#qr .warning,
 #jsmath_button,
 #jsMath_panel,
 #jsMath_float,
@@ -511,7 +448,6 @@ body>center:nth-of-type(2)>font[color=red]
 	border-right:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
 .deletebuttons,
-.postarea,
 #header,
 #fs_data td
 {
@@ -549,8 +485,7 @@ body>span[style]~form[name=delform]" : "
 .thread::after,
 #updater div>label::after,
 form[name=delform] .op::after,
-#addMascot>label::after,
-#qr_form>div::after
+#addMascot>label::after
 {
 	clear:both;
 	content:'';
@@ -559,7 +494,7 @@ form[name=delform] .op::after,
 .op
 {
 	border:0!important;
-	padding:3px 0 12px;
+	padding:3px 3px 0;
 	position:relative;
 	" + ($SS.conf["Layout"] == 2 ? "
 	border-radius:" + ($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
@@ -627,7 +562,6 @@ td.replyhl,
 .riceFile,
 .riceCheck,
 .logo span,
-.postarea,
 #qr,
 #themeoptions #tMascot div,
 #themeoptions #tThemes .reply,
@@ -650,7 +584,7 @@ td.replyhl,
 .replyhl
 {
 	display:inline-block;
-	position:relative!important;
+	position:relative;
 }
 .reportbutton
 {
@@ -694,10 +628,8 @@ td.replyhl .riceCheck,
 	" + ($SS.conf["Layout"] != 2 ? "
 	right:2px;
 	top:2px;" : "/*"*/
-	left:-18px;
-	padding:2px 0 2px 2px;
-	top:7px;
-	border-radius:4px 0 0 4px;") + "
+	left:2px;
+	top:8px;") + "
 }
 .replyhider a,
 .op>a:first-child
@@ -713,8 +645,11 @@ td.replyhl .riceCheck,
 	-moz-transition:all .1s ease-in-out;
 	-o-transition:all .1s ease-in-out;
 }
-#qr input[name=upfile]+a,
-#qr #close,
+.close,
+.remove
+{
+	background-position:-16px -16px!important;
+}
 .close,
 .remove,
 .reportbutton,
@@ -727,8 +662,6 @@ td.replyhl .riceCheck,
 	opacity:.5;
 	text-indent:-9999px!important;
 }
-#qr input[name=upfile]+a:hover,
-#qr #close:hover,
 .close:hover,
 .remove:hover,
 .reportbutton:hover,
@@ -824,29 +757,13 @@ td.replyhl,
 	border-radius:3px;
 	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
 }
-.commentpostername a.linkmail[href='mailto:sage']::after
-{
-	content:' (SAGE)';
-}
-" + ($SS.conf["Neko/Sega Icons"] ? "
-.commentpostername a.linkmail[href$='neko']::after
-{
-	content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAMAAAAIRmf1AAACoFBMVEUAAABnUFZoUVddU1T6+PvFwLzn4eFXVlT/+vZpZGCgm5dKU1Cfnpz//flbWljr5uLp5OCalpNZWFb//f3r6+n28ff9+PRaVVH59Pr//vr38vj57/Dp7eyjn5zq8O5aVVJbYV9nVFhjUFRiWFlZVlFgZGOboJzm5uZhamfz9/bt8fDw6+drb26bl5j/8/lkX1z06uldWFS5r61UT0tfWlbDwr3Ew76moqNRTU7Mx8P75OpeY19pWl1XW1qzr6x5eHaLiojv7+1UT0xIU0uzqadVS0nV0MxkZGT5+PPk497///ra29Xq5eFtY2H28e2hnJignJlUUE1dXV2vrqxkY2FkYF/m3d5vZmfDuruhl5aZlJHx8O75+PZWVVP29vT/9fTj3trv6ubh5eRdXFqTkpBOTUtqZmX88/RMQ0T78vPEvr7HwcHDwsDq6ef///3Gx8H++fXEv7tZWVedmZZXXVudnJp0c3FZU1f79fnb1dlXUVVjXWFrZmy8t7359/qLj455e3q4s69vamZjX1zy4+avpaReWFz/+f1NR0vu6Ozp4+f48/lnYmi8ur3Iw7/69fHz7+xbV1SZmJZVUk1ZV1zq5ez++f/c196uqbDn4uj9+P7z7vRVVVXt6ORiXl/OycXHw8CPi4ihoJ5aWF3/+v/k3+axrLOsp67LzMZYU1m2sq9dWF5WUU1WUk/Au7eYlJGqpqObmphYVV749f7p5Or38fPu6OpiXFz38fH79vLz7urv6+hhYF5cWWKal6D//f/Z09Xg29exraqbl5RqaW6kpKTq5uPv7Of/+PDj29D//vP18Ozs5+OloJymoZ1ZVVJZWVlkYF2hnpmblIyspJmVjYKQi4enop5STUlRTUpcWUhqY1BgWT9ZUjhcV1NiXVkkhke3AAAABHRSTlMA5vjapJ+a9wAAAP9JREFUGBk9wA1EAwEAhuHv3dTQAkLiUlJFJWF0QDLFYDRXIMkomBgxNIYxhOk4wwCqQhQjxgxSGIsALFA5BiYbMZHajz1oJlx51sBJpf6Gd3zONcrqm/r1W8ByK0r+XV1LXyOLLnjW6hMGpu0u1IzPSdO17DgrGC6AadrVodGcDQYbhguP6wAvAaC0BRZQalkUQ8UQDz5tAof0XbejOFcV5xiUoCfjj3O/nf0ZbqAMPYmzU18KSDaRQ08qnfw+B2JNdAEQt2O5vctUGjhoIBU4ygPsj2Vh5zYopDK73hsirdkPTwGCbSHpiYFwYVVC/17pCFSBeUmoqwYQuZtWxx+BVEz0LeVKIQAAAABJRU5ErkJggg==');
-	vertical-align:middle;
-}
-.commentpostername a.linkmail[href$='sega']::after
-{
-	content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAALBAMAAAD2A3K8AAAAMFBMVEUAAACMjpOChImytLmdnqMrKzDIyM55dnkODQ94foQ7PkXm5Olsb3VUUVVhZmw8Sl6klHLxAAAAAXRSTlMAQObYZgAAANFJREFUGJVjYIACRiUlJUUGDHBk4syTkxQwhO3/rQ/4ZYsuymi3YEFUqAhC4LCJZJGIi1uimKKjk3KysbOxsaMnAwNLyqoopaXhttf2it1anrJqke1pr1DlBAZhicLnM5YXZ4RWlIYoezx0zrjYqG6czCDsYRzxIko6Q/qFaKy0690Ij0MxN8K2MIhJXF+hsfxJxuwdpYGVaUU3Mm5bqgKFOZOFit3Vp23J3pgsqLxFUXpLtlD5bgcGBs45794dn6mkOVFQUOjNmXPPz8ysOcAAANw6SHLtrqolAAAAAElFTkSuQmCC');
-	vertical-align:middle;
-}" : "") + "
 a.omittedposts
 {
 	display:inline-block;
-	height:14px;
-	margin:" + ($SS.conf["Layout"] == 2 ? "-10px 10px -2px" : "-16px 10px 0") + "!important;
-	padding:1px 6px 2px;
-	position:" + ($SS.conf["Layout"] == 2 ? "relative" : "absolute") + ";
-	border-radius:3px 3px 0 0;
+	line-height:16px;
+	margin:-4px 10px 0!important;
+	padding:0 6px;
+	border-radius:3px;
 }
 .deletebuttons
 {
@@ -932,51 +849,10 @@ a.omittedposts
 {
 	margin-left:0!important;
 }
-table,
-td
+table
 {
-	border:0!important;
 	border-spacing:0!important;
 	table-layout:fixed!important;
-}
-tr,
-.replymode
-{
-	background-color:transparent!important;
-}
-tr[height='73']
-{
-	height:auto!important;
-}
-#recaptcha_div
-{
-	height:auto!important;
-}
-#recaptcha_table #recaptcha_image
-{
-	background-color:transparent!important;
-	margin-left:0!important;
-	border:0!important;
-}
-.postarea .recaptcha_input_area
-{
-	margin-top:1px!important;
-	padding-top:1px!important;
-}
-#recaptcha_image img,
-#qr img[src*='recaptcha/api']
-{
-	height:57px!important;
-	margin-top:1px!important;
-}
-#recaptcha_table tr td,
-.recaptcha_input_area
-{
-	padding:0!important;
-}
-.recaptcha_image_cell
-{
-	padding-right:2px!important;
 }
 blockquote
 {
@@ -1010,12 +886,9 @@ form[name=delform] .filesize+br+a[target='_blank'] img+img
 }
 img[alt=closed],
 img[alt=sticky],
-body>span[style] a[href='.././'],
-body>a[href='.././'],
+a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
 #imageType+label,
-#qr input[name=upfile]+a,
-#qr #close,
 .close,
 .remove,
 .reportbutton,
@@ -1041,77 +914,11 @@ img[alt=sticky]
 {
 	background-position:-16px 0!important;
 }
-.inputtext,
-textarea
-{
-	margin:0;
-	padding:1px 4px;
-}
-input[type=file]
-{
-	height:22px!important;
-	margin:0;
-}
-.inputtext:not(textarea),
-#qr input[form=qr_form]
-{
-	height:22px!important;
-}
-#qr .inputtext,
-#qr .riceFile,
-#qr input[type=file],
-#qr input[name=recaptcha_response_field]
-{
-	margin-top:1px!important;
-	width:255px!important;
-}
-#qr img[src*='recaptcha/api']
-{
-	width:253px!important;
-}
-#qr input[name=sub]
-{
-	width:203px!important;
-	margin-right:1px!important;
-}
-#recaptcha_image,
-.postarea .inputtext,
-.postarea .riceFile,
-.postarea input[type=file],
-.postarea input[name=recaptcha_response_field],
-body>span[style]~#qr .inputtext,
-body>span[style]~#qr .riceFile,
-body>span[style]~#qr input[type=file],
-body>span[style]~#qr input[name=recaptcha_response_field]
-{
-	margin-top:1px!important;
-	width:255px!important;
-}
-.postarea table td:last-of-type,
-#recaptcha_table td:first-of-type
-{
-	max-width:255px!important;
-	min-width:255px!important;
-}
-.postarea img[src*='recaptcha/api'],
-body>span[style]~#qr img[src*='recaptcha/api']
-{
-	width:253px!important;
-}
-.postarea input[name=sub],
-body>span[style]~#qr input[name=sub]
-{
-	width:204px!important;
-	margin-right:1px!important;
-}
 textarea,
 button,
 input:not([type=checkbox]):not([type=radio]),
 select,
-.riceFile,
-input#recaptcha_response_field,
-#recaptcha_image img,
-#qr img[src*='recaptcha/api']
+.riceFile
 {
 	border:1px solid " + $SS.theme.inputbColor.hex + "!important;
 }
@@ -1157,9 +964,9 @@ input:not(.jsColor),
 textarea,
 .riceFile input~div
 {
-	-webkit-transition:background .2s linear,box-shadow .2s linear;
-	-moz-transition:background .2s linear,box-shadow .2s linear;
-	-o-transition:background .2s linear,box-shadow .2s linear;
+	-webkit-transition:background .2s,box-shadow .2s;
+	-moz-transition:background .2s,box-shadow .2s;
+	-o-transition:background .2s,box-shadow .2s;
 }
 button:hover,
 input[type=button]:hover,
@@ -1193,7 +1000,7 @@ select:focus,
 textarea:focus,
 #options input:focus
 {
-	box-shadow:inset rgba(0,0,0,.2) 0 1px 2px, inset " + $SS.theme.linkColor.hex +" 0 -1px 0,inset " + $SS.theme.linkColor.hex +" 0 1px 0,inset " + $SS.theme.linkColor.hex +" -1px 0 0,inset " + $SS.theme.linkColor.hex +" 1px 0 0!important;
+	box-shadow:inset rgba(0,0,0,.2) 0 1px 2px;
 }
 textarea:focus,
 input[type=text]:not(.jsColor):not([disabled]):focus,
@@ -1230,9 +1037,9 @@ input[type=radio],
 	width:12px!important;
 	border-radius:2px!important;
 	-webkit-appearance:none;
-	-webkit-transition:background .1s linear;
-	-moz-transition:background .1s linear;
-	-o-transition:background .1s linear;
+	-webkit-transition:background .1s;
+	-moz-transition:background .1s;
+	-o-transition:background .1s;
 }
 input[type=radio]
 {
@@ -1300,7 +1107,7 @@ td.replyhl input[type=checkbox],
 td.reply .riceCheck,
 td.replyhl .riceCheck
 {
-	margin-left:0!important;
+	margin-left:" + ($SS.conf["Layout"] != 2 ? 0 : "12px") + "!important;
 	position:relative;
 }
 span.filesize~input[type=checkbox],
@@ -1328,17 +1135,16 @@ td.doubledash
 	position:fixed;
 	" + $SS.conf["Sidebar Position String"] + ":1px;
 	text-align:center;
-	top:" + (!$SS.conf["Show Logo"] ? -20 : 20) + "px;
+	top:20px;
 }
 .logo,
 .logo img,
 .logo span
 {
-	width:259px!important;
+	width:" + ($SS.conf["Sidebar Position"] == 3 ? 261 : 259) + "px!important;
 }
 .logo img
 {
-    " + (!$SS.conf["Show Logo"] ? "visibility:hidden;" : "") + "/*"*/
 	height:auto!important;
 	margin:0!important;
 	opacity:.5;
@@ -1406,6 +1212,10 @@ div.autohide>a[title='Auto-hide dialog box']
 	display:inline-block!important;
 	margin:2px " + ($SS.conf["Layout"] != 2 ? 6 : 0) + "px!important;
 }
+body>span[style]~form .op .filesize
+{
+	padding-left:6px!important;
+}
 .inline .filesize
 {
 	margin:2px 0!important;
@@ -1428,11 +1238,11 @@ textarea
 	-webkit-appearance:none;
 	-o-appearance:none;
 }
-#watcher .move,
-#updater .move,
 #options .move,
-#stats .move,
-body[class*='chanx_']>#qr>.move
+" + ($SS.conf["Post Form"] != 4 ? "#qr>.move," : "") + "
+#stats .move
+#updater .move,
+#watcher .move
 {
 	cursor:default!important;
 }
@@ -1445,9 +1255,9 @@ body[class*='chanx_']>#qr>.move
 	min-width:" + ($SS.conf["Auto Hide Thread Watcher"] ? 0 : 261) + "px!important;
 	text-align:" + $SS.conf["Sidebar Position String"] + ";
 	z-index:4!important;
-	-webkit-transition:max-width .1s linear .1s,min-width .1s linear .1s;
-	-moz-transition:max-width .1s linear .1s,min-width .1s linear .1s;
-	-o-transition:max-width .1s linear .1s,min-width .1s linear .1s;
+	-webkit-transition:max-width .1s .1s,min-width .1s .1s;
+	-moz-transition:max-width .1s .1s,min-width .1s .1s;
+	-o-transition:max-width .1s .1s,min-width .1s .1s;
 }
 " + ($SS.conf["Auto Hide Thread Watcher"] ? "
 #watcher:hover
@@ -1479,9 +1289,9 @@ body[class*='chanx_']>#qr>.move
 	" : "max-width:100%!important;") + "/*"*/
 	padding:0 5px!important;
 	text-align:left!important;
-	-webkit-transition:max-height .1s linear,max-width .1s linear .1s,padding .1s linear;
-	-moz-transition:max-height .1s linear,max-width .1s linear .1s,padding .1s linear;
-	-o-transition:max-height .1s linear,max-width .1s linear .1s,padding .1s linear;
+	-webkit-transition:max-height .1s,max-width .1s .1s,padding .1s;
+	-moz-transition:max-height .1s,max-width .1s .1s,padding .1s;
+	-o-transition:max-height .1s,max-width .1s .1s,padding .1s;
 }
 #watcher" + ($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "") + ">div:not(.move):nth-of-type(2)
 {
@@ -1501,9 +1311,9 @@ body[class*='chanx_']>#qr>.move
 	max-height:16px;
 	max-width:100%!important;
 	padding:1px 5px!important;
-	-webkit-transition:max-height .1s linear,max-width 0s linear,padding .1s linear;
-	-moz-transition:max-height .1s linear,max-width 0s linear,padding .1s linear;
-	-o-transition:max-height .1s linear,max-width 0s linear,padding .1s linear;
+	-webkit-transition:max-height .1s,max-width 0s,padding .1s;
+	-moz-transition:max-height .1s,max-width 0s,padding .1s;
+	-o-transition:max-height .1s,max-width 0s,padding .1s;
 }
 #watcher,
 body>a[style='cursor: pointer; float: right;']
@@ -1626,9 +1436,8 @@ body>a[style='cursor: pointer; float: right;']
 	display:none;
 }
 #updater label,
-#themeoptions #tMain>label,
-#themeoptions #tMain>span,
-#themeoptions #tNavLinks>div
+#themeoptions #tMain .mOption,
+#themeoptions #tNavLinks .navlink
 {
 	display:block;
 	border-bottom:1px solid rgba(" + $SS.theme.mainColor.rgb + ",.3);
@@ -1638,18 +1447,17 @@ body>a[style='cursor: pointer; float: right;']
 	vertical-align:top;
 }
 .deletebuttons::before,
-#themeoptions #tMain>label span,
-#themeoptions #tMain>span span
+#themeoptions #tMain .mOption span
 {
     float:left;
 	line-height:20px!important;
 }
-#themeoptions #tMain>label:first-child,
+#themeoptions #tMain .mOption:first-child,
 #updater div:first-child label
 {
 	border-top:0!important;
 }
-#themeoptions #tMain label:last-child,
+#themeoptions #tMain .mOption:last-child,
 #updater div:nth-last-of-type(3) label
 {
 	border-bottom:0!important;
@@ -1660,6 +1468,21 @@ body>a[style='cursor: pointer; float: right;']
 	overflow:hidden;
 	white-space:nowrap;
 	text-overflow:ellipsis;
+}
+#themeoptions #tMain .subOption::before
+{
+	border-bottom:1px solid rgba(0,0,0,.1);
+	border-left:1px solid rgba(0,0,0,.1);
+	content:'';
+	display:inline-block;
+	float:left;
+	margin-right:2px;
+	height:50%;
+	width:6px;
+}
+#themeoptions #tMain .subOption
+{
+	margin-left:16px;
 }
 #themeoptions #tThemes>div
 {
@@ -1792,10 +1615,16 @@ body>a[style='cursor: pointer; float: right;']
 	height:24px;
 	padding-top:1px;
 	position:relative;
+	-webkit-transition:all .2s;
+	-moz-transition:all .2s;
+	-o-transition:all .2s;
 }
 #themeoptions #tNavLinks .moving
 {
 	opacity:.5;
+	-webkit-transform:scale(.95);
+	-moz-transform:scale(.95);
+	-0-transform:scale(.95);
 }
 #themeoptions #tNavLinks .over:not(.moving)
 {
@@ -1804,12 +1633,11 @@ body>a[style='cursor: pointer; float: right;']
 #themeoptions #tNavLinks .moving~.over
 {
 	border-bottom:4px double " + $SS.theme.brderColor.hex + ";
-	border-top:0;
+	border-top:1px solid rgba(0,0,0,.1);
 }
 #themeoptions #tNavLinks .navlink .handle
 {
-	border-left:16px solid " + $SS.theme.brderColor.hex + ";
-	border-bottom:1px solid rgb(" + $SS.theme.brderColor.shiftRGB(16, true) + ");
+	border-left:16px solid rgb(" + $SS.theme.brderColor.shiftRGB(-8) + ");
 	cursor:move;
 	height:26px;
 	left:0;
@@ -2017,7 +1845,7 @@ input[name=customIMGB64]+a[name=clearIMG]
 	height:18px;
 	position:fixed!important;
 	top:0;
-	width:115px!important;
+	width:" + ($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"] ? 114 : 115) + "px!important;
 	padding-" + $SS.conf["Sidebar Position String"] + ":147px!important;
 	z-index:6;
 }
@@ -2053,13 +1881,9 @@ input[name=customIMGB64]+a[name=clearIMG]
 body>a[style='cursor: pointer; float: right;'],
 form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
-body[class*='chanx_']>#qr>form #spoilerLabel::after,
+#qr>form #spoilerLabel::after,
 #imgControls label,
 #navlinks,
-#qr div.move,
-#qr input[name=upfile]+a,
-#qr #captchas,
-#qr #attach,
 #stats .move,
 #themeoptions #toNav li label,
 #updater span,
@@ -2068,247 +1892,6 @@ body[class*='chanx_']>#qr>form #spoilerLabel::after,
 .preview>label::after
 {
 	line-height:16px;
-}
-.postarea table,
-.postarea table td
-{
-	padding:0!important;
-	border-spacing:0!important;
-	border-collapse:collapse!important;
-}
-.postarea,
-body>span[style]~#qr.autohide,
-body[class*='chanx_']>#qr.autohide
-{
-	" + ($SS.conf["Post Form"] == 1 ? "
-	bottom:-252px;
-	-webkit-transition:bottom .2s ease-in-out 1s;
-	-moz-transition:bottom .2s ease-in-out 1s;
-	-o-transition:bottom .2s ease-in-out 1s;" :
-	($SS.conf["Post Form"] == 2 ? "/*"*/
-	opacity:.2;
-	-webkit-transition:opacity .2s ease-in-out 1s;
-	-moz-transition:opacity .2s ease-in-out 1s;
-	-o-transition:opacity .2s ease-in-out 1s;" : "")) + "/*"*/
-}
-.postarea,
-body>span[style]~#qr,
-body[class*='chanx_']>#qr
-{
-	bottom:0;
-	margin-bottom:21px!important;
-	padding:3px;
-	top:auto!important;
-	" + $SS.conf["Sidebar Position String"] + ":0!important;
-	" + $SS.conf["Sidebar Position oString"] + ":auto!important;
-}
-.postarea,
-#qr
-{
-	margin:0!important;
-	position:fixed!important;
-	width:261px!important;
-	z-index:" + ($SS.conf["Post Form"] == 1 ? 11 : 5) + "!important;
-}
-.postarea:hover,
-body>span[style]~#qr:hover,
-body[class*='chanx_']>#qr:hover,
-#qr.focus
-{
-	bottom:0!important;
-	" + ($SS.conf["Post Form"] == 1 ? "
-	-webkit-transition:bottom .2s ease-in-out;
-	-moz-transition:bottom .2s ease-in-out;
-	-o-transition:bottom .2s ease-in-out;" :
-	($SS.conf["Post Form"] == 2 ? "/*"*/
-	opacity:1!important;
-	-webkit-transition:opacity .2s ease-in-out;
-	-moz-transition:opacity .2s ease-in-out;
-	-o-transition:opacity .2s ease-in-out;" : "")) + "/*"*/
-}
-.postarea form[name=post]
-{
-	margin:0!important;
-}
-.postarea form[name=post]::before
-{
-	display:block;
-	height:18px!important;
-	text-align:center;
-	content:'NEW THREAD';
-}
-body>span[style]~.postarea form[name=post]::before
-{
-	display:block;
-	height:18px;
-	padding-top:1px;
-	text-align:center;
-	content:'QUICK REPLY';
-}
-form[name=post] #com_submit+label
-{
-	position:absolute;
-	top:48px;
-	right:8px;
-}
-form[name=post] input[name=email]+label
-{
-	position:absolute;
-	right:6px;
-	top:3px;
-}
-.postarea textarea,
-#qr textarea
-{
-	min-height:120px;
-    position:relative;
-    " + $SS.conf["Sidebar Position String"] + ":0;
-	resize:none;
-    width:255px;
-    z-index:1;
-	-webkit-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out,height .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-moz-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out,height .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-o-transition:background .2s linear,box-shadow .2s linear,width .2s ease-in-out,height .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-}
-" + ($SS.conf["Expanding Form Inputs"] ? "
-.postarea textarea:focus,
-body[class*='chanx_']>#qr textarea:focus,
-body>span[style]~#qr textarea:focus,
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
-{
-	-webkit-transition:box-shadow .2s linear,width .2s ease-in-out,height .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-moz-transition:box-shadow .2s linear,width .2s ease-in-out,height .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-o-transition:box-shadow .2s linear,width .2s ease-in-out,height .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-}
-body[class*='chanx_']>#qr textarea:focus,
-body>span[style]~#qr textarea:focus
-{
-    height:200px!important;
-    " + ($SS.conf["Sidebar Position"] != 2 ? "right:160px;" : "") +"/*"*/
-    width:415px!important;
-}" : "") + "
-#qr
-{
-	height:auto!important;
-	overflow:hidden!important;
-	width:262px!important;
-}
-#qr .move
-{
-	cursor:move!important;
-	padding:3px!important;
-}
-body>span[style]~#qr
-{
-	border:0!important;
-	border-top:1px solid " + $SS.theme.brderColor.hex + "!important;
-	overflow:visible!important;
-	width:261px!important;
-}
-body>span[style]~#qr div.move
-{
-	cursor:default!important;
-	padding:0!important;
-}
-#qr>#autohide,
-#qr>.riceCheck
-{
-	float:right;
-	top:3px;
-}
-body>span[style]~#qr>#autohide,
-body>span[style]~#qr>.riceCheck
-{
-	top:0;
-}
-#qr #autohide:checked~.autohide
-{
-	height:0!important;
-	overflow:hidden!important;
-	padding:0!important;
-}
-#qr:not(:hover) #autohide:checked~div.move>input
-{
-	display:none;
-}
-#qr div.move>input
-{
-	display:inline-block;
-	margin-top:3px!important;
-}
-body>span[style]~#qr #autohide:checked~div.move>input
-{
-	display:inline;
-}
-body>span[style]~#qr .autohide,
-body>span[style]~#qr #autohide:checked~.autohide,
-#qr .autohide,
-#qr:hover #autohide:checked~.autohide
-{
-	height:auto!important;
-	overflow:visible!important;
-}
-#qr .autohide,#qr:hover #autohide:checked~.autohide
-{
-	padding:3px!important;
-}
-body>span[style]~#qr .autohide,body>span[style]~#qr #autohide:checked~.autohide
-{
-	padding:0!important;
-}
-#qr #files>div,
-#qr .autohide>div,
-#qr .autohide>form>div
-{
-	position:relative;
-}
-#qr #captchas,
-#qr #attach
-{
-	line-height:20px;
-	position:absolute;
-	right:6px;
-	top:2px;
-	z-index:2;
-}
-#qr #close
-{
-	margin-top:4px!important;
-}
-body>span[style]~#qr>#close
-{
-	margin-top:1px!important;
-}
-#qr input[name=upfile]+a,
-#qr #close,
-.close,
-.remove
-{
-	background-position:-16px -16px!important;
-}
-#qr div.move
-{
-	height:18px!important;
-	text-align:center!important;
-}
-#qr div.move::before
-{
-	content:'QUICK REPLY';
-	display:block;
-	margin:0 auto;
-	width:75%;
-}
-#qr #com_submit+label
-{
-	bottom:auto!important;
-	top:3px;
-	right:56px;
 }
 #updater
 {
@@ -2538,11 +2121,10 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	border:0!important;
 	bottom:0!important;
 	left:0!important;
-	z-index:13!important;" :
-	"/*"*/
+	z-index:13!important;" : "/*"*/
 	bottom:17px!important;
 	height:24px!important;
-	" + $SS.conf["Sidebar Position oString"] + ":0!important;
+	" + $SS.conf["Sidebar Position oString"] + ":1px!important;
 	z-index:2;
 	-webkit-transform:rotate(" + ($SS.conf["Sidebar Position"] != 2 ? -90 : 90) + "deg);
 	-webkit-transform-origin:top " + $SS.conf["Sidebar Position oString"] + ";
@@ -2620,7 +2202,7 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-32px 0;
 	position:fixed;
-	" + $SS.conf["Sidebar Position String"] + ":" + ($SS.conf["Sidebar Position"] == 3 ? 243 : 241) + "px;
+	" + $SS.conf["Sidebar Position String"] + ":" + ($SS.conf["Sidebar Position"] == 3 && !$SS.conf["Reserve Edge"] ? 243 : 241) + "px;
 	text-indent:-9999px;
 	z-index:5;
 }
@@ -2650,8 +2232,7 @@ body>div[style='width: 100%;']+form[name=delform]
 	margin-top:43px!important;
 	position:fixed;
 }
-body>span[style] a[href='.././'],
-body>a[href='.././'],
+a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
 #imageType+label
 {
@@ -2660,8 +2241,7 @@ body>a[style='cursor: pointer; float: right;'],
 	-moz-transition:opacity .1s ease-in-out;
 	-o-transition:opacity .1s ease-in-out;
 }
-body>span[style] a[href='.././']:hover,
-body>a[href='.././']:hover,
+a[href='.././']:hover,
 body>a[style='cursor: pointer; float: right;']:hover,
 #imageType+label:hover,
 #imageType+label.imgExpanded
@@ -2732,13 +2312,6 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 	-moz-transform:scale(100);
 	-o-transform:scale(100);
 }
-#qr input[name=upfile]+a
-{
-	float:right;
-	position:relative;
-	top:2px;
-	z-index:2;
-}
 .riceFile div
 {
 	display:inline-block;
@@ -2760,14 +2333,13 @@ ul#Alerts a:hover
 {
 	color:#222!important;
 }
-body>span[style] a[href='.././'],
-body>a[href='.././']
+a[href='.././']
 {
 	background-position:-64px 0;
 	position:fixed!important;
 	text-indent:-9999px;
 	top:2px;
-	" + $SS.conf["Sidebar Position String"] + ":" + (265 - ($SS.conf["Sidebar Position"] != 2 ? 99 : 38)) + "px!important;
+	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] != 2 ? 99 : 38)) + "px!important;
 	z-index:8;
 }
 .exSource
@@ -2812,11 +2384,18 @@ body>a[href='.././']
 {
 	text-decoration:underline!important;
 }
-body[class*='chanx_']>#qr,
-body[class*='chanx_']>span[style]~#qr
+#qr
 {
+	height:auto!important;
+	margin:0 0 21px!important;
+	padding:0 3px 3px!important;
+	position:fixed!important;
+" + ($SS.conf["Post Form"] != 4 ? "
 	border:0!important;
+	bottom:0!important;
 	border-top:1px solid " + $SS.theme.brderColor.hex + "!important;
+	top:auto!important;
+	overflow:visible!important;
     " + ($SS.conf["Sidebar Position"] == 3 ? "
 	border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
 	max-width:262px!important;
@@ -2825,14 +2404,78 @@ body[class*='chanx_']>span[style]~#qr
 	max-width:261px!important;
 	min-width:261px!important;
 	width:261px!important;") + "
-	padding-top:0!important;
-	overflow:visible!important;
+	z-index:" + ($SS.conf["Post Form"] == 1 ? 11 : 5) + "!important;
 }
-body[class*='chanx_']>#qr>.move::before
+#qr.autohide
 {
-	content:''!important;
+	" + ($SS.conf["Post Form"] == 1 ? "
+	bottom:-250px!important;
+	-webkit-transition:bottom .2s ease-in-out 1s;
+	-moz-transition:bottom .2s ease-in-out 1s;
+	-o-transition:bottom .2s ease-in-out 1s;" :
+	($SS.conf["Post Form"] == 2 ? "/*"*/
+	opacity:.2;
+	-webkit-transition:opacity .2s ease-in-out 1s;
+	-moz-transition:opacity .2s ease-in-out 1s;
+	-o-transition:opacity .2s ease-in-out 1s;" : "")) + "/*"*/
 }
-body[class*='chanx_']>#qr>.move
+" + ($SS.conf["Post Form"] == 1 ? "
+#qr.autohide.dump
+{
+	bottom:-350px!important;
+}" : "") + "
+#qr:hover,
+#qr.focus
+{
+	bottom:0!important;
+	" + ($SS.conf["Post Form"] == 1 ? "
+	-webkit-transition:bottom .2s ease-in-out;
+	-moz-transition:bottom .2s ease-in-out;
+	-o-transition:bottom .2s ease-in-out;" :
+	($SS.conf["Post Form"] == 2 ? "/*"*/
+	opacity:1!important;
+	-webkit-transition:opacity .2s ease-in-out;
+	-moz-transition:opacity .2s ease-in-out;
+	-o-transition:opacity .2s ease-in-out;" : "")) + "/*"*/
+}
+#qr.autohide>form
+{
+	display:block!important;
+}" : "
+	width:263px!important;
+	z-index:11!important;
+}
+#qr.autohide:not(:hover):not(.focus),
+{
+	padding:0 3px!important;
+}
+#qr.focus>form
+{
+	display:block!important;
+}") + "
+#qr img[src*='recaptcha/api']
+{
+	height:57px!important;
+	margin-top:1px!important;
+	max-width:300px;
+	width:100%;
+}
+#qr textarea
+{
+	min-height:120px;
+    position:relative;
+    " + $SS.conf["Sidebar Position String"] + ":0;
+	resize:none;
+    width:255px;
+    z-index:1;
+	-webkit-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
+	-moz-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
+	-o-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
+}
+#qr>.move
 {
 	height:22px!important;
 	line-height:18px!important;
@@ -2840,83 +2483,61 @@ body[class*='chanx_']>#qr>.move
 	padding:2px 0 0 3px!important;
 	text-align:left!important;
 }
-body[class*='chanx_']>span[style]~#qr>.move
+span[style]~#qr>.move
 {
 	text-align:center!important;
 }
-body[class*='chanx_']>span[style]~#qr>.move #autohide,
-body[class*='chanx_']>span[style]~#qr>.move .riceCheck
+span[style]~#qr>.move #autohide,
+span[style]~#qr>.move .riceCheck
 {
 	position:absolute;
-	right:3px;
+	" + ($SS.conf["Post Form"] == 4 ? "left" : "right") + "/*"*/:3px;
     top:2px;
 }
-body[class*='chanx_']>#qr>.move *
+#qr>.move *
 {
 	text-transform:none;
 }
-body[class*='chanx_']>#qr>.move select
+#qr>.move select
 {
 	height:19px!important;
 }
-body[class*='chanx_']>#qr.autohide>form
-{
-	display:block!important;
-}
-body[class*='chanx_']>#qr>form>div
+#qr>form>div
 {
 	position:relative;
 }
-body[class*='chanx_']>#qr>form .field
+#qr>form .field
 {
 	height:22px;
 }
-body[class*='chanx_']>#qr>form>div:first-child #dump,
-body[class*='chanx_']>#qr>form>.captcha>img[src*='recaptcha/api'],
-body[class*='chanx_']>#qr>form input[type=submit],
-body[class*='chanx_']>#qr>form .riceFile,
-body[class*='chanx_']>span[style]~#qr .riceFile
+#qr>form>div:first-child #dump,
+#qr>form>.captcha>img[src*='recaptcha/api'],
+#qr>form input[type=submit],
+#qr>form input[type=file],
+#qr>form .riceFile
 {
 	margin-top:0!important;
 }
-body[class*='chanx_']>#qr>form>div:first-child
+#qr>form input[type=file]
+{
+	width:100%;
+}
+#qr>form>div:first-child
 {
 	position:relative;
 }
-body[class*='chanx_']>#qr>form>div:first-child #dump
+#qr>form>div:first-child #dump
 {
 	float:left;
 	width:24px!important;
 }
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)
+#qr>form>div:first-child .field:not(#dump)
 {
 	float:left;
 	margin-left:1px!important;
 	width:76px!important;
 }
-" + ($SS.conf["Expanding Form Inputs"] ? "
-body[class*='chanx_']>#qr input:focus::-webkit-input-placeholder,
-body[class*='chanx_']>#qr textarea:focus::-webkit-input-placeholder
-{
-	color:transparent!important;
-}
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus
-{
-	background:rgba(" + $SS.theme.inputColor.hover + ",.98)!important;
-	left:24px!important;
-	position:absolute;
-	width:230px!important;
-}
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump):focus+span
-{
-	color:rgba(" + $SS.theme.textColor.rgb + ",.4)!important;
-	right:6px;
-	z-index:3;
-	-webkit-transition:right .3s ease-in-out,color .3s ease-in-out;
-	-moz-transition:right .3s ease-in-out,color .3s ease-in-out;
-	-o-transition:right .3s ease-in-out,color .3s ease-in-out;
-}" : "") + "
-body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
+#qr>form>div:first-child .field:not(#dump)+span
 {
 	color:rgba(" + $SS.theme.textColor.rgb + ",0)!important;
 	font-size:0!important;
@@ -2926,55 +2547,55 @@ body[class*='chanx_']>#qr>form>div:first-child .field:not(#dump)+span
 	white-space:nowrap;
 	z-index:-1;
 }
-body[class*='chanx_']>#qr>form>div:first-child .field[name=sub]
+#qr>form>div:first-child .field[name=sub]
 {
 	margin-right:0!important;
 }
-body[class*='chanx_']>#qr>form>div:first-child+div,
-body[class*='chanx_']>#qr>form>div#replies+div,
-body[class*='chanx_']>#qr>form>.captcha
+#qr>form>div:first-child+div,
+#qr>form>div#replies+div,
+#qr>form>.captcha
 {
 	clear:both;
 }
-body[class*='chanx_']>#qr>form .field,
-body[class*='chanx_']>#qr>form>.captcha
+#qr>form .field,
+#qr>form>.captcha
 {
 	margin-bottom:1px!important;
 }
-body[class*='chanx_']>#qr>form>.captcha
+#qr>form>.captcha
 {
 	background:none!important;
 	outline:none!important;
 }
-body[class*='chanx_']>#qr>form>.captcha+div
+#qr>form>.captcha+div
 {
 	float:left;
 	margin-right:1px;
 	position:relative;
 	z-index:1;
 }
-body[class*='chanx_']>#qr>form>.captcha+div input
+#qr>form>.captcha+div input
 {
 	width:189px!important;
 }
-body[class*='chanx_']>#qr>form input[type=submit]
+#qr>form input[type=submit]
 {
 	width:65px!important;
 }
-body[class*='chanx_']>#qr>form input[type=file]+input[type=submit]
+#qr>form input[type=file]+input[type=submit]
 {
 	position:absolute;
 	right:0;
 	top:0;
 }
-body[class*='chanx_']>#qr>form #spoilerLabel
+#qr>form #spoilerLabel
 {
 	bottom:4px;
 	position:absolute;
 	right:8px;
 	z-index:2;
 }
-body[class*='chanx_']>#qr>form #spoilerLabel::after,
+#qr>form #spoilerLabel::after,
 .preview>label::after
 {
 	content:'SPOILER';
@@ -2988,7 +2609,7 @@ body[class*='chanx_']>#qr>form #spoilerLabel::after,
 {
 	font-size:3.5em!important;
 }
-body[class*='chanx_']>#qr .warning
+#qr .warning
 {
 	height:16px;
 	left:5px;
@@ -3007,7 +2628,7 @@ body[class*='chanx_']>#qr .warning
 	-moz-transition:all .2s cubic-bezier(0,0.3,.35,1.3);
 	-o-transition:all .2s cubic-bezier(0,.3,.35,1.3);
 }
-body[class*='chanx_']>#qr .warning.showWarning
+#qr .warning.showWarning
 {
 	opacity:1;
 	top:-24px;
@@ -3017,4 +2638,105 @@ input[name=name].tripping:not(:hover):not(:focus)
 {
     color:transparent!important;
 }
+" + ($SS.conf["Expanding Form Inputs"] ? "
+#qr input:focus::-webkit-input-placeholder,
+#qr textarea:focus::-webkit-input-placeholder
+{
+	color:transparent!important;
+}
+#qr>form>div:first-child .field:not(#dump):focus
+{
+	background:rgba(" + $SS.theme.inputColor.hover + ",.98)!important;
+	left:24px!important;
+	position:absolute;
+	width:230px!important;
+}
+#qr>form>div:first-child .field:not(#dump):focus+span
+{
+	color:rgba(" + $SS.theme.textColor.rgb + ",.4)!important;
+	right:6px;
+	z-index:3;
+	-webkit-transition:right .3s ease-in-out,color .3s ease-in-out;
+	-moz-transition:right .3s ease-in-out,color .3s ease-in-out;
+	-o-transition:right .3s ease-in-out,color .3s ease-in-out;
+}
+#qr textarea:focus,
+#qr>form>div:first-child .field:not(#dump):focus
+{
+	-webkit-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
+	-moz-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
+	-o-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
+}
+#qr textarea:focus
+{
+    height:200px!important;
+    " + ($SS.conf["Sidebar Position"] != 2 ? "right:160px;" : "") +"/*"*/
+    width:415px!important;
+}" : "") +
+(!$SS.conf["Show Logo"] ? "
+.logo
+{
+	top:-20px;
+}
+.logo img
+{
+    visibility:hidden;
+}" : "") +
+($SS.conf["Style Scrollbars"] ? "::-webkit-scrollbar
+{
+	width:8px;
+	height:8px;
+}
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-track
+{
+	background:" + $SS.theme.brderColor.hex + ";
+}
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-resizer
+{
+	background:" + $SS.theme.brderColor.hex + ";
+}
+::-webkit-scrollbar-thumb
+{
+	background:rgb(" + $SS.theme.brderColor.shiftRGB(32, true) + ");
+	border:2px solid " + $SS.theme.brderColor.hex + ";
+	border-radius:5px;
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active
+{
+	background:rgb(" + $SS.theme.brderColor.shiftRGB(64, true) + ");
+}
+::-webkit-scrollbar-thumb:window-inactive
+{
+}
+.reply ::-webkit-scrollbar-track,
+.reply ::-webkit-scrollbar-track-piece
+{
+	border-radius:5px;
+}
+": "") +
+($SS.conf["Sage Identification"] != 1 ? "
+.commentpostername a.linkmail[href='mailto:sage']::after
+{
+	" + ($SS.conf["Sage Identification"] == 2 ? "
+	content:' (SAGE)';" : "/*"*/
+	content:url('data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdFJREFUOE+l0t0rQ3EYwPHz+52bTf4C76XslithbJzNy2xe5p15mR21jAnzknYhbigitUJ5f7sglPdCIkRJRHHhUi60e7t6POcoh23ecvE5p07P8/39Lg4DAMx/+Hz4K/HB1rNv7KgRNaOWH7Syad8FZDikQb1oEe2iPW9fBcLRSFR/5GXJhvHZdsS/OM7qoOW8HjouG6D7zgE9D22AM/v+AuEBDvlKxrz20brHg3nTLKreqgT7UQ04r+zQedsI3fcOwFnpBtRKBTK2lh3lJtSPFWsmKF0phZLlYnzn43I1tF/Y3rVeWD04uywFeAzUUG2oM+SqaKkAjAtGyJzU4VsHtoMqDFg+4KFiM8+N831SoIoK+pNcSrd+Ug9qlxrSxziwbJuA3/lMiCi6Iq+pmWqlQBkVrHIjKZ6EwQSIH4gVr+6tcr0Y9NOaJ5wdoyYqlwKFVHCYOKQEhTMKsmYyIWfO8C533iAGtKOqJ3m5bI0W0Qgk/Ug0hwqOFU4FcMPJYiB7Vi8uGqYyPJxL5Q6zh9zgzDjNxWXhwI8BoiKBRENO/ThB62iQpJI0oiNy8TCfQBxpQj1ESYJIMmH80iAdebutd4CJZnaYGCYYI76Lvwn8xyvFCs5Nsc8yoQAAAABJRU5ErkJggg==');
+	vertical-align:middle;") + "
+}" : "") +
+($SS.conf["Neko/Sega Icons"] ? "
+.commentpostername a.linkmail[href$='neko']::after
+{
+	content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAMAAAAIRmf1AAACoFBMVEUAAABnUFZoUVddU1T6+PvFwLzn4eFXVlT/+vZpZGCgm5dKU1Cfnpz//flbWljr5uLp5OCalpNZWFb//f3r6+n28ff9+PRaVVH59Pr//vr38vj57/Dp7eyjn5zq8O5aVVJbYV9nVFhjUFRiWFlZVlFgZGOboJzm5uZhamfz9/bt8fDw6+drb26bl5j/8/lkX1z06uldWFS5r61UT0tfWlbDwr3Ew76moqNRTU7Mx8P75OpeY19pWl1XW1qzr6x5eHaLiojv7+1UT0xIU0uzqadVS0nV0MxkZGT5+PPk497///ra29Xq5eFtY2H28e2hnJignJlUUE1dXV2vrqxkY2FkYF/m3d5vZmfDuruhl5aZlJHx8O75+PZWVVP29vT/9fTj3trv6ubh5eRdXFqTkpBOTUtqZmX88/RMQ0T78vPEvr7HwcHDwsDq6ef///3Gx8H++fXEv7tZWVedmZZXXVudnJp0c3FZU1f79fnb1dlXUVVjXWFrZmy8t7359/qLj455e3q4s69vamZjX1zy4+avpaReWFz/+f1NR0vu6Ozp4+f48/lnYmi8ur3Iw7/69fHz7+xbV1SZmJZVUk1ZV1zq5ez++f/c196uqbDn4uj9+P7z7vRVVVXt6ORiXl/OycXHw8CPi4ihoJ5aWF3/+v/k3+axrLOsp67LzMZYU1m2sq9dWF5WUU1WUk/Au7eYlJGqpqObmphYVV749f7p5Or38fPu6OpiXFz38fH79vLz7urv6+hhYF5cWWKal6D//f/Z09Xg29exraqbl5RqaW6kpKTq5uPv7Of/+PDj29D//vP18Ozs5+OloJymoZ1ZVVJZWVlkYF2hnpmblIyspJmVjYKQi4enop5STUlRTUpcWUhqY1BgWT9ZUjhcV1NiXVkkhke3AAAABHRSTlMA5vjapJ+a9wAAAP9JREFUGBk9wA1EAwEAhuHv3dTQAkLiUlJFJWF0QDLFYDRXIMkomBgxNIYxhOk4wwCqQhQjxgxSGIsALFA5BiYbMZHajz1oJlx51sBJpf6Gd3zONcrqm/r1W8ByK0r+XV1LXyOLLnjW6hMGpu0u1IzPSdO17DgrGC6AadrVodGcDQYbhguP6wAvAaC0BRZQalkUQ8UQDz5tAof0XbejOFcV5xiUoCfjj3O/nf0ZbqAMPYmzU18KSDaRQ08qnfw+B2JNdAEQt2O5vctUGjhoIBU4ygPsj2Vh5zYopDK73hsirdkPTwGCbSHpiYFwYVVC/17pCFSBeUmoqwYQuZtWxx+BVEz0LeVKIQAAAABJRU5ErkJggg==');
+	vertical-align:middle;
+}
+.commentpostername a.linkmail[href$='sega']::after
+{
+	content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAALBAMAAAD2A3K8AAAAMFBMVEUAAACMjpOChImytLmdnqMrKzDIyM55dnkODQ94foQ7PkXm5Olsb3VUUVVhZmw8Sl6klHLxAAAAAXRSTlMAQObYZgAAANFJREFUGJVjYIACRiUlJUUGDHBk4syTkxQwhO3/rQ/4ZYsuymi3YEFUqAhC4LCJZJGIi1uimKKjk3KysbOxsaMnAwNLyqoopaXhttf2it1anrJqke1pr1DlBAZhicLnM5YXZ4RWlIYoezx0zrjYqG6czCDsYRzxIko6Q/qFaKy0690Ij0MxN8K2MIhJXF+hsfxJxuwdpYGVaUU3Mm5bqgKFOZOFit3Vp23J3pgsqLxFUXpLtlD5bgcGBs45794dn6mkOVFQUOjNmXPPz8ysOcAAANw6SHLtrqolAAAAAElFTkSuQmCC');
+	vertical-align:middle;
+}" : "") + "
 " + $SS.theme.customCSS + "

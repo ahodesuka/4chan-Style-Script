@@ -1,3 +1,12 @@
+1.5.2
+    added:
+        - sage identification option (text/icon/none).
+        - 2 sub-options (thread spearators & reserve edge).
+        - floating post form option.
+    modified:
+        - cleaned up CSS, removed a lot of old trash.
+        - drag and drop nav links is now very sexy.
+        - .replyhider position when layout is set to fit content.
 1.5.1
     added:
         - an easy way to keep selected theme/mascots when updating and the defaults have been changed.
