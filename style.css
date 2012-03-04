@@ -1241,7 +1241,7 @@ textarea
 }
 #options .move,
 " + ($SS.conf["Post Form"] != 4 ? "#qr>.move," : "") + "
-#stats .move
+#stats .move,
 #updater .move,
 #watcher .move
 {
