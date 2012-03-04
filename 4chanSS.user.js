@@ -1,4 +1,4 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @name          4chan Style Script
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
@@ -20,7 +20,7 @@
         "Show Logo":                [ true,  "Toggle visibility of the logo" ],
         "Auto Hide Thread Watcher": [ true,  "Hides watched threads unless the mouse is over the watcher" ],
         "Slim Replies":             [ true,  "Reduces the size of replies" ],
-        "Neko/Sega Icons":          [ false, "Show icons when a posters e-mail begins with neko or sega" ],
+        "Emoji Icons":              [ false, "Show icons for different e-mails" ],
         "Smart Tripcode Hider":     [ false, "Hides the name field if the value contains a tripcode" ],
         "Expanding Form Inputs":    [ true,  "Makes certain form elements expand on focus" ],
         "Custom Navigation Links":  [ true,  "Use specified links instead of showing all boards" ],

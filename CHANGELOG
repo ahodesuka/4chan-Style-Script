@@ -1,3 +1,10 @@
+master
+    modified:
+        - neko/sega icons changed to emoji icons akin to OneeChan.
+        - captcha image height.
+    fixed:
+        - quote preivew bottom padding.
+        - table and td borders.
 1.5.2
     added:
         - sage identification option (text/icon/none).
