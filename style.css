@@ -12,10 +12,10 @@
 }
 [draggable]
 {
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -o-user-select:none;
-  user-select:none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-o-user-select:none;
+	user-select:none;
 }
 input:not([disabled]):active,
 input:focus,
@@ -195,16 +195,15 @@ body>a[style='cursor: pointer; float: right;'],
 	color:transparent!important;
 	font-size:0!important;
 }
-
-#qr>.move,
 body>a[style='cursor: pointer; float: right;'],
-#qr>form #spoilerLabel::after,
 button,
 form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
 input[type=button],
 input[type=submit],
 #imgControls label,
+#qr>.move,
+#qr>form #spoilerLabel::after,
 #stats .move,
 #themeoptions #tThemes>div p a,
 #updater span,
@@ -849,8 +848,10 @@ a.omittedposts
 {
 	margin-left:0!important;
 }
-table
+table,
+td
 {
+	border:0!important;
 	border-spacing:0!important;
 	table-layout:fixed!important;
 }
