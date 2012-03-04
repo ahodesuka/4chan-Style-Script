@@ -878,7 +878,7 @@
                 {
                     $("#ch4SSPost").text(postLoadCSS);
                     
-                    if (qr.exists() && $SS.conf["Expanding Form Inputs"])
+                    if ((qr = $("#qr")).exists() && $SS.conf["Expanding Form Inputs"])
                         addLabels(qr);
                     
                     if ($SS.conf["Smart Tripcode Hider"])
@@ -2856,7 +2856,7 @@
             this.small    = mascot.small;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 273 : 23);
+            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 262 : 23);
             this.boards   = mascot.boards;
             this.enabled  = $SS.conf["Selected Mascots"].indexOf(index) != -1;
             

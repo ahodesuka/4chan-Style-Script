@@ -744,7 +744,7 @@ td.replyhl,
 	border:1px solid rgba(" + $SS.theme.linkColor.rgb + ",.4)!important;
 	margin:0 10px!important;
 	max-width:65%;
-	padding:5px 5px 20px;
+	padding:5px;
 	position:fixed!important;
 	z-index:11!important;
 	border-radius:3px;
@@ -2409,7 +2409,7 @@ a[href='.././']
 #qr.autohide
 {
 	" + ($SS.conf["Post Form"] == 1 ? "
-	bottom:-250px!important;
+	bottom:-241px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -2422,7 +2422,7 @@ a[href='.././']
 " + ($SS.conf["Post Form"] == 1 ? "
 #qr.autohide.dump
 {
-	bottom:-350px!important;
+	bottom:-341px!important;
 }" : "") + "
 #qr:hover,
 #qr.focus
@@ -2445,7 +2445,7 @@ a[href='.././']
 	width:263px!important;
 	z-index:11!important;
 }
-#qr.autohide:not(:hover):not(.focus),
+#qr.autohide:not(:hover):not(.focus)
 {
 	padding:0 3px!important;
 }
@@ -2455,7 +2455,7 @@ a[href='.././']
 }") + "
 #qr img[src*='recaptcha/api']
 {
-	height:57px!important;
+	height:48px!important;
 	margin-top:1px!important;
 	max-width:300px;
 	width:100%;
