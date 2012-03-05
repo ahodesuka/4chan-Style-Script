@@ -1989,6 +1989,28 @@
                     tripColor:   "bf7f3f",
                     titleColor:  "4c4c4c",
                     customCSS:   'new String(($SS.conf["Layout"]==2?".op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]==3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)}")'
+                },
+                {
+		    name:        "violaceous",
+		    author:      "!MaSoOdDwDw",
+		    "default":   true,
+		    bgImg:       false,
+		    bgColor:     "121314",
+		    mainColor:   "1b1b1b",
+		    brderColor:  "292a2b",
+		    inputColor:  "18191a",
+		    inputbColor: "121314",
+		    blinkColor:  "db95e5",
+		    jlinkColor:  "db95e5",
+		    linkColor:   "2a7fa0",
+		    linkHColor:  "3090b5",
+		    nameColor:   "a497b0",
+		    quoteColor:  "00ab3f",
+		    textColor:   "dddddd",
+		    sageColor:   "4f4f4f",
+		    tripColor:   "bd2b83",
+		    titleColor:  "06989a",
+		    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
                 }
             ],
             
@@ -2029,7 +2051,8 @@
                 { img: "http://i.imgur.com/FKDcd.png",                                                          "default":   true }, // shiki
                 { img: "http://i.imgur.com/zu9nY.png",                                                          "default":   true }, // tessa
                 { img: "http://i.imgur.com/haBSN.png",                                                          "default":   true }, // yin
-                { img: "http://i.imgur.com/xwPrX.png",                                                          "default":   true }  // yozora
+                { img: "http://i.imgur.com/xwPrX.png",                                                          "default":   true }, // yozora
+                { img: "http://i.imgur.com/c8Lal.png",                                                          "default":   true }  // yuzuki
             ],
             
             init: function()
