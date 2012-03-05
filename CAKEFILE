@@ -1,0 +1,34 @@
+{log}  = console
+{exec} = require 'child_process'
+fs     = require 'fs'
+
+STYLE     = 'style.css'
+SCRIPT    = '4chanSS.user.js'
+CHANGELOG = 'CHANGELOG'
+
+option '-o', '--output [DIR]', 'Specify output location.'
+
+task 'build', (options) ->
+  OUTPUT = options.output || SCRIPT
+  css = fs.readFileSync STYLE, 'utf8'
+  css = css.replace /(\/\*[^\*]+\*\/|\t|\r|\n|\s{4})/g, ''
+  css = css.replace /;}/g, '}'
+  css = css.replace /\s(\+|\?|:|(!|=)=)\s?/g, '$1'
+  ujs = fs.readFileSync SCRIPT, 'utf8'
+  fs.writeFileSync OUTPUT, ujs.replace /css\s=.+;/, "css = \"#{css}\";", 'utf8', (err) ->
+    throw err if err
+  log '\033[0;32mBuild Successful!'
+
+option '-v', '--version [VERSION]', 'Release a new version.'
+
+task 'release', (options) ->
+  {version} = options
+  return log '\033[0;31mERROR!\033[0m No version provided.' unless version
+  data = fs.readFileSync SCRIPT, 'utf8'
+  fs.writeFileSync SCRIPT, data.replace /(\/\s@version\s+|VERSION\s+=\s\")[\d\.]+/g, "$1#{version}", 'utf8', (err) ->
+    throw err if err
+  data = fs.readFileSync CHANGELOG, 'utf8'
+  fs.writeFileSync CHANGELOG, data.replace 'master', "master\n\n#{version}", 'utf8', (err) ->
+    throw err if err
+  exec 'cake build'
+  exec "git commit -am 'Release #{version}.'"
