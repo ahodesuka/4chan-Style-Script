@@ -36,12 +36,12 @@
         ],
         "Side Margin":
         [
-            26, "Change the size of the margin opposite of the sidebar",
+            5, "Change the size of the margin opposite of the sidebar",
             [
-                { name: "Normal",        value: 26 },
-                { name: "Small",         value: 20 },
-                { name: "Slim",          value: 6  },
-                { name: "None",          value: 2  }
+                { name: "Large",    value: 65 },
+                { name: "Medium",   value: 25 },
+                { name: "Small",    value: 5  },
+                { name: "None",     value: 1  }
             ]
         ],
         "Layout":
@@ -65,10 +65,11 @@
         [
             2, "Change the transition for the post form",
             [
-                { name: "Slide Up", value: 1 },
-                { name: "Fade",     value: 2 },
-                { name: "Fixed",    value: 3 },
-                { name: "Float",    value: 4 }
+                { name: "Slide Up",  value: 1 },
+                /*{ name: "Slide Out", value: 5 },*/// TODO
+                { name: "Fade",      value: 2 },
+                { name: "Fixed",     value: 3 },
+                { name: "Float",     value: 4 }
             ]
         ],
         "Sidebar Position":
@@ -110,19 +111,10 @@
         [
             1, "Change the location of the page links",
             [
-                { name: "Slide Out",         value: 1 },
-                { name: "In Navigation Bar", value: 2 },
-                { name: "Fixed Vertically",  value: 3 }
-            ]
-        ],
-        "Rice Inputs":
-        [
-            2, "Style certain input elements to match theme",
-            [
-                { name: "Disabled", value: 1 },
-                { name: "File",     value: 2 },
-                { name: "Checkbox", value: 3 },
-                { name: "Both",     value: 4 }
+                { name: "Slide Out",      value: 1 },
+                { name: "Fixed",          value: 2 },
+                { name: "Fixed Vertical", value: 3 },
+                { name: "Hidden",         value: 4 }
             ]
         ],
         "Font":
@@ -187,10 +179,10 @@
         { dName: "Tripcodes",        name: "tripColor",   property: "color"            },
         { dName: "Titles",           name: "titleColor",  property: "color"            }
     ],
-    SSf, $SS;
+    $lib, $SS;
     
     if (!Array.isArray)
-        Array.isArray = function(arg){ return Object.prototype.toString.call(arg) == "[object Array]"; };
+        Array.isArray = function(arg){ return Object.prototype.toString.call(arg) === "[object Array]"; };
         
     Number.prototype.toHexStr = function()
     {
@@ -205,17 +197,17 @@
         return s;
     };
     
-    /* STYLE SCRIPT FRAMEWORK */
+    /* STYLE SCRIPT LIBRARY */
     /* More or less based off jQuery */
-    SSf = window.$ = function(selector, root)
+    $lib = window.$ = function(selector, root)
     {
-        return this instanceof SSf ?
-            this.init(selector, root) : new SSf(selector, root);
+        return this instanceof $lib ?
+            this.init(selector, root) : new $lib(selector, root);
     };
     
-    SSf.prototype = 
+    $lib.prototype =
     {
-        constructor: SSf,
+        constructor: $lib,
         elems: [],
         length: function(){ return this.elems.length; },
         
@@ -224,13 +216,13 @@
         {
             if (selector == null || selector == undefined) return this;
             
-            if (selector.constructor === SSf) return selector;
+            if (selector.constructor === $lib) return selector;
             else if (typeof selector === "string")
             {
                 var root = root || document;
                 var tagCheck = /^<(\w+)([^>]*)>(.*)$/.exec(selector); // NO CLOSING TAGS FOR MAIN NODE
                 
-                if (root.constructor === SSf)
+                if (root.constructor === $lib)
                     root = root.get();
                     
                 if (tagCheck)
@@ -243,7 +235,7 @@
                         while ((attribs = atRegEx.exec(tagCheck[2])) != null)
                         {
                             var val = attribs[2];
-                            if ((val[0] == '"' || val[0] == "'") && val[0] == val[val.length-1])
+                            if ((val[0] == '"' || val[0] === "'") && val[0] == val[val.length-1])
                                 val = val.substr(1, val.length-2)
                             
                             tag.setAttribute(attribs[1], val);
@@ -253,6 +245,13 @@
                     tag.innerHTML = tagCheck[3];
                     
                     this.elems = [ tag ];
+                }
+                else if (/^#[\w-]+$/.test(selector) && root == document)
+                {
+                    var el;
+                    
+                    if ((el = document.getElementById(selector.substr(1))) != null)
+                        this.elems = [ el ];
                 }
                 else
                 {
@@ -275,7 +274,7 @@
             
             this.each(function(){ ret.push(this.cloneNode(true)); });
             
-            return new SSf(ret);
+            return new $lib(ret);
         },
         elements: function()
         {
@@ -288,7 +287,7 @@
         },
         get: function(index)
         {
-            if (index == undefined && this.elems.length == 1)
+            if (index == undefined && this.elems.length === 1)
                 return this.elems[0];
             else if (index == undefined && !this.hasSingleEl())
                 return this.elems;
@@ -299,28 +298,28 @@
         /* DOM MANIPULATION */
         prepend: function(el)
         {
-            if (el.constructor === SSf)
+            if (el.constructor === $lib)
                 el = el.get();
                 
             return this.each(function(){ this.insertBefore(el, this.firstChild); });
         },
         append: function(el)
         {
-            if (el.constructor === SSf)
+            if (el.constructor === $lib)
                 el = el.get();
             
             return this.each(function(){ this.appendChild(el); });
         },
         before: function(el)
         {
-            if (el.constructor === SSf)
+            if (el.constructor === $lib)
                 el = el.get();
                 
             return this.each(function(){ this.parentNode.insertBefore(el, this); });
         },
         after: function(el)
         {
-            if (el.constructor === SSf)
+            if (el.constructor === $lib)
                 el = el.get();
                 
             return this.each(function()
@@ -448,8 +447,10 @@
         {
             if (!this.hasSingleEl() || this.elems[0].className == undefined)
                 return false;
+                
+            var regx = new RegExp("\\b" + className + "\\b");
             
-            return this.elems[0].className.indexOf(className) != -1;
+            return regx.test(this.elems[0].className);
         },
         removeClass: function(classNames)
         {
@@ -463,7 +464,7 @@
                         this.className = "";
                         
                         for (var k = 0, kMAX = cclassNames.length; k < kMAX; k++)
-                            if (classNames[j] != cclassNames[k])
+                            if (classNames[j] !== cclassNames[k])
                                 this.className += (this.className ? " " : "") + cclassNames[k];
                     }
             });
@@ -490,7 +491,7 @@
         {
             if (!this.hasSingleEl()) return this;
             
-            return new SSf(this.elems[0].parentNode);
+            return new $lib(this.elems[0].parentNode);
         },
         children: function(selector)
         {
@@ -499,53 +500,53 @@
             else if (selector == null)
                 selector = "*";
             
-            return new SSf(selector, this.elems[0]);
+            return new $lib(selector, this.elems[0]);
         },
         nextSibling: function(selector)
         {
             if (!this.hasSingleEl() ? true : this.elems[0].nextSibling == null)
-                return new SSf(null);
+                return new $lib(null);
             
             if (selector != undefined)
             {
-                var t, m = new SSf(selector, this.elems[0].parentNode),
+                var t, m = new $lib(selector, this.elems[0].parentNode),
                     s = this.elems[0].parentNode.childNodes;
                     
                 for (var i = s.length - 1; i >= 0; i--)
                 {
-                    if (s[i] == this.elems[0] && t == undefined)
-                        return new SSf(null);
-                    else if (s[i] == this.elems[0] && t != undefined)
-                        return new SSf(t);
+                    if (s[i] === this.elems[0] && t == undefined)
+                        return new $lib(null);
+                    else if (s[i] === this.elems[0] && t != undefined)
+                        return new $lib(t);
                     else if (m.elems.indexOf(s[i]) != -1)
                         t = s[i];
                 }
             }
             
-            return new SSf(this.elems[0].nextSibling);
+            return new $lib(this.elems[0].nextSibling);
         },
         previousSibling: function(selector)
         {
             if (!this.hasSingleEl() ? true : this.elems[0].previousSibling == null)
-                return new SSf(null);
+                return new $lib(null);
             
             if (selector != undefined)
             {
-                var t, m = new SSf(selector, this.elems[0].parentNode),
+                var t, m = new $lib(selector, this.elems[0].parentNode),
                     s = this.elems[0].parentNode.childNodes;
                 
                 for (var i = 0, MAX = s.length; i < MAX; i++)
                 {
-                    if (s[i] == this.elems[0] && t == undefined)
-                        return new SSf(null);
-                    else if (s[i] == this.elems[0] && t != undefined)
-                        return new SSf(t);
+                    if (s[i] === this.elems[0] && t == undefined)
+                        return new $lib(null);
+                    else if (s[i] === this.elems[0] && t != undefined)
+                        return new $lib(t);
                     else if (m.elems.indexOf(s[i]) != -1)
                         t = s[i];
                 }
             }
             
-            return new SSf(this.elems[0].previousSibling);
+            return new $lib(this.elems[0].previousSibling);
         },
         
         /* EVENT METHODS */
@@ -566,6 +567,18 @@
                 ev.initEvent(evnt, true, true);
                 this.dispatchEvent(ev);
             });
+        },
+        blur: function()
+        {
+            return this.each(function(){ this.blur(); });
+        },
+        click: function()
+        {
+            return this.each(function(){ this.click(); });
+        },
+        scrollIntoView: function(alignWithTop)
+        {
+            return this.each(function(){ this.scrollIntoView(alignWithTop); });
         },
         
         /* HELPER METHODS */
@@ -596,7 +609,7 @@
         },
         hasSingleEl: function()
         {
-            return this.elems.length == 1;
+            return this.elems.length === 1;
         },
         
         /* INPUT RICE */
@@ -606,58 +619,24 @@
             {
                 if ($(this).attr("riced")) return;
                 
-                var div = $("<div class=riceFile><div>BROWSE...</div><span></span>"),
-                    a = $(this).nextSibling("a");
-                
-                $(this).attr("riced", true).riceFileBind()
-                       .parent().append(div.prepend(this));
-                       
-                if (a.exists())
-                    $(this).after(a);
-            });
-        },
-        riceFileBind: function()
-        {
-            return this.each(function()
-            {
-                var rfChange = function()
-                {
-                    $(this).nextSibling("span").text(this.files.length != 1 ? "" : this.files[0].name);
-                };
-                
-                $(this).bind("change", rfChange);
-                
-                if (this.files.length == 1)
-                    rfChange();
+                var div = $("<div class=riceFile><div>BROWSE...</div><span></span>");
+                $(this).attr("riced", true)
+                       .bind("change", function(){ $(this).nextSibling("span").text($("#qr.dump").exists() ? "" : this.files[0].name); })
+                       .bind("focus", function(){ $(this).nextSibling("div").addClass("focus"); })
+                       .bind("blur", function(){ $(this).nextSibling("div").removeClass("focus"); })
+                       .parent().prepend(div.prepend(this));
             });
         },
         riceCheck: function()
         {
             return this.each(function()
             {
-                var $this = $(this);
+                var click = function(e){ e.preventDefault(); this.previousSibling.click(); };
+                if (this.nextSibling != null && this.nextSibling.className === "riceCheck")
+                    return $(this.nextSibling).bind("click", click);
                 
-                if ($this.attr("riced") === "true")
-                    return $this.nextSibling(".riceCheck").riceCheckBind();
-                
-                var div = $("<div class=riceCheck>").riceCheckBind();
-                
-                $this.attr("riced", true).hide(true).after(div);
-            });
-        },
-        riceCheckBind: function()
-        {
-            return this.each(function()
-            {
-                if (this.riceCheckBind) return;
-                
-                $(this).bind("click", function(e)
-                {
-                    e.preventDefault();
-                    $(this).previousSibling("input[type=checkbox][riced]").get().click();
-                });
-                
-                this.riceCheckBind = true;
+                var div = $("<div class=riceCheck>").bind("click", click);
+                $(this).hide().after(div);
             });
         },
         jsColor: function()
@@ -668,19 +647,12 @@
             });
         }
     };
-    /* END STYLE SCRIPT FRAMEWORK */
+    /* END STYLE SCRIPT LIBRARY */
     
     /* STYLE SCRIPT CLASSES & METHODS */
     $SS =
     {
-        bHideSidebar: false, // remove this later
-        browser: { gecko: false, opera: false, webkit: false },
-        conf: false,
-        fontList: false,
-        location: false,
-        mascot: false,
-        theme: false,
-        
+        browser: { },
         init: function(reload)
         {
             if (!reload)
@@ -762,230 +734,104 @@
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
             
-            $SS.bHideSidebar = ($SS.conf["Sidebar Position"] == 3 ||
-                                $SS.location.sub != "boards" ||
-                                document.title == "Website is currently unreachable");
+            $SS.bHideSidebar = ($SS.conf["Sidebar Position"] === 3 ||
+                                $SS.location.sub !== "boards" ||
+                                document.title === "Website is currently unreachable");
             
             css = "@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);*{font-family:"+$SS.formatFont($SS.conf["Font"])+"!important;font-size:"+$SS.conf["Font Size"]+"px!important}*:focus{outline:none!important;-moz-outline:none!important;-moz-user-focus:none!important}[draggable]{-webkit-user-select:none;-moz-user-select:none;-o-user-select:none;user-select:none}input:not([disabled]):active,input:focus,select:focus,textarea:focus{outline:1px solid "+$SS.theme.linkColor.hex+"!important;outline-offset:-2px!important}input::-moz-focus-inner{border:0;padding:0}::selection{background:"+$SS.theme.linkColor.hex+";color:#"+($SS.theme.linkColor.isLight ? "000" : "fff") +"!important}::-moz-selection{background:"+$SS.theme.linkColor.hex+";color:#"+($SS.theme.linkColor.isLight ? "000" : "fff") +"!important}img{border:0!important}hr{border:0!important;border-top:1px solid rgba("+$SS.theme.brderColor.rgb+",.9)!important;clear:left;margin:0!important}h1,h2,h3,h4,h5{margin:.4em 0!important}h3,.commentpostername,.postername,.replytitle,body>center:nth-of-type(2)>font[color=red]>b,.pages b,.filetitle{font-weight:400!important}a{text-decoration:none!important;color:"+$SS.theme.linkColor.hex+"!important;font-weight:normal!important;-webkit-transition:all .1s;-moz-transition:all .1s;-o-transition:all .1s}a:hover{color:"+$SS.theme.linkHColor.hex+"!important;text-shadow:rgba("+$SS.theme.linkHColor.rgb+",.2) 0 0 2px!important}.spoiler a{-webkit-transition:none;-moz-transition:none;-o-transition:none}a:not([href]),a[href='javascript:;']{color:"+$SS.theme.jlinkColor.hex+"!important}.commentpostername,.postername,.commentpostername a,.postername a{color:"+$SS.theme.nameColor.hex+"!important}.postertrip,.trip{color:"+$SS.theme.tripColor.hex+"!important}.unkfunc{color:"+$SS.theme.quoteColor.hex+"!important}.quotelink{color:"+$SS.theme.linkHColor.hex+"!important}.spoiler:not(:hover),.spoiler:not(:hover) .unkfunc,.spoiler:not(:hover) a{  color:#000!important}.filetitle,.replytitle{color:"+$SS.theme.titleColor.hex+"!important}a.linkmail[href='mailto:sage'],a.linkmail[href='mailto:sage']:hover,#qr .warning,span[style='color:#F00000'],span[style='color:#FF0000;font-weight:normal']{color:"+$SS.theme.sageColor.hex+"!important;text-shadow:none!important}"+( $SS.conf["Pages Position"] != 2 ? ".pages td:nth-of-type(2)," : "")+".reply,.replyhl,.stub>a,.stub>.block>a,option,div[id*=jsMath],#qr .warning,#imgControls,#imgControls #imageType,#imgControls .preload,#jsMath_float>*,#watcher>div,.deletebuttons,a.omittedposts{background:rgba("+$SS.theme.mainColor.rgb+",.9)!important}body>center:nth-of-type(2)>font[color=red],#header{background:"+$SS.theme.mainColor.hex+"!important}a,button,input[type=checkbox],input[type=radio],input[type=button],input[type=submit],#themeoptions #tMascot div,#themeoptions #tThemes>div,.pointer,.riceCheck,.trbtn{cursor:pointer}body,form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),.pages td:nth-of-type(2),img[alt=closed],img[alt=sticky],body>span[style],a[href='.././'],body>a[style='cursor: pointer; float: right;'],.deletebuttons,#navtop,#navtopr,#imageType+label,#qr>form #spoilerLabel,.preview>label,.close,.remove,.reportbutton,.replyhider a,.op>a:first-child,.stub>a>span,.stub>.block>a>span{color:transparent!important;font-size:0!important}body>a[style='cursor: pointer; float: right;'],button,form[name=post] input[name=email]+label,form[name=post] #com_submit+label,input[type=button],input[type=submit],#imgControls label,#qr>.move,#qr>form #spoilerLabel::after,#stats .move,#themeoptions #tThemes>div p a,#updater span,#updater .move,#watcher .move,.deletebuttons::before,.logo font[size='1'],.pages td,.preview>label::after,.riceFile div,.trbtn{text-transform:uppercase}#qr>form>div:first-child .field:not(#dump):focus+span,input:not([type=submit]),select,select *,textarea,#navlinks,#themeoptions label,#themeoptions label>span,#themeoptions #tMascot div a,#updater label,#updater span,.container *,.filesize span:not([class])::after,.logo font[size='1'],.pages td:nth-of-type(2) *{font:"+$SS.conf["Small Font Size"]+"px "+$SS.formatFont($SS.conf["Font"])+"!important}body>a[style='cursor: pointer; float: right;'],#qr>form #spoilerLabel::after,button,form[name=post] input[name=email]+label,form[name=post] #com_submit+label,input[type=button],input[type=submit],#imgControls label,#stats .move,#updater span,#updater .move,#watcher .move,#stats span,.deletebuttons::after,.pages td,.preview>label::after,.riceFile div{font-size:"+($SS.conf["Bitmap Font"] ? $SS.conf["Font Size"] : 9)+"px!important}body>center:nth-of-type(2)>font[color=red]::before,#qr>.move,#themeoptions #tMascot div a,#themeoptions #tThemes>div p a,#watcher>div>a:first-child,.commentpostername a.linkmail[href='mailto:sage']::after,.container::before,.deletebuttons::before,.riceFile span,.trbtn{font-size:"+($SS.conf["Bitmap Font"] ? $SS.conf["Font Size"] : 10)+"px!important}"+(!$SS.conf["Show Board Name"] ? ".logo span," : "") +(!$SS.conf["Show Text Board"] ? ".logo font[size='1']," : "") +($SS.conf["Post Form"] != 4 ? "#qr>.move .close," : "")+($SS.conf["Post Form"] == 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "")+($SS.conf["Layout"] == 2 && !$SS.conf["Thread Separators"] ? "form[name=delform]>hr," : "")+"#recaptcha_tagline,td[align=right],img+br,#BF_WIDGET,.bf,.yui-g,#option-button,#recaptcha_table td:nth-of-type(2),#recaptcha_table td:nth-of-type(3),#hd,#ft,td small,#footer,.rules,body>br,body>hr,body>table[style='text-align:center;width:100%;height:300px;'],center font small,form[name=delform]>span[style],td.postblock,.thread>br:last-child,.deletebuttons br,table[width='100%'],form[name=delform]>br[clear],.logo>br,body>div[style*='center'],body>center:nth-of-type(1),form[name=delform]>center,.hidden,body>span[style]~form[name=delform]>br,body>a[href='.././']~form[name=delform]>br,body>span[style]~form[name=delform]>hr,form[name=delform] center+hr,center~form[name=delform] hr:nth-last-of-type(2),form[name=delform] hr:nth-last-of-type(1),[hidden],body>span[style]~#navlinks,#navtop,#navtopr,#navtop>a,#navtop>span,.pages,#imgControls #imageExpand,#imgControls #imageExpand+.riceCheck,#qp>a[href='javascript:;']:not([class]),.inline .reply>a:first-child,.postarea,a[href='#bottom']{display:none!important}a.omittedposts,a.omittedposts:hover,blockquote>.abbr,body>center:nth-of-type(2)>font[color=red]::before,body>center:nth-of-type(2)>font[color=red]>b,button,div,div.autohide>a,form[name=delform],form[name=post] input[name=email]+label,form[name=post] #com_submit+label,input:not(.jsColor),select,textarea,tr,#qr>.move,#qr>form #spoilerLabel::after,#navtopr span,#stats span,#themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover,.deletebuttons::before,.deletebuttons::after,.omittedposts,.pages b,.pages td,.preview>label::after,.reply,.replyhl,.replymode{color:"+$SS.theme.textColor.hex+"!important}input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{color:rgba("+$SS.theme.textColor.rgb+",.4)!important}input:-moz-placeholder,textarea:-moz-placeholder{color:rgba("+$SS.theme.textColor.rgb+",.4)!important}body{background:"+$SS.theme.bgImg.get()+$SS.theme.bgColor.hex +"!important;margin:"+((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] == 1) || ($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"]) ? "0 263px 44px 0" : (!$SS.bHideSidebar ? "0 0 44px 265px" : "0 0 44px"))+"!important;padding:18px 0 0!important}"+(!$SS.bHideSidebar ? "body::before{background:rgba("+$SS.theme.mainColor.shiftRGB(-18)+",.8);border-"+$SS.conf["Sidebar Position oString"]+":2px solid rgba("+$SS.theme.mainColor.rgb+",.9);box-shadow:"+($SS.conf["Sidebar Position"] != 2 ? "inset " : "")+$SS.theme.brderColor.hex+" 1px 0 0,"+($SS.conf["Sidebar Position"] == 2 ? "inset " : "")+$SS.theme.brderColor.hex+" -1px 0 0;content:'';height:100%;width:262px;position:fixed;top:-19px!important;z-index:1}body::after{"+($SS.mascot.overflow ? "content:"+$SS.mascot.img.get()+";" :"background:"+$SS.mascot.img.get()+";content:'';height:100%;width:261px;"+(!$SS.mascot.small ? "background-size:contain;" : ""))+"bottom:21px!important;margin-bottom:"+$SS.mascot.offset+"px;position:fixed;z-index:2;"+($SS.conf["Sidebar Position"] == 2 && $SS.mascot.flip ? "-webkit-transform:scaleX(-1);-moz-transform:scaleX(-1);-o-transform:scaleX(-1);" : "")+"}" : "")+"body::after,body::before,body>center:nth-of-type(2)>font[color=red],#imgControls,"+($SS.conf["Post Form"] != 4 ? "#qr," :"")+"#updater,#watcher{"+$SS.conf["Sidebar Position String"]+":0!important;"+$SS.conf["Sidebar Position oString"]+":auto!important}"+($SS.conf["Layout"] == 2 ? ".op," : "")+"#qr .warning,#jsmath_button,#jsMath_panel,#jsMath_float,#options ul,#qr,#themeoptions #toWrapper,body>a[style='cursor: pointer; float: right;']+div,.reply,.replyhl,.stub>a,.stub>.block>a{border:1px solid "+$SS.theme.brderColor.hex+"!important}body>center:nth-of-type(2)>font[color=red],#imgControls{border-bottom:1px solid "+$SS.theme.brderColor.hex+"!important}"+($SS.conf["Sidebar Position"] == 3 ? "#imgControls," : "")+".deletebuttons,body>center:nth-of-type(2)>font[color=red]{border-"+$SS.conf["Sidebar Position oString"]+":1px solid "+$SS.theme.brderColor.hex+"!important}"+($SS.conf["Sidebar Position"] == 3 ? "body>center:nth-of-type(2)>font[color=red]," : "")+"#updater{border-right:1px solid "+$SS.theme.brderColor.hex+"!important}.deletebuttons,#header,#fs_data td{border-top:1px solid "+$SS.theme.brderColor.hex+"!important}#jsmath_button{bottom:auto!important;left:0!important;top:1px!important;right:auto!important}#jsMath_panel{bottom:auto!important;left:1em!important;top:1.75em!important;right:auto!important}"+($SS.conf["Layout"] != 2 ? ".thread:not(.stub),body>span[style]~form[name=delform]" : ".op")+"{background:rgba("+$SS.theme.mainColor.rgb+",.5)}.thread{clear:both;margin:1px"+($SS.conf["Layout"] == 1 ? ($SS.conf["Sidebar Position"] != 2 ? " 0 1px 1px" : " 1px 1px 0") : ($SS.conf["Layout"] == 2 ? " 0 1px" : ""))+"!important;padding:0!important;position:relative;border-radius:"+($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px")+"}.thread::after,#updater div>label::after,form[name=delform] .op::after,#addMascot>label::after{clear:both;content:'';display:block}.op{border:0!important;padding:3px 3px 0;position:relative;"+($SS.conf["Layout"] == 2 ? "border-radius:"+($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px")+";" : "")+"}.op>a:first-child{"+($SS.conf["Layout"] != 2 ? "position:absolute;right:2px;top:0;" : "position:relative;top:-1px;")+"}form[name=delform]{"+($SS.conf["Layout"] != 2 ? "border:1px solid rgba("+$SS.theme.brderColor.rgb+",.9);"+($SS.conf["Layout"] == 1 ? "border-"+$SS.conf["Sidebar Position String"]+":0!important;" : "") : "")+"margin:"+($SS.conf["Layout"] != 3 ?($SS.conf["Sidebar Position"] != 2 ? "0 0 0 "+$SS.conf["Side Margin"]+"px" :"0 "+$SS.conf["Side Margin"]+"px 0 0") :"0 "+($SS.conf["Side Margin"] > 10 ? ($SS.conf["Side Margin"] - ($SS.conf["Side Margin"] / 3)) : $SS.conf["Side Margin"] * 0.75)+"% 0")+";padding:0!important;position:relative;border-radius:"+($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px")+"}form[name=delform]>table,form[name=delform]>.thread>table{margin:1px 0 0;position:relative;width:100%}form[name=delform]>table:not(.pages){margin-left:"+($SS.conf["Sidebar Position"] != 2 ? 1 : -1)+"px!important}form[name=delform]>table:nth-last-of-type(3){margin-bottom:1px}body>span[style]~form[name=delform]>table,body>a[href='.././']~form[name=delform]>table{margin-left:0!important}body>span[style]~form[name=delform]>table:nth-last-of-type(3),body>a[href='.././']~form[name=delform]>table:nth-last-of-type(3){margin-bottom:0}body>span[style]~form[name=delform],body>a[href='.././']~form[name=delform]{padding:"+($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px")+"!important}body,body>a[style='cursor: pointer; float: right;']+div,td.reply,td.replyhl,.stub>a,.stub>.block>a,.thread.stub,.riceFile,.riceCheck,.logo span,#qr,#themeoptions #tMascot div,#themeoptions #tThemes .reply,#themeoptions #tNavLinks .navlink .handle{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}"+($SS.conf["Layout"] == 2 ? ".op," : "")+".reply,.replyhl,.stub>a,.stub>.block>a{"+($SS.conf["Layout"] != 3 && !($SS.conf["Sidebar Position"] != 2 && $SS.conf["Layout"] == 2)? "border-"+$SS.conf["Sidebar Position String"]+":0!important;" : "")+"}.reply,.replyhl{display:inline-block;position:relative}.reportbutton{background-position:0 -16px;"+($SS.conf["Layout"] != 2 ? "position:absolute;right:14px;top:1px;" : "")+"}"+($SS.conf["Layout"] == 2 ? "td .reportbutton:" : ".inline .reportbutton,#qp .reportbutton")+"{position:static!important;vertical-align:middle!important}td.reply input[type=checkbox],td.replyhl input[type=checkbox],td.reply .riceCheck,td.replyhl .riceCheck,.container,.op>a:first-child,.replyhider,.reportbutton{z-index:3!important}.inline{z-index:6!important;position:relative}.op>.reportbutton{top:0}.replyhider{position:absolute;"+($SS.conf["Layout"] != 2 ? "right:2px;top:2px;" : "left:2px;top:8px;")+"}.replyhider a,.op>a:first-child{background-position:-80px 0}.stub>a>span,.stub>.block>a>span{background-position:-80px -16px;vertical-align:middle!important;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}.close,.remove{background-position:-16px -16px!important}.close,.remove,.reportbutton,.replyhider a,.op>a:first-child,.stub>a>span,.stub>.block>a>span{margin:0!important;opacity:.5;text-indent:-9999px!important}.close:hover,.remove:hover,.reportbutton:hover,.replyhider a:hover,.op>a:first-child:hover,.stub>a:hover>span,.stub>.block>a:hover>span{opacity:.75}td.reply>img,td.replyhl>img{vertical-align:middle}td.reply,td.replyhl,.stub,.stub>a,.stub>.block>a{padding:5px!important;"+($SS.conf["Layout"] != 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] != 2 ? "margin-right:1px!important;" : ""))+"border-radius:"+($SS.conf["Layout"] != 3 && !($SS.conf["Sidebar Position"] != 2 && $SS.conf["Layout"] == 2) ?($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px")+"}.replyhl,.qphl{background:rgba("+$SS.theme.linkColor.rgb+",.2)!important;box-shadow:inset rgba("+$SS.theme.linkColor.rgb+",.4) 0 0 5px!important}.filter_highlight{box-shadow:-5px 0 rgba(255,0,0,.5)!important}.stub{margin:1px 0 0!important;padding:0!important}.thread.stub{margin:1px 0px!important;padding:0 "+($SS.conf["Sidebar Position"] != 2 ? "0 0 1px" : "1px 0 0")+"!important}.stub>a,.stub>.block>a{display:"+($SS.conf["Layout"] == 2 ? "inline-" : "")+"block;padding:7px}.container{"+($SS.conf["Backlinks Position"] != 1 ? "bottom:"+($SS.conf["Slim Replies"] ? 0 : 2)+"px;position:absolute;"+($SS.conf["Backlinks Position"] == 2 ? "right" : "left")+":2px;z-index:1;" : "")+"margin-left:2px}"+($SS.conf["Backlinks Position"] != 1 ? ".container::before{color:rgba("+$SS.theme.textColor.rgb+",.4)!important;content:'REPLIES:';padding-right:2px}" : "")+".container>a{color:"+$SS.theme.blinkColor.hex+"!important}.qphl{outline:none!important}#qp{background:rgb("+$SS.theme.mainColor.shiftRGB(-8)+")!important;border:1px solid rgba("+$SS.theme.linkColor.rgb+",.4)!important;margin:0 10px!important;max-width:65%;padding:5px;position:fixed!important;z-index:11!important;border-radius:3px}.inline td.reply{background:rgba("+$SS.theme.mainColor.shiftRGB(-16)+",.1)!important;border:1px solid rgba("+$SS.theme.brderColor.rgb+",.4)!important;padding:5px!important;border-radius:3px;box-shadow:rgba(0,0,0,.1) 0 5px 10px}a.omittedposts{display:inline-block;line-height:16px;margin:-4px 10px 0!important;padding:0 6px;border-radius:3px}.deletebuttons{bottom:20px!important;height:22px;overflow:hidden;padding:1px 2px 0 18px!important;position:fixed;"+($SS.conf["Sidebar Position"] == 3 ? "right:262px;z-index:11;" : $SS.conf["Sidebar Position String"]+":264px;z-index:4;")+"width:0;white-space:nowrap;"+($SS.conf["Layout"] != 1 ? "border-radius:"+($SS.conf["Sidebar Position"] != 2 ? "3px 0 0 0" : "0 3px 0 0") : "")+";-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}.deletebuttons:hover{"+($SS.conf["Sidebar Position"] != 2 ? "padding-left:2px!important;"+($SS.conf["Sidebar Position"] == 3 ? "padding-right:4px!important;" : "") :"padding-left:0!important;padding-right:3px!important;")+"width:238px;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}.deletebuttons::before{content:'X';display:inline-block;position:absolute;left:0;top:0;width:20px;height:24px;text-align:center;padding-top:1px}.deletebuttons:hover::before{overflow:hidden;white-space:nowrap;padding:0;width:0}.deletebuttons::after{content:'FILE ONLY';position:absolute;bottom:0;right:"+($SS.conf["Sidebar Position"] != 2 ? 120 : 122)+"px;line-height:24px}.deletebuttons *{visibility:visible!important}.deletebuttons input[type=checkbox],.deletebuttons .riceCheck{margin:2px!important;position:absolute;right:"+($SS.conf["Sidebar Position"] != 2 ? 103 : 105)+"px;bottom:4px!important;top:auto!important}.deletebuttons input:not([type=checkbox]){height:20px!important;margin:0 1px 0 0!important}.deletebuttons input[type=password]{margin-left:4px!important;width:138px}.deletebuttons:hover input[type=password]{margin-left:0!important}table,td{border:0!important;border-spacing:0!important;table-layout:fixed!important}blockquote{margin:0!important;padding:"+($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] != 1 ? 8 : 4)+"px 16px" : "12px 12px 24px 40px")+"!important}blockquote>div[style]{border-color:"+$SS.theme.sageColor.hex+"!important}div.reply{border:0!important;margin:0!important;z-index:2!important}form[name=delform] .filesize+br+a[target='_blank'] img{float:left;margin:2px 24px "+(!$SS.conf["Slim Replies"] ? 24 : 6)+"px!important}form[name=delform] .filesize+br+a[target='_blank'] img+img{margin:0 0 20px!important;position:relative;z-index:10!important}form[name=delform] .filesize+br+a[target='_blank'] img+img{background-color:rgba("+$SS.theme.mainColor.rgb+",.01)!important}img[alt=closed],img[alt=sticky],a[href='.././'],body>a[style='cursor: pointer; float: right;'],#imageType+label,.close,.remove,.reportbutton,.replyhider a,.op>a:first-child,.stub>a>span,.stub>.block>a>span{background-image:"+$SS.theme.icons.get()+"!important;background-color:transparent!important;background-repeat:no-repeat;display:inline-block;height:0!important;padding-top:16px!important;vertical-align:bottom;width:16px!important}img[alt=closed]{background-position:0 0!important}img[alt=sticky]{background-position:-16px 0!important}textarea,button,input:not([type=checkbox]):not([type=radio]),select,.riceFile{border:1px solid "+$SS.theme.inputbColor.hex+"!important}button,input[type=button],input[type=file],input[type=password],input[type=submit],input[type=text]:not(.jsColor),input#fs_search,input.field,select,textarea,.riceFile,#options input{background:rgba("+$SS.theme.inputColor.rgb+",.9)!important}input[type=file]::-webkit-file-upload-button{background:rgba("+$SS.theme.inputColor.rgb+",.9)!important;border:0!important;border-right:1px solid transparent!important;font-size:8px!important;text-transform:uppercase!important;padding:0 5px!important;width:auto!important;vertical-align:bottom;height:20px!important;color:"+$SS.theme.textColor.hex+"!important;cursor:pointer;margin:0!important;-webkit-transition:background .1s ease-in-out;-moz-transition:background .1s ease-in-out;-o-transition:background .1s ease-in-out}input[type=file]::-webkit-file-upload-button:hover{background:rgba("+$SS.theme.inputColor.hover+",.9)!important}button,input:not(.jsColor),textarea,.riceFile input~div{-webkit-transition:background .2s,box-shadow .2s;-moz-transition:background .2s,box-shadow .2s;-o-transition:background .2s,box-shadow .2s}button:hover,input[type=button]:hover,input[type=password]:hover,input[type=submit]:hover,input[type=text]:not(.jsColor):not([disabled]):hover,input#fs_search:hover,input.field:hover,select:hover,textarea:hover,#options input:hover,.riceFile input:hover~div{background:rgba("+$SS.theme.inputColor.hover+",.9)!important}input[type=password]:hover,input[type=text]:not([disabled]):hover,input#fs_search:hover,input.field:hover,select:hover,textarea:hover,#options input:hover{box-shadow:inset rgba(0,0,0,.2) 0 1px 2px}input[type=password]:focus,input[type=text]:focus,input#fs_search:focus,input.field:focus,select:focus,textarea:focus,#options input:focus{box-shadow:inset rgba(0,0,0,.2) 0 1px 2px}textarea:focus,input[type=text]:not(.jsColor):not([disabled]):focus,input[type=password]:focus,input#fs_search:focus,input.field:focus,#options input:focus{background:rgba("+$SS.theme.inputColor.hover+",.9)!important}button,input[type=button],input[type=submit],.riceFile div{height:22px!important;margin-top:1px!important;padding:0!important;text-align:center!important;vertical-align:top;width:50px}input[type=checkbox],input[type=radio],.riceCheck{background:rgba("+$SS.theme.inputColor.rgb+",.9)!important;border:1px solid rgb("+$SS.theme.inputbColor.rgb+")!important;display:inline-block;height:12px!important;margin:3px;position:relative;vertical-align:top;width:12px!important;border-radius:2px!important;-webkit-appearance:none;-webkit-transition:background .1s;-moz-transition:background .1s;-o-transition:background .1s}input[type=radio]{border-radius:10px!important}input[type=checkbox],.riceCheck{box-shadow:rgba("+$SS.theme.mainColor.shiftRGB(32)+",.3) 0 1px}input[type=checkbox]:hover,input[type=radio]:hover,.riceCheck:hover{background:rgba("+$SS.theme.inputColor.hover+",.9)!important}input[type=checkbox]:checked,input[type=checkbox]:checked+.riceCheck{box-shadow:inset rgba(0,0,0,.2) 0 1px 2px,rgba("+($SS.theme.mainColor.isLight ? "255,255,255" : "100,100,100") +",.6) 0 1px}input[type=radio]:checked{background:rgba("+$SS.theme.inputColor.shiftRGB(40, true)+",.9)!important;box-shadow:inset rgba("+$SS.theme.inputColor.shiftRGB(100, true)+",.2) 0 0 1px!important}input[type=checkbox]::before,input[type=radio]::before,input[type=checkbox]+.riceCheck::before{content:'';display:block;height:8px;margin:1px;opacity:0;width:8px;-webkit-transition:opacity .2s ease-in-out;-moz-transition:opacity .2s ease-in-out;-o-transition:opacity .2s ease-in-out}input[type=checkbox]:checked::before,input[type=radio]:checked::before,input[type=checkbox]:checked+.riceCheck::before{opacity:1}input[type=checkbox]:checked::before,input[type=checkbox]:checked+.riceCheck::before{background:"+$SS.theme.checkMark.get()+"!important}input[type=radio]:checked::before{background:"+$SS.theme.radioCheck.get()+" transparent!important}input[type=checkbox]:active,input[type=radio]:active,.riceCheck:active{background:rgba("+$SS.theme.inputColor.shiftRGB(40, true)+",.9)!important;box-shadow:inset rgba("+$SS.theme.inputColor.shiftRGB(100, true)+",.4) 0 0 3px,rgba("+$SS.theme.mainColor.shiftRGB(64)+",.6) 0 1px!important}td.reply input[type=checkbox],td.replyhl input[type=checkbox],td.reply .riceCheck,td.replyhl .riceCheck{margin-left:"+($SS.conf["Layout"] != 2 ? 0 : "12px")+"!important;position:relative}span.filesize~input[type=checkbox],span.filesize~.riceCheck{top:2px}input[name=recaptcha_response_field],input#recaptcha_response_field{height:22px!important;padding:1px 4px!important}textarea{margin:0!important}td.doubledash{padding:0;text-indent:-9999px}.logo{position:fixed;"+$SS.conf["Sidebar Position String"]+":1px;text-align:center;top:20px}.logo,.logo img,.logo span{width:"+($SS.conf["Sidebar Position"] == 3 ? 261 : 259)+"px!important}.logo img{height:auto!important;margin:0!important;opacity:.5;position:relative;z-index:1;-webkit-box-reflect:below 0 -webkit-gradient(linear,left top,left bottom,from(transparent),color-stop(.1,transparent),to(rgba(255,255,255,.5)))}.logo::after{background-image:-moz-element(#logo);bottom:-100%;content:'';left:0;mask:url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KCTxkZWZzPg0KCQk8bGluZWFyR3JhZGllbnQgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIGlkPSJncmFkaWVudCIgeDI9IjAiIHkyPSIxIj4NCgkJCTxzdG9wIHN0b3Atb2Zmc2V0PSIwIi8+DQoJCQk8c3RvcCBzdG9wLWNvbG9yPSJ3aGl0ZSIgb2Zmc2V0PSIxIi8+DQoJCTwvbGluZWFyR3JhZGllbnQ+DQoJCTxtYXNrIGlkPSJtYXNrIiBtYXNrVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiBtYXNrQ29udGVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSI+DQoJCQk8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPg0KCQk8L21hc2s+DQoJPC9kZWZzPg0KPC9zdmc+#mask');opacity:.6;position:absolute;right:0;top:100%;z-index:1;-moz-transform:scaleY(-1)}.logo span{bottom:-16px;cursor:default!important;display:block;font-family:'PT Sans Narrow',sans-serif!important;font-size:28px!important;height:36px;letter-spacing:-1px;padding:0 10px;position:absolute;text-align:center;text-shadow:"+$SS.theme.mainColor.hex+" -1px -1px,"+$SS.theme.mainColor.hex+" 1px -1px,"+$SS.theme.mainColor.hex+" -1px 1px,"+$SS.theme.mainColor.hex+" 1px 1px,rgba(0,0,0,.6) 0 2px 4px,rgba(0,0,0,.6) 0 0 10px;z-index:3}.logo span::selection{background:transparent!important}.logo span::-moz-selection{background:transparent!important}.logo font[size='1']{left:0;position:absolute;text-shadow:"+$SS.theme.mainColor.hex+" -1px -1px,"+$SS.theme.mainColor.hex+" 1px -1px,"+$SS.theme.mainColor.hex+" -1px 1px,"+$SS.theme.mainColor.hex+" 1px 1px,rgba(0,0,0,.2) 0 0 10px,#000 0 1px 5px,#000 0 -1px 5px;top:98px;width:100%;z-index:3}.logo font[size='1']>a{text-transform:none!important;text-shadow:"+$SS.theme.mainColor.hex+" -1px -1px,"+$SS.theme.mainColor.hex+" 1px -1px,"+$SS.theme.mainColor.hex+" -1px 1px,"+$SS.theme.mainColor.hex+" 1px 1px,rgba(0,0,0,.2) 0 0 10px,#000 0 1px 5px,#000 0 -1px 5px!important}div.autohide>a[title='Auto-hide dialog box']{text-decoration:underline!important}.op .filesize{display:inline-block!important;margin:2px "+($SS.conf["Layout"] != 2 ? 6 : 0)+"px!important}body>span[style]~form .op .filesize{padding-left:6px!important}.inline .filesize{margin:2px 0!important}.filesize span:not([class]){font-size:0!important;visibility:hidden}.filesize span:not([class])::after{content:attr(title);visibility:visible}input:not([type=checkbox]):not([type=radio]),button,select,textarea{-webkit-appearance:none;-o-appearance:none}#options .move,"+($SS.conf["Post Form"] != 4 ? "#qr>.move," : "")+"#stats .move,#updater .move,#watcher .move{cursor:default!important}#watcher{background:none!important;bottom:auto!important;position:fixed!important;max-width:"+($SS.conf["Auto Hide Thread Watcher"] ? 200 : 261)+"px!important;min-width:"+($SS.conf["Auto Hide Thread Watcher"] ? 0 : 261)+"px!important;text-align:"+$SS.conf["Sidebar Position String"]+";z-index:4!important;-webkit-transition:max-width .1s .1s,min-width .1s .1s;-moz-transition:max-width .1s .1s,min-width .1s .1s;-o-transition:max-width .1s .1s,min-width .1s .1s}"+($SS.conf["Auto Hide Thread Watcher"] ? "#watcher:hover{padding-bottom:16px;max-width:261px!important;min-width:261px!important;-webkit-transition:none;-moz-transition:none;-o-transition:none}" : "")+"#watcher .move,#imgControls .preload{display:inline-block;margin:0 5px;padding:2px 5px!important;text-align:center;text-decoration:none!important;border-radius:0 0 3px 3px}#watcher>div:not(.move){line-height:15px;margin:0 5px;"+($SS.conf["Auto Hide Thread Watcher"] ? "max-height:0px;max-width:0!important;" : "max-width:100%!important;")+"padding:0 5px!important;text-align:left!important;-webkit-transition:max-height .1s,max-width .1s .1s,padding .1s;-moz-transition:max-height .1s,max-width .1s .1s,padding .1s;-o-transition:max-height .1s,max-width .1s .1s,padding .1s}#watcher"+($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "")+">div:not(.move):nth-of-type(2){margin-top:3px;padding-top:5px!important;border-top-left-radius:3px;border-top-right-radius:3px}#watcher"+($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "")+">div:not(.move):last-child{padding-bottom:5px!important;border-bottom-left-radius:3px;border-bottom-right-radius:3px}#watcher"+($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "")+">div:not(.move){max-height:16px;max-width:100%!important;padding:1px 5px!important;-webkit-transition:max-height .1s,max-width 0s,padding .1s;-moz-transition:max-height .1s,max-width 0s,padding .1s;-o-transition:max-height .1s,max-width 0s,padding .1s}#watcher,body>a[style='cursor: pointer; float: right;']{top:19px!important}#overlay,#overlay2{background:rgba(0,0,0,.5);position:fixed;top:0;left:0;height:100%;width:100%;text-align:center;z-index:999!important}#overlay::before,#overlay2::before{content:'';display:inline-block;height:100%;vertical-align:middle}#addMascot,#addTheme,#themeoptions{display:inline-block;text-align:right!important;width:600px;padding:5px;vertical-align:middle}#themeoptions>div{padding:5px}.trbtn{color:"+$SS.theme.jlinkColor.hex+";display:inline-block;line-height:18px;margin:0 2px;min-width:40px;padding:2px 10px;text-align:center;background:-webkit-linear-gradient(top,rgba("+$SS.theme.mainColor.shiftRGB(20)+",.9),rgba("+$SS.theme.mainColor.rgb+",.9));background:-moz-linear-gradient(top,rgba("+$SS.theme.mainColor.shiftRGB(20)+",.9),rgba("+$SS.theme.mainColor.rgb+",.9));background:-o-linear-gradient(top,rgba("+$SS.theme.mainColor.shiftRGB(20)+",.9),rgba("+$SS.theme.mainColor.rgb+",.9));border-radius:3px;box-shadow:rgba(0,0,0,.3) 0 0 2px}.trbtn:hover,#selectImage>input[type=file]:hover+.trbtn{background:rgba(60,60,60,.9);background:-webkit-linear-gradient(top,rgba("+$SS.theme.mainColor.shiftRGB(40)+",.9),rgba("+$SS.theme.mainColor.rgb+",.9));background:-moz-linear-gradient(top,rgba("+$SS.theme.mainColor.shiftRGB(40)+",.9),rgba("+$SS.theme.mainColor.rgb+",.9));background:-o-linear-gradient(top,rgba("+$SS.theme.mainColor.shiftRGB(40)+",.9),rgba("+$SS.theme.mainColor.rgb+",.9))}.trbtn:active,#selectImage>input[type=file]:active+.trbtn{box-shadow:inset rgba(0,0,0,.3) 0 0 2px,rgba(0,0,0,.3) 0 0 2px}.trbtn-small{padding:2px 5px;min-width:30px}#themeoptions #toNav{list-style:none;margin:0;padding:0;position:absolute;top:-26px}#themeoptions #toNav li{float:left;margin:0;padding:0}#themeoptions #toNav li label{background:rgba("+$SS.theme.mainColor.shiftRGB(-10)+",.9);color:#888!important;display:block;height:16px;margin:0 2px;padding:5px 10px;text-align:center;width:75px;border-radius:5px 5px 0 0;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}#themeoptions #toWrapper{background:rgb("+$SS.theme.mainColor.shiftRGB(-12)+");box-shadow:inset rgba(0,0,0,.3) 0 0 5px,rgba("+$SS.theme.mainColor.shiftRGB(32)+",.6) 0 1px 3px;border-radius:5px}#themeoptions #toWrapper,#themeoptions #toWrapper>div{height:400px}#themeoptions #toWrapper>div{overflow:auto}#themeoptions #toWrapper>[name=toTab]:not(:checked)+div{display:none}#updater label,#themeoptions #tMain .mOption,#themeoptions #tNavLinks .navlink{display:block;border-bottom:1px solid rgba("+$SS.theme.mainColor.rgb+",.3);border-top:1px solid rgba(0,0,0,.1);height:20px;padding:0 3px;vertical-align:top}.deletebuttons::before,#themeoptions #tMain .mOption span{float:left;line-height:20px!important}#themeoptions #tMain .mOption:first-child,#updater div:first-child label{border-top:0!important}#themeoptions #tMain .mOption:last-child,#updater div:nth-last-of-type(3) label{border-bottom:0!important}#themeoptions #tMain select[name=Font] option{max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}#themeoptions #tMain .subOption::before{border-bottom:1px solid rgba(0,0,0,.1);border-left:1px solid rgba(0,0,0,.1);content:'';display:inline-block;float:left;margin-right:2px;height:50%;width:6px}#themeoptions #tMain .subOption{margin-left:16px}#themeoptions #tThemes>div{opacity:.5;-webkit-transition:all .1s;-moz-transition:all .1s;-o-transition:all .1s}#themeoptions #tThemes>div:hover,#themeoptions #tThemes>div.selected{opacity:1}#themeoptions #tThemes .reply{margin:2px 0!important;padding:2px!important;text-align:left;width:100%;border-radius:2px!important}#themeoptions #tThemes>div p{bottom:4px;right:2px;margin:0;opacity:0;position:absolute;z-index:3}#themeoptions #tThemes>div:hover p{opacity:1}#themeoptions #tThemes>div p a{display:inline-block;margin:0 2px;padding:2px 5px;text-align:center;width:50px;border-radius:3px}#themeoptions #tThemes>div h3{bottom:0;font-size:32px!important;margin:0!important;opacity:0;position:absolute;right:300px;-webkit-transition:all .3s;-moz-transition:all .3s;-o-transition:all .3s}#themeoptions #tThemes>div.selected h3{opacity:1;right:3px;z-index:1}#themeoptions #tMascot{text-align:center}#themeoptions #toWrapper>div>p{bottom:10px;left:10px;position:absolute}#themeoptions #toWrapper>div>p{margin:0}#themeoptions #tMascot div{background-position:center top!important;background-repeat:no-repeat!important;background-size:cover!important;border:1px solid transparent!important;display:inline-block;position:relative;margin:2px;width:185px;height:257px;border-radius:10px;-webkit-transition:all .1s;-moz-transition:all .1s;-o-transition:all .1s}#themeoptions #tMascot div:not(.selected):hover{border:1px solid "+$SS.theme.linkColor.hex+"!important}#themeoptions #tMascot div.selected{background-color:rgba("+$SS.theme.linkColor.rgb+",.6)!important;box-shadow:inset rgba(0,0,0,.15) 0 0 15px, rgba("+$SS.theme.linkColor.rgb+",.6) 0 0 2px}#themeoptions #tMascot div a{position:absolute;top:0;padding:5px 8px;background:rgba(0,0,0,.3)}#themeoptions #tMascot div a:not([href]):hover{background:rgba(0,0,0,.5)}#themeoptions #tMascot div a[title=Delete],#themeoptions #tMascot div a[title=Hide]{left:0;border-radius:10px 0 10px 0}#themeoptions #tMascot div a[title=Edit]{right:0;border-radius:0 10px 0 10px}#themeoptions #tNavLinks .navlink>*:not(.handle){position:relative;z-index:1}#themeoptions #tNavLinks .navlink{height:24px;padding-top:1px;position:relative;-webkit-transition:all .2s;-moz-transition:all .2s;-o-transition:all .2s}#themeoptions #tNavLinks .moving{opacity:.5;-webkit-transform:scale(.95);-moz-transform:scale(.95);-0-transform:scale(.95)}#themeoptions #tNavLinks .over:not(.moving){border-top:4px double "+$SS.theme.brderColor.hex+"}#themeoptions #tNavLinks .moving~.over{border-bottom:4px double "+$SS.theme.brderColor.hex+";border-top:1px solid rgba(0,0,0,.1)}#themeoptions #tNavLinks .navlink .handle{border-left:16px solid rgb("+$SS.theme.brderColor.shiftRGB(-8)+");cursor:move;height:26px;left:0;position:absolute;top:0;width:100%;z-index:0}#themeoptions #tNavLinks label{margin:0 5px;position:relative;top:1px}#themeoptions #tNavLinks label:first-child{float:left;margin-left:18px}#themeoptions #tNavLinks label:first-child>input[type=text]{width:130px}#themeoptions #tNavLinks label>input[type=text]{width:180px}#themeoptions label>input[type=checkbox],#themeoptions label>.riceCheck{margin:4px 2px 0!important;vertical-align:bottom!important}#themeoptions span>select,#themeoptions span>input[type=text]{width:125px}#themeoptions input[type=text],#themeoptions select{height:20px;margin:0!important;padding:1px 3px!important}#themeoptions select{padding:1px 1px 1px 0!important}#themeoptions textarea{background:transparent!important;border:0!important;height:100%!important;width:100%!important;resize:none}#addMascot{width:350px!important}#addMascot>div{padding:5px}#addMascot>label{display:block}#addMascot>label>span,#addTheme>label>span{float:left;line-height:22px;padding-left:5px}#addMascot>label>input[type=text],#addMascot>label>select,#addMascot>label>textarea{margin-top:1px!important;width:200px}#addMascot select[name=mPosition],#addMascot input[name=mOffset][type=text]{width:80px}#addMascot>label>textarea{height:20px;line-height:20px;overflow:hidden;resize:none}#addMascot>label>input[type=checkbox],#addMascot>label>.riceCheck{margin-top:5px}#selectImage{float:left;height:24px!important;margin-top:-2px;padding-top:2px}#selectImage>input[type=file]{-webkit-transform:translateX(-500px) scale(10)!important;-moz-transform:translateX(-500px) scale(10)!important;-o-transform:translateX(-500px) scale(10)!important}a[name=clearIMG]{display:none;float:left;opacity:0;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}input[name=customIMGB64]+a[name=clearIMG]{display:inline-block;opacity:1}#addTheme{text-align:left!important;width:500px!important}#addTheme>label{display:inline-block;text-align:right;width:50%}#addTheme>label#customCSS{width:100%}#addTheme>label#customCSS>textarea{height:100px;resize:vertical;width:100%}#addTheme>label>input[type=text],#addTheme>label>select{width:100px}#addTheme>div{margin-top:.6em;text-align:right}#themeoptions,#options.dialog,#themeoptions #toNav li label.selected,#themeoptions #toNav li label:hover,#addMascot,#addTheme{background:rgba("+$SS.theme.mainColor.rgb+",.98)!important;text-align:center}#options.dialog,#themeoptions,#addMascot,#addTheme{margin:0 auto!important;text-align:left;box-shadow:rgba(0,0,0,.6) 0 0 10px;border-radius:5px}#options{width:600px!important}#options hr{margin:3px 0!important}#options button{vertical-align:baseline!important;width:auto!important}#options input{width:150px}#options ul{margin-right:5px;padding:2px 5px!important;border-radius:5px;box-shadow:inset rgba("+($SS.theme.mainColor.isLight ? "255,255,255" : "155,155,155")+",.3) 0 0 5px}#imgControls{height:18px;position:fixed!important;top:0;width:"+($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"] ? 114 : 115)+"px!important;padding-"+$SS.conf["Sidebar Position String"]+":147px!important;z-index:6}#imgControls #imageType{border:0!important;line-height:16px!important;margin:0!important;height:18px!important;padding:1px 1px 1px 0;width:77px!important}#imageType+label{background-position:-48px -16px;content:'';float:right;margin:1px;overflow:hidden}#imageType+label.imgExpanded{background-position:-48px 0}#imgControls .preload{bottom:-20px;height:15px;"+$SS.conf["Sidebar Position oString"]+":24px;padding:1px 5px 3px!important;position:absolute}body>a[style='cursor: pointer; float: right;'],form[name=post] input[name=email]+label,form[name=post] #com_submit+label,#qr>form #spoilerLabel::after,#imgControls label,#navlinks,#stats .move,#themeoptions #toNav li label,#updater span,#updater .move,#watcher .move,.preview>label::after{line-height:16px}#updater{"+($SS.conf["Sidebar Position"] != 2 ? "text-align:right!important;left:auto!important;right:0!important;" : "text-align:left!important;left:0!important;right:auto!important;")+"border-top:0!important;border-"+$SS.conf["Sidebar Position String"]+":0!important;border-"+$SS.conf["Sidebar Position oString"]+":1px solid "+$SS.theme.brderColor.hex+"!important;border-bottom:1px solid "+$SS.theme.brderColor.hex+"!important;position:fixed!important;bottom:auto!important;top:0!important;height:18px;line-height:18px;overflow:hidden;padding:0 3px;z-index:9!important;width:140px}#updater:hover{height:auto!important;padding-bottom:3px}#updater #count.new{background-color:transparent!important}#updater label{line-height:20px!important;text-align:left!important}#updater input,#updater .riceCheck{float:right}#updater input:not([type=checkbox]){margin:1px!important}#updater input[type=button]{margin-right:3px!important;padding:0 5px!important;width:auto!important}#updater input[type=text]{height:19px!important;width:40px!important}#updater:not(:hover){background:transparent!important}#stats{bottom:auto!important;height:18px;line-height:18px;top:0!important;z-index:8!important;"+($SS.conf["Sidebar Position"] != 2 ? "right:43px!important;left:auto!important;text-align:left;" : "right:auto!important;left:43px!important;text-align:right;")+"width:100px}#navlinks{"+($SS.conf["Sidebar Position"] != 2 ? "right:5px;" : "left:5px;right:auto!important;")+"top:0!important;height:20px;z-index:6!important}#ihover{padding-bottom:21px;z-index:8!important}body>center:nth-of-type(2){position:relative}*[color=red]{color:#f66!important}body>center:nth-of-type(2)>font[color=red]{max-height:18px;max-width:100px;overflow:hidden;padding:0 10px;position:absolute;"+($SS.conf["Sidebar Position"] == 3 ? "right:262px!important;" : "")+"top:-18px;white-space:nowrap;z-index:10;"+($SS.conf["Layout"] != 1 ? "border-radius:"+($SS.conf["Sidebar Position"] != 2 ? "0 0 0 3px " : "0 0 3px 0") : "")+";-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out}body>center:nth-of-type(2)>font[color=red]::before{content:'ANNOUNCEMENT';display:block;line-height:18px}body>center:nth-of-type(2)>font[color=red]:hover{max-height:200px;max-width:600px;padding:0 10px 10px;white-space:normal;border-radius:"+($SS.conf["Sidebar Position"] != 2 ? "0 0 0 3px " : "0 0 3px 0")+"}#header{bottom:0!important;left:0!important;line-height:20px!important;height:20px!important;padding:0!important;position:fixed!important;text-align:center;top:auto!important;width:100%!important;z-index:12!important}#navtop,#navtopr{float:none!important;height:18px}#navtop a{text-shadow:rgba(0,0,0,.2) 0 0 3px}#navtop>div{line-height:20px}#navtopr{position:absolute;right:5px!important;top:0}"+(!$SS.conf["Custom Navigation Links"] ? "#navtop{bottom:0;display:inline-block!important;height:20px;padding:3px 6px 6px;position:relative;width:500px;-webkit-transition:all .1s ease-in-out;-moz-transition:all .1s ease-in-out;-o-transition:all .1s ease-in-out}#navtop::before{color:"+$SS.theme.jlinkColor.hex+";content:'Navigation';display:block;font-size:"+$SS.conf["Small Font Size"]+"px;line-height:14px!important}#navtop:hover{background:rgb("+$SS.theme.mainColor.rgb+");bottom:48px;height:64px;line-height:0!important;border-radius:3px;box-shadow:rgba(0,0,0,.2) 0 0 5px}#navtop>a{padding:2px!important}#navtop>a,#navtop>span{display:inline!important;line-height:18px}" : "")+".pages{margin:0!important;position:fixed!important;visibility:hidden;width:auto!important;"+($SS.conf["Pages Position"] == 1 ? "height:20px!important;bottom:22px!important;"+($SS.conf["Sidebar Position"] != 2 ? "left:-375px;right:auto!important;" : "left:auto!important;right:-375px;")+"top:auto!important;z-index:13;-webkit-transition:"+$SS.conf["Sidebar Position oString"]+" .1s ease-in-out 1s;-moz-transition:"+$SS.conf["Sidebar Position oString"]+" .1s ease-in-out 1s;-o-transition:"+$SS.conf["Sidebar Position oString"]+" .1s ease-in-out 1s;" :($SS.conf["Pages Position"] == 2 ? "background:transparent!important;height:20px!important;border:0!important;bottom:0!important;left:0!important;z-index:13!important;" : "bottom:17px!important;height:24px!important;"+$SS.conf["Sidebar Position oString"]+":1px!important;z-index:2;-webkit-transform:rotate("+($SS.conf["Sidebar Position"] != 2 ? -90 : 90)+"deg);-webkit-transform-origin:top "+$SS.conf["Sidebar Position oString"]+";-moz-transform:rotate("+($SS.conf["Sidebar Position"] != 2 ? -90 : 90)+"deg);-moz-transform-origin:top "+$SS.conf["Sidebar Position oString"]+";-o-transform:rotate("+($SS.conf["Sidebar Position"] != 2 ? -90 : 90)+"deg);-o-transform-origin:top "+$SS.conf["Sidebar Position oString"]+";"))+"}.pages *{font-size:"+$SS.conf["Font Size"]+"px!important;visibility:visible}.pages td{"+( $SS.conf["Pages Position"] != 2 ? "padding:0 2px!important;" : "padding:0!important;")+"text-align:center}.pages td:nth-of-type(2){"+( $SS.conf["Pages Position"] != 2 ? "border-radius:4px;" : "")+"padding:0 5px!important}.pages b{font-weight:700!important}.pages a:not(:last-child),.pages b:not(:last-child){margin:0 2px}.pages input[type=submit]{"+($SS.conf["Pages Position"] != 2 ? "border-radius:4px;" : "")+"margin:0!important;padding:0 10px!important;width:50px!important;height:"+($SS.conf["Pages Position"] == 3 ? 24 : 20)+"px!important}"+($SS.conf["Pages Position"] == 1 ? ".pages:hover{"+$SS.conf["Sidebar Position oString"]+":0!important}.pages td:nth-of-type(2),.pages input[type=submit]{border:1px solid "+$SS.theme.brderColor.hex+"!important}" : ($SS.conf["Pages Position"] == 2 ? ".pages input[type=submit],.pages input[type=submit]:hover{border:0!important}" : ".pages td:nth-of-type(2){border:1px solid "+$SS.theme.brderColor.hex+"!important}"))+($SS.conf["Pages Position"] == 1 && $SS.conf["Sidebar Position"] == 2 ? ".pages td:nth-of-type(3){left:-53px;position:absolute;top:0}" : "" )+"body>a[style='cursor: pointer; float: right;'],body>a[style='cursor: pointer; float: right;']::before,body>a[style='cursor: pointer; float: right;']::after{background-color:rgba("+$SS.theme.mainColor.rgb+",.9)!important}body>a[style='cursor: pointer; float: right;']{background-position:-32px 0;position:fixed;"+$SS.conf["Sidebar Position String"]+":"+($SS.conf["Sidebar Position"] == 3 && !$SS.conf["Reserve Edge"] ? 243 : 241)+"px;text-indent:-9999px;z-index:5}body>a[style='cursor: pointer; float: right;']::before,body>a[style='cursor: pointer; float: right;']::after{content:'';display:block;height:16px;position:absolute;top:0;width:4px}body>a[style='cursor: pointer; float: right;']::before{left:-4px;"+($SS.conf["Sidebar Position"] != 1 ? "border-radius:0 0 0 2px;" : "")+"}body>a[style='cursor: pointer; float: right;']::after{right:-4px;"+($SS.conf["Sidebar Position"] != 2 ? "border-radius:0 0 2px 0;" : "")+"}body>div[style='width: 100%;']+form[name=delform]{display:block!important;margin-top:43px!important;position:fixed}a[href='.././'],body>a[style='cursor: pointer; float: right;'],#imageType+label{opacity:.75;-webkit-transition:opacity .1s ease-in-out;-moz-transition:opacity .1s ease-in-out;-o-transition:opacity .1s ease-in-out}a[href='.././']:hover,body>a[style='cursor: pointer; float: right;']:hover,#imageType+label:hover,#imageType+label.imgExpanded{opacity:1}body>a[style='cursor: pointer; float: right;']+div{border-left:0!important;border-right:0!important;height:100%;margin:0 auto;width:100%!important}body>a[style='cursor: pointer; float: right;']+div>table{height:100%!important;padding-bottom:20px}body>a[style='cursor: pointer; float: right;']+div>table td{border-left:1px solid "+$SS.theme.brderColor.hex+"!important}body>a[style='cursor: pointer; float: right;']+div>table td:first-child{border-left:0!important}body>a[style='cursor: pointer; float: right;']+div>table input[type=button]{width:100px!important}body>a[style='cursor: pointer; float: right;']+div>table table td{border:0!important}body>a[style='cursor: pointer; float: right;']+div>table textarea{resize:vertical!important}body>a[style='cursor: pointer; float: right;']+div>table table,body>a[style='cursor: pointer; float: right;']+div>table textarea,body>a[style='cursor: pointer; float: right;']+div>table #fs_search{width:100%!important}#fs_data tr:first-child td{border-top:0!important}.riceFile,#selectImage{height:22px;line-height:22px;overflow:hidden;position:relative}.riceFile input[type=file],#selectImage input[type=file]{cursor:pointer!important;position:absolute;top:0;right:0;z-index:1;opacity:0;-webkit-transform:scale(100);-moz-transform:scale(100);-o-transform:scale(100)}.riceFile div{display:inline-block;line-height:20px!important;margin:0!important;padding:0 10px!important}.riceFile span{display:inline-block;max-width:223px;overflow:hidden;padding:0 5px!important;text-overflow:ellipsis;white-space:nowrap}ul#Alerts,ul#Alerts a:hover{color:#222!important}a[href='.././']{background-position:-64px 0;position:fixed!important;text-indent:-9999px;top:2px;"+$SS.conf["Sidebar Position String"]+":"+(($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] != 2 ? 99 : 38))+"px!important;z-index:8}.exSource{display:inline-block;height:16px;position:relative}.exFound{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important}.exFound:hover{background:rgba("+$SS.theme.mainColor.shiftRGB(-4)+",.9)!important;border-radius:3px 3px 0 0}.exFound:hover>.exPopup{display:block!important}.exPopup{background:rgba("+$SS.theme.mainColor.shiftRGB(-4)+",.9)!important;display:none;left:0;padding:5px;position:absolute!important;top:16px;white-space:nowrap;z-index:11!important;box-shadow:rgba(0,0,0,.3) 0 2px 2px;border-radius:0 3px 3px 3px}.exPopup a{display:block}.selectedBoard{text-decoration:underline!important}#qr{height:auto!important;margin:0 0 21px!important;padding:0 3px 3px!important;position:fixed!important;"+($SS.conf["Post Form"] != 4 ? "border:0!important;bottom:0!important;border-top:1px solid "+$SS.theme.brderColor.hex+"!important;top:auto!important;overflow:visible!important;"+($SS.conf["Sidebar Position"] == 3 ? "border-left:1px solid "+$SS.theme.brderColor.hex+"!important;max-width:262px!important;min-width:262px!important;width:262px!important;" : "max-width:261px!important;min-width:261px!important;width:261px!important;")+"z-index:"+($SS.conf["Post Form"] == 1 ? 11 : 5)+"!important}#qr.autohide{"+($SS.conf["Post Form"] == 1 ? "bottom:-241px!important;-webkit-transition:bottom .2s ease-in-out 1s;-moz-transition:bottom .2s ease-in-out 1s;-o-transition:bottom .2s ease-in-out 1s;" :($SS.conf["Post Form"] == 2 ? "opacity:.2;-webkit-transition:opacity .2s ease-in-out 1s;-moz-transition:opacity .2s ease-in-out 1s;-o-transition:opacity .2s ease-in-out 1s;" : ""))+"}"+($SS.conf["Post Form"] == 1 ? "#qr.autohide.dump{bottom:-341px!important}" : "")+"#qr:hover,#qr.focus{bottom:0!important;"+($SS.conf["Post Form"] == 1 ? "-webkit-transition:bottom .2s ease-in-out;-moz-transition:bottom .2s ease-in-out;-o-transition:bottom .2s ease-in-out;" :($SS.conf["Post Form"] == 2 ? "opacity:1!important;-webkit-transition:opacity .2s ease-in-out;-moz-transition:opacity .2s ease-in-out;-o-transition:opacity .2s ease-in-out;" : ""))+"}#qr.autohide>form{display:block!important}" : "width:263px!important;z-index:11!important}#qr.autohide:not(:hover):not(.focus){padding:0 3px!important}#qr.focus>form{display:block!important}")+"#qr img[src*='recaptcha/api']{height:48px!important;margin-top:1px!important;max-width:300px;width:100%}#qr textarea{min-height:120px;position:relative;"+$SS.conf["Sidebar Position String"]+":0;resize:none;width:255px;z-index:1;-webkit-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,"+$SS.conf["Sidebar Position String"]+" .2s ease-in-out!important;-moz-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,"+$SS.conf["Sidebar Position String"]+" .2s ease-in-out!important;-o-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,"+$SS.conf["Sidebar Position String"]+" .2s ease-in-out!important}#qr>.move{height:22px!important;line-height:18px!important;min-width:0!important;padding:2px 0 0 3px!important;text-align:left!important}span[style]~#qr>.move{text-align:center!important}span[style]~#qr>.move #autohide,span[style]~#qr>.move .riceCheck{position:absolute;"+($SS.conf["Post Form"] == 4 ? "left" : "right")+":3px;top:2px}#qr>.move *{text-transform:none}#qr>.move select{height:19px!important}#qr>form>div{position:relative}#qr>form .field{height:22px}#qr>form>div:first-child #dump,#qr>form>.captcha>img[src*='recaptcha/api'],#qr>form input[type=submit],#qr>form input[type=file],#qr>form .riceFile{margin-top:0!important}#qr>form input[type=file]{width:100%}#qr>form>div:first-child{position:relative}#qr>form>div:first-child #dump{float:left;width:24px!important}#qr>form>div:first-child .field:not(#dump){float:left;margin-left:1px!important;width:76px!important}#qr>form>div:first-child .field:not(#dump)+span{color:rgba("+$SS.theme.textColor.rgb+",0)!important;font-size:0!important;position:absolute;right:265px;top:4px;white-space:nowrap;z-index:-1}#qr>form>div:first-child .field[name=sub]{margin-right:0!important}#qr>form>div:first-child+div,#qr>form>div#replies+div,#qr>form>.captcha{clear:both}#qr>form .field,#qr>form>.captcha{margin-bottom:1px!important}#qr>form>.captcha{background:none!important;outline:none!important}#qr>form>.captcha+div{float:left;margin-right:1px;position:relative;z-index:1}#qr>form>.captcha+div input{width:189px!important}#qr>form input[type=submit]{width:65px!important}#qr>form input[type=file]+input[type=submit]{position:absolute;right:0;top:0}#qr>form #spoilerLabel{bottom:4px;position:absolute;right:8px;z-index:2}#qr>form #spoilerLabel::after,.preview>label::after{content:'SPOILER'}.preview>label{background:rgba(0,0,0,.75)!important;color:#fff!important}#addReply{font-size:3.5em!important}#qr .warning{height:16px;left:5px;opacity:0;overflow:hidden;padding:2px 0;position:absolute;text-align:center;text-overflow:ellipsis;top:24px;white-space:nowrap;width:248px;z-index:-1;border-radius:4px;-webkit-transition:all .2s cubic-bezier(0,.3,.35,1.3);-moz-transition:all .2s cubic-bezier(0,0.3,.35,1.3);-o-transition:all .2s cubic-bezier(0,.3,.35,1.3)}#qr .warning.showWarning{opacity:1;top:-24px;z-index:1}input[name=name].tripping:not(:hover):not(:focus){color:transparent!important}"+($SS.conf["Expanding Form Inputs"] ? "#qr input:focus::-webkit-input-placeholder,#qr textarea:focus::-webkit-input-placeholder{color:transparent!important}#qr>form>div:first-child .field:not(#dump):focus{background:rgba("+$SS.theme.inputColor.hover+",.98)!important;left:24px!important;position:absolute;width:230px!important}#qr>form>div:first-child .field:not(#dump):focus+span{color:rgba("+$SS.theme.textColor.rgb+",.4)!important;right:6px;z-index:3;-webkit-transition:right .3s ease-in-out,color .3s ease-in-out;-moz-transition:right .3s ease-in-out,color .3s ease-in-out;-o-transition:right .3s ease-in-out,color .3s ease-in-out}#qr textarea:focus,#qr>form>div:first-child .field:not(#dump):focus{-webkit-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,"+$SS.conf["Sidebar Position String"]+" .2s ease-in-out!important;-moz-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,"+$SS.conf["Sidebar Position String"]+" .2s ease-in-out!important;-o-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,"+$SS.conf["Sidebar Position String"]+" .2s ease-in-out!important}#qr textarea:focus{height:200px!important;"+($SS.conf["Sidebar Position"] != 2 ? "right:160px;" : "") +"width:415px!important}" : "") +(!$SS.conf["Show Logo"] ? ".logo{top:-20px}.logo img{visibility:hidden}" : "") +($SS.conf["Style Scrollbars"] ? "::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track-piece,::-webkit-scrollbar-track{background:"+$SS.theme.brderColor.hex+"}::-webkit-scrollbar-corner,::-webkit-scrollbar-resizer{background:"+$SS.theme.brderColor.hex+"}::-webkit-scrollbar-thumb{background:rgb("+$SS.theme.brderColor.shiftRGB(32, true)+");border:2px solid "+$SS.theme.brderColor.hex+";border-radius:5px}::-webkit-scrollbar-thumb:hover,::-webkit-scrollbar-thumb:active{background:rgb("+$SS.theme.brderColor.shiftRGB(64, true)+")}::-webkit-scrollbar-thumb:window-inactive{}.reply ::-webkit-scrollbar-track,.reply ::-webkit-scrollbar-track-piece{border-radius:5px}": "") +($SS.conf["Sage Identification"] != 1 ? ".commentpostername a.linkmail[href='mailto:sage']::after{"+($SS.conf["Sage Identification"] == 2 ? "content:' (SAGE)';" : "content:url('data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdFJREFUOE+l0t0rQ3EYwPHz+52bTf4C76XslithbJzNy2xe5p15mR21jAnzknYhbigitUJ5f7sglPdCIkRJRHHhUi60e7t6POcoh23ecvE5p07P8/39Lg4DAMx/+Hz4K/HB1rNv7KgRNaOWH7Syad8FZDikQb1oEe2iPW9fBcLRSFR/5GXJhvHZdsS/OM7qoOW8HjouG6D7zgE9D22AM/v+AuEBDvlKxrz20brHg3nTLKreqgT7UQ04r+zQedsI3fcOwFnpBtRKBTK2lh3lJtSPFWsmKF0phZLlYnzn43I1tF/Y3rVeWD04uywFeAzUUG2oM+SqaKkAjAtGyJzU4VsHtoMqDFg+4KFiM8+N831SoIoK+pNcSrd+Ug9qlxrSxziwbJuA3/lMiCi6Iq+pmWqlQBkVrHIjKZ6EwQSIH4gVr+6tcr0Y9NOaJ5wdoyYqlwKFVHCYOKQEhTMKsmYyIWfO8C533iAGtKOqJ3m5bI0W0Qgk/Ug0hwqOFU4FcMPJYiB7Vi8uGqYyPJxL5Q6zh9zgzDjNxWXhwI8BoiKBRENO/ThB62iQpJI0oiNy8TCfQBxpQj1ESYJIMmH80iAdebutd4CJZnaYGCYYI76Lvwn8xyvFCs5Nsc8yoQAAAABJRU5ErkJggg==');vertical-align:middle;")+"}" : "") +($SS.conf["Neko/Sega Icons"] ? ".commentpostername a.linkmail[href$='neko']::after{content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAARCAMAAAAIRmf1AAACoFBMVEUAAABnUFZoUVddU1T6+PvFwLzn4eFXVlT/+vZpZGCgm5dKU1Cfnpz//flbWljr5uLp5OCalpNZWFb//f3r6+n28ff9+PRaVVH59Pr//vr38vj57/Dp7eyjn5zq8O5aVVJbYV9nVFhjUFRiWFlZVlFgZGOboJzm5uZhamfz9/bt8fDw6+drb26bl5j/8/lkX1z06uldWFS5r61UT0tfWlbDwr3Ew76moqNRTU7Mx8P75OpeY19pWl1XW1qzr6x5eHaLiojv7+1UT0xIU0uzqadVS0nV0MxkZGT5+PPk497///ra29Xq5eFtY2H28e2hnJignJlUUE1dXV2vrqxkY2FkYF/m3d5vZmfDuruhl5aZlJHx8O75+PZWVVP29vT/9fTj3trv6ubh5eRdXFqTkpBOTUtqZmX88/RMQ0T78vPEvr7HwcHDwsDq6ef///3Gx8H++fXEv7tZWVedmZZXXVudnJp0c3FZU1f79fnb1dlXUVVjXWFrZmy8t7359/qLj455e3q4s69vamZjX1zy4+avpaReWFz/+f1NR0vu6Ozp4+f48/lnYmi8ur3Iw7/69fHz7+xbV1SZmJZVUk1ZV1zq5ez++f/c196uqbDn4uj9+P7z7vRVVVXt6ORiXl/OycXHw8CPi4ihoJ5aWF3/+v/k3+axrLOsp67LzMZYU1m2sq9dWF5WUU1WUk/Au7eYlJGqpqObmphYVV749f7p5Or38fPu6OpiXFz38fH79vLz7urv6+hhYF5cWWKal6D//f/Z09Xg29exraqbl5RqaW6kpKTq5uPv7Of/+PDj29D//vP18Ozs5+OloJymoZ1ZVVJZWVlkYF2hnpmblIyspJmVjYKQi4enop5STUlRTUpcWUhqY1BgWT9ZUjhcV1NiXVkkhke3AAAABHRSTlMA5vjapJ+a9wAAAP9JREFUGBk9wA1EAwEAhuHv3dTQAkLiUlJFJWF0QDLFYDRXIMkomBgxNIYxhOk4wwCqQhQjxgxSGIsALFA5BiYbMZHajz1oJlx51sBJpf6Gd3zONcrqm/r1W8ByK0r+XV1LXyOLLnjW6hMGpu0u1IzPSdO17DgrGC6AadrVodGcDQYbhguP6wAvAaC0BRZQalkUQ8UQDz5tAof0XbejOFcV5xiUoCfjj3O/nf0ZbqAMPYmzU18KSDaRQ08qnfw+B2JNdAEQt2O5vctUGjhoIBU4ygPsj2Vh5zYopDK73hsirdkPTwGCbSHpiYFwYVVC/17pCFSBeUmoqwYQuZtWxx+BVEz0LeVKIQAAAABJRU5ErkJggg==');vertical-align:middle}.commentpostername a.linkmail[href$='sega']::after{content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAALBAMAAAD2A3K8AAAAMFBMVEUAAACMjpOChImytLmdnqMrKzDIyM55dnkODQ94foQ7PkXm5Olsb3VUUVVhZmw8Sl6klHLxAAAAAXRSTlMAQObYZgAAANFJREFUGJVjYIACRiUlJUUGDHBk4syTkxQwhO3/rQ/4ZYsuymi3YEFUqAhC4LCJZJGIi1uimKKjk3KysbOxsaMnAwNLyqoopaXhttf2it1anrJqke1pr1DlBAZhicLnM5YXZ4RWlIYoezx0zrjYqG6czCDsYRzxIko6Q/qFaKy0690Ij0MxN8K2MIhJXF+hsfxJxuwdpYGVaUU3Mm5bqgKFOZOFit3Vp23J3pgsqLxFUXpLtlD5bgcGBs45794dn6mkOVFQUOjNmXPPz8ysOcAAANw6SHLtrqolAAAAAElFTkSuQmCC');vertical-align:middle}" : "")+""+$SS.theme.customCSS+"";
 
             if ($("#ch4SS").exists())
                 $("#ch4SS").text(css);
             else
-            {
-                $(document.head).append($("<style type='text/css' id=ch4SS>"));
-                $("#ch4SS").text(css);
-            }
+                $(document.head).append($("<style type='text/css' id=ch4SS>").text(css));
         },
         DOMLoaded: function(reload)
         {
-            // ensure reload is a boolean
+            var div;
             reload = reload === true;
             
-            // allow 4chan x to load first
-            setTimeout(function()
+            $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler);
+            
+            if ($SS.conf["ExHentai Source"] !== 1)
+                $SS.exsauce.init();
+            else if (reload)
+                $(".exSource").remove();
+            
+            if ($SS.conf["Custom Navigation Links"])
+                $SS.buildCustomNav();
+            else if ((div = $("#boardLinks")).exists())
+                div.remove();
+                
+            if (!reload)
             {
-                var div, pages, qr, openLink,
-                    postLoadCSS = "#navtop,#navtopr{display:inline-block!important}.pages{display:table!important}",
-                    addLabels   = function(qr)
-                    {
-                        $("form>div:first-child input:not(#dump)", qr).each(function()
-                        {
-                            if ($(this).nextSibling("span").exists()) return;
-                            
-                            $(this).after($("<span>" + $(this).attr("placeholder")));
-                        });
-                    };
-                    
-                if (!reload)
-                {
-                    var next, prev, imgCtrl;
-                    
-                    $SS.options.init();
-                    $SS.bNewQR = /chanx_/.test(document.body.className);
-                    
-                    $(".logo>img").attr("id", "logo");
+                $SS.options.init();
+                $SS.bNewQR = /chanx_/.test(document.body.className);
                 
-                    // force persistent QR
-                    if ($SS.bNewQR && !$("#qr").exists() && (openLink = $(".postarea h1 a")).exists())
-                    {
-                        openLink.fire("click");
-                        $("#qr textarea[name=com]").get().blur();
-                    }
-                    
-                    // fix auto offset mascot in locked threads
-                    if (!$(".postarea").exists() && !$SS.mascot.bOffset)
-                        postLoadCSS += "body::after{margin-bottom:0!important}";
-                    
-                    if ((prev = $(".pages td input[value='Previous']")).exists())
-                        prev.val("Prev");
-                    else if ((prev = $(".pages td:first-child")).exists())
-                        prev.text("").attr("style", "padding:0 2px 0 0!important");
-                    
-                    if ((next = $(".pages td:last-child")).exists() && !next.children("input").exists())
-                        next.text("").attr("style", "padding:0 2px 0 0!important");
-                    
-                    if ((imgCtrl = $("#imageType+label")).exists())
-                        imgCtrl.bind("change", function()
-                        {
-                            $(this).toggleClass("imgExpanded");
-                        });
-                }
-                    
-                if ($SS.conf["Custom Navigation Links"])
-                    $SS.buildCustomNav();
-                else if (reload && (div = $("#boardLinks")).exists())
-                    div.remove();
-                    
-                if ((pages = $(".pages")).exists())
-                {
-                    // Set left offset for slide out pages
-                    if ($SS.conf["Pages Position"] == 1)
-                    {
-                        pages.attr("style", "display:table!important")
-                             .delay(function()
-                             {
-                                pages.attr("style",
-                                    $SS.conf["Sidebar Position oString"] + ":" + // FIXME: the last page will cause the pages to always be off the screen
-                                        (($SS.conf["Sidebar Position"] != 2 ? $(".pages td:last-child").get().offsetWidth : 0) - pages.get().offsetWidth) + "px");
-                             }, 10);
-                    }
-                    else if (reload)
-                        pages.attr("style", "");
-                }
+                $(".logo>img").attr("id", "logo");
                 
-                // Add ExHentai source link
-                if ($SS.conf["ExHentai Source"] != 1)
-                {
-                    $SS.conf["ExType"] = $SS.conf["ExHentai Source"] == 2 ? "exhentai" : "g.e-hentai";
-                    
-                    if (!reload || !$(".exSource").exists())
-                        $SS.exsauce.addLinks(document);
-                }
-                else if (reload)
-                    $(".exSource").remove();
-                
-                if ($SS.conf["Rice Inputs"] == 2)
-                    $("input[type=file]").riceFile();
-                else if ($SS.conf["Rice Inputs"] == 3)
-                  $("input[type=checkbox]:not(#imageExpand)").riceCheck();
-                else if ($SS.conf["Rice Inputs"] == 4)
-                {
-                    $("input[type=file]").riceFile();
+                if (!$SS.browser.webkit)
                     $("input[type=checkbox]:not(#imageExpand)").riceCheck();
-                }
                 
-                if (reload)
-                {
-                    $("#ch4SSPost").text(postLoadCSS);
-                    
-                    if ((qr = $("#qr")).exists() && $SS.conf["Expanding Form Inputs"])
-                        addLabels(qr);
-                    
-                    if ($SS.conf["Smart Tripcode Hider"])
-                        $("input[name=name]").each(function()
-                        {
-                            $(this).bind("blur", $SS.tripCheck);
-                            $SS.tripCheck(this);
-                        });
-                    else
-                        $("input[name=name]").each(function()
-                        {
-                            $(this).unbind("blur", $SS.tripCheck)
-                                   .removeClass("tripping");
-                        });
-                }
-                else
-                {
-                    $(document.head).append($("<style type='text/css' id=ch4SSPost>"));
-                    $("#ch4SSPost").text(postLoadCSS);
-                    
-                    if ((qr = $("#qr")).exists())
+                if ((div = $("#imageType+label")).exists())
+                    div.bind("change", function()
                     {
-                        $(".warning", qr).bind("click", function(){ $(this).removeClass("showWarning"); });
-                        
-                        if ($SS.conf["Expanding Form Inputs"])
-                            addLabels(qr);
-                        
-                        $("input,textarea,select", qr).bind("focus", function(){ $("#qr").addClass("focus"); })
-                                                      .bind("blur", function(){ $("#qr").removeClass("focus"); });
-                    }
-                    
-                    if ($SS.conf["Smart Tripcode Hider"])
-                        $("input[name=name]").each(function()
-                        {
-                            $(this).bind("blur", $SS.tripCheck);
-                            $SS.tripCheck(this);
-                        });
-                    
-                    $(document).bind("DOMNodeInserted", $SS.nodeInsertedHandler)
-                               .bind("DOMSubtreeModified", $SS.subtreeModifiedHandler);
-                }
-            }, 10);
+                        $(this).toggleClass("imgExpanded");
+                    });
+                
+                if (!$SS.QRhandled && (div = $("#qr")).exists())
+                    $SS.QRDialogCreationHandler({ target: div });
+                
+                $(document).bind("DOMNodeInserted", $SS.nodeInsertedHandler);
+            }
+            else
+            {
+                if (!$SS.conf["Smart Tripcode Hider"])
+                    $("input[name=name]").each(function()
+                    {
+                        $(this).unbind("blur", $SS.tripCheck)
+                               .removeClass("tripping");
+                    });
+            }
         },
         nodeInsertedHandler: function(e)
         {
-            if (e.target.nodeName === "DIV")
-            {
-                if (($SS.conf["Rice Inputs"] == 2 || $SS.conf["Rice Inputs"] == 4) && (e.target.className != "riceFile" || $SS.incRice))
-                {
-                    $SS.incRice = false;
-                    
-                    // Deal with nesting riceFile
-                    if (e.target.className == "riceFile")
-                    {
-                        $(e.target).parent().before(e.target).remove();
-                        $(e.target).children("a").remove(); // remove the remove button
-                    }
-                    else
-                    {
-                        $("input[type=file]", e.target).riceFile();
-                        
-                        if ($SS.conf["Rice Inputs"] == 4)
-                            $("input[type=checkbox]", e.target).riceCheck();
-                    }
-                }
-            }
-            // replies
-            else if (e.target.nodeName === "TABLE")
+            if (e.target.nodeName === "TABLE")
             {
                 if ($SS.conf["ExHentai Source"] != 1)
                     $SS.exsauce.addLinks(e.target);
 
-                if ($SS.conf["Rice Inputs"] == 3 || $SS.conf["Rice Inputs"] == 4)
+                if (!$SS.browser.webkit)
                     $("input[type=checkbox]", e.target).riceCheck();
             }
-            // occurs after form is submitted
-            else if (e.target.nodeName === "INPUT" && e.target.name === "upfile")
-            {
-                if ($SS.conf["Rice Inputs"] == 2 || $SS.conf["Rice Inputs"] == 4)
-                {
-                    $(e.target).riceFileBind();
-                    $SS.incRice = true;
-                }
-            }
-            // occurs after form is submitted (new QR) or multiple images added
             else if (e.target.className === "preview")
-            {
-                if ($SS.conf["Rice Inputs"] == 3 || $SS.conf["Rice Inputs"] == 4)
-                    $("input[type=checkbox]", e.target).riceCheck();
-                    
                 $(".riceFile>span", $("#qr")).text("");
-            }
-            // warning text inserted
-            else if (e.target.parentNode.className == "warning")
-                $(e.target.parentNode).addClass("showWarning");
+            else if (e.target.nodeName === "DIV" && !$SS.browser.webkit)
+                $("input[type=checkbox]", e.target).riceCheck();
         },
-        subtreeModifiedHandler: function(e)
+        QRDialogCreationHandler: function(e)
         {
-            if (e.target.nodeName === "DIV")
-            {
-                var node = $(e.target);
+            var qr = e.target;
+            
+            $("input[type=file]").riceFile();
+            
+            if ($SS.conf["Post Form"] !== 4)
+                $(".move", qr).bind("click", function(){ $("form :focus", qr).blur(); });
+            
+            if ($SS.conf["Expanding Form Inputs"])
+                $("#dump~input", qr).each(function(){ $(this).after($("<span>" + $(this).attr("placeholder"))); });
+            
+            $("input,textarea,select", qr).bind("focus", function(){ $("#qr").addClass("focus"); })
+                                          .bind("blur", function(){ $("#qr").removeClass("focus"); });
+        
+            if ($SS.conf["Smart Tripcode Hider"])
+                $("input[name=name]").each(function()
+                {
+                    $(this).bind("blur", $SS.tripCheck);
+                    $SS.tripCheck(this);
+                });
                 
-                // warning text removed
-                if (node.hasClass("warning") && node.text() == "")
-                    node.removeClass("showWarning");
-            }
-        },
+            $SS.QRhandled = true;
+        },           
         tripCheck: function(e)
         {
             var $this = this.nodeName ? $(this) : $(e),
@@ -1001,7 +847,6 @@
         Config:
         {
             hasGM: typeof GM_deleteValue !== "undefined",
-            
             init: function()
             {
                 $SS.conf = [];
@@ -1017,7 +862,7 @@
             {
                 if (/^(Selected|Hidden)+\s(Mascots|Themes?)+$/.test(key))
                 {
-                     if (key == "Selected Theme")
+                     if (key === "Selected Theme")
                         return parseInt(val);
                     
                     for (var i = 0, MAX = val.length, ret = []; i < MAX; i++)
@@ -1058,7 +903,6 @@
             saveAndClose  : true,
             deletedThemes : [],
             deletedMascots: [],
-            
             init: function()
             {
                 var a = $("<a>SS").bind("click", $SS.options.show);
@@ -1079,7 +923,7 @@
                         <li><label for=tcbNavLinks>Nav Links</label></li>\
                         </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>\
                         <p><a class=trbtn name=loadSysFonts title='Reqiures flash'>" + ($SS.fontList ? "System Fonts Loaded!" : "Load System Fonts") + "</a></p>",
-                        bindLinkButtons = function(el)
+                        bindNavLinks = function(el)
                         {
                             $(".handle", el).bind("dragstart", function(e)
                             {
@@ -1117,8 +961,8 @@
                     
                     for (key in defaultConfig)
                     {
-                        if ((key == "Style Scrollbars" && !$SS.browser.webkit) ||
-                            key == "Nav Link Delimiter" ||
+                        if ((key === "Style Scrollbars" && !$SS.browser.webkit) ||
+                            key === "Nav Link Delimiter" ||
                             /^(Selected|Hidden)+\s(Mascots|Themes?)+$/.test(key))
                             continue;
                         
@@ -1133,7 +977,7 @@
                         }
                         else if (Array.isArray(defaultConfig[key][2])) // select
                         {
-                            var opts = key == "Font" ? $SS.fontList || defaultConfig[key][2] : defaultConfig[key][2],
+                            var opts = key === "Font" ? $SS.fontList || defaultConfig[key][2] : defaultConfig[key][2],
                                 cFonts = [];
                             optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'" + (defaultConfig[key][3] === true ? " hasSub" : "")  + ">";
                             
@@ -1149,29 +993,29 @@
                                 else
                                     name = value = opts[i];
                                     
-                                if (key == "Font") cFonts.push(value);
+                                if (key === "Font") cFonts.push(value);
                                 
-                                optionsHTML += "<option" + (key == "Font" ? " style=\"font-family:" + $SS.formatFont(value) + "!important\"" : "") + " value='" + value + "'" + (value == val ? " selected" : "") + ">" + name + "</option>";
+                                optionsHTML += "<option" + (key === "Font" ? " style=\"font-family:" + $SS.formatFont(value) + "!important\"" : "") + " value='" + value + "'" + (value == val ? " selected" : "") + ">" + name + "</option>";
                             }
                             
-                            if (key == "Font" && cFonts.indexOf($SS.conf["Font"]) == -1)
+                            if (key === "Font" && cFonts.indexOf($SS.conf["Font"]) == -1)
                                optionsHTML += "<option style=\"font-family:" + $SS.formatFont($SS.conf["Font"]) + "!important\" value='" + $SS.conf["Font"] + "' selected>" + $SS.conf["Font"] + "</option>"; 
                             
                             optionsHTML += "</select></span>";
                         }
-                        else if (key == "Font Size")
+                        else if (key === "Font Size")
                         {
                             optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></span>";
                         }
-                        else if (key == "Themes")
+                        else if (key === "Themes")
                         {
                             optionsHTML += "</div><input type=radio name=toTab id=tcbThemes hidden><div id=tThemes>";
                         }
-                        else if (key == "Mascots")
+                        else if (key === "Mascots")
                         {
                             optionsHTML += "</div><input type=radio name=toTab id=tcbMascots hidden><div id=tMascot>";
                         }
-                        else if (key == "Nav Links")
+                        else if (key === "Nav Links")
                         {
                             var links = $SS.conf["Nav Links"];
                             optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks>\
@@ -1221,9 +1065,9 @@
                         var val    = parseInt($(this).val()),
                             bitmap = $(this).parent().nextSibling().children("input[name='Bitmap Font']").val();
                         
-                        if (e.keyCode == 38 && (val < MAX_FONT_SIZE || bitmap))
+                        if (e.keyCode === 38 && (val < MAX_FONT_SIZE || bitmap))
                             $(this).val(++val + "px");
-                        else if (e.keyCode == 40 && (val > MIN_FONT_SIZE || bitmap))
+                        else if (e.keyCode === 40 && (val > MIN_FONT_SIZE || bitmap))
                             $(this).val(--val + "px");
                     });
                     if (!$SS.fontList)
@@ -1241,10 +1085,10 @@
                         var el = $("<div id=navlink" + $("#tNavLinks>.navlink").length() + " class=navlink>")
                                 .html("<label>Text: <input type=text></label>" + 
                                       "<label>Link: <input type=text value='http://boards.4chan.org/'></label><a class=trbtn name=delLink>remove</a><div class=handle draggable=true></div>");
-                        bindLinkButtons(el);
+                        bindNavLinks(el);
                         $("#tNavLinks").append(el);
                     });
-                    $("#tNavLinks .navlink", tOptions).each(function(){ bindLinkButtons(this); });
+                    $("#tNavLinks .navlink", tOptions).each(function(){ bindNavLinks(this); });
                     
                     return $(document.body).attr("style", "overflow:hidden;").append(overlay);
                 }
@@ -1263,7 +1107,7 @@
                     })
                 );
                 
-                if ($SS.conf["Hidden Themes"].length == 0)
+                if ($SS.conf["Hidden Themes"].length === 0)
                     $("a[name=restoreThemes]", p).hide();
                     
                 themes.append(p);
@@ -1291,7 +1135,7 @@
                     })
                 );
                 
-                if ($SS.conf["Hidden Mascots"].length == 0)
+                if ($SS.conf["Hidden Mascots"].length === 0)
                     $("a[name=restoreMascots]", p).hide();
                 
                 p.append($("<a class=trbtn name=selectAll>select all", tOptions)
@@ -1384,14 +1228,14 @@
                     var name = $(this).attr("name"),
                         val  = $(this).val();
                     
-                    if (name == "Font Size")
+                    if (name === "Font Size")
                     {
                         val = parseInt(val);
                         
                         if (!$("input[name='Bitmap Font']", div).val())
                             val = Math.max(Math.min(val, MAX_FONT_SIZE), MIN_FONT_SIZE);
                     }
-                    else if (name == "Nav Link Delimiter")
+                    else if (name === "Nav Link Delimiter")
                         val = val.replace(/\s/g, "&nbsp;");
                     
                     $SS.Config.set($(this).attr("name"), val);
@@ -1434,9 +1278,9 @@
                     
                     $(this).children("input").each(function(index)
                     {
-                        if (index == 0)
+                        if (index === 0)
                             nLink.text = $(this).val();
-                        else if (index == 1)
+                        else if (index === 1)
                             nLink.link = $(this).val();
                     });
                     
@@ -1479,24 +1323,24 @@
                 <span>BG Image:</span><input type=text name=bgImg value='" + (bEdit ? ($SS.validImageURL(tEdit.bgImg) ? tEdit.bgImg + "'" : 
                 ($SS.validBase64(tEdit.bgImg) ? "[Base 64 Encoded Image]' disabled=true" : "'")) : "'") + "></label><label>\
                 <span>BG Repeat:</span><select name=bgR>\
-                <option" + (bEdit && themeR == "no-repeat" ? " selected" : "") + ">no-repeat</option>\
-                <option" + (bEdit && themeR == "repeat" ? " selected" : "") + ">repeat</option>\
-                <option" + (bEdit && themeR == "repeat-x" ? " selected" : "") + ">repeat-x</option>\
-                <option" + (bEdit && themeR == "repeat-y" ? " selected" : "") + ">repeat-y</option>\
+                <option" + (bEdit && themeR === "no-repeat" ? " selected" : "") + ">no-repeat</option>\
+                <option" + (bEdit && themeR === "repeat" ? " selected" : "") + ">repeat</option>\
+                <option" + (bEdit && themeR === "repeat-x" ? " selected" : "") + ">repeat-x</option>\
+                <option" + (bEdit && themeR === "repeat-y" ? " selected" : "") + ">repeat-y</option>\
                 </select></label><label>\
                 <span>BG Attachment:</span><select name=bgA>\
-                <option" + (bEdit && themeA == "fixed" ? " selected" : "") + ">fixed</option>\
-                <option" + (bEdit && themeA == "scroll" ? " selected" : "") + ">scroll</option>\
+                <option" + (bEdit && themeA === "fixed" ? " selected" : "") + ">fixed</option>\
+                <option" + (bEdit && themeA === "scroll" ? " selected" : "") + ">scroll</option>\
                 </select></label><label>\
                 <span>BG Position-X:</span><select name=bgPX>\
-                <option" + (bEdit && themePX == "left" ? " selected" : "") + ">left</option>\
-                <option" + (bEdit && themePX == "center" ? " selected" : "") + ">center</option>\
-                <option" + (bEdit && themePX == "right" ? " selected" : "") + ">right</option>\
+                <option" + (bEdit && themePX === "left" ? " selected" : "") + ">left</option>\
+                <option" + (bEdit && themePX === "center" ? " selected" : "") + ">center</option>\
+                <option" + (bEdit && themePX === "right" ? " selected" : "") + ">right</option>\
                 </select></label><label>\
                 <span>BG Position-Y:</span><select name=bgPY>\
-                <option" + (bEdit && themePY == "top" ? " selected" : "") + ">top</option>\
-                <option" + (bEdit && themePY == "center" ? " selected" : "") + ">center</option>\
-                <option" + (bEdit && themePY == "bottom" ? " selected" : "") + ">bottom</option>\
+                <option" + (bEdit && themePY === "top" ? " selected" : "") + ">top</option>\
+                <option" + (bEdit && themePY === "center" ? " selected" : "") + ">center</option>\
+                <option" + (bEdit && themePY === "bottom" ? " selected" : "") + ">bottom</option>\
                 </select></label>";
                 
                 for (var i = 0, MAX = themeInputs.length; i < MAX; i++)
@@ -1561,7 +1405,7 @@
                 {
                     var val;
                     
-                    if (this.name == "bgImg")
+                    if (this.name === "bgImg")
                     {
                         var b64 = $("input[name=customIMGB64]", overlay);
                         val     = b64.exists() ? decodeURIComponent(b64.val()) : this.value;
@@ -1574,7 +1418,7 @@
                         
                         val = $SS.cleanBase64(val);
                     }
-                    else if (this.name == "name")
+                    else if (this.name === "name")
                     {
                         val = this.value;
                         
@@ -1611,8 +1455,7 @@
                     $("#overlay #tThemes").append(div);
                 }
                 
-                div.fire("click")
-                   .get().scrollIntoView(true);
+                div.fire("click").scrollIntoView(true);
                    
                 return overlay.remove();
             },
@@ -1621,7 +1464,7 @@
                 if (confirm("Are you sure?"))
                 {
                     if ($SS.conf["Themes"][tIndex].default &&
-                        $SS.conf["Hidden Themes"].push(tIndex) == 1)
+                        $SS.conf["Hidden Themes"].push(tIndex) === 1)
                         $("#tThemes a[name=restoreThemes]").show();
                     else
                         $SS.options.deletedThemes.push(tIndex);
@@ -1641,9 +1484,9 @@
                         <label title='Auto goes according to the post forms position' for=null><span>Alignment/Offset:</span>\
                         <select name=mPosition>\
                             <option" + ((bEdit && !mEdit.position) || !bEdit ? " selected" : "") + ">Auto</option>\
-                            <option" + (bEdit && mEdit.position == "top" ? " selected" : "") + ">Top</option>\
-                            <option" + (bEdit && mEdit.position == "center" ? " selected" : "") + ">Center</option>\
-                            <option" + (bEdit && mEdit.position == "bottom" ? " selected" : "") + ">Bottom</option>\
+                            <option" + (bEdit && mEdit.position === "top" ? " selected" : "") + ">Top</option>\
+                            <option" + (bEdit && mEdit.position === "center" ? " selected" : "") + ">Center</option>\
+                            <option" + (bEdit && mEdit.position === "bottom" ? " selected" : "") + ">Bottom</option>\
                         </select>\
                         <input type=text name=mOffset value='" + (bEdit && mEdit.position ? mEdit.offset + "px" : "") + "'></label>\
                         <label title='Prevent streching with smaller images (Width < 313px)'><span>Prevent stretching:</span><input type=checkbox name=mSmall" + (bEdit && mEdit.small ? " checked" : "") + "></label>\
@@ -1718,18 +1561,18 @@
                 }
                 else
                 {
-                    var tMascot = { img: cIMG, small: cSmall, flip: cFlip, overflow: cOverflow, boards: (cBoards == "" ? undefined : cBoards) };
+                    var tMascot = { img: cIMG, small: cSmall, flip: cFlip, overflow: cOverflow, boards: (cBoards === "" ? undefined : cBoards) };
                     
                     if (bSetPos)
                     {
-                        m.position = cPosition;
-                        m.offset   = cOffset;
+                        tMascot.position = cPosition;
+                        tMascot.offset   = cOffset;
                     }
                     
                     mIndex  = $SS.conf["Mascots"].push(tMascot);
                     tMascot = new $SS.Mascot(--mIndex).preview();
                     $("#tMascot").append(tMascot);
-                    tMascot.fire("click").get().scrollIntoView(true);
+                    tMascot.fire("click").scrollIntoView(true);
                 }
                 
                 return overlay.remove();
@@ -1991,26 +1834,26 @@
                     customCSS:   'new String(($SS.conf["Layout"]==2?".op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]==3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)}")'
                 },
                 {
-		    name:        "violaceous",
-		    author:      "!MaSoOdDwDw",
-		    "default":   true,
-		    bgImg:       false,
-		    bgColor:     "121314",
-		    mainColor:   "1b1b1b",
-		    brderColor:  "292a2b",
-		    inputColor:  "18191a",
-		    inputbColor: "121314",
-		    blinkColor:  "db95e5",
-		    jlinkColor:  "db95e5",
-		    linkColor:   "2a7fa0",
-		    linkHColor:  "3090b5",
-		    nameColor:   "a497b0",
-		    quoteColor:  "00ab3f",
-		    textColor:   "dddddd",
-		    sageColor:   "4f4f4f",
-		    tripColor:   "bd2b83",
-		    titleColor:  "06989a",
-		    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
+                    name:        "violaceous",
+                    author:      "!MaSoOdDwDw",
+                    "default":   true,
+                    bgImg:       false,
+                    bgColor:     "121314",
+                    mainColor:   "1b1b1b",
+                    brderColor:  "292a2b",
+                    inputColor:  "18191a",
+                    inputbColor: "121314",
+                    blinkColor:  "db95e5",
+                    jlinkColor:  "db95e5",
+                    linkColor:   "2a7fa0",
+                    linkHColor:  "3090b5",
+                    nameColor:   "a497b0",
+                    quoteColor:  "00ab3f",
+                    textColor:   "dddddd",
+                    sageColor:   "4f4f4f",
+                    tripColor:   "bd2b83",
+                    titleColor:  "06989a",
+                    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
                 }
             ],
             
@@ -2076,7 +1919,7 @@
                         eMascot.push(j);
                     }
                 
-                if (eMascot.length == 0)
+                if (eMascot.length === 0)
                     return $SS.mascot = new $SS.Mascot(-1);
                 else
                     mIndex = Math.floor(Math.random() * eMascot.length);
@@ -2093,6 +1936,11 @@
         /* EXHENTAI SOURCE */
         exsauce:
         {
+            init: function()
+            {
+                this.extype = $SS.conf["ExHentai Source"] === 2 ? "exhentai" : "g.e-hentai";
+                setTimeout(function(){ $SS.exsauce.addLinks(document); }, 10);
+            },
             addLinks: function(x)
             {
                 $("img[md5]", x).each(function()
@@ -2101,7 +1949,7 @@
                     
                     if (!$(".exSource", node).exists())
                     {
-                        var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>" + $SS.conf["ExType"]).bind("click", $SS.exsauce.fetchImage);
+                        var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
                         node.append(document.createTextNode(" ")).append(a);
                     }
                 });
@@ -2128,7 +1976,7 @@
                 var hash = $SS.exsauce.sha1Hash($SS.exsauce.data_string(data));
                 
                 anchor.html("checking")
-                      .attr("href", "http://" + $SS.conf["ExType"] + ".org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1")
+                      .attr("href", "http://" + this.extype + ".org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1")
                       .unbind("click", $SS.exsauce.fetchImage);
 
                 GM_xmlhttpRequest(
@@ -2412,7 +2260,7 @@
                     {
                         var value = this.toString();
                         
-                        if (value[0] == "#")
+                        if (value[0] === "#")
                             value = value.substr(1);
                             
                         valueElement.value = value;
@@ -2879,7 +2727,7 @@
             this.small    = mascot.small;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 262 : 23);
+            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 264 : 23);
             this.boards   = mascot.boards;
             this.enabled  = $SS.conf["Selected Mascots"].indexOf(index) != -1;
             
@@ -3006,7 +2854,7 @@
         /* HELPER METHODS */
         formatFont: function(font)
         {
-            if (font == "sans-serif" || font == "monospace")
+            if (font === "sans-serif" || font === "monospace")
                 return font;
                 
             return "'" + font + "'";
@@ -3075,7 +2923,7 @@
             return {
                 sub  : obj.hostname.split(".")[0],
                 board: pathname[0],
-                reply: pathname[1] == "res"
+                reply: pathname[1] === "res"
             };
         },
         buildCustomNav: function()

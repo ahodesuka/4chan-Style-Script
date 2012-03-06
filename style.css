@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
 *
 {
 	font-family:" + $SS.formatFont($SS.conf["Font"]) + "!important;
@@ -59,12 +59,11 @@ h5
 {
 	margin:.4em 0!important;
 }
+b,
 h3,
 .commentpostername,
 .postername,
 .replytitle,
-body>center:nth-of-type(2)>font[color=red]>b,
-.pages b,
 .filetitle
 {
 	font-weight:400!important;
@@ -133,14 +132,12 @@ span[style='color:#FF0000;font-weight:normal']
 	color:" + $SS.theme.sageColor.hex + "!important;
 	text-shadow:none!important;
 }
-" + ( $SS.conf["Pages Position"] != 2 ? ".pages td:nth-of-type(2)," : "") + "
 .reply,
 .replyhl,
 .stub>a,
 .stub>.block>a,
 option,
 div[id*=jsMath],
-#qr .warning,
 #imgControls,
 #imgControls #imageType,
 #imgControls .preload,
@@ -211,7 +208,6 @@ input[type=submit],
 #watcher .move,
 .deletebuttons::before,
 .logo font[size='1'],
-.pages td,
 .preview>label::after,
 .riceFile div,
 .trbtn
@@ -232,7 +228,8 @@ textarea,
 .container *,
 .filesize span:not([class])::after,
 .logo font[size='1'],
-.pages td:nth-of-type(2) *
+.pages td:nth-of-type(2) *,
+.pages td:last-child::after
 {
 	font:" + $SS.conf["Small Font Size"] + "px " + $SS.formatFont($SS.conf["Font"]) + "!important;
 }
@@ -250,7 +247,6 @@ input[type=submit],
 #watcher .move,
 #stats span,
 .deletebuttons::after,
-.pages td,
 .preview>label::after,
 .riceFile div
 {
@@ -271,9 +267,9 @@ body>center:nth-of-type(2)>font[color=red]::before,
 }
 " + (!$SS.conf["Show Board Name"] ? ".logo span," : "") +
 (!$SS.conf["Show Text Board"] ? ".logo font[size='1']," : "") +
-($SS.conf["Post Form"] != 4 ? "#qr>.move .close," : "") + 
-($SS.conf["Post Form"] == 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") + 
-($SS.conf["Layout"] == 2 && !$SS.conf["Thread Separators"] ? "form[name=delform]>hr," : "") + "
+($SS.conf["Post Form"] !== 4 ? "#qr>.move .close," : "") + 
+($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") + 
+($SS.conf["Layout"] === 2 && !$SS.conf["Thread Separators"] ? "form[name=delform]>hr," : "") + "
 #recaptcha_tagline,
 td[align=right],
 img+br,
@@ -310,17 +306,15 @@ center~form[name=delform] hr:nth-last-of-type(2),
 form[name=delform] hr:nth-last-of-type(1),
 [hidden],
 body>span[style]~#navlinks,
-#navtop,
-#navtopr,
 #navtop>a,
 #navtop>span,
-.pages,
 #imgControls #imageExpand,
 #imgControls #imageExpand+.riceCheck,
 #qp>a[href='javascript:;']:not([class]),
 .inline .reply>a:first-child,
 .postarea,
-a[href='#bottom']
+a[href='#bottom'],
+.pages td
 {
 	display:none!important;
 }
@@ -348,6 +342,7 @@ tr,
 .deletebuttons::before,
 .deletebuttons::after,
 .omittedposts,
+.pages td:last-child::after,
 .pages b,
 .pages td,
 .preview>label::after,
@@ -370,7 +365,7 @@ textarea:-moz-placeholder
 body
 {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
-	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] == 1) || ($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"]) ? "0 263px 44px 0" : (!$SS.bHideSidebar ? "0 0 44px 265px" : "0 0 44px")) + "!important;
+	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) || ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 43px 0" : (!$SS.bHideSidebar ? "0 0 43px 265px" : "0 0 43px")) + "!important;
 	padding:18px 0 0!important;
 }
 " + (!$SS.bHideSidebar ? "
@@ -378,7 +373,7 @@ body::before
 {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(-18) + ",.8);
 	border-" + $SS.conf["Sidebar Position oString"] + ":2px solid rgba(" + $SS.theme.mainColor.rgb + ",.9);
-	box-shadow:" + ($SS.conf["Sidebar Position"] != 2 ? "inset " : "") + $SS.theme.brderColor.hex + " 1px 0 0," + ($SS.conf["Sidebar Position"] == 2 ? "inset " : "") + $SS.theme.brderColor.hex + " -1px 0 0;
+	box-shadow:" + ($SS.conf["Sidebar Position"] !== 2 ? "inset " : "") + $SS.theme.brderColor.hex + " 1px 0 0," + ($SS.conf["Sidebar Position"] === 2 ? "inset " : "") + $SS.theme.brderColor.hex + " -1px 0 0;
 	content:'';
 	height:100%;
 	width:262px;
@@ -398,7 +393,7 @@ body::after
 	margin-bottom:" + $SS.mascot.offset + "px;
 	position:fixed;
 	z-index:2;
-	" + ($SS.conf["Sidebar Position"] == 2 && $SS.mascot.flip ? "
+	" + ($SS.conf["Sidebar Position"] === 2 && $SS.mascot.flip ? "
 	-webkit-transform:scaleX(-1);
 	-moz-transform:scaleX(-1);
 	-o-transform:scaleX(-1);" : "") + "/*"*/
@@ -407,15 +402,14 @@ body::after,
 body::before,
 body>center:nth-of-type(2)>font[color=red],
 #imgControls,
-" + ($SS.conf["Post Form"] != 4 ? "#qr," :"") + "
+" + ($SS.conf["Post Form"] !== 4 ? "#qr," :"") + "
 #updater,
 #watcher
 {
 	" + $SS.conf["Sidebar Position String"] + ":0!important;
 	" + $SS.conf["Sidebar Position oString"] + ":auto!important;
 }
-" + ($SS.conf["Layout"] == 2 ? ".op," : "") + "
-#qr .warning,
+" + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
 #jsmath_button,
 #jsMath_panel,
 #jsMath_float,
@@ -435,13 +429,13 @@ body>center:nth-of-type(2)>font[color=red],
 {
 	border-bottom:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
-" + ($SS.conf["Sidebar Position"] == 3 ? "#imgControls," : "") + "
+" + ($SS.conf["Sidebar Position"] === 3 ? "#imgControls," : "") + "
 .deletebuttons,
 body>center:nth-of-type(2)>font[color=red]
 {
 	border-" + $SS.conf["Sidebar Position oString"] + ":1px solid " + $SS.theme.brderColor.hex + "!important;
 }
-" + ($SS.conf["Sidebar Position"] == 3 ? "body>center:nth-of-type(2)>font[color=red]," : "") + "
+" + ($SS.conf["Sidebar Position"] === 3 ? "body>center:nth-of-type(2)>font[color=red]," : "") + "
 #updater
 {
 	border-right:1px solid " + $SS.theme.brderColor.hex + "!important;
@@ -466,7 +460,7 @@ body>center:nth-of-type(2)>font[color=red]
 	top:1.75em!important;
 	right:auto!important;
 }
-" + ($SS.conf["Layout"] != 2 ? "
+" + ($SS.conf["Layout"] !== 2 ? "
 .thread:not(.stub),
 body>span[style]~form[name=delform]" : "
 .op") + "
@@ -476,15 +470,16 @@ body>span[style]~form[name=delform]" : "
 .thread
 {
 	clear:both;
-	margin:1px" + ($SS.conf["Layout"] == 1 ? ($SS.conf["Sidebar Position"] != 2 ? " 0 1px 1px" : " 1px 1px 0") : ($SS.conf["Layout"] == 2 ? " 0 1px" : "")) + "!important;
+	margin:1px" + ($SS.conf["Layout"] === 1 ? ($SS.conf["Sidebar Position"] !== 2 ? " 0 1px 1px" : " 1px 1px 0") : ($SS.conf["Layout"] === 2 ? " 0 1px" : "")) + "!important;
 	padding:0!important;
 	position:relative;
-	border-radius:" + ($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
+	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
-.thread::after,
-#updater div>label::after,
 form[name=delform] .op::after,
-#addMascot>label::after
+#addMascot>label::after,
+#qr>form>div::after,
+#updater div>label::after,
+.thread::after
 {
 	clear:both;
 	content:'';
@@ -495,12 +490,12 @@ form[name=delform] .op::after,
 	border:0!important;
 	padding:3px 3px 0;
 	position:relative;
-	" + ($SS.conf["Layout"] == 2 ? "
-	border-radius:" + ($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
+	" + ($SS.conf["Layout"] === 2 ? "
+	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
 }
 .op>a:first-child
 {
-	" + ($SS.conf["Layout"] != 2 ? "
+	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
 	right:2px;
 	top:0;" : "/*"*/
@@ -509,27 +504,23 @@ form[name=delform] .op::after,
 }
 form[name=delform]
 {
-	" + ($SS.conf["Layout"] != 2 ? "
+	" + ($SS.conf["Layout"] !== 2 ? "
 	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.9);
-	" + ($SS.conf["Layout"] == 1 ? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
-	margin:" + ($SS.conf["Layout"] != 3 ?
-	($SS.conf["Sidebar Position"] != 2 ? "0 0 0 " + $SS.conf["Side Margin"] + "px" :
+	" + ($SS.conf["Layout"] === 1 ? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
+	margin:" + ($SS.conf["Layout"] !== 3 ?
+	($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 " + $SS.conf["Side Margin"] + "px" :
     "0 " + $SS.conf["Side Margin"] + "px 0 0") :
     "0 " + ($SS.conf["Side Margin"] > 10 ? ($SS.conf["Side Margin"] - ($SS.conf["Side Margin"] / 3)) : $SS.conf["Side Margin"] * 0.75) + "% 0") + ";
 	padding:0!important;
 	position:relative;
-	border-radius:" + ($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
+	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
 }
-form[name=delform]>table,
-form[name=delform]>.thread>table
+form[name=delform]>.thread>table,
+form[name=delform]>table
 {
 	margin:1px 0 0;
 	position:relative;
 	width:100%;
-}
-form[name=delform]>table:not(.pages)
-{
-	margin-left:" + ($SS.conf["Sidebar Position"] != 2 ? 1 : -1) + "px!important;
 }
 form[name=delform]>table:nth-last-of-type(3)
 {
@@ -549,7 +540,7 @@ body>a[href='.././']~form[name=delform]>table:nth-last-of-type(3)
 body>span[style]~form[name=delform],
 body>a[href='.././']~form[name=delform]
 {
-	padding:" + ($SS.conf["Layout"] != 3 ? ($SS.conf["Sidebar Position"] != 2 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px") + "!important;
+	padding:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "4px 0 1px 1px" : "4px 1px 1px 0") : "4px 1px 1px") + "!important;
 }
 body,
 body>a[style='cursor: pointer; float: right;']+div,
@@ -562,6 +553,7 @@ td.replyhl,
 .riceCheck,
 .logo span,
 #qr,
+#qr>form>.captcha>img,
 #themeoptions #tMascot div,
 #themeoptions #tThemes .reply,
 #themeoptions #tNavLinks .navlink .handle
@@ -570,13 +562,13 @@ td.replyhl,
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 }
-" + ($SS.conf["Layout"] == 2 ? ".op," : "") + "
+" + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
 .reply,
 .replyhl,
 .stub>a,
 .stub>.block>a
 {
-	" + ($SS.conf["Layout"] != 3 && !($SS.conf["Sidebar Position"] != 2 && $SS.conf["Layout"] == 2)
+	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
 	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "/*"*/
 }
 .reply,
@@ -588,12 +580,12 @@ td.replyhl,
 .reportbutton
 {
 	background-position:0 -16px;
-	" + ($SS.conf["Layout"] != 2 ? "
+	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
 	right:14px;
 	top:1px;" : "") + "/*"*/
 }
-" + ($SS.conf["Layout"] == 2 ? "
+" + ($SS.conf["Layout"] === 2 ? "
 td .reportbutton:" : "
 .inline .reportbutton,
 #qp .reportbutton") + "
@@ -614,7 +606,7 @@ td.replyhl .riceCheck,
 }
 .inline
 {
-	z-index:6!important;
+	z-index:10!important;
 	position:relative;
 }
 .op>.reportbutton
@@ -624,7 +616,7 @@ td.replyhl .riceCheck,
 .replyhider
 {
 	position:absolute;
-	" + ($SS.conf["Layout"] != 2 ? "
+	" + ($SS.conf["Layout"] !== 2 ? "
 	right:2px;
 	top:2px;" : "/*"*/
 	left:2px;
@@ -648,6 +640,10 @@ td.replyhl .riceCheck,
 .remove
 {
 	background-position:-16px -16px!important;
+}
+.remove
+{
+	padding:0!important;
 }
 .close,
 .remove,
@@ -683,15 +679,14 @@ td.replyhl,
 .stub>.block>a
 {
 	padding:5px!important;
-	" + ($SS.conf["Layout"] != 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] != 2 ? "margin-right:1px!important;" : "")) + "/*"*/
-	border-radius:" + ($SS.conf["Layout"] != 3 && !($SS.conf["Sidebar Position"] != 2 && $SS.conf["Layout"] == 2) ?
-	($SS.conf["Sidebar Position"] != 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
+	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "/*"*/
+	border-radius:" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2) ?
+	($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
 .replyhl,
 .qphl
 {
-	background:rgba(" + $SS.theme.linkColor.rgb + ",.2)!important;
-	box-shadow:inset rgba(" + $SS.theme.linkColor.rgb + ",.4) 0 0 5px!important;
+	background:rgba(" + $SS.theme.mainColor.shiftRGB(16, true) + ",.9)!important;
 }
 .filter_highlight
 {
@@ -705,24 +700,24 @@ td.replyhl,
 .thread.stub
 {
 	margin:1px 0px!important;
-	padding:0 " + ($SS.conf["Sidebar Position"] != 2 ? "0 0 1px" : "1px 0 0") + "!important;
+	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .stub>a,
 .stub>.block>a
 {
-	display:" + ($SS.conf["Layout"] == 2 ? "inline-" : "") + "block;
+	display:" + ($SS.conf["Layout"] === 2 ? "inline-" : "") + "block;
 	padding:7px;
 }
 .container
 {
-	" + ($SS.conf["Backlinks Position"] != 1 ? "
+	" + ($SS.conf["Backlinks Position"] !== 1 ? "
 	bottom:" + ($SS.conf["Slim Replies"] ? 0 : 2) + "px;
 	position:absolute;
-	" + ($SS.conf["Backlinks Position"] == 2 ? "right" : "left") + ":2px;
+	" + ($SS.conf["Backlinks Position"] === 2 ? "right" : "left") + ":2px;
 	z-index:1;" : "") + "/*"*/
 	margin-left:2px;
 }
-" + ($SS.conf["Backlinks Position"] != 1 ? "
+" + ($SS.conf["Backlinks Position"] !== 1 ? "
 .container::before
 {
 	color:rgba(" + $SS.theme.textColor.rgb + ",.4)!important;
@@ -733,6 +728,8 @@ td.replyhl,
 {
 	color:" + $SS.theme.blinkColor.hex + "!important;
 }
+input[type=checkbox]:active,
+input[type=checkbox]:focus,
 .qphl
 {
 	outline:none!important;
@@ -771,22 +768,22 @@ a.omittedposts
 	overflow:hidden;
 	padding:1px 2px 0 18px!important;
 	position:fixed;
-	" + ($SS.conf["Sidebar Position"] == 3 ? "
+	" + ($SS.conf["Sidebar Position"] === 3 ? "
 	right:262px;" : 
 	$SS.conf["Sidebar Position String"] + ":264px;") + "/*"*/
 	width:0;
 	white-space:nowrap;
-	z-index:" + ($SS.conf["Post Form"] == 1 ? 11 : 5) + "!important;
-	" + ($SS.conf["Layout"] != 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] != 2 ? "3px 0 0 0" : "0 3px 0 0") : "") + ";
+	z-index:" + ($SS.conf["Post Form"] === 1 ? 11 : 5) + "!important;
+	" + ($SS.conf["Layout"] !== 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "3px 0 0 0" : "0 3px 0 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
 	-o-transition:all .2s ease-in-out;
 }
 .deletebuttons:hover
 {
-	" + ($SS.conf["Sidebar Position"] != 2 ? "
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	padding-left:2px!important;
-	" + ($SS.conf["Sidebar Position"] == 3 ? "padding-right:4px!important;" : "") :
+	" + ($SS.conf["Sidebar Position"] === 3 ? "padding-right:4px!important;" : "") :
 	"/*"*/padding-left:0!important;
 	padding-right:3px!important;") + "
 	width:238px;
@@ -818,7 +815,7 @@ a.omittedposts
 	content:'FILE ONLY';
 	position:absolute;
 	bottom:0;
-	right:" + ($SS.conf["Sidebar Position"] != 2 ? 120 : 122) + "px;
+	right:" + ($SS.conf["Sidebar Position"] !== 2 ? 120 : 122) + "px;
 	line-height:24px;
 }
 .deletebuttons *
@@ -830,7 +827,7 @@ a.omittedposts
 {
 	margin:2px!important;
 	position:absolute;
-	right:" + ($SS.conf["Sidebar Position"] != 2 ? 103 : 105) + "px;
+	right:" + ($SS.conf["Sidebar Position"] !== 2 ? 103 : 105) + "px;
 	bottom:4px!important;
 	top:auto!important;
 }
@@ -858,7 +855,7 @@ td
 blockquote
 {
 	margin:0!important;
-	padding:" + ($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] != 1 ? 8 : 4) + "px 16px" : "12px 12px 24px 40px") + "!important;
+	padding:" + ($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] !== 1 ? 8 : 4) + "px 16px" : "12px 12px 24px 40px") + "!important;
 }
 blockquote>div[style]
 {
@@ -919,6 +916,7 @@ textarea,
 button,
 input:not([type=checkbox]):not([type=radio]),
 select,
+#qr>form>.captcha>img,
 .riceFile
 {
 	border:1px solid " + $SS.theme.inputbColor.hex + "!important;
@@ -937,28 +935,6 @@ textarea,
 #options input
 {
 	background:rgba(" + $SS.theme.inputColor.rgb + ",.9)!important;
-}
-input[type=file]::-webkit-file-upload-button
-{
-	background:rgba(" + $SS.theme.inputColor.rgb + ",.9)!important;
-	border:0!important;
-	border-right:1px solid transparent!important;
-	font-size:8px!important;
-	text-transform:uppercase!important;
-	padding:0 5px!important;
-	width:auto!important;
-	vertical-align:bottom;
-	height:20px!important;
-	color:" + $SS.theme.textColor.hex + "!important;
-	cursor:pointer;
-	margin:0!important;
-	-webkit-transition:background .1s ease-in-out;
-	-moz-transition:background .1s ease-in-out;
-	-o-transition:background .1s ease-in-out;
-}
-input[type=file]::-webkit-file-upload-button:hover
-{
-	background:rgba(" + $SS.theme.inputColor.hover + ",.9)!important;
 }
 button,
 input:not(.jsColor),
@@ -979,7 +955,9 @@ input.field:hover,
 select:hover,
 textarea:hover,
 #options input:hover,
-.riceFile input:hover~div
+.riceFile input:hover+div,
+.riceFile input:focus+div,
+.riceFile div.focus
 {
 	background:rgba(" + $SS.theme.inputColor.hover + ",.9)!important;
 }
@@ -989,7 +967,7 @@ input#fs_search:hover,
 input.field:hover,
 select:hover,
 textarea:hover,
-#options input:hover
+#options input:not[type=checkbox]:hover
 {
 	box-shadow:inset rgba(0,0,0,.2) 0 1px 2px;
 }
@@ -1108,19 +1086,13 @@ td.replyhl input[type=checkbox],
 td.reply .riceCheck,
 td.replyhl .riceCheck
 {
-	margin-left:" + ($SS.conf["Layout"] != 2 ? 0 : "12px") + "!important;
+	margin-left:" + ($SS.conf["Layout"] !== 2 ? 0 : "12px") + "!important;
 	position:relative;
 }
 span.filesize~input[type=checkbox],
 span.filesize~.riceCheck
 {
 	top:2px;
-}
-input[name=recaptcha_response_field],
-input#recaptcha_response_field
-{
-	height:22px!important;
-	padding:1px 4px!important;
 }
 textarea
 {
@@ -1142,7 +1114,7 @@ td.doubledash
 .logo img,
 .logo span
 {
-	width:" + ($SS.conf["Sidebar Position"] == 3 ? 261 : 259) + "px!important;
+	width:" + ($SS.conf["Sidebar Position"] === 3 ? 261 : 259) + "px!important;
 }
 .logo img
 {
@@ -1174,6 +1146,7 @@ td.doubledash
 	display:block;
 	font-family:'PT Sans Narrow',sans-serif!important;
 	font-size:28px!important;
+	font-weight:700!important;
 	height:36px;
 	letter-spacing:-1px;
 	padding:0 10px;
@@ -1211,7 +1184,7 @@ div.autohide>a[title='Auto-hide dialog box']
 .op .filesize
 {
 	display:inline-block!important;
-	margin:2px " + ($SS.conf["Layout"] != 2 ? 6 : 0) + "px!important;
+	margin:2px " + ($SS.conf["Layout"] !== 2 ? 6 : 0) + "px!important;
 }
 body>span[style]~form .op .filesize
 {
@@ -1240,7 +1213,7 @@ textarea
 	-o-appearance:none;
 }
 #options .move,
-" + ($SS.conf["Post Form"] != 4 ? "#qr>.move," : "") + "
+" + ($SS.conf["Post Form"] !== 4 ? "#qr>.move," : "") + "
 #stats .move,
 #updater .move,
 #watcher .move
@@ -1564,24 +1537,25 @@ body>a[style='cursor: pointer; float: right;']
 	background-position:center top!important;
     background-repeat:no-repeat!important;
 	background-size:cover!important;
-	border:1px solid transparent!important;
 	display:inline-block;
-	position:relative;
-	margin:2px;
-	width:185px;
 	height:257px;
+	margin:2px;
+	opacity:.75;
+	position:relative;
+	width:185px;
 	border-radius:10px;
 	-webkit-transition:all .1s;
 	-moz-transition:all .1s;
 	-o-transition:all .1s;
 }
-#themeoptions #tMascot div:not(.selected):hover
+#themeoptions #tMascot div:hover
 {
-	border:1px solid " + $SS.theme.linkColor.hex + "!important;
+	opacity:1;
 }
 #themeoptions #tMascot div.selected
 {
 	background-color:rgba(" + $SS.theme.linkColor.rgb + ",.6)!important;
+	opacity:1;
 	box-shadow:inset rgba(0,0,0,.15) 0 0 15px, rgba(" + $SS.theme.linkColor.rgb + ",.6) 0 0 2px;
 }
 #themeoptions #tMascot div a
@@ -1638,7 +1612,7 @@ body>a[style='cursor: pointer; float: right;']
 }
 #themeoptions #tNavLinks .navlink .handle
 {
-	border-left:16px solid rgb(" + $SS.theme.brderColor.shiftRGB(-8) + ");
+	border-left:16px solid rgb(" + $SS.theme.brderColor.shiftRGB(8, true) + ");
 	cursor:move;
 	height:26px;
 	left:0;
@@ -1846,7 +1820,7 @@ input[name=customIMGB64]+a[name=clearIMG]
 	height:18px;
 	position:fixed!important;
 	top:0;
-	width:" + ($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"] ? 114 : 115) + "px!important;
+	width:" + ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 114 : 115) + "px!important;
 	padding-" + $SS.conf["Sidebar Position String"] + ":147px!important;
 	z-index:6;
 }
@@ -1896,7 +1870,7 @@ form[name=post] #com_submit+label,
 }
 #updater
 {
-	" + ($SS.conf["Sidebar Position"] != 2 ? "
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	text-align:right!important;
 	left:auto!important;
 	right:0!important;" : "/*"*/
@@ -1962,7 +1936,7 @@ form[name=post] #com_submit+label,
 	line-height:18px;
 	top:0!important;
 	z-index:8!important;
-	" + ($SS.conf["Sidebar Position"] != 2 ? "
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	right:43px!important;
 	left:auto!important;
 	text-align:left;" : "/*"*/
@@ -1973,7 +1947,7 @@ form[name=post] #com_submit+label,
 }
 #navlinks
 {
-	" + ($SS.conf["Sidebar Position"] != 2 ? "right:5px;" : "/*"*/
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:5px;" : "/*"*/
 	left:5px;
 	right:auto!important;") + "
 	top:0!important;
@@ -2000,11 +1974,11 @@ body>center:nth-of-type(2)>font[color=red]
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
-	" + ($SS.conf["Sidebar Position"] == 3 ? "right:262px!important;" : "") + "/*"*/
+	" + ($SS.conf["Sidebar Position"] === 3 ? "right:262px!important;" : "") + "/*"*/
 	top:-18px;
 	white-space:nowrap;
 	z-index:10;
-	" + ($SS.conf["Layout"] != 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] != 2 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
+	" + ($SS.conf["Layout"] !== 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
 	-o-transition:all .2s ease-in-out;
@@ -2021,7 +1995,7 @@ body>center:nth-of-type(2)>font[color=red]:hover
 	max-width:600px;
 	padding:0 10px 10px;
 	white-space:normal;
-	border-radius:" + ($SS.conf["Sidebar Position"] != 2 ? "0 0 0 3px " : "0 0 3px 0") + ";
+	border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") + ";
 }
 #header
 {
@@ -2099,100 +2073,34 @@ body>center:nth-of-type(2)>font[color=red]:hover
 " : "") + "
 .pages
 {
-	margin:0!important;
-	position:fixed!important;
-	visibility:hidden;
-	width:auto!important;
-	" + ($SS.conf["Pages Position"] == 1 ? "
-	height:20px!important;
-	bottom:22px!important;
-	" + ($SS.conf["Sidebar Position"] != 2 ? "
-	left:-375px;
-	right:auto!important;" : "/*"*/
-	left:auto!important;
-	right:-375px;") + "
-	top:auto!important;
-	z-index:13;
-	-webkit-transition:" + $SS.conf["Sidebar Position oString"] + " .1s ease-in-out 1s;
-	-moz-transition:" + $SS.conf["Sidebar Position oString"] + " .1s ease-in-out 1s;
-	-o-transition:" + $SS.conf["Sidebar Position oString"] + " .1s ease-in-out 1s;" :
-	($SS.conf["Pages Position"] == 2 ? "/*"*/
 	background:transparent!important;
-	height:20px!important;
-	border:0!important;
 	bottom:0!important;
+	display:block;
+	height:20px;
 	left:0!important;
-	z-index:13!important;" : "/*"*/
-	bottom:17px!important;
-	height:24px!important;
-	" + $SS.conf["Sidebar Position oString"] + ":1px!important;
-	z-index:2;
-	-webkit-transform:rotate(" + ($SS.conf["Sidebar Position"] != 2 ? -90 : 90) + "deg);
-	-webkit-transform-origin:top " + $SS.conf["Sidebar Position oString"] + ";
-	-moz-transform:rotate(" + ($SS.conf["Sidebar Position"] != 2 ? -90 : 90) + "deg);
-	-moz-transform-origin:top " + $SS.conf["Sidebar Position oString"] + ";
-	-o-transform:rotate(" + ($SS.conf["Sidebar Position"] != 2 ? -90 : 90) + "deg);
-	-o-transform-origin:top " + $SS.conf["Sidebar Position oString"] + ";")) + "
-}
-.pages *
-{
-	font-size:" + $SS.conf["Font Size"] + "px!important;
-	visibility:visible;
-}
-.pages td
-{
-	" + ( $SS.conf["Pages Position"] != 2 ? "padding:0 2px!important;" : "padding:0!important;") + "/*"*/
-	text-align:center;
+	margin:0!important;
+	padding:0 5px;
+	position:fixed!important;
+	width:auto!important;
+	z-index:13;
 }
 .pages td:nth-of-type(2)
 {
-	" + ( $SS.conf["Pages Position"] != 2 ? "border-radius:4px;" : "") + "/*"*/
-	padding:0 5px!important;
-}
-.pages b
-{
-	font-weight:700!important;
+	display:-webkit-box!important;
+	display:-moz-box!important;
+	display:box!important;
+	height:20px;
+	padding:0!important;
+	text-align:center;
+	-webkit-box-align:center!important;
+	-moz-box-align:center!important;
+	box-align:center!important;
 }
 .pages a:not(:last-child),
 .pages b:not(:last-child)
 {
-	margin:0 2px;
+	padding:2px 4px;
 }
-.pages input[type=submit]
-{
-	" + ($SS.conf["Pages Position"] != 2 ? "border-radius:4px;" : "") + "/*"*/
-	margin:0!important;
-	padding:0 10px!important;
-	width:50px!important;
-	height:" + ($SS.conf["Pages Position"] == 3 ? 24 : 20) + "px!important;
-}
-" + ($SS.conf["Pages Position"] == 1 ? "
-.pages:hover
-{
-	" + $SS.conf["Sidebar Position oString"] + ":0!important;
-}
-.pages td:nth-of-type(2),
-.pages input[type=submit]
-{
-	border:1px solid " + $SS.theme.brderColor.hex + "!important;
-}" : ($SS.conf["Pages Position"] == 2 ? "
-.pages input[type=submit],
-.pages input[type=submit]:hover
-{
-	border:0!important;
-}" : "
-.pages td:nth-of-type(2)
-{
-	border:1px solid " + $SS.theme.brderColor.hex + "!important;
-}
-")) + 
-($SS.conf["Pages Position"] == 1 && $SS.conf["Sidebar Position"] == 2 ? "
-.pages td:nth-of-type(3)
-{
-	left:-53px;
-	position:absolute;
-	top:0;
-}" : "" ) + "
 body>a[style='cursor: pointer; float: right;'],
 body>a[style='cursor: pointer; float: right;']::before,
 body>a[style='cursor: pointer; float: right;']::after
@@ -2203,7 +2111,7 @@ body>a[style='cursor: pointer; float: right;']
 {
 	background-position:-32px 0;
 	position:fixed;
-	" + $SS.conf["Sidebar Position String"] + ":" + ($SS.conf["Sidebar Position"] == 3 && !$SS.conf["Reserve Edge"] ? 243 : 241) + "px;
+	" + $SS.conf["Sidebar Position String"] + ":" + ($SS.conf["Sidebar Position"] === 3 && !$SS.conf["Reserve Edge"] ? 243 : 241) + "px;
 	text-indent:-9999px;
 	z-index:5;
 }
@@ -2220,12 +2128,12 @@ body>a[style='cursor: pointer; float: right;']::after
 body>a[style='cursor: pointer; float: right;']::before
 {
 	left:-4px;
-	" + ($SS.conf["Sidebar Position"] != 1 ? "border-radius:0 0 0 2px;" : "") + "/*"*/
+	" + ($SS.conf["Sidebar Position"] !== 1 ? "border-radius:0 0 0 2px;" : "") + "/*"*/
 }
 body>a[style='cursor: pointer; float: right;']::after
 {
 	right:-4px;
-	" + ($SS.conf["Sidebar Position"] != 2 ? "border-radius:0 0 2px 0;" : "") + "/*"*/
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "border-radius:0 0 2px 0;" : "") + "/*"*/
 }
 body>div[style='width: 100%;']+form[name=delform]
 {
@@ -2340,7 +2248,7 @@ a[href='.././']
 	position:fixed!important;
 	text-indent:-9999px;
 	top:2px;
-	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] == 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] != 2 ? 99 : 38)) + "px!important;
+	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] !== 2 ? 99 : 38)) + "px!important;
 	z-index:8;
 }
 .exSource
@@ -2391,13 +2299,13 @@ a[href='.././']
 	margin:0 0 21px!important;
 	padding:0 3px 3px!important;
 	position:fixed!important;
-" + ($SS.conf["Post Form"] != 4 ? "
+" + ($SS.conf["Post Form"] !== 4 ? "
 	border:0!important;
 	bottom:0!important;
 	border-top:1px solid " + $SS.theme.brderColor.hex + "!important;
 	top:auto!important;
 	overflow:visible!important;
-    " + ($SS.conf["Sidebar Position"] == 3 ? "
+    " + ($SS.conf["Sidebar Position"] === 3 ? "
 	border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
 	max-width:262px!important;
 	min-width:262px!important;
@@ -2405,22 +2313,22 @@ a[href='.././']
 	max-width:261px!important;
 	min-width:261px!important;
 	width:261px!important;") + "
-	z-index:" + ($SS.conf["Post Form"] == 1 ? 11 : 5) + "!important;
+	z-index:" + ($SS.conf["Post Form"] === 1 ? 11 : 5) + "!important;
 }
 #qr.autohide
 {
-	" + ($SS.conf["Post Form"] == 1 ? "
+	" + ($SS.conf["Post Form"] === 1 ? "
 	bottom:-241px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
-	($SS.conf["Post Form"] == 2 ? "/*"*/
+	($SS.conf["Post Form"] === 2 ? "/*"*/
 	opacity:.2;
 	-webkit-transition:opacity .2s ease-in-out 1s;
 	-moz-transition:opacity .2s ease-in-out 1s;
 	-o-transition:opacity .2s ease-in-out 1s;" : "")) + "/*"*/
 }
-" + ($SS.conf["Post Form"] == 1 ? "
+" + ($SS.conf["Post Form"] === 1 ? "
 #qr.autohide.dump
 {
 	bottom:-341px!important;
@@ -2429,11 +2337,11 @@ a[href='.././']
 #qr.focus
 {
 	bottom:0!important;
-	" + ($SS.conf["Post Form"] == 1 ? "
+	" + ($SS.conf["Post Form"] === 1 ? "
 	-webkit-transition:bottom .2s ease-in-out;
 	-moz-transition:bottom .2s ease-in-out;
 	-o-transition:bottom .2s ease-in-out;" :
-	($SS.conf["Post Form"] == 2 ? "/*"*/
+	($SS.conf["Post Form"] === 2 ? "/*"*/
 	opacity:1!important;
 	-webkit-transition:opacity .2s ease-in-out;
 	-moz-transition:opacity .2s ease-in-out;
@@ -2454,10 +2362,9 @@ a[href='.././']
 {
 	display:block!important;
 }") + "
-#qr img[src*='recaptcha/api']
+#qr>form>.captcha>img
 {
 	height:48px!important;
-	margin-top:1px!important;
 	max-width:300px;
 	width:100%;
 }
@@ -2469,11 +2376,11 @@ a[href='.././']
 	resize:none;
     width:255px;
     z-index:1;
-	-webkit-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+	-webkit-transition:background .2s,box-shadow .2s,width .2s ease-in-out,
     " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-moz-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+	-moz-transition:background .2s,box-shadow .2s,width .2s ease-in-out,
     " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-o-transition:background .2s,box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+	-o-transition:background .2s,box-shadow .2s,width .2s ease-in-out,
     " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
 }
 #qr>.move
@@ -2492,7 +2399,7 @@ span[style]~#qr>.move #autohide,
 span[style]~#qr>.move .riceCheck
 {
 	position:absolute;
-	" + ($SS.conf["Post Form"] == 4 ? "left" : "right") + "/*"*/:3px;
+	" + ($SS.conf["Post Form"] === 4 ? "left" : "right") + "/*"*/:3px;
     top:2px;
 }
 #qr>.move *
@@ -2512,15 +2419,17 @@ span[style]~#qr>.move .riceCheck
 	height:22px;
 }
 #qr>form>div:first-child #dump,
-#qr>form>.captcha>img[src*='recaptcha/api'],
+#qr>form>.captcha>img,
 #qr>form input[type=submit],
 #qr>form input[type=file],
 #qr>form .riceFile
 {
 	margin-top:0!important;
 }
+#qr>form .riceFile,
 #qr>form input[type=file]
 {
+	float:right;
 	width:100%;
 }
 #qr>form>div:first-child
@@ -2612,34 +2521,94 @@ span[style]~#qr>.move .riceCheck
 }
 #qr .warning
 {
-	height:16px;
-	left:5px;
-	opacity:0;
 	overflow:hidden;
-	padding:2px 0;
-	position:absolute;
+	padding:0 2px;
 	text-align:center;
 	text-overflow:ellipsis;
-	top:24px;
 	white-space:nowrap;
-	width:248px;
-	z-index:-1;
-	border-radius:4px;
-	-webkit-transition:all .2s cubic-bezier(0,.3,.35,1.3);
-	-moz-transition:all .2s cubic-bezier(0,0.3,.35,1.3);
-	-o-transition:all .2s cubic-bezier(0,.3,.35,1.3);
-}
-#qr .warning.showWarning
-{
-	opacity:1;
-	top:-24px;
-	z-index:1;
 }
 input[name=name].tripping:not(:hover):not(:focus)
 {
     color:transparent!important;
 }
-" + ($SS.conf["Expanding Form Inputs"] ? "
+.commentpostername a.linkmail" + ($SS.conf["Sage Identification"] === 2 ? ":not([href='mailto:sage'])" : "") + "::after
+{
+	vertical-align:middle;
+}
+" + ($SS.conf["Pages Position"] === 1 ? "
+.pages
+{
+	padding:0!important;
+}
+.pages td:last-child
+{
+	display:inline!important;
+	width:0!important;
+	color:transparent!important;
+	font-size:0!important;
+}
+.pages td:last-child *
+{
+	display:none;
+}
+.pages td:last-child::after
+{
+	content:'>';
+	line-height:20px!important;
+	opacity:1;
+	position:absolute;
+	left:8px;
+	top:0;
+	z-index:0;
+	-webkit-transition:all .2s ease-in-out;
+	-moz-transition:all .2s ease-in-out;
+	-o-transition:all .2s ease-in-out;
+}
+.pages td:hover~td::after
+{
+	opacity:0;
+}
+.pages td:nth-of-type(2)
+{
+	background:" + $SS.theme.mainColor.hex + "!important;
+	left:-90%;
+	opacity:0;
+	padding:0 5px!important;
+	position:relative;
+	white-space:nowrap;
+	z-index:1;
+	-webkit-transition:all .2s ease-in-out;
+	-moz-transition:all .2s ease-in-out;
+	-o-transition:all .2s ease-in-out;
+}
+.pages td:nth-of-type(2):hover
+{
+	left:0;
+	opacity:1;
+}" : ($SS.conf["Pages Position"] === 3 ? "
+.pages
+{
+	bottom:auto!important;
+	left:auto!important;
+	margin:0!important;
+	opacity:.75;
+	padding:0!important;
+	right:263px!important;
+	top:47%;
+	width:auto!important;
+	z-index:6!important;
+	-webkit-transform:rotate(90deg);
+	-webkit-transform-origin:bottom right;
+	-moz-transform:rotate(90deg);
+	-moz-transform-origin:bottom right;
+	-o-transform:rotate(90deg);
+	-o-transform-origin:bottom right;
+}" : ($SS.conf["Pages Position"] === 4 ? "
+.pages
+{
+	display:none!important;
+}" : ""))) +
+($SS.conf["Expanding Form Inputs"] ? "
 #qr input:focus::-webkit-input-placeholder,
 #qr textarea:focus::-webkit-input-placeholder
 {
@@ -2664,17 +2633,16 @@ input[name=name].tripping:not(:hover):not(:focus)
 #qr textarea:focus,
 #qr>form>div:first-child .field:not(#dump):focus
 {
-	-webkit-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+	-webkit-transition:box-shadow .2s,width .2s ease-in-out,
     " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-moz-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+	-moz-transition:box-shadow .2s,width .2s ease-in-out,
     " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-o-transition:box-shadow .2s,width .2s ease-in-out,height .2s ease-in-out,
+	-o-transition:box-shadow .2s,width .2s ease-in-out,
     " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
 }
 #qr textarea:focus
 {
-    height:200px!important;
-    " + ($SS.conf["Sidebar Position"] != 2 ? "right:160px;" : "") +"/*"*/
+    " + ($SS.conf["Sidebar Position"] !== 2 ? "right:160px;" : "") +"/*"*/
     width:415px!important;
 }" : "") +
 (!$SS.conf["Show Logo"] ? "
@@ -2685,10 +2653,6 @@ input[name=name].tripping:not(:hover):not(:focus)
 .logo img
 {
     visibility:hidden;
-}
-.commentpostername a.linkmail" + ($SS.conf["Sage Identification"] == 2 ? ":not([href='mailto:sage'])" : "") + "::after
-{
-	vertical-align:middle;
 }" : "") +
 ($SS.conf["Style Scrollbars"] ? "::-webkit-scrollbar
 {
@@ -2716,19 +2680,16 @@ input[name=name].tripping:not(:hover):not(:focus)
 {
 	background:rgb(" + $SS.theme.brderColor.shiftRGB(64, true) + ");
 }
-::-webkit-scrollbar-thumb:window-inactive
-{
-}
 .reply ::-webkit-scrollbar-track,
 .reply ::-webkit-scrollbar-track-piece
 {
 	border-radius:5px;
 }
 ": "") +
-($SS.conf["Sage Identification"] != 1 ? "
+($SS.conf["Sage Identification"] !== 1 ? "
 .commentpostername a.linkmail[href='mailto:sage']::after
 {
-	content:" + ($SS.conf["Sage Identification"] == 2 ? "' (SAGE)'" : "url('data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdFJREFUOE+l0t0rQ3EYwPHz+52bTf4C76XslithbJzNy2xe5p15mR21jAnzknYhbigitUJ5f7sglPdCIkRJRHHhUi60e7t6POcoh23ecvE5p07P8/39Lg4DAMx/+Hz4K/HB1rNv7KgRNaOWH7Syad8FZDikQb1oEe2iPW9fBcLRSFR/5GXJhvHZdsS/OM7qoOW8HjouG6D7zgE9D22AM/v+AuEBDvlKxrz20brHg3nTLKreqgT7UQ04r+zQedsI3fcOwFnpBtRKBTK2lh3lJtSPFWsmKF0phZLlYnzn43I1tF/Y3rVeWD04uywFeAzUUG2oM+SqaKkAjAtGyJzU4VsHtoMqDFg+4KFiM8+N831SoIoK+pNcSrd+Ug9qlxrSxziwbJuA3/lMiCi6Iq+pmWqlQBkVrHIjKZ6EwQSIH4gVr+6tcr0Y9NOaJ5wdoyYqlwKFVHCYOKQEhTMKsmYyIWfO8C533iAGtKOqJ3m5bI0W0Qgk/Ug0hwqOFU4FcMPJYiB7Vi8uGqYyPJxL5Q6zh9zgzDjNxWXhwI8BoiKBRENO/ThB62iQpJI0oiNy8TCfQBxpQj1ESYJIMmH80iAdebutd4CJZnaYGCYYI76Lvwn8xyvFCs5Nsc8yoQAAAABJRU5ErkJggg==')") + ";
+	content:" + ($SS.conf["Sage Identification"] === 2 ? "' (SAGE)'" : "url('data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdFJREFUOE+l0t0rQ3EYwPHz+52bTf4C76XslithbJzNy2xe5p15mR21jAnzknYhbigitUJ5f7sglPdCIkRJRHHhUi60e7t6POcoh23ecvE5p07P8/39Lg4DAMx/+Hz4K/HB1rNv7KgRNaOWH7Syad8FZDikQb1oEe2iPW9fBcLRSFR/5GXJhvHZdsS/OM7qoOW8HjouG6D7zgE9D22AM/v+AuEBDvlKxrz20brHg3nTLKreqgT7UQ04r+zQedsI3fcOwFnpBtRKBTK2lh3lJtSPFWsmKF0phZLlYnzn43I1tF/Y3rVeWD04uywFeAzUUG2oM+SqaKkAjAtGyJzU4VsHtoMqDFg+4KFiM8+N831SoIoK+pNcSrd+Ug9qlxrSxziwbJuA3/lMiCi6Iq+pmWqlQBkVrHIjKZ6EwQSIH4gVr+6tcr0Y9NOaJ5wdoyYqlwKFVHCYOKQEhTMKsmYyIWfO8C533iAGtKOqJ3m5bI0W0Qgk/Ug0hwqOFU4FcMPJYiB7Vi8uGqYyPJxL5Q6zh9zgzDjNxWXhwI8BoiKBRENO/ThB62iQpJI0oiNy8TCfQBxpQj1ESYJIMmH80iAdebutd4CJZnaYGCYYI76Lvwn8xyvFCs5Nsc8yoQAAAABJRU5ErkJggg==')") + ";
 }" : "") +
 ($SS.conf["Emoji Icons"] ? "
 .commentpostername a.linkmail[href*='neko']::after,

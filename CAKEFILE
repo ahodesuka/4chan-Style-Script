@@ -13,11 +13,11 @@ task 'build', (options) ->
   css = fs.readFileSync STYLE, 'utf8'
   css = css.replace /(\/\*[^\*]+\*\/|\t|\r|\n|\s{4})/g, ''
   css = css.replace /;}/g, '}'
-  css = css.replace /\s(\+|\?|:|(!|=)=)\s?/g, '$1'
+  css = css.replace /\s(\+|\?|:|(?:!|=)==)(?:\s|\n)/g, '$1'
   ujs = fs.readFileSync SCRIPT, 'utf8'
   fs.writeFileSync OUTPUT, ujs.replace /css\s=.+;/, "css = \"#{css}\";", 'utf8', (err) ->
     throw err if err
-  log '\033[0;32mBuild Successful!'
+  log '\[\033[0;32m\]Build Successful!'
 
 option '-v', '--version [VERSION]', 'Release a new version.'
 

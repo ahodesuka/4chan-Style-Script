@@ -2,9 +2,18 @@ master
     modified:
         - neko/sega icons changed to emoji icons akin to OneeChan.
         - captcha image height.
+        - rice inputs are now mandatory.
+        - a multitude of performance increases.
+        - page position completely re-styled.
+        - textarea height no longer expands because it was annoying.
     fixed:
         - quote preivew bottom padding.
         - table and td borders.
+    added:
+        - hidden pages position
+        twnsnd:
+            - `violaceous` theme
+            - yuzuki yukari mascot
 1.5.2
     added:
         - sage identification option (text/icon/none).
