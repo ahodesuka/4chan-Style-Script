@@ -2351,8 +2351,13 @@ a[href='.././']
 {
 	display:block!important;
 }" : "
+	margin-bottom:19px!important;
 	width:263px!important;
 	z-index:11!important;
+}
+#qr .move
+{
+	margin-bottom:1px!important;
 }
 #qr.autohide:not(:hover):not(.focus)
 {
