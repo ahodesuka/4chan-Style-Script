@@ -510,7 +510,7 @@ form[name=delform]
 	margin:" + ($SS.conf["Layout"] !== 3 ?
 	($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 " + $SS.conf["Side Margin"] + "px" :
     "0 " + $SS.conf["Side Margin"] + "px 0 0") :
-    "0 " + ($SS.conf["Side Margin"] > 10 ? ($SS.conf["Side Margin"] - ($SS.conf["Side Margin"] / 3)) : $SS.conf["Side Margin"] * 0.75) + "% 0") + ";
+    "0 " + (Math.min($SS.conf["Side Margin"], 40) / 2 * ($SS.conf["Side Margin"] < 10 ? 3 : 1)) + "% 0") + ";
 	padding:0!important;
 	position:relative;
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
@@ -2329,7 +2329,7 @@ a[href='.././']
 	-o-transition:opacity .2s ease-in-out 1s;" : "")) + "/*"*/
 }
 " + ($SS.conf["Post Form"] === 1 ? "
-#qr.autohide.dump
+#qr.autohide.dump:not(.focus):not(:hover)
 {
 	bottom:-341px!important;
 }" : "") + "
@@ -2593,7 +2593,8 @@ input[name=name].tripping:not(:hover):not(:focus)
 	margin:0!important;
 	opacity:.75;
 	padding:0!important;
-	right:263px!important;
+	right:" + ($SS.conf["Layout"] === 3 ? 
+	(Math.min($SS.conf["Side Margin"], 40) / 2 * ($SS.conf["Side Margin"] < 10 ? 3 : 1)) + "%" : "263px") + "!important;
 	top:47%;
 	width:auto!important;
 	z-index:6!important;

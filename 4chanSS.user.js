@@ -518,7 +518,7 @@
                         return new $lib(null);
                     else if (s[i] === this.elems[0] && t != undefined)
                         return new $lib(t);
-                    else if (m.elems.indexOf(s[i]) != -1)
+                    else if (m.elems.indexOf(s[i]) !== -1)
                         t = s[i];
                 }
             }
@@ -541,7 +541,7 @@
                         return new $lib(null);
                     else if (s[i] === this.elems[0] && t != undefined)
                         return new $lib(t);
-                    else if (m.elems.indexOf(s[i]) != -1)
+                    else if (m.elems.indexOf(s[i]) !== -1)
                         t = s[i];
                 }
             }
@@ -797,7 +797,7 @@
         {
             if (e.target.nodeName === "TABLE")
             {
-                if ($SS.conf["ExHentai Source"] != 1)
+                if ($SS.conf["ExHentai Source"] !== 1)
                     $SS.exsauce.addLinks(e.target);
 
                 if (!$SS.browser.webkit)
@@ -855,8 +855,8 @@
                     $SS.conf[key] = this.parseVal(key, this.get(key));
                     
                 $SS.conf["Small Font Size"]          = $SS.conf["Font Size"] > 11 && !$SS.conf["Bitmap Font"] ? 12 : $SS.conf["Font Size"];
-                $SS.conf["Sidebar Position String"]  = $SS.conf["Sidebar Position"] != 2 ? "right" : "left";
-                $SS.conf["Sidebar Position oString"] = $SS.conf["Sidebar Position"] != 2 ? "left" : "right";
+                $SS.conf["Sidebar Position String"]  = $SS.conf["Sidebar Position"] !== 2 ? "right" : "left";
+                $SS.conf["Sidebar Position oString"] = $SS.conf["Sidebar Position"] !== 2 ? "left" : "right";
             },
             parseVal: function(key, val)
             {
@@ -1114,7 +1114,7 @@
             
                 for (var i = 0, MAX = $SS.conf["Themes"].length, tTheme; i < MAX; i++)
                 {
-                    if ($SS.conf["Hidden Themes"].indexOf(i) != -1)
+                    if ($SS.conf["Hidden Themes"].indexOf(i) !== -1)
                         continue;
                         
                     tTheme = new $SS.Theme(i);
@@ -1147,7 +1147,7 @@
                 
                 for (var i = 0, MAX = $SS.conf["Mascots"].length, tMascot; i < MAX; i++)
                 {
-                    if ($SS.conf["Hidden Mascots"].indexOf(i) != -1)
+                    if ($SS.conf["Hidden Mascots"].indexOf(i) !== -1)
                         continue;
                         
                     tMascot = new $SS.Mascot(i);
@@ -1284,7 +1284,7 @@
                             nLink.link = $(this).val();
                     });
                     
-                    if (nLink.text != "" && nLink.link != "")
+                    if (nLink.text !== "" && nLink.link !== "")
                         links.push(nLink);
                 });
                 
@@ -1410,7 +1410,7 @@
                         var b64 = $("input[name=customIMGB64]", overlay);
                         val     = b64.exists() ? decodeURIComponent(b64.val()) : this.value;
                         
-                        if (val != "" && !$SS.validImageURL(val) && !$SS.validBase64(val))
+                        if (val !== "" && !$SS.validImageURL(val) && !$SS.validBase64(val))
                         {
                             error = true;
                             return alert("Invalid image URL/base64.");
@@ -1428,7 +1428,7 @@
                     else
                         val = this.value;
                     
-                    if (val != "")
+                    if (val !== "")
                         tTheme[this.name] = val;
                 });
                 
@@ -1526,7 +1526,7 @@
                 cFlip     = $("input[name=mFlip]", overlay).val();
                 cOverflow = $("input[name=mOverflow]", overlay).val();
                 cBoards   = $("input[name=mBoards]", overlay).val();
-                bSetPos   = cPosition != "auto";
+                bSetPos   = cPosition !== "auto";
                 
                 if (!$SS.validImageURL(cIMG) && !$SS.validBase64(cIMG))
                     return alert("Invalid image URL/base64.");
@@ -1540,7 +1540,7 @@
                     $SS.conf["Mascots"][mIndex].flip     = cFlip;
                     $SS.conf["Mascots"][mIndex].overflow = cOverflow;
                     
-                    if (cBoards != "")
+                    if (cBoards !== "")
                         $SS.conf["Mascots"][mIndex].boards   = cBoards;
                     else
                         delete $SS.conf["Mascots"][mIndex].boards;
@@ -1831,7 +1831,7 @@
                     sageColor:   "cc6666",
                     tripColor:   "bf7f3f",
                     titleColor:  "4c4c4c",
-                    customCSS:   'new String(($SS.conf["Layout"]==2?".op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]==3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)}")'
+                    customCSS:   'new String(($SS.conf["Layout"]===2?".op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}")'
                 },
                 {
                     name:        "violaceous",
@@ -1956,7 +1956,7 @@
             },
             fetchImage: function(e)
             {
-                if (e.which != 1) return;
+                if (e.which !== 1) return;
                 e.preventDefault();
                 
                 var a = $(e.target);
@@ -2727,9 +2727,9 @@
             this.small    = mascot.small;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] != 1 ? 264 : 23);
+            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 264 : 23);
             this.boards   = mascot.boards;
-            this.enabled  = $SS.conf["Selected Mascots"].indexOf(index) != -1;
+            this.enabled  = $SS.conf["Selected Mascots"].indexOf(index) !== -1;
             
             this.preview  = function()
             {
