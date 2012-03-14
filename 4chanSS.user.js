@@ -765,7 +765,6 @@
             if (!reload)
             {
                 $SS.options.init();
-                $SS.bNewQR = /chanx_/.test(document.body.className);
                 
                 $(".logo>img").attr("id", "logo");
                 

@@ -108,6 +108,7 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.quoteColor.hex + "!important;
 }
+.unkfunc a,
 .quotelink
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
@@ -116,7 +117,7 @@ a[href='javascript:;']
 .spoiler:not(:hover) .unkfunc,
 .spoiler:not(:hover) a
 {
-  color:#000!important;
+	color:#000!important;
 }
 .filetitle,
 .replytitle
@@ -135,7 +136,7 @@ span[style='color:#FF0000;font-weight:normal']
 .reply,
 .replyhl,
 .stub>a,
-.stub>.block>a,
+.block>a,
 option,
 div[id*=jsMath],
 #imgControls,
@@ -187,7 +188,7 @@ body>a[style='cursor: pointer; float: right;'],
 .replyhider a,
 .op>a:first-child,
 .stub>a>span,
-.stub>.block>a>span
+.block>a>span
 {
 	color:transparent!important;
 	font-size:0!important;
@@ -420,7 +421,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 .reply,
 .replyhl,
 .stub>a,
-.stub>.block>a
+.block>a
 {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
@@ -547,7 +548,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 td.reply,
 td.replyhl,
 .stub>a,
-.stub>.block>a,
+.block>a,
 .thread.stub,
 .riceFile,
 .riceCheck,
@@ -566,7 +567,7 @@ td.replyhl,
 .reply,
 .replyhl,
 .stub>a,
-.stub>.block>a
+.block>a
 {
 	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
 	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "/*"*/
@@ -628,7 +629,7 @@ td.replyhl .riceCheck,
 	background-position:-80px 0;
 }
 .stub>a>span,
-.stub>.block>a>span
+.block>a>span
 {
 	background-position:-80px -16px;
 	vertical-align:middle!important;
@@ -651,7 +652,7 @@ td.replyhl .riceCheck,
 .replyhider a,
 .op>a:first-child,
 .stub>a>span,
-.stub>.block>a>span
+.block>a>span
 {
 	margin:0!important;
 	opacity:.5;
@@ -663,7 +664,7 @@ td.replyhl .riceCheck,
 .replyhider a:hover,
 .op>a:first-child:hover,
 .stub>a:hover>span,
-.stub>.block>a:hover>span
+.block>a:hover>span
 {
 	opacity:.75;
 }
@@ -676,7 +677,7 @@ td.reply,
 td.replyhl,
 .stub,
 .stub>a,
-.stub>.block>a
+.block>a
 {
 	padding:5px!important;
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "/*"*/
@@ -703,7 +704,7 @@ td.replyhl,
 	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .stub>a,
-.stub>.block>a
+.block>a
 {
 	display:" + ($SS.conf["Layout"] === 2 ? "inline-" : "") + "block;
 	padding:7px;
@@ -773,7 +774,7 @@ a.omittedposts
 	$SS.conf["Sidebar Position String"] + ":264px;") + "/*"*/
 	width:0;
 	white-space:nowrap;
-	z-index:" + ($SS.conf["Post Form"] === 1 ? 11 : 5) + "!important;
+	z-index:" + ($SS.conf["Sidebar Position"] === 3 ? 11 : 5) + "!important;
 	" + ($SS.conf["Layout"] !== 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "3px 0 0 0" : "0 3px 0 0") : "") + ";
 	-webkit-transition:all .2s ease-in-out;
 	-moz-transition:all .2s ease-in-out;
@@ -893,7 +894,7 @@ body>a[style='cursor: pointer; float: right;'],
 .replyhider a,
 .op>a:first-child,
 .stub>a>span,
-.stub>.block>a>span
+.block>a>span
 {
 	background-image:" + $SS.theme.icons.get() + "!important;
 	background-color:transparent!important;
@@ -2313,7 +2314,7 @@ a[href='.././']
 	max-width:261px!important;
 	min-width:261px!important;
 	width:261px!important;") + "
-	z-index:" + ($SS.conf["Post Form"] === 1 ? 11 : 5) + "!important;
+	z-index:5!important;
 }
 #qr.autohide
 {
