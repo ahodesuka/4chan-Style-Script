@@ -673,6 +673,11 @@ td.replyhl>img
 {
 	vertical-align:middle;
 }
+td.reply>span,
+td.replyhl>span
+{
+	line-height:16px!important;
+}
 td.reply,
 td.replyhl,
 .stub,
