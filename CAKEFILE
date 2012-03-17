@@ -17,7 +17,7 @@ task 'build', (options) ->
   ujs = fs.readFileSync SCRIPT, 'utf8'
   fs.writeFileSync OUTPUT, ujs.replace /css\s=.+;/, "css = \"#{css}\";", 'utf8', (err) ->
     throw err if err
-  log '\[\033[0;32m\]Build Successful!'
+  log '\033[0;32mBuild Successful!\033[0m'
 
 option '-v', '--version [VERSION]', 'Release a new version.'
 

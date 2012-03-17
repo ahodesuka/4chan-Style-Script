@@ -631,12 +631,15 @@
         {
             return this.each(function()
             {
-                var click = function(e){ e.preventDefault(); this.previousSibling.click(); };
-                if (this.nextSibling != null && this.nextSibling.className === "riceCheck")
-                    return $(this.nextSibling).bind("click", click);
+                if (this.isRiced) return;
                 
-                var div = $("<div class=riceCheck>").bind("click", click);
+                var div = $("<div class=riceCheck>").bind("click", function(e)
+                {
+                        e.preventDefault();
+                        this.previousSibling.click();
+                });
                 $(this).hide().after(div);
+                return this.isRiced = true;
             });
         },
         jsColor: function()
@@ -2943,5 +2946,4 @@
     /* END STYLE SCRIPT CLASSES */
 
     $SS.init();
-    
 })();
