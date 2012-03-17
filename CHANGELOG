@@ -1,5 +1,13 @@
 master
 
+1.6.1
+    modified:
+	- centered layout margins.
+    fixed:
+	- checkboxes getting binded twice in firefox.
+	- thread stubs selectors for newest 4chan X.
+	- various minor style fixes for floating QR.
+	- slide up QR offset when QR is in dump mode.
 1.6.0
     modified:
         - neko/sega icons changed to emoji icons akin to OneeChan.
