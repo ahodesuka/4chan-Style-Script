@@ -631,14 +631,14 @@
         {
             return this.each(function()
             {
+                var click =  function(e){ e.preventDefault(); this.previousSibling.click(); };
                 if (this.isRiced) return;
+                else if (this.nextSibling != undefined && this.nextSibling.className === "riceCheck")
+                    return $(this.nextSibling).bind("click", click);
                 
-                var div = $("<div class=riceCheck>").bind("click", function(e)
-                {
-                        e.preventDefault();
-                        this.previousSibling.click();
-                });
+                var div = $("<div class=riceCheck>").bind("click", click);
                 $(this).hide().after(div);
+                
                 return this.isRiced = true;
             });
         },
