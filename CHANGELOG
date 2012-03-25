@@ -1,5 +1,8 @@
 master
 
+1.6.2
+    fixed:
+    - file encoding which caused chrome to durp.
 1.6.1
     modified:
 	- centered layout margins.
