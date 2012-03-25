@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name          4chan Style Script
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
@@ -150,7 +150,7 @@
         "Themes"          : [],
         "Hidden Themes"   : [],
         "Selected Theme"  : 0,
-        "Selected Mascots": 0,
+        "Selected Mascots": [],
         "Mascots"         : [],
         "Hidden Mascots"  : []
     },
@@ -1908,7 +1908,7 @@
                 var eMascot = [],
                     mIndex;
                 
-                if ($SS.conf["Selected Mascots"] === 0)
+                if ($SS.conf["Selected Mascots"].length === 0)
                     eMascot = $SS.conf["Mascots"];
                 else
                     for (var i = 0, MAX = $SS.conf["Selected Mascots"].length, j; i < MAX; i++)
@@ -1924,9 +1924,9 @@
                 if (eMascot.length === 0)
                     return $SS.mascot = new $SS.Mascot(-1);
                 else
-                    mIndex = Math.floor(Math.random() * eMascot.length);
+                    mIndex = $SS.conf["Selected Mascots"][Math.floor(Math.random() * eMascot.length)];
                     
-                $SS.mascot = new $SS.Mascot($SS.conf["Selected Mascots"][mIndex]); // Set the active mascot.
+                $SS.mascot = new $SS.Mascot(mIndex); // Set the active mascot.
             }
         },
         

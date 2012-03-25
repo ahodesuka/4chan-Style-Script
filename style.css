@@ -385,11 +385,11 @@ body::before
 body::after
 {
 	" + ($SS.mascot.overflow ? "content:" + $SS.mascot.img.get() + ";" :
-	"background:" + $SS.mascot.img.get() + "/*"*/;
+	"background:" + $SS.mascot.img.get() + ";
 	content:'';
 	height:100%;
 	width:261px;
-	" + (!$SS.mascot.small ? "background-size:contain;" : "")) + "/*"*/
+	" + (!$SS.mascot.small ? "background-size:contain;" : "")) + "
 	bottom:21px!important;
 	margin-bottom:" + $SS.mascot.offset + "px;
 	position:fixed;
@@ -397,7 +397,7 @@ body::after
 	" + ($SS.conf["Sidebar Position"] === 2 && $SS.mascot.flip ? "
 	-webkit-transform:scaleX(-1);
 	-moz-transform:scaleX(-1);
-	-o-transform:scaleX(-1);" : "") + "/*"*/
+	-o-transform:scaleX(-1);" : "") + "
 }" : "") + "
 body::after,
 body::before,
@@ -492,14 +492,14 @@ form[name=delform] .op::after,
 	padding:3px 3px 0;
 	position:relative;
 	" + ($SS.conf["Layout"] === 2 ? "
-	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "/*"*/
+	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "
 }
 .op>a:first-child
 {
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
 	right:2px;
-	top:0;" : "/*"*/
+	top:0;" : "
 	position:relative;
 	top:-1px;") + "
 }
@@ -507,7 +507,7 @@ form[name=delform]
 {
 	" + ($SS.conf["Layout"] !== 2 ? "
 	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.9);
-	" + ($SS.conf["Layout"] === 1 ? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") : "") + "/*"*/
+	" + ($SS.conf["Layout"] === 1 ? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") : "") + "
 	margin:" + ($SS.conf["Layout"] !== 3 ?
 	($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 " + $SS.conf["Side Margin"] + "px" :
     "0 " + $SS.conf["Side Margin"] + "px 0 0") :
@@ -570,7 +570,7 @@ td.replyhl,
 .block>a
 {
 	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
-	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "/*"*/
+	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "
 }
 .reply,
 .replyhl
@@ -584,7 +584,7 @@ td.replyhl,
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
 	right:14px;
-	top:1px;" : "") + "/*"*/
+	top:1px;" : "") + "
 }
 " + ($SS.conf["Layout"] === 2 ? "
 td .reportbutton:" : "
@@ -619,7 +619,7 @@ td.replyhl .riceCheck,
 	position:absolute;
 	" + ($SS.conf["Layout"] !== 2 ? "
 	right:2px;
-	top:2px;" : "/*"*/
+	top:2px;" : "
 	left:2px;
 	top:8px;") + "
 }
@@ -685,7 +685,7 @@ td.replyhl,
 .block>a
 {
 	padding:5px!important;
-	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "/*"*/
+	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "
 	border-radius:" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2) ?
 	($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
@@ -720,7 +720,7 @@ td.replyhl,
 	bottom:" + ($SS.conf["Slim Replies"] ? 0 : 2) + "px;
 	position:absolute;
 	" + ($SS.conf["Backlinks Position"] === 2 ? "right" : "left") + ":2px;
-	z-index:1;" : "") + "/*"*/
+	z-index:1;" : "") + "
 	margin-left:2px;
 }
 " + ($SS.conf["Backlinks Position"] !== 1 ? "
@@ -776,7 +776,7 @@ a.omittedposts
 	position:fixed;
 	" + ($SS.conf["Sidebar Position"] === 3 ? "
 	right:262px;" : 
-	$SS.conf["Sidebar Position String"] + ":264px;") + "/*"*/
+	$SS.conf["Sidebar Position String"] + ":264px;") + "
 	width:0;
 	white-space:nowrap;
 	z-index:" + ($SS.conf["Sidebar Position"] === 3 ? 11 : 5) + "!important;
@@ -790,7 +790,7 @@ a.omittedposts
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	padding-left:2px!important;
 	" + ($SS.conf["Sidebar Position"] === 3 ? "padding-right:4px!important;" : "") :
-	"/*"*/padding-left:0!important;
+	"padding-left:0!important;
 	padding-right:3px!important;") + "
 	width:238px;
 	-webkit-transition:all .2s ease-in-out;
@@ -1266,7 +1266,7 @@ textarea
 	" + ($SS.conf["Auto Hide Thread Watcher"] ? "
 	max-height:0px;
 	max-width:0!important;
-	" : "max-width:100%!important;") + "/*"*/
+	" : "max-width:100%!important;") + "
 	padding:0 5px!important;
 	text-align:left!important;
 	-webkit-transition:max-height .1s,max-width .1s .1s,padding .1s;
@@ -1879,7 +1879,7 @@ form[name=post] #com_submit+label,
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	text-align:right!important;
 	left:auto!important;
-	right:0!important;" : "/*"*/
+	right:0!important;" : "
 	text-align:left!important;
 	left:0!important;
 	right:auto!important;") + "
@@ -1945,7 +1945,7 @@ form[name=post] #com_submit+label,
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	right:43px!important;
 	left:auto!important;
-	text-align:left;" : "/*"*/
+	text-align:left;" : "
 	right:auto!important;
 	left:43px!important;
 	text-align:right;") + "
@@ -1953,7 +1953,7 @@ form[name=post] #com_submit+label,
 }
 #navlinks
 {
-	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:5px;" : "/*"*/
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:5px;" : "
 	left:5px;
 	right:auto!important;") + "
 	top:0!important;
@@ -1980,7 +1980,7 @@ body>center:nth-of-type(2)>font[color=red]
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
-	" + ($SS.conf["Sidebar Position"] === 3 ? "right:262px!important;" : "") + "/*"*/
+	" + ($SS.conf["Sidebar Position"] === 3 ? "right:262px!important;" : "") + "
 	top:-18px;
 	white-space:nowrap;
 	z-index:10;
@@ -2134,12 +2134,12 @@ body>a[style='cursor: pointer; float: right;']::after
 body>a[style='cursor: pointer; float: right;']::before
 {
 	left:-4px;
-	" + ($SS.conf["Sidebar Position"] !== 1 ? "border-radius:0 0 0 2px;" : "") + "/*"*/
+	" + ($SS.conf["Sidebar Position"] !== 1 ? "border-radius:0 0 0 2px;" : "") + "
 }
 body>a[style='cursor: pointer; float: right;']::after
 {
 	right:-4px;
-	" + ($SS.conf["Sidebar Position"] !== 2 ? "border-radius:0 0 2px 0;" : "") + "/*"*/
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "border-radius:0 0 2px 0;" : "") + "
 }
 body>div[style='width: 100%;']+form[name=delform]
 {
@@ -2237,7 +2237,7 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 .riceFile span
 {
 	display:inline-block;
-	max-width:223px;
+	max-width:173px;
 	overflow:hidden;
 	padding:0 5px!important;
 	text-overflow:ellipsis;
@@ -2315,7 +2315,7 @@ a[href='.././']
 	border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
 	max-width:262px!important;
 	min-width:262px!important;
-	width:262px!important;" : "/*"*/
+	width:262px!important;" : "
 	max-width:261px!important;
 	min-width:261px!important;
 	width:261px!important;") + "
@@ -2328,11 +2328,11 @@ a[href='.././']
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
-	($SS.conf["Post Form"] === 2 ? "/*"*/
+	($SS.conf["Post Form"] === 2 ? "
 	opacity:.2;
 	-webkit-transition:opacity .2s ease-in-out 1s;
 	-moz-transition:opacity .2s ease-in-out 1s;
-	-o-transition:opacity .2s ease-in-out 1s;" : "")) + "/*"*/
+	-o-transition:opacity .2s ease-in-out 1s;" : "")) + "
 }
 " + ($SS.conf["Post Form"] === 1 ? "
 #qr.autohide.dump:not(.focus):not(:hover)
@@ -2347,11 +2347,11 @@ a[href='.././']
 	-webkit-transition:bottom .2s ease-in-out;
 	-moz-transition:bottom .2s ease-in-out;
 	-o-transition:bottom .2s ease-in-out;" :
-	($SS.conf["Post Form"] === 2 ? "/*"*/
+	($SS.conf["Post Form"] === 2 ? "
 	opacity:1!important;
 	-webkit-transition:opacity .2s ease-in-out;
 	-moz-transition:opacity .2s ease-in-out;
-	-o-transition:opacity .2s ease-in-out;" : "")) + "/*"*/
+	-o-transition:opacity .2s ease-in-out;" : "")) + "
 }
 #qr.autohide>form
 {
@@ -2410,7 +2410,7 @@ span[style]~#qr>.move #autohide,
 span[style]~#qr>.move .riceCheck
 {
 	position:absolute;
-	" + ($SS.conf["Post Form"] === 4 ? "left" : "right") + "/*"*/:3px;
+	" + ($SS.conf["Post Form"] === 4 ? "left" : "right") + ":3px;
     top:2px;
 }
 #qr>.move *
@@ -2654,7 +2654,7 @@ input[name=name].tripping:not(:hover):not(:focus)
 }
 #qr textarea:focus
 {
-    " + ($SS.conf["Sidebar Position"] !== 2 ? "right:160px;" : "") +"/*"*/
+    " + ($SS.conf["Sidebar Position"] !== 2 ? "right:160px;" : "") +"
     width:415px!important;
 }" : "") +
 (!$SS.conf["Show Logo"] ? "
