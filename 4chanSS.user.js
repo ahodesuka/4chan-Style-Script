@@ -5,9 +5,9 @@
 // @namespace     ahodesuka.github.com
 // @version       1.6.3
 // @run-at        document-start
-// @include       http://boards.4chan.org/*
-// @include       http://rs.4chan.org/*
-// @include       http://sys.4chan.org/*
+// @include       http*://boards.4chan.org/*
+// @include       http*://rs.4chan.org/*
+// @include       http*://sys.4chan.org/*
 // @updateURL     https://github.com/ahodesuka/4chan-Style-Script/raw/stable/4chanSS.user.js
 // ==/UserScript==
 
