@@ -1,5 +1,10 @@
 master
 
+1.6.3
+	fixed:
+	- script actually works now.
+	- when the script is first installed all mascots are selected instead of
+	none.
 1.6.2
     fixed:
     - file encoding which caused chrome to durp.
