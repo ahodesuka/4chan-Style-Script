@@ -1,7 +1,10 @@
 master
 
+1.6.4
+    modified:
+	- emoji and sage icons now work on the OP, as well as replies.
 1.6.3
-	fixed:
+    fixed:
 	- script actually works now.
 	- when the script is first installed all mascots are selected instead of
 	none.
