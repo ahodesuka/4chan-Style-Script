@@ -1980,7 +1980,7 @@ body>center:nth-of-type(2)>font[color=red]
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
-	" + ($SS.conf["Sidebar Position"] === 3 ? "right:262px!important;" : "") + "
+	" + ($SS.conf["Sidebar Position"] === 3 && !$SS.conf["Reserve Edge"] ? "right:262px!important;" : "") + "
 	top:-18px;
 	white-space:nowrap;
 	z-index:10;
