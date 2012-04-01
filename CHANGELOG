@@ -1,10 +1,13 @@
 master
 
+1.6.5
+    modified:
+    - added emoji for various ponies.
 1.6.4
     fixed:
     - announcement alignment with reserved edge.
     modified:
-	- emoji and sage icons now work on the OP, as well as replies.
+    - emoji and sage icons now work on the OP, as well as replies.
 1.6.3
     fixed:
 	- script actually works now.
