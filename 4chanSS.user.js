@@ -1948,20 +1948,23 @@
             init: function()
             {
                 this.extype = $SS.conf["ExHentai Source"] === 2 ? "exhentai" : "g.e-hentai";
-                setTimeout(function(){ $SS.exsauce.addLinks(document); }, 10);
+                $SS.exsauce.addLinks(document);
             },
             addLinks: function(x)
             {
-                $("img[md5]", x).each(function()
+                setTimeout(function()
                 {
-                    var node = $(this).parent().previousSibling(".filesize");
-                    
-                    if (!$(".exSource", node).exists())
+                    $("img[md5]", x).each(function()
                     {
-                        var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
-                        node.append(document.createTextNode(" ")).append(a);
-                    }
-                });
+                        var node = $(this).parent().previousSibling(".filesize");
+                        
+                        if (!$(".exSource", node).exists())
+                        {
+                            var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
+                            node.append(document.createTextNode(" ")).append(a);
+                        }
+                    });
+                }, 10);
             },
             fetchImage: function(e)
             {
