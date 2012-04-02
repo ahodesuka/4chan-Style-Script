@@ -1,28 +1,28 @@
 master
-
-1.6.5
+    fixed:
+        - exhentai source nodes not being inserted on ajax loaded replies.
     modified:
-    - added emoji for various ponies.
+        - added emoji for various ponies.
 1.6.4
     fixed:
-    - announcement alignment with reserved edge.
+        - announcement alignment with reserved edge.
     modified:
-    - emoji and sage icons now work on the OP, as well as replies.
+        - emoji and sage icons now work on the OP, as well as replies.
 1.6.3
     fixed:
-	- script actually works now.
-	- when the script is first installed all mascots are selected instead of none.
+	    - script actually works now.
+	    - when the script is first installed all mascots are selected instead of none.
 1.6.2
     fixed:
-    - file encoding which caused chrome to durp.
+        - file encoding which caused chrome to durp.
 1.6.1
     modified:
-	- centered layout margins.
+	    - centered layout margins.
     fixed:
-	- checkboxes getting binded twice in firefox.
-	- thread stubs selectors for newest 4chan X.
-	- various minor style fixes for floating QR.
-	- slide up QR offset when QR is in dump mode.
+        - checkboxes getting binded twice in firefox.
+        - thread stubs selectors for newest 4chan X.
+        - various minor style fixes for floating QR.
+        - slide up QR offset when QR is in dump mode.
 1.6.0
     modified:
         - neko/sega icons changed to emoji icons akin to OneeChan.
