@@ -137,11 +137,11 @@
         "Bitmap Font": [ false, "Check this if you are using a bitmap font" ],
         "Nav Links":
         [
-            { text: "anime & manga", link: "http://boards.4chan.org/a/"  },
-            { text: "anime/cute",    link: "http://boards.4chan.org/c/"  },
-            { text: "technology",    link: "http://boards.4chan.org/g/"  },
-            { text: "video games",   link: "http://boards.4chan.org/v/"  },
-            { text: "otaku culture", link: "http://boards.4chan.org/jp/" }
+            { text: "anime & manga", link: "boards.4chan.org/a/"  },
+            { text: "anime/cute",    link: "boards.4chan.org/c/"  },
+            { text: "technology",    link: "boards.4chan.org/g/"  },
+            { text: "video games",   link: "boards.4chan.org/v/"  },
+            { text: "otaku culture", link: "boards.4chan.org/jp/" }
         ],
         "Nav Link Delimiter":
         [
@@ -672,6 +672,17 @@
                 // and the number defaults has changed.
                 if ($SS.Config.get("VERSION") !== VERSION)
                 {
+                    /* temporary fix old nav links that include the protocol */
+                    var links = $SS.Config.get("Nav Links");
+
+                    for (var i = 0, MAX = links.length; i < MAX; i++)
+                    {
+                        if (/^https?:\/\/.*/.test(links[i].link))
+                            links[i].link = links[i].link.replace(/^https?:\/\//, "");
+
+                        $SS.Config.set("Nav Links", links);
+                    }
+
                     var ntMascots = $SS.Mascots.defaults.length, // new total
                         ntThemes  = $SS.Themes.defaults.length,
                         otMascots = $SS.Config.get("Total Mascots"), // old total
@@ -2925,11 +2936,11 @@
             if (typeof url === "string")
             {
                 obj = document.createElement("a");
-                obj.href = url;
+                obj.href = location.protocol + "//" + url;
             }
             else
                 obj = window.location;
-            
+
             var pathname = obj.pathname.substr(1).split("/");
             
             return {
@@ -2944,9 +2955,9 @@
                 a = [], div;
             
             for (var i = 0, MAX = links.length; i < MAX; i++)
-                a.push("<a href='" + links[i].link + "'" +
+                a.push("<a href='" + window.location.protocol + "//" + links[i].link + "'" +
                     ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
-                
+
             if ((div = $("#boardLinks")).exists())
                 return div.html(a.join($SS.conf["Nav Link Delimiter"]));
                 

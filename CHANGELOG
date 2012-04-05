@@ -1,5 +1,6 @@
 master
-
+    modified:
+        - removed hardcoded protocols from custom nav links.
 1.6.5
     fixed:
         - exhentai source nodes not being inserted on ajax loaded replies.
