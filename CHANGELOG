@@ -1,6 +1,7 @@
 master
     modified:
         - removed hardcoded protocols from custom nav links.
+        - made pony emoji optional.
 1.6.5
     fixed:
         - exhentai source nodes not being inserted on ajax loaded replies.
