@@ -1,4 +1,6 @@
 master
+
+1.6.6
     modified:
         - styled backlinks that are hovered in quote preview (.fowardlink).
         - Yotsuba styles look a little more like vanilla 4chan.
