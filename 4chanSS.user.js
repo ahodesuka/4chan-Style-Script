@@ -1738,7 +1738,7 @@
                     sageColor:   "cc1111",
                     tripColor:   "228854",
                     titleColor:  "cc1105",
-                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
+                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"+($SS.conf["Layout"]==2?"form[name=delform]>.hr{margin:0 0.5em!important}form[name=delform]>table,.thread>table{padding:2px!important}":""))'
                 },
                 {
                     name:        "Yotsuba B",
@@ -1760,7 +1760,7 @@
                     sageColor:   "990000",
                     tripColor:   "228854",
                     titleColor:  "0f0c5d",
-                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}")'
+                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"+($SS.conf["Layout"]==2?"form[name=delform]>.hr{margin:0 0.5em!important}form[name=delform]>table,.thread>table{padding:2px!important}":""))'
                 },
                 {
                     name:        "安心院なじみ",
@@ -1972,7 +1972,7 @@
                         
                         if (!$(".exSource", node).exists())
                         {
-                            var a = $("<a class=exSource href='" + $(this).parent().attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
+                            var a = $("<a class=exSource href='" + location.protocol + $(this).parent().attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
                             node.append(document.createTextNode(" ")).append(a);
                         }
                     });

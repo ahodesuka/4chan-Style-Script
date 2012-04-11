@@ -113,6 +113,11 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 }
+a.forwardlink
+{
+    color:" + $SS.theme.linkColor.hex + "!important;
+    text-decoration:underline!important;
+}
 .spoiler:not(:hover),
 .spoiler:not(:hover) .unkfunc,
 .spoiler:not(:hover) a
@@ -315,7 +320,8 @@ body>span[style]~#navlinks,
 .inline .reply>a:first-child,
 .postarea,
 a[href='#bottom'],
-.pages td
+.pages td,
+.block~a.omittedposts
 {
 	display:none!important;
 }
