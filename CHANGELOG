@@ -2,7 +2,7 @@ master
 
 1.6.6
     modified:
-        - styled backlinks that are hovered in quote preview (.fowardlink).
+        - styled backlinks that are hovered in quote preview (.forwardlink).
         - Yotsuba styles look a little more like vanilla 4chan.
         - added protocol to images being fetched by exsauce.
         - removed hardcoded protocols from custom nav links.
