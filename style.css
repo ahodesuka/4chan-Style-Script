@@ -318,7 +318,7 @@ body>span[style]~#navlinks,
 #imgControls #imageExpand+.riceCheck,
 #qp>a[href='javascript:;']:not([class]),
 .inline .reply>a:first-child,
-.postarea,
+" + ($SS.location.board !== "f" ? ".postarea," : "") + "
 a[href='#bottom'],
 .pages td,
 .block~a.omittedposts
@@ -1732,12 +1732,6 @@ body>a[style='cursor: pointer; float: right;']
 	margin-top:-2px;
 	padding-top:2px;
 }
-#selectImage>input[type=file]
-{
-	-webkit-transform:translateX(-500px) scale(10)!important;
-	-moz-transform:translateX(-500px) scale(10)!important;
-	-o-transform:translateX(-500px) scale(10)!important;
-}
 a[name=clearIMG]
 {
 	display:none;
@@ -2226,12 +2220,12 @@ body>a[style='cursor: pointer; float: right;']+div>table #fs_search
 	cursor:pointer!important;
 	position:absolute;
 	top:0;
-	right:0;
+	left:0;
 	z-index:1;
 	opacity:0;
-	-webkit-transform:scale(100);
-	-moz-transform:scale(100);
-	-o-transform:scale(100);
+	-webkit-transform:scale(20) translateX(-40%);
+	-moz-transform:scale(20) translateX(-40%);
+	-o-transform:scale(20) translateX(-40%);
 }
 .riceFile div
 {
@@ -2551,6 +2545,26 @@ input[name=name].tripping:not(:hover):not(:focus)
 .commentpostername a.linkmail" + ($SS.conf["Sage Identification"] === 2 ? ":not([href='mailto:sage'])" : "") + "::after
 {
 	vertical-align:middle;
+}
+form[name=delform][action$='/f/up.php']
+{
+    border:1px solid " + $SS.theme.brderColor.hex + "!important;
+    margin:0 5%!important;
+    border-radius:3px!important;
+}
+form[name=delform][action$='/f/up.php']>center
+{
+    background:rgba(" + $SS.theme.mainColor.rgb + ", .9)!important;
+    display:block!important;
+    border-radius:3px!important;
+}
+form[name=delform][action$='/f/up.php']>center>table
+{
+    width:100%!important;
+}
+form[name=delform][action$='/f/up.php'] tr
+{
+    display:table-row!important;
 }
 " + ($SS.conf["Pages Position"] === 1 ? "
 .pages
