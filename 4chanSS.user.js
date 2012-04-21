@@ -713,7 +713,7 @@
                 }
             }
 
-            if (/^about:neterror/.test(document.documentURI) || $SS.location.sub != "boards") return;
+            if (/^about:neterror/.test(document.documentURI)) return;
             
             $SS.Config.init();
             $SS.Themes.init();
