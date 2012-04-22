@@ -661,26 +661,39 @@
         {
             if (!reload)
             {
+                var m_VERSION;
                 $SS.browser.webkit = /AppleWebKit/.test(navigator.userAgent);
                 $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
                 $SS.browser.opera  = /Opera/.test(navigator.userAgent);
                 $SS.location       = $SS.getLocation();
                 
-                if ($SS.browser.webkit)
-                    $SS.Config.hasGM = false;
-                
                 // correct selected theme/mascot after updating
                 // and the number defaults has changed.
-                if ($SS.Config.get("VERSION") !== VERSION)
+                if ((m_VERSION = $SS.Config.get("VERSION")) !== VERSION)
                 {
-                    /* temporary fix old nav links that include the protocol */
-                    var links = $SS.Config.get("Nav Links");
+                    if (/^1\.[0-6].*/.test(m_VERSION))
+                    {
+                        /* fix old nav links that had hard coded protocols */
+                        var links = $SS.Config.get("Nav Links");
 
-                    for (var i = 0, MAX = links.length; i < MAX; i++)
-                        if (/^https?:\/\/.*/.test(links[i].link))
-                            links[i].link = links[i].link.replace(/^https?:\/\//, "");
+                        for (var i = 0, MAX = links.length; i < MAX; i++)
+                            if (/^https?:\/\/.*/.test(links[i].link))
+                                links[i].link = links[i].link.replace(/^https?:\/\//, "");
 
-                    $SS.Config.set("Nav Links", links);
+                        $SS.Config.set("Nav Links", links);
+
+                        /* temporary fix for webkit ninjakit/tampermonkey */
+                        if ($SS.browser.webkit && $SS.Config.hasGM)
+                        {
+                            $SS.Config.hasGM = false;
+                            $SS.Config.init();
+                            $SS.Config.hasGM = true;
+
+                            for (key in defaultConfig)
+                                if ($SS.conf[key] !== defaultConfig[key] && $SS.conf[key] != undefined)
+                                    $SS.Config.set(key, $SS.conf[key]);
+                        }
+                    }
 
                     var ntMascots = $SS.Mascots.defaults.length, // new total
                         ntThemes  = $SS.Themes.defaults.length,
@@ -761,6 +774,9 @@
         },
         DOMLoaded: function(reload)
         {
+            if ($SS.location.sub === "sys") // fix for firefux (maybe opera?) on report popups that have setTimeout.
+                document.head.innerHTML = document.head.innerHTML;
+
             var div;
             reload = reload === true;
             

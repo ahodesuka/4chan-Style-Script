@@ -527,7 +527,7 @@ form[name=delform]>table
 {
 	margin:1px 0 0;
 	position:relative;
-	width:100%;
+	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") +"
 }
 form[name=delform]>table:nth-last-of-type(3)
 {
@@ -858,7 +858,7 @@ a.omittedposts
 	margin-left:0!important;
 }
 table,
-td
+td:not(.replyhider)
 {
 	border:0!important;
 	border-spacing:0!important;
@@ -2868,8 +2868,7 @@ body>form[action='']>table fieldset
 {
     text-align:left!important;
 }
-
-body>form[method='POST'],
+body>form[action=''],
 body>form[action='']>table fieldset,
 body>form[action='']>table #recaptcha_response_field
 {
@@ -2889,5 +2888,4 @@ body>form[action='']>table td[width='240px']
 {
     display:none!important;
 }
-
 " : "") + $SS.theme.customCSS + "
