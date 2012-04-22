@@ -3,7 +3,7 @@ master
 1.7.0
     modified:
         - /f/ and the report form are now styled.
-        - Webkit will now user GM_* functions if they are available.
+        - Webkit will now use GM_* functions if they are available.
     fixed:
         - fit content layout in webkit.
 1.6.6
