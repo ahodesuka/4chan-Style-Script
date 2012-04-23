@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);
+@import " + ($SS.conf["HTTPS Fonts"] ? "url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);" : "url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow);" ) + "
 *
 {
 	font-family:" + $SS.formatFont($SS.conf["Font"]) + "!important;
