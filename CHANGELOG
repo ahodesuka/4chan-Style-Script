@@ -1,5 +1,6 @@
 master
-
+    added:
+        - Allows Google webfonts to load over HTTPS	
 1.7.0
     modified:
         - /f/ and the report form are now styled.
