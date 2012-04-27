@@ -858,7 +858,7 @@ a.omittedposts
 	margin-left:0!important;
 }
 table,
-td:not(.replyhider)
+td:not(.replyhider):not(.deletebuttons)
 {
 	border:0!important;
 	border-spacing:0!important;
