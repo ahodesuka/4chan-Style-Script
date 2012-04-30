@@ -23,7 +23,7 @@ option '-v', '--version [VERSION]', 'Release a new version.'
 
 task 'release', (options) ->
   {version} = options
-  return log '\033[0;31mERROR!\033[0m No version provided.' unless version
+  return log 'ERROR! No version provided.' unless version
   data = fs.readFileSync SCRIPT, 'utf8'
   fs.writeFileSync SCRIPT, data.replace /(\/\s@version\s+|VERSION\s+=\s\")[\d\.]+/g, "$1#{version}", 'utf8', (err) ->
     throw err if err
