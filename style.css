@@ -139,7 +139,7 @@ span[style='color:#FF0000;font-weight:normal']
 .reply,
 .reply.highlight,
 .hidden_thread,
-.block>a,
+.hidden_reply>a,
 option,
 div[id*=jsMath],
 #imgControls,
@@ -189,9 +189,9 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .reportbutton,
-.hide_reply_button>a,
+.hide_reply_button:not(.hidden_reply)>a,
 .hidden_thread>span,
-.block>a>span
+.hidden_reply>a>span
 {
 	color:transparent!important;
 	font-size:0!important;
@@ -283,7 +283,10 @@ a[href='#bottom'],
 .pagelist,
 .pages~div,
 .postingMode,
-.sideArrows:not(.hide_reply_button)
+.sideArrows:not(.hide_reply_button),
+#delform>hr,
+body>.closed>br,
+.board>hr:last-child
 {
 	display:none!important;
 }
@@ -332,7 +335,7 @@ body
 {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
 	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) || ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 43px 0" : (!$SS.bHideSidebar ? "0 0 43px 265px" : "0 0 43px")) + "!important;
-	padding:18px 0 0!important;
+	padding:0!important;
 }
 " + (!$SS.bHideSidebar ? "
 body::before
@@ -386,7 +389,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 .reply,
 .reply.highlight,
 .hidden_thread,
-.block>a
+.hidden_reply>a
 {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
@@ -405,6 +408,10 @@ body>a[style='cursor: pointer; float: right;']+div,
 #updater
 {
 	border-right:1px solid " + $SS.theme.brderColor.hex + "!important;
+}
+#delform
+{
+    margin-top:18px;
 }
 .deleteform,
 #boardNavDesktop,
@@ -482,7 +489,6 @@ form[name=delform]
 }
 .thread>div>.reply
 {
-	margin:1px 0 0!important;
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") +"
 }
 .thread:last-child>.postContainer:last-child>.reply
@@ -492,10 +498,11 @@ form[name=delform]
 body,
 body>a[style='cursor: pointer; float: right;']+div,
 input,
-select
+select,
+textarea,
 .replyContainer>.reply,
 .hidden_thread,
-.block>a,
+.hidden_reply>a,
 .thread.stub,
 .riceFile,
 .riceCheck,
@@ -510,16 +517,23 @@ select
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 }
+.sideArrows
+{
+    margin-left:0!important;
+    margin-right:0!important;
+}
 " + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
 .reply,
 .hidden_thread,
-.block>a
+.hidden_reply>a
 {
 	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
 	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "
 }
+.postContainer,
 .replyContainer
 {
+	margin:1px 0 0!important;
     position:relative;
 }
 " + ($SS.conf["Layout"] !== 2 ? "
@@ -561,20 +575,20 @@ select
 	z-index:10!important;
 	position:relative;
 }
-.hide_reply_button
+.hide_reply_button:not(.hidden_reply)
 {
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
-	right:0;
+	right:2px;
 	top:0;" : "") + "
 }
-.hide_reply_button>a,
+.hide_reply_button:not(.hidden_reply)>a,
 .hide_thread_button>span
 {
 	background-position:-80px 0;
 }
 .hidden_thread>span,
-.block>a>span
+.hidden_reply>a>span
 {
 	background-position:-80px -16px;
 	vertical-align:middle!important;
@@ -594,10 +608,10 @@ select
 .close,
 .remove,
 .reportbutton,
-.hide_reply_button>a,
+.hide_reply_button:not(.hidden_reply)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
-.block>a>span
+.hidden_reply>a>span
 {
 	margin:0!important;
 	opacity:.5;
@@ -606,10 +620,10 @@ select
 .close:hover,
 .remove:hover,
 .reportbutton:hover,
-.hide_reply_button>a:hover,
+.hide_reply_button:not(.hidden_reply)>a:hover,
 .hide_thread_button>span:hover,
 .hidden_thread:hover>span,
-.block>a:hover>span
+.hidden_reply>a:hover>span
 {
 	opacity:.75;
 }
@@ -627,7 +641,7 @@ select
 .replyContainer>.reply.highlightPost,
 .stub,
 .hidden_thread,
-.block>a
+.hidden_reply>a
 {
 	padding:5px!important;
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "
@@ -654,7 +668,7 @@ select
 	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .hidden_thread,
-.block>a
+.hidden_reply>a
 {
 	display:" + ($SS.conf["Layout"] === 2 ? "inline-" : "") + "block;
 	padding:7px;
@@ -812,25 +826,9 @@ blockquote>div[style]
 {
 	border-color:" + $SS.theme.sageColor.hex + "!important;
 }
-div.reply
+.fileInfo
 {
-	margin:0!important;
-	z-index:2!important;
-}
-form[name=delform] .filesize+br+a[target='_blank'] img
-{
-	float:left;
-	margin:2px 24px " + (!$SS.conf["Slim Replies"] ? 24 : 6) + "px!important;
-}
-form[name=delform] .filesize+br+a[target='_blank'] img+img
-{
-	margin:0 0 20px!important;
-	position:relative;
-	z-index:10!important;
-}
-form[name=delform] .filesize+br+a[target='_blank'] img+img
-{
-	background-color:rgba(" + $SS.theme.mainColor.rgb + ",.01)!important;
+    padding-left:3px!important;
 }
 img[alt=Closed],
 img[alt=Sticky],
@@ -840,10 +838,10 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .reportbutton,
-.hide_reply_button>a,
+.hide_reply_button:not(.hidden_reply)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
-.block>a>span
+.hidden_reply>a>span
 {
 	background-image:" + $SS.theme.icons.get() + "!important;
 	background-color:transparent!important;
@@ -945,7 +943,7 @@ input[type=button],
 input[type=submit],
 .riceFile div
 {
-	height:22px!important;
+	height:21px!important;
 	margin-top:1px!important;
 	padding:0!important;
 	text-align:center!important;
@@ -1913,7 +1911,7 @@ body>center:nth-of-type(2)
 {
 	position:relative;
 }
-*[color=red]
+*[style='color: red;']
 {
 	color:#f66!important;
 }
@@ -1924,7 +1922,7 @@ body>center:nth-of-type(2)
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
-	right:262px!important;
+	" + $SS.conf["Sidebar Position String"] + ":262px!important;
     top:0;
 	white-space:nowrap;
 	z-index:10;
@@ -1946,6 +1944,12 @@ body>center:nth-of-type(2)
 	padding:0 10px 10px;
 	white-space:normal;
 	border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") + ";
+}
+body>.closed
+{
+    height:18px;
+    line-height:18px;
+    padding:0!important;
 }
 #boardNavDesktop
 {
@@ -2394,6 +2398,7 @@ span[style]~#qr>.move .riceCheck
 #qr>form>div:first-child #dump
 {
 	float:left;
+    height:22px!important;
 	width:24px!important;
 }
 #qr>form>div:first-child .field:not(#dump)
@@ -2557,16 +2562,20 @@ form[name=delform][action$='/f/up.php'] tr
 #qr textarea:focus,
 #qr>form>div:first-child .field:not(#dump):focus
 {
-	-webkit-transition:box-shadow .2s,width .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-moz-transition:box-shadow .2s,width .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
-	-o-transition:box-shadow .2s,width .2s ease-in-out,
-    " + $SS.conf["Sidebar Position String"] + " .2s ease-in-out!important;
+	-webkit-transition:box-shadow .2s,width .2s ease-in-out!important;
+	-moz-transition:box-shadow .2s,width .2s ease-in-out!important;
+	-o-transition:box-shadow .2s,width .2s ease-in-out!important;
+}
+#qr #replies+div
+{
+    height:121px!important;
+}
+#qr textarea
+{
+    position:absolute;
 }
 #qr textarea:focus
 {
-    " + ($SS.conf["Sidebar Position"] !== 2 ? "right:160px;" : "") +"
     width:415px!important;
 }" : "") +
 (!$SS.conf["Show Logo"] ? "
