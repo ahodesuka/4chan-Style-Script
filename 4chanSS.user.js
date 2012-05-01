@@ -112,7 +112,7 @@
         [
             2, "Change the location of the page links",
             [
-                /*{ name: "Slide Out",      value: 1 },*/
+                /*{ name: "Slide Out",      value: 1 },*/// FIXME
                 { name: "Fixed",          value: 2 },
                 { name: "Fixed Vertical", value: 3 },
                 { name: "Hidden",         value: 4 }
@@ -743,7 +743,7 @@
                     $(document).bind("DOMNodeInserted", $SS.insertCSS);
                 else
                     $SS.insertCSS();
-                
+
                 if (/complete|interactive/.test(document.readyState))
                     $SS.DOMLoaded();
                 else
@@ -755,7 +755,7 @@
         insertCSS: function()
         {
             var css;
-            
+
             if ($(document.head).exists())
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
@@ -827,7 +827,7 @@
         },
         nodeInsertedHandler: function(e)
         {
-            if (e.target.nodeName === "TABLE")
+            if ($(e.target).hasClass("replyContainer"))
             {
                 if ($SS.conf["ExHentai Source"] !== 1)
                     $SS.exsauce.addLinks(e.target);
@@ -1984,13 +1984,13 @@
             {
                 setTimeout(function()
                 {
-                    $("img[md5]", x).each(function()
+                    $("a.fileThumb", x).each(function()
                     {
-                        var node = $(this).parent().previousSibling(".filesize");
+                        var node = $(this).previousSibling(".fileInfo");
                         
                         if (!$(".exSource", node).exists())
                         {
-                            var a = $("<a class=exSource href='" + location.protocol + $(this).parent().attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
+                            var a = $("<a class=exSource href='" + location.protocol + $(this).attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
                             node.append(document.createTextNode(" ")).append(a);
                         }
                     });

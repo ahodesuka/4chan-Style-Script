@@ -138,7 +138,7 @@ span[style='color:#FF0000;font-weight:normal']
 }
 .reply,
 .reply.highlight,
-.stub>a,
+.hidden_thread,
 .block>a,
 option,
 div[id*=jsMath],
@@ -148,7 +148,7 @@ div[id*=jsMath],
 #jsMath_float>*,
 #watcher>div,
 .deleteform,
-a.omittedposts
+a.summary
 {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.9)!important;
 }
@@ -189,8 +189,8 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .reportbutton,
-.replyhider a,
-.stub>a>span,
+.hide_reply_button>a,
+.hidden_thread>span,
 .block>a>span
 {
 	color:transparent!important;
@@ -283,12 +283,12 @@ a[href='#bottom'],
 .pagelist,
 .pages~div,
 .postingMode,
-.sideArrows
+.sideArrows:not(.hide_reply_button)
 {
 	display:none!important;
 }
-a.omittedposts,
-a.omittedposts:hover,
+a.summary,
+a.summary:hover,
 blockquote>.abbr,
 .globalMessage::before,
 .globalMessage>b,
@@ -310,7 +310,7 @@ tr,
 #themeoptions #toNav li label:hover,
 .deleteform::before,
 .deleteform::after,
-.omittedposts,
+.summary,
 .preview>label::after,
 .reply,
 .reply.highlight,
@@ -385,7 +385,7 @@ body::before,
 body>a[style='cursor: pointer; float: right;']+div,
 .reply,
 .reply.highlight,
-.stub>a,
+.hidden_thread,
 .block>a
 {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
@@ -458,7 +458,7 @@ form[name=delform] .op::after,
 	" + ($SS.conf["Layout"] === 2 ? "
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "
 }
-.op>a:first-child
+.hide_thread_button:not(.hidden_thread)>span
 {
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
@@ -483,7 +483,6 @@ form[name=delform]
 .thread>div>.reply
 {
 	margin:1px 0 0!important;
-	position:relative;
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") +"
 }
 .thread:last-child>.postContainer:last-child>.reply
@@ -492,8 +491,10 @@ form[name=delform]
 }
 body,
 body>a[style='cursor: pointer; float: right;']+div,
+input,
+select
 .replyContainer>.reply,
-.stub>a,
+.hidden_thread,
 .block>a,
 .thread.stub,
 .riceFile,
@@ -511,14 +512,13 @@ body>a[style='cursor: pointer; float: right;']+div,
 }
 " + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
 .reply,
-.stub>a,
+.hidden_thread,
 .block>a
 {
 	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
 	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "
 }
-.post,
-.reply
+.replyContainer
 {
     position:relative;
 }
@@ -526,6 +526,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 .post
 {
     display:block!important;
+    margin:0!important;
     width:100%;
 }" : "" ) + "
 .reportbutton
@@ -537,7 +538,7 @@ body>a[style='cursor: pointer; float: right;']+div,
     top:0;" : "") + "
 }
 " + ($SS.conf["Layout"] === 2 ? "
-td .reportbutton:" : "
+.reportbutton:" : "
 .inline .reportbutton,
 #qp .reportbutton") + "
 {
@@ -549,8 +550,8 @@ td .reportbutton:" : "
 .replyContainer>.reply .riceCheck,
 .replyContainer>.reply.highlightPost .riceCheck,
 .container,
-.op>a:first-child,
-.replyhider,
+.hide_thread_button>span,
+.hide_reply_button,
 .reportbutton
 {
 	z-index:3!important;
@@ -560,25 +561,19 @@ td .reportbutton:" : "
 	z-index:10!important;
 	position:relative;
 }
-.op>.reportbutton
+.hide_reply_button
 {
-	top:0;
-}
-.replyhider
-{
-	position:absolute;
 	" + ($SS.conf["Layout"] !== 2 ? "
-	right:2px;
-	top:2px;" : "
-	left:2px;
-	top:8px;") + "
+	position:absolute;
+	right:0;
+	top:0;" : "") + "
 }
-.replyhider a,
-.op>a:first-child
+.hide_reply_button>a,
+.hide_thread_button>span
 {
 	background-position:-80px 0;
 }
-.stub>a>span,
+.hidden_thread>span,
 .block>a>span
 {
 	background-position:-80px -16px;
@@ -599,9 +594,9 @@ td .reportbutton:" : "
 .close,
 .remove,
 .reportbutton,
-.replyhider a,
-.op>a:first-child,
-.stub>a>span,
+.hide_reply_button>a,
+.hide_thread_button>span,
+.hidden_thread>span,
 .block>a>span
 {
 	margin:0!important;
@@ -611,9 +606,9 @@ td .reportbutton:" : "
 .close:hover,
 .remove:hover,
 .reportbutton:hover,
-.replyhider a:hover,
-.op>a:first-child:hover,
-.stub>a:hover>span,
+.hide_reply_button>a:hover,
+.hide_thread_button>span:hover,
+.hidden_thread:hover>span,
 .block>a:hover>span
 {
 	opacity:.75;
@@ -631,7 +626,7 @@ td .reportbutton:" : "
 .replyContainer>.reply,
 .replyContainer>.reply.highlightPost,
 .stub,
-.stub>a,
+.hidden_thread,
 .block>a
 {
 	padding:5px!important;
@@ -658,7 +653,7 @@ td .reportbutton:" : "
 	margin:1px 0px!important;
 	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
-.stub>a,
+.hidden_thread,
 .block>a
 {
 	display:" + ($SS.conf["Layout"] === 2 ? "inline-" : "") + "block;
@@ -709,7 +704,7 @@ input[type=checkbox]:focus,
 	border-radius:3px;
 	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
 }
-a.omittedposts
+a.summary
 {
 	display:inline-block;
 	line-height:16px;
@@ -802,7 +797,7 @@ a.omittedposts
 	margin-left:0!important;
 }
 table,
-td:not(.replyhider):not(.deleteform)
+td:not(.hide_reply_button):not(.deleteform)
 {
 	border:0!important;
 	border-spacing:0!important;
@@ -819,7 +814,6 @@ blockquote>div[style]
 }
 div.reply
 {
-	border:0!important;
 	margin:0!important;
 	z-index:2!important;
 }
@@ -846,9 +840,9 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .reportbutton,
-.replyhider a,
-.op>a:first-child,
-.stub>a>span,
+.hide_reply_button>a,
+.hide_thread_button>span,
+.hidden_thread>span,
 .block>a>span
 {
 	background-image:" + $SS.theme.icons.get() + "!important;
@@ -1181,6 +1175,8 @@ textarea
 {
 	background:none!important;
 	bottom:auto!important;
+    border:0!important;
+    padding-top:0!important;
 	position:fixed!important;
 	max-width:" + ($SS.conf["Auto Hide Thread Watcher"] ? 200 : 261) + "px!important;
 	min-width:" + ($SS.conf["Auto Hide Thread Watcher"] ? 0 : 261) + "px!important;
@@ -1217,7 +1213,7 @@ textarea
 	" + ($SS.conf["Auto Hide Thread Watcher"] ? "
 	max-height:0px;
 	max-width:0!important;
-	" : "max-width:100%!important;") + "
+	" : "max-width:241px!important;") + "
 	padding:0 5px!important;
 	text-align:left!important;
 	-webkit-transition:max-height .1s,max-width .1s .1s,padding .1s;
@@ -1240,7 +1236,7 @@ textarea
 #watcher" + ($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "") + ">div:not(.move)
 {
 	max-height:16px;
-	max-width:100%!important;
+    max-width:241px!important;
 	padding:1px 5px!important;
 	-webkit-transition:max-height .1s,max-width 0s,padding .1s;
 	-moz-transition:max-height .1s,max-width 0s,padding .1s;
@@ -1275,7 +1271,9 @@ body>a[style='cursor: pointer; float: right;']
 #addTheme,
 #themeoptions
 {
+    border:0!important;
 	display:inline-block;
+    position:relative;
 	text-align:right!important;
 	width:600px;
 	padding:5px;
@@ -1431,6 +1429,7 @@ body>a[style='cursor: pointer; float: right;']
 {
 	margin:2px 0!important;
 	padding:2px!important;
+    position:relative;
 	text-align:left;
 	width:100%;
 	border-radius:2px!important;
@@ -2374,10 +2373,6 @@ span[style]~#qr>.move .riceCheck
 {
 	position:relative;
 }
-#qr>form .field
-{
-	height:22px;
-}
 #qr>form>div:first-child #dump,
 #qr>form>.captcha>img,
 #qr>form input[type=submit],
@@ -2405,6 +2400,7 @@ span[style]~#qr>.move .riceCheck
 {
 	float:left;
 	margin-left:1px!important;
+    padding:3px 4px!important;
 	width:76px!important;
 }
 #qr>form>div:first-child .field:not(#dump)+span
