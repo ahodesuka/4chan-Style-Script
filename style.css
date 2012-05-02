@@ -137,7 +137,6 @@ span[style='color:#FF0000;font-weight:normal']
 	text-shadow:none!important;
 }
 .reply,
-.reply.highlight,
 .hidden_thread,
 .stub>a,
 option,
@@ -316,7 +315,6 @@ tr,
 .summary,
 .preview>label::after,
 .reply,
-.reply.highlight,
 .replymode
 {
 	color:" + $SS.theme.textColor.hex + "!important;
@@ -387,7 +385,6 @@ body::before,
 #themeoptions #toWrapper,
 body>a[style='cursor: pointer; float: right;']+div,
 .reply,
-.reply.highlight,
 .hidden_thread,
 .stub>a
 {
@@ -580,9 +577,7 @@ div.post
 	vertical-align:middle!important;
 }
 .replyContainer>.reply input[type=checkbox],
-.replyContainer>.reply.highlightPost input[type=checkbox],
 .replyContainer>.reply .riceCheck,
-.replyContainer>.reply.highlightPost .riceCheck,
 .container,
 .hide_thread_button>span,
 .hide_reply_button,
@@ -647,18 +642,15 @@ div.post
 {
 	opacity:.75;
 }
-.replyContainer>.reply>img,
-.replyContainer>.reply.highlightPost>img
+.replyContainer>.reply>img
 {
 	vertical-align:middle;
 }
-.replyContainer>.reply>span,
-.replyContainer>.reply.highlightPost>span
+.replyContainer>.reply>span
 {
 	line-height:16px!important;
 }
 .replyContainer>.reply,
-.replyContainer>.reply.highlightPost,
 .stub,
 .hidden_thread,
 .stub>a
@@ -668,7 +660,12 @@ div.post
 	border-radius:" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2) ?
 	($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
+.replyContainer>.reply
+{
+    padding-top:2px!important;
+}
 .reply.highlight,
+.highlightPost,
 .qphl
 {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(16, true) + ",.9)!important;
@@ -1050,9 +1047,7 @@ input[type=radio]:active,
 	box-shadow:inset rgba(" + $SS.theme.inputColor.shiftRGB(100, true) + ",.4) 0 0 3px,rgba(" + $SS.theme.mainColor.shiftRGB(64) + ",.6) 0 1px!important;
 }
 .replyContainer>.reply input[type=checkbox],
-.replyContainer>.reply.highlightPost input[type=checkbox],
 .replyContainer>.reply .riceCheck,
-.replyContainer>.reply.highlightPost .riceCheck
 {
 	margin-left:0!important;
 	position:relative;
@@ -1933,7 +1928,7 @@ body>center:nth-of-type(2)
 }
 *[style='color: red;']
 {
-	color:#f66!important;
+	color:" + $SS.theme.sageColor.hex + "!important;
 }
 .globalMessage
 {
