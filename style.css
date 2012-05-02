@@ -49,7 +49,7 @@ hr
 	border:0!important;
 	border-top:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.9)!important;
 	clear:left;
-	margin:0!important;
+	margin:.3em 0!important;
 }
 h1,
 h2,
@@ -66,7 +66,7 @@ h3,
 {
 	font-weight:400!important;
 }
-a,
+a:not(.hide_thread_button),
 a.replylink
 {
 	text-decoration:none!important;
@@ -139,7 +139,7 @@ span[style='color:#FF0000;font-weight:normal']
 .reply,
 .reply.highlight,
 .hidden_thread,
-.hidden_reply>a,
+.stub>a,
 option,
 div[id*=jsMath],
 #imgControls,
@@ -189,9 +189,9 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .reportbutton,
-.hide_reply_button:not(.hidden_reply)>a,
+.hide_reply_button:not(.stub)>a,
 .hidden_thread>span,
-.hidden_reply>a>span
+.stub>a>span
 {
 	color:transparent!important;
 	font-size:0!important;
@@ -269,7 +269,7 @@ input[type=submit],
 (!$SS.conf["Show Text Board"] ? ".boardBanner font[size='1']," : "") +
 ($SS.conf["Post Form"] !== 4 ? "#qr>.move .close," : "") + 
 ($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") + 
-($SS.conf["Layout"] === 2 && !$SS.conf["Thread Separators"] ? "form[name=delform]>hr," : "") +
+($SS.conf["Layout"] === 2 && !$SS.conf["Thread Separators"] ? ".board>hr," : "") +
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) + "
 [hidden],
 .hidden,
@@ -389,7 +389,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 .reply,
 .reply.highlight,
 .hidden_thread,
-.hidden_reply>a
+.stub>a
 {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
@@ -412,6 +412,10 @@ body>a[style='cursor: pointer; float: right;']+div,
 #delform
 {
     margin-top:18px;
+}
+.closed~#delform
+{
+    margin-top:0!important;
 }
 .deleteform,
 #boardNavDesktop,
@@ -472,7 +476,7 @@ form[name=delform] .op::after,
 	right:2px;
 	top:0;" : "
 	position:relative;
-	top:-1px;") + "
+	top:1px;") + "
 }
 form[name=delform]
 {
@@ -502,7 +506,7 @@ select,
 textarea,
 .replyContainer>.reply,
 .hidden_thread,
-.hidden_reply>a,
+.stub>a,
 .thread.stub,
 .riceFile,
 .riceCheck,
@@ -525,7 +529,7 @@ textarea,
 " + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
 .reply,
 .hidden_thread,
-.hidden_reply>a
+.stub>a
 {
 	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
 	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "
@@ -536,25 +540,41 @@ textarea,
 	margin:1px 0 0!important;
     position:relative;
 }
+div.post
+{
+    margin:2px 0!important;
+}
 " + ($SS.conf["Layout"] !== 2 ? "
-.post
+hr
+{
+    margin:0!important;
+}
+div.post
 {
     display:block!important;
     margin:0!important;
     width:100%;
 }" : "" ) + "
+.favicon
+{
+    vertical-align:middle;
+}
+.identifyIcon
+{
+    margin:0!important;
+    vertical-align:top;
+}
 .reportbutton
 {
 	background-position:0 -16px;
+    vertical-align:top!important;
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
 	right:14px;
     top:0;" : "") + "
 }
-" + ($SS.conf["Layout"] === 2 ? "
-.reportbutton:" : "
 .inline .reportbutton,
-#qp .reportbutton") + "
+#qp .reportbutton
 {
 	position:static!important;
 	vertical-align:middle!important;
@@ -575,20 +595,20 @@ textarea,
 	z-index:10!important;
 	position:relative;
 }
-.hide_reply_button:not(.hidden_reply)
+.hide_reply_button:not(.stub)
 {
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
 	right:2px;
 	top:0;" : "") + "
 }
-.hide_reply_button:not(.hidden_reply)>a,
+.hide_reply_button:not(.stub)>a,
 .hide_thread_button>span
 {
 	background-position:-80px 0;
 }
 .hidden_thread>span,
-.hidden_reply>a>span
+.stub>a>span
 {
 	background-position:-80px -16px;
 	vertical-align:middle!important;
@@ -608,10 +628,10 @@ textarea,
 .close,
 .remove,
 .reportbutton,
-.hide_reply_button:not(.hidden_reply)>a,
+.hide_reply_button:not(.stub)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
-.hidden_reply>a>span
+.stub>a>span
 {
 	margin:0!important;
 	opacity:.5;
@@ -620,10 +640,10 @@ textarea,
 .close:hover,
 .remove:hover,
 .reportbutton:hover,
-.hide_reply_button:not(.hidden_reply)>a:hover,
+.hide_reply_button:not(.stub)>a:hover,
 .hide_thread_button>span:hover,
 .hidden_thread:hover>span,
-.hidden_reply>a:hover>span
+.stub>a:hover>span
 {
 	opacity:.75;
 }
@@ -641,7 +661,7 @@ textarea,
 .replyContainer>.reply.highlightPost,
 .stub,
 .hidden_thread,
-.hidden_reply>a
+.stub>a
 {
 	padding:5px!important;
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "
@@ -668,7 +688,7 @@ textarea,
 	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .hidden_thread,
-.hidden_reply>a
+.stub>a
 {
 	display:" + ($SS.conf["Layout"] === 2 ? "inline-" : "") + "block;
 	padding:7px;
@@ -734,7 +754,7 @@ a.summary
 	padding:1px 2px 0 18px!important;
 	position:fixed;
 	" + ($SS.conf["Sidebar Position"] === 3 ? "
-	right:262px;" : 
+	right:" + ($SS.conf["Post Form"] === 4 ? 0 : 262) +"px;" : 
 	$SS.conf["Sidebar Position String"] + ":264px;") + "
 	width:0;
 	white-space:nowrap;
@@ -792,7 +812,7 @@ a.summary
 {
 	margin:2px!important;
 	position:absolute;
-	right:" + ($SS.conf["Sidebar Position"] !== 2 ? 103 : 105) + "px;
+	right:105px;
 	bottom:4px!important;
 	top:auto!important;
 }
@@ -804,7 +824,7 @@ a.summary
 .deleteform input[type=password]
 {
 	margin-left:4px!important;
-	width:138px;
+	width:138px!important;
 }
 .deleteform:hover input[type=password]
 {
@@ -838,10 +858,10 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .reportbutton,
-.hide_reply_button:not(.hidden_reply)>a,
+.hide_reply_button:not(.stub)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
-.hidden_reply>a>span
+.stub>a>span
 {
 	background-image:" + $SS.theme.icons.get() + "!important;
 	background-color:transparent!important;
@@ -1034,7 +1054,7 @@ input[type=radio]:active,
 .replyContainer>.reply .riceCheck,
 .replyContainer>.reply.highlightPost .riceCheck
 {
-	margin-left:" + ($SS.conf["Layout"] !== 2 ? 0 : "12px") + "!important;
+	margin-left:0!important;
 	position:relative;
 }
 span.filesize~input[type=checkbox],
@@ -2275,7 +2295,7 @@ a[href='.././']
 #qr.autohide
 {
 	" + ($SS.conf["Post Form"] === 1 ? "
-	bottom:-241px!important;
+	bottom:-242px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -2288,7 +2308,7 @@ a[href='.././']
 " + ($SS.conf["Post Form"] === 1 ? "
 #qr.autohide.dump:not(.focus):not(:hover)
 {
-	bottom:-341px!important;
+	bottom:-342px!important;
 }" : "") + "
 #qr:hover,
 #qr.focus

@@ -1693,7 +1693,7 @@
                     sageColor:   "c99090",
                     tripColor:   "d4c095",
                     titleColor:  "9390c9",
-                    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
+                    customCSS:   ".reply{border:0!important}"
                 },
                 {
                     name:        "Photon",
@@ -1756,7 +1756,7 @@
                     sageColor:   "cc1111",
                     tripColor:   "228854",
                     titleColor:  "cc1105",
-                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"+($SS.conf["Layout"]==2?"form[name=delform]>.hr{margin:0 0.5em!important}form[name=delform]>table,.thread>table{padding:2px!important}":""))'
+                    customCSS:   'new String("#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}")'
                 },
                 {
                     name:        "Yotsuba B",
@@ -1778,7 +1778,7 @@
                     sageColor:   "990000",
                     tripColor:   "228854",
                     titleColor:  "0f0c5d",
-                    customCSS:   'new String(".thread{margin:1px 0 1px!important;padding:3px 0 0!important}\nform[name=delform],td.reply,td.replyhl,.stub>a,.stub>.block>a,\n.pages td:nth-of-type(2),.pages input[type=submit]{border-radius:0!important}\ntd.reply,td.replyhl,.stub>a,.stub>.block>a{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}\n.reply>.reportbutton,.replyhl>.reportbutton{right:14px!important;top:2px!important}"+($SS.conf["Layout"]==2?"form[name=delform]>.hr{margin:0 0.5em!important}form[name=delform]>table,.thread>table{padding:2px!important}":""))'
+                    customCSS:   'new String("#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}")'
                 },
                 {
                     name:        "安心院なじみ",
@@ -1842,7 +1842,7 @@
                     sageColor:   "cc6666",
                     tripColor:   "2aa198",
                     titleColor:  "bec2c4",
-                    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
+                    customCSS:   ".reply{border:0!important}"
                 },
                 {
                     name:        "4chan Rewired", // Originally by !K.WeEabo0o @ http://userstyles.org/styles/57787/4chan-rewired
@@ -1865,7 +1865,7 @@
                     sageColor:   "cc6666",
                     tripColor:   "bf7f3f",
                     titleColor:  "4c4c4c",
-                    customCSS:   'new String(($SS.conf["Layout"]===2?".op{border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.op,":"}"):"")+"td.reply,td.replyhl{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.replyhl,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}")'
+                    customCSS:   'new String(($SS.conf["Layout"]===2?".opContainer{display:block!important;border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.opContainer,":"}"):"")+".post.reply{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.reply.highlight,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}")'
                 },
                 {
                     name:        "violaceous",
@@ -1887,7 +1887,7 @@
                     sageColor:   "4f4f4f",
                     tripColor:   "bd2b83",
                     titleColor:  "06989a",
-                    customCSS:   "td.reply,td.replyhl{border:0!important}\n.reply>.reportbutton,.replyhl>.reportbutton{top:2px!important}"
+                    customCSS:   ".reply{border:0!important}"
                 }
             ],
             
