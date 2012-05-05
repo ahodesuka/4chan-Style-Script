@@ -187,7 +187,7 @@ body>a[style='cursor: pointer; float: right;'],
 .preview>label,
 .close,
 .remove,
-.reportbutton,
+.report_button,
 .hide_reply_button:not(.stub)>a,
 .hidden_thread>span,
 .stub>a>span
@@ -546,7 +546,7 @@ hr
 {
     margin:0!important;
 }
-div.post
+div.post:not([hidden])
 {
     display:block!important;
     margin:0!important;
@@ -561,7 +561,7 @@ div.post
     margin:0!important;
     vertical-align:top;
 }
-.reportbutton
+.report_button
 {
 	background-position:0 -16px;
     vertical-align:top!important;
@@ -570,8 +570,8 @@ div.post
 	right:14px;
     top:0;" : "") + "
 }
-.inline .reportbutton,
-#qp .reportbutton
+.inline .report_button,
+#qp .report_button
 {
 	position:static!important;
 	vertical-align:middle!important;
@@ -581,7 +581,7 @@ div.post
 .container,
 .hide_thread_button>span,
 .hide_reply_button,
-.reportbutton
+.report_button
 {
 	z-index:3!important;
 }
@@ -622,7 +622,7 @@ div.post
 }
 .close,
 .remove,
-.reportbutton,
+.report_button,
 .hide_reply_button:not(.stub)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
@@ -634,7 +634,7 @@ div.post
 }
 .close:hover,
 .remove:hover,
-.reportbutton:hover,
+.report_button:hover,
 .hide_reply_button:not(.stub)>a:hover,
 .hide_thread_button>span:hover,
 .hidden_thread:hover>span,
@@ -854,7 +854,7 @@ body>a[style='cursor: pointer; float: right;'],
 #imageType+label,
 .close,
 .remove,
-.reportbutton,
+.report_button,
 .hide_reply_button:not(.stub)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
