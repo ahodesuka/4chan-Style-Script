@@ -2,6 +2,8 @@ master
     fixed:
         - Announcement z-index when using top nav bar.
         - An odd case where 4chanSS's CSS would be inserted before 4chan's.
+        - Options link will no longer conflict with 4chanx's link.
+        - Exhentai links inside cloned nodes (inline quotes).
     added:
         - Import/Export theme feature.
 2.1.1

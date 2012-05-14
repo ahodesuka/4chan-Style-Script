@@ -861,7 +861,7 @@
         },
         nodeInsertedHandler: function(e)
         {
-            if ($(e.target).hasClass("replyContainer"))
+            if ($(e.target).hasClass("postContainer"))
             {
                 if ($SS.conf["ExHentai Source"] !== 1)
                     $SS.exsauce.addLinks(e.target);
@@ -2051,9 +2051,11 @@
             {
                 setTimeout(function()
                 {
+                    if ($(x).hasClass("inline")) $(".exSource", x).remove();
+
                     $("a.fileThumb", x).each(function()
                     {
-                        var node = $(this).previousSibling(".fileInfo");
+                        var node = $(this).previousSibling();
 
                         if (!$(".exSource", node).exists())
                         {
