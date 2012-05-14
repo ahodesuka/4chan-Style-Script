@@ -1,4 +1,6 @@
 master
+
+2.0.2
     fixed:
         - Expand all images checkbox will no be hidden.
         - Inline image expansion.
