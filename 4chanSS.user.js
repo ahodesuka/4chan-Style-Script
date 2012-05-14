@@ -18,6 +18,7 @@
         "Show Board Name":          [ true,  "Toggle visibility of the board name" ],
         "Show Text Board":          [ true,  "Toggle visibility of the text board link" ],
         "Show Logo":                [ true,  "Toggle visibility of the logo" ],
+        "Show Logo Reflection":     [ true,  "Toggle visibility of the logo reflection", "Show Logo", true, true ],
         "Auto Hide Thread Watcher": [ true,  "Hides watched threads unless the mouse is over the watcher" ],
         "Slim Replies":             [ true,  "Reduces the size of replies" ],
         "Emoji Icons":              [ false, "Show icons for different e-mails" ],

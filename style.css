@@ -40,7 +40,8 @@ input::-moz-focus-inner
 	background:" + $SS.theme.linkColor.hex + ";
 	color:#" + ($SS.theme.linkColor.isLight ? "000" : "fff") +"!important;
 }
-img
+img,
+.replyContainer div.highlight
 {
 	border:0!important;
 }
@@ -288,7 +289,8 @@ body>.closed>br,
 .board>hr:last-child,
 div[style^='text-align: center'],
 #imageExpand,
-.hidden_thread+div.opContainer
+.hidden_thread+div.opContainer,
+.stub+div+div.post
 {
 	display:none!important;
 }
@@ -544,6 +546,11 @@ textarea,
 	margin:1px 0 0!important;
     position:relative;
 }
+.replyContainer>.replyContainer
+{
+    border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
+    margin-left:5px!important;
+}
 div.post
 {
     margin:2px 0!important;
@@ -555,7 +562,6 @@ hr
 }
 div.post:not(#qp):not([hidden])
 {
-    display:block!important;
     margin:0!important;
     width:100%;
 }" : "" ) + "
@@ -690,7 +696,6 @@ div.post:not(#qp):not([hidden])
 .qphl
 {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(16, true) + ",.9)!important;
-    border:0!important;
 }
 .filter_highlight
 {
@@ -1111,13 +1116,13 @@ td.doubledash
 	opacity:.5;
 	position:relative;
 	z-index:1;
-	-webkit-box-reflect:below 0 -webkit-gradient(linear,left top,left bottom,from(transparent),color-stop(.1,transparent),to(rgba(255,255,255,.5)));
 }
 .boardBanner #bBanner
 {
     height:86.3333px;
     position:fixed;
 }
+" + ($SS.conf["Show Logo Reflection"] ? "
 .boardBanner #bBanner::after
 {
 	background-image:-moz-element(#banner);
@@ -1132,6 +1137,10 @@ td.doubledash
 	z-index:1;
 	-moz-transform:scaleY(-1);
 }
+.boardBanner img
+{
+    -webkit-box-reflect:below 0 -webkit-gradient(linear,left top,left bottom,from(transparent),color-stop(.1,transparent),to(rgba(255,255,255,.5)));
+}" : "") + "
 .boardBanner .boardTitle
 {
     " + ($SS.conf["Board Name Position"] == 1 ? "
