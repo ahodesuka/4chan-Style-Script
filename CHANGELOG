@@ -1,5 +1,6 @@
 master
-
+    fixed:
+        - Hidding default mascots.
 2.1.0
     fixed:
         - Reply/thread hiding.
