@@ -143,7 +143,6 @@ span[style='color:#FF0000;font-weight:normal']
 option,
 div[id*=jsMath],
 #imgControls,
-#imgControls #imageType,
 #imgControls .preload,
 #jsMath_float>*,
 #watcher>div,
@@ -337,7 +336,8 @@ textarea:-moz-placeholder
 body
 {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
-	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) || ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 43px 0" : (!$SS.bHideSidebar ? "0 0 43px 265px" : "0 0 43px")) + "!important;
+	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) || ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 0 0" : (!$SS.bHideSidebar ? "0 0 0 265px" : "0 0 0")) + "!important;
+    margin-bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 43) + "px!important;
 	padding:0!important;
 }
 " + (!$SS.bHideSidebar ? "
@@ -350,7 +350,7 @@ body::before
 	height:100%;
 	width:262px;
 	position:fixed;
-	top:-19px!important;
+    top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : -19) + "px!important;
 	z-index:1;
 }
 body::after
@@ -361,7 +361,7 @@ body::after
 	height:100%;
 	width:261px;
 	" + (!$SS.mascot.small ? "background-size:contain;" : "")) + "
-	bottom:21px!important;
+    bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 21) + "px!important;
 	margin-bottom:" + $SS.mascot.offset + "px;
 	position:fixed;
 	z-index:2;
@@ -396,6 +396,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
 .globalMessage,
+" + ($SS.conf["Navigation Bar Position"] === 1 ? "#boardNavDesktop," : "") + "
 #imgControls
 {
 	border-bottom:1px solid " + $SS.theme.brderColor.hex + "!important;
@@ -413,14 +414,14 @@ body>a[style='cursor: pointer; float: right;']+div,
 }
 #delform
 {
-    margin-top:18px;
+    margin-top:18px!important;
 }
 .closed~#delform
 {
     margin-top:0!important;
 }
 .deleteform,
-#boardNavDesktop,
+" + ($SS.conf["Navigation Bar Position"] !== 1 ? "#boardNavDesktop," : "") + "
 #fs_data td
 {
 	border-top:1px solid " + $SS.theme.brderColor.hex + "!important;
@@ -773,8 +774,8 @@ a.summary
 	border-radius:3px;
 }
 .deleteform
-{
-	bottom:20px!important;
+{;
+    bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 20) + "px!important;
 	height:22px;
 	overflow:hidden;
 	padding:1px 2px 0 18px!important;
@@ -1409,6 +1410,11 @@ body>a[style='cursor: pointer; float: right;']
 	-moz-transition:all .1s ease-in-out;
 	-o-transition:all .1s ease-in-out;
 }
+#SSVersion
+{
+    opacity:.5;
+    padding-right:5px;
+}
 #themeoptions #toWrapper
 {
 	background:rgb(" + $SS.theme.mainColor.shiftRGB(-12) + ");
@@ -1838,14 +1844,21 @@ input[name=customIMGB64]+a[name=clearIMG]
 	padding-" + $SS.conf["Sidebar Position String"] + ":147px!important;
 	z-index:6;
 }
-#imgControls #imageType
+#imgControls #imageType,
+#boardNavDesktop>select
 {
+    background:none!important;
 	border:0!important;
 	line-height:16px!important;
 	margin:0!important;
 	height:18px!important;
-	padding:1px 1px 1px 0;
+	padding:0 1px 1px 0;
 	width:77px!important;
+}
+#boardNavDesktop>select
+{
+    padding:0 4px!important;
+    width:auto!important;
 }
 #imageType+label
 {
@@ -1988,8 +2001,8 @@ body>center:nth-of-type(2)
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
-	" + $SS.conf["Sidebar Position String"] + ":262px!important;
-    top:0;
+	" + $SS.conf["Sidebar Position String"] + ":265px!important;
+    top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 18 : 0) + "px;
 	white-space:nowrap;
 	z-index:10;
 	" + ($SS.conf["Layout"] !== 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
@@ -2017,19 +2030,38 @@ body>.closed
     line-height:18px;
     padding:0!important;
 }
-#boardNavDesktop
+" + ($SS.conf["Navigation Bar Position"] === 1 ? "
+#bNavWrapper
 {
-	bottom:0!important;
+    margin-left:-265px!important;
+    height:18px;
+    line-height:18px;
+    top:0!important;
 	left:0!important;
-	line-height:20px!important;
-	height:20px!important;
-	padding:0!important;
 	position:fixed!important;
 	text-align:center;
-	top:auto!important;
 	width:100%!important;
 	z-index:12!important;
 }
+#boardNavDesktop
+{
+    height:18px!important;
+    padding-left:265px!important;
+}
+" : "
+#boardNavDesktop
+{
+	height:20px!important;
+	line-height:20px!important;
+	bottom:0!important;
+	padding:0!important;
+	top:auto!important;
+	left:0!important;
+	position:fixed!important;
+	text-align:center;
+	width:100%!important;
+	z-index:12!important;
+}") + "
 #navtop,
 #navtopr
 {
@@ -2090,7 +2122,15 @@ body>.closed
 	display:inline!important;
 	line-height:18px;
 }
-" : "") + ($SS.conf["Pages Position"] !== 4 ? "
+" : "") + ($SS.conf["Pages Position"] !== 4 ?
+($SS.conf["Pages Position"] === 1 ? "
+select#pagesDrop
+{
+    display:inline-block!important;
+    float:left;
+    margin-top:1px;
+}
+" : "
 .mPagelist
 {
     display:block!important;
@@ -2123,7 +2163,7 @@ body>.closed
 .mPagelist .pages span
 {
 	padding:2px 3px;
-}" : "") + "
+}") : "") + "
 body>a[style='cursor: pointer; float: right;'],
 body>a[style='cursor: pointer; float: right;']::before,
 body>a[style='cursor: pointer; float: right;']::after
@@ -2320,7 +2360,7 @@ a[href='.././']
 #qr
 {
 	height:auto!important;
-	margin:0 0 21px!important;
+    margin:0 0 " + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 21) + "px!important;
 	padding:0 3px 3px!important;
 	position:fixed!important;
 " + ($SS.conf["Post Form"] !== 4 ? "
@@ -2690,7 +2730,7 @@ form[name=delform][action$='/f/up.php'] tr
 ($SS.conf["Sage Identification"] !== 1 ? "
 .useremail[href='mailto:sage'] .name::after
 {
-    color:" + $SS.theme.sageColor.hex + ";
+    color:" + $SS.theme.sageColor.hex + "!important;
 	content:" + ($SS.conf["Sage Identification"] === 2 ? "' (SAGE)'" : "url('data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdFJREFUOE+l0t0rQ3EYwPHz+52bTf4C76XslithbJzNy2xe5p15mR21jAnzknYhbigitUJ5f7sglPdCIkRJRHHhUi60e7t6POcoh23ecvE5p07P8/39Lg4DAMx/+Hz4K/HB1rNv7KgRNaOWH7Syad8FZDikQb1oEe2iPW9fBcLRSFR/5GXJhvHZdsS/OM7qoOW8HjouG6D7zgE9D22AM/v+AuEBDvlKxrz20brHg3nTLKreqgT7UQ04r+zQedsI3fcOwFnpBtRKBTK2lh3lJtSPFWsmKF0phZLlYnzn43I1tF/Y3rVeWD04uywFeAzUUG2oM+SqaKkAjAtGyJzU4VsHtoMqDFg+4KFiM8+N831SoIoK+pNcSrd+Ug9qlxrSxziwbJuA3/lMiCi6Iq+pmWqlQBkVrHIjKZ6EwQSIH4gVr+6tcr0Y9NOaJ5wdoyYqlwKFVHCYOKQEhTMKsmYyIWfO8C533iAGtKOqJ3m5bI0W0Qgk/Ug0hwqOFU4FcMPJYiB7Vi8uGqYyPJxL5Q6zh9zgzDjNxWXhwI8BoiKBRENO/ThB62iQpJI0oiNy8TCfQBxpQj1ESYJIMmH80iAdebutd4CJZnaYGCYYI76Lvwn8xyvFCs5Nsc8yoQAAAABJRU5ErkJggg==')") + ";
 }" : "") +
 ($SS.conf["Emoji Icons"] ? "

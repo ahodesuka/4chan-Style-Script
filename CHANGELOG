@@ -1,13 +1,16 @@
 master
     fixed:
         - Reply/thread hiding.
-        - Sage text color.
+        - Sage text color x2.
         - Thread hide button position.
         - Image hover z-index.
         - Inline quote display.
         - Thread stubs, (aeosynth).
     added:
         - Logo reflection option.
+        - Drop down pages position.
+        - Navigation bar position setting.
+        - Version is now displayed in the options window.
 2.0.2
     fixed:
         - Expand all images checkbox will no be hidden.
