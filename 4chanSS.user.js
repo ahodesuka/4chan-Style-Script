@@ -1179,11 +1179,8 @@
                         return function(e)
                         {
                             theme = JSON.parse(e.target.result);
-                            console.log(theme);
-
                             index = $SS.conf["Themes"].push(theme);
                             theme = new $SS.Theme(--index);
-                            console.log(theme);
                             div   = theme.preview();
                             $("#overlay #tThemes").append(div);
                             div.fire("click").scrollIntoView(true);
@@ -1458,8 +1455,9 @@
 
                 $("a[name=export]", div).bind("click", function()
                 {
-                    window.open("data:text/json," +
-                        encodeURIComponent(JSON.stringify($SS.options.addTheme(tIndex, true)))
+                    var theme = $SS.options.addTheme(tIndex, true);
+                    window.open("data:text/json;" +
+                        encodeURIComponent(JSON.stringify(theme))
                     );
                 });
 
@@ -1538,10 +1536,10 @@
                 if (tTheme.bgImg)
                     tTheme.bgRPA = makeRPA();
 
+                if (exp) return tTheme;
+
                 if (bEdit && !tEdit.default)
                 {
-                    if (exp) return tTheme;
-
                     $SS.conf["Themes"][tIndex] = tTheme;
                     tTheme = new $SS.Theme(tIndex);
                     div    = $("#theme" + tIndex, $("#overlay"));
@@ -1551,7 +1549,6 @@
                 else
                 {
                     tTheme.author = "You";
-                    if (exp) return tTheme;
                     tIndex        = $SS.conf["Themes"].push(tTheme);
                     tTheme        = new $SS.Theme(--tIndex);
                     div           = tTheme.preview();
