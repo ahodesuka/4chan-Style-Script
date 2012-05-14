@@ -1,5 +1,7 @@
 master
-
+    fixed:
+        - Announcement z-index when using top nav bar.
+        - An odd case where 4chanSS's CSS would be inserted before 4chan's.
 2.1.1
     fixed:
         - Hidding default mascots.

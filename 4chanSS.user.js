@@ -773,7 +773,7 @@
         {
             var css;
 
-            if ($(document.head).exists())
+            if ($(document.head).exists() && $("link[rel=stylesheet]", document.head).exists())
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
 
