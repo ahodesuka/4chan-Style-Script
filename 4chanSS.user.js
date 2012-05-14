@@ -62,6 +62,14 @@
             2,
             true
         ],
+        "Board Name Position":
+        [
+            1, "Change the position of the board name/text board link",
+            [
+                { name: "Top",      value: 1 },
+                { name: "Above QR", value: 2 }
+            ]
+        ],
         "Post Form":
         [
             2, "Change the transition for the post form",
@@ -789,14 +797,21 @@
 
             if ($SS.conf["Custom Navigation Links"])
                 $SS.buildCustomNav();
-            else if ((div = $("#boardLinks")).exists())
+            else if (reload && (div = $("#boardLinks")).exists())
                 div.remove();
 
             if (!reload)
             {
                 $SS.options.init();
 
-                $(".boardBanner>img").attr("id", "banner");
+                var select = $("#boardSelectMobile").attr("id", "bSelectSS");
+
+                $("option[value=fa]", select).before($("<option value=f>/f/ - Flash"));
+                $("option[value=" + $SS.location.board + "]", select).attr("selected", "true");
+                $("#boardNavDesktop").prepend(select.bind("change", $SS.ChangeBoard));
+
+                div = $("<div id=bBanner>").append($(".boardBanner>img").attr("id", "banner"));
+                $(".boardBanner").prepend(div);
 
                 if (!$SS.browser.webkit)
                     $("input[type=checkbox]:not(#imageExpand)").riceCheck();
@@ -824,6 +839,10 @@
                                .removeClass("tripping");
                     });
             }
+        },
+        ChangeBoard: function(e)
+        {
+            location.href = location.href.replace(/org\/.+\/.*$/, "org/" + e.target.value + "/");
         },
         nodeInsertedHandler: function(e)
         {

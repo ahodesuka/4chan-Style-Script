@@ -1,6 +1,11 @@
 master
     fixed:
         - Expand all images checkbox will no be hidden.
+        - Inline image expansion.
+        - 4chan X QR input dimensions.
+        - Non-custom nav links.
+    added:
+        - Board name/text link position.
 2.0.1
     fixed:
         - 4chan X image expansion.

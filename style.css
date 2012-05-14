@@ -268,7 +268,8 @@ input[type=submit],
 ($SS.conf["Post Form"] !== 4 ? "#qr>.move .close," : "") +
 ($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") +
 ($SS.conf["Layout"] === 2 && !$SS.conf["Thread Separators"] ? ".board>hr," : "") +
-($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) + "
+($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
+($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") + "
 [hidden],
 .hidden,
 body>hr,
@@ -286,7 +287,8 @@ a[href='#bottom'],
 body>.closed>br,
 .board>hr:last-child,
 div[style^='text-align: center'],
-#imageExpand
+#imageExpand,
+.hidden_thread+div
 {
 	display:none!important;
 }
@@ -492,7 +494,7 @@ form[name=delform]
 	position:relative;
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "4px 0 0 4px" : "0 4px 4px 0") : "4px") + ";
 }
-.thread>div>.reply
+.thread>div>.post
 {
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") +"
     overflow:visible;
@@ -592,8 +594,20 @@ div.post:not([hidden])
 }
 .inline
 {
-	z-index:10!important;
+    background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.1)!important;
+	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.4)!important;
+	padding:5px!important;
+	border-radius:3px;
+	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
+    overflow:visible!important;
 	position:relative;
+	z-index:10!important;
+
+}
+.inline>.reply
+{
+    background:none!important;
+    overflow:visible;
 }
 " + ($SS.conf["Layout"] !== 2 ? "
 .hide_reply_button:not(.stub)
@@ -622,7 +636,8 @@ div.post:not([hidden])
 {
 	background-position:-16px -16px!important;
 }
-.remove
+.remove,
+#boardNavDesktop>a
 {
 	padding:0!important;
 }
@@ -736,14 +751,6 @@ input[type=checkbox]:focus,
 #qp .reply
 {
     width:auto!important;
-}
-.inline .replyContainer>.reply
-{
-	background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.1)!important;
-	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.4)!important;
-	padding:5px!important;
-	border-radius:3px;
-	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
 }
 a.summary
 {
@@ -975,7 +982,7 @@ input[type=button],
 input[type=submit],
 .riceFile div
 {
-	height:21px!important;
+	height:22px!important;
 	margin-top:1px!important;
 	padding:0!important;
 	text-align:center!important;
@@ -1084,7 +1091,7 @@ td.doubledash
 }
 .boardBanner
 {
-    height:86.3333px;
+    height:100%;
 	position:fixed;
 	" + $SS.conf["Sidebar Position String"] + ":1px;
 	text-align:center;
@@ -1105,7 +1112,12 @@ td.doubledash
 	z-index:1;
 	-webkit-box-reflect:below 0 -webkit-gradient(linear,left top,left bottom,from(transparent),color-stop(.1,transparent),to(rgba(255,255,255,.5)));
 }
-.boardBanner::after
+.boardBanner #bBanner
+{
+    height:86.3333px;
+    position:fixed;
+}
+.boardBanner #bBanner::after
 {
 	background-image:-moz-element(#banner);
 	bottom:-100%;
@@ -1121,7 +1133,8 @@ td.doubledash
 }
 .boardBanner .boardTitle
 {
-	bottom:-16px;
+    " + ($SS.conf["Board Name Position"] == 1 ? "
+    top:70px;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 342 : 82) + "px;") + "
 	cursor:default!important;
 	display:block;
 	font-family:'PT Sans Narrow',sans-serif!important;
@@ -1145,10 +1158,11 @@ td.doubledash
 }
 .boardBanner .boardSubtitle
 {
+    " + ($SS.conf["Board Name Position"] == 1 ? "
+    top:98px;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 332 : 72) + "px;") + "
 	left:0;
 	position:absolute;
 	text-shadow:" + $SS.theme.mainColor.hex + " -1px -1px," + $SS.theme.mainColor.hex + " 1px -1px," + $SS.theme.mainColor.hex + " -1px 1px," + $SS.theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.2) 0 0 10px,#000 0 1px 5px,#000 0 -1px 5px;
-	top:98px;
 	width:100%;
 	z-index:3;
 }
@@ -2071,7 +2085,7 @@ body>.closed
 	padding:0 5px;
 	position:fixed!important;
 	width:auto!important;
-	z-index:13;
+	z-index:9;
 }
 .mPagelist .pages
 {
@@ -2306,7 +2320,7 @@ a[href='.././']
 #qr.autohide
 {
 	" + ($SS.conf["Post Form"] === 1 ? "
-	bottom:-240px!important;
+	bottom:-241px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -2319,7 +2333,7 @@ a[href='.././']
 " + ($SS.conf["Post Form"] === 1 ? "
 #qr.autohide.dump:not(.focus):not(:hover)
 {
-	bottom:-340px!important;
+	bottom:-341px!important;
 }" : "") + "
 #qr:hover,
 #qr.focus
@@ -2435,6 +2449,7 @@ span[style]~#qr>.move .riceCheck
 #qr>form>div:first-child .field:not(#dump)
 {
 	float:left;
+    height:22px;
 	margin-left:1px!important;
     padding:3px 4px!important;
 	width:76px!important;
@@ -2478,6 +2493,7 @@ span[style]~#qr>.move .riceCheck
 }
 #qr>form>.captcha+div input
 {
+    height:22px;
 	width:189px!important;
 }
 #qr>form input[type=submit]
