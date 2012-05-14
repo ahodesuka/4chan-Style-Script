@@ -1,9 +1,16 @@
 master
 
 2.0.1
-
+    fixed:
+        - 4chan X image expansion.
+        - Options link will now replace the [Home] link.
+        - Text boards style/position.
+        - 4chan X QR positioning.
 2.0.0
-
+    fixed:
+        - Added support for 4chan's new html.
+    modified:
+        - The board name font will be loaded through the same protocol as 4chan.
 1.7.0
     modified:
         - /f/ and the report form are now styled.
