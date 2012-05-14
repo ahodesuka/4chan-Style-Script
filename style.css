@@ -99,7 +99,8 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.nameColor.hex + "!important;
 }
-.postertrip,.trip
+.postertrip,
+.useremail .postertrip
 {
 	color:" + $SS.theme.tripColor.hex + "!important;
 }
