@@ -1456,9 +1456,8 @@
                 $("a[name=export]", div).bind("click", function()
                 {
                     var theme = $SS.options.addTheme(tIndex, true);
-                    window.open("data:text/json;" +
-                        encodeURIComponent(JSON.stringify(theme))
-                    );
+                    window.open("data:application/json," +
+                        encodeURIComponent(JSON.stringify(theme)), "Export " + theme.name);
                 });
 
                 if (bEdit)
