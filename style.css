@@ -109,7 +109,7 @@ a[href='javascript:;']
 	color:" + $SS.theme.quoteColor.hex + "!important;
 }
 .postMessage .quote a,
-.quotelink
+a.quotelink
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 }

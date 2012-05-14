@@ -1164,9 +1164,34 @@
             createThemesTab: function(tOptions)
             {
                 var themes = $("#tThemes", tOptions).html(""),
-                    p      = $("<p>");
+                    p      = $("<p style='bottom:8px!important'>");
 
                 p.append($("<a class=trbtn name=addTheme>add", tOptions).bind("click", $SS.options.showTheme));
+                p.append($("<div id=selectImage>").append($("<input type=file riced=true>")
+                 .bind("change", function()
+                {
+                    var file = this.files[0],
+                        reader = new FileReader(),
+                        val, first, valid = true, theme, div, index;
+
+                    reader.onload = (function(tFile)
+                    {
+                        return function(e)
+                        {
+                            theme = JSON.parse(e.target.result);
+                            console.log(theme);
+
+                            index = $SS.conf["Themes"].push(theme);
+                            theme = new $SS.Theme(--index);
+                            console.log(theme);
+                            div   = theme.preview();
+                            $("#overlay #tThemes").append(div);
+                            div.fire("click").scrollIntoView(true);
+                        }
+                    })(file);
+
+                    reader.readAsText(file);
+                })).append($("<span class=trbtn>Import")));
                 p.append($("<a class=trbtn name=restoreThemes title='Restore hidden default themes'>restore", tOptions)
                     .bind("click", function()
                     {
@@ -1420,6 +1445,7 @@
                 <span class=trbtn>Select Image</span></div>\
                 " + (bEdit && $SS.validBase64(tEdit.bgImg) ? "<input type=hidden name=customIMGB64 value='" + tEdit.bgImg + "'>" : "") + "\
                 <a class=trbtn name=clearIMG>Clear Image</a>\
+                <a class=trbtn name=export>Export</a>\
                 <a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div>";
 
                 div.html(innerHTML);
@@ -1429,6 +1455,13 @@
 
                 $("#selectImage>input[type=file]", div).bind("change", $SS.options.SelectImage);
                 $("a[name=clearIMG]", div).bind("click", $SS.options.ClearImage);
+
+                $("a[name=export]", div).bind("click", function()
+                {
+                    window.open("data:text/json," +
+                        encodeURIComponent(JSON.stringify($SS.options.addTheme(tIndex, true)))
+                    );
+                });
 
                 if (bEdit)
                     $("a[name=edit]", div).bind("click", function(){ $SS.options.addTheme(tIndex); });
@@ -1446,7 +1479,7 @@
 
                 return $(document.body).append(overlay);
             },
-            addTheme: function(tIndex)
+            addTheme: function(tIndex, exp)
             {
                 var overlay = $("#overlay2"),
                     tTheme  = { },
@@ -1466,7 +1499,7 @@
                     error = false,
                     div;
 
-                if (bEdit && !tEdit.modified)
+                if (!exp && bEdit && !tEdit.modified)
                     return overlay.remove();
 
                 $("input[type=text],textarea", overlay).each(function()
@@ -1507,6 +1540,8 @@
 
                 if (bEdit && !tEdit.default)
                 {
+                    if (exp) return tTheme;
+
                     $SS.conf["Themes"][tIndex] = tTheme;
                     tTheme = new $SS.Theme(tIndex);
                     div    = $("#theme" + tIndex, $("#overlay"));
@@ -1516,6 +1551,7 @@
                 else
                 {
                     tTheme.author = "You";
+                    if (exp) return tTheme;
                     tIndex        = $SS.conf["Themes"].push(tTheme);
                     tTheme        = new $SS.Theme(--tIndex);
                     div           = tTheme.preview();
