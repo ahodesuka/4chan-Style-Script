@@ -285,7 +285,8 @@ a[href='#bottom'],
 #delform>hr,
 body>.closed>br,
 .board>hr:last-child,
-div[style^='text-align: center']
+div[style^='text-align: center'],
+#imageExpand
 {
 	display:none!important;
 }
