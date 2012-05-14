@@ -4,6 +4,8 @@ master
         - Sage text color.
         - Thread hide button position.
         - Image hover z-index.
+        - Inline quote display.
+        - Thread stubs, (aeosynth).
     added:
         - Logo reflection option.
 2.0.2

@@ -605,20 +605,21 @@ div.post:not(#qp):not([hidden])
 }
 .inline
 {
+    background:none!important;
+    border:0!important;
+    overflow:visible;
+}
+.inline>div.post.reply
+{
     background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.1)!important;
 	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.4)!important;
 	padding:5px!important;
-	border-radius:3px;
+	border-radius:3px!important;
 	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
     overflow:visible!important;
 	position:relative;
 	z-index:10!important;
-
-}
-.inline>.reply
-{
-    background:none!important;
-    overflow:visible;
+    width:auto!important;
 }
 " + ($SS.conf["Layout"] !== 2 ? "
 .hide_reply_button:not(.stub)
@@ -1190,7 +1191,8 @@ div.autohide>a[title='Auto-hide dialog box']
 {
 	text-decoration:underline!important;
 }
-.op
+.op,
+.thread.hidden
 {
     display:block!important;
 }
