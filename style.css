@@ -2360,7 +2360,7 @@ a[href='.././']
 #qr
 {
 	height:auto!important;
-    margin:0 0 " + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 21) + "px!important;
+    margin:0 0 " + ($SS.conf["Navigation Bar Position"] === 1 ? 1 : 21) + "px!important;
 	padding:0 3px 3px!important;
 	position:fixed!important;
 " + ($SS.conf["Post Form"] !== 4 ? "
