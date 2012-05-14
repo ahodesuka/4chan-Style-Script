@@ -1,5 +1,7 @@
 master
-
+    fixed:
+        - Reply/thread hiding.
+        - Sage text color.
 2.0.2
     fixed:
         - Expand all images checkbox will no be hidden.

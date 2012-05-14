@@ -288,7 +288,7 @@ body>.closed>br,
 .board>hr:last-child,
 div[style^='text-align: center'],
 #imageExpand,
-.hidden_thread+div
+.hidden_thread+div.opContainer
 {
 	display:none!important;
 }
@@ -498,7 +498,6 @@ form[name=delform]
 {
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") + "
     overflow:visible;
-    position:relative;
 }
 .thread:last-child>.postContainer:last-child>.reply
 {
@@ -554,7 +553,7 @@ hr
 {
     margin:0!important;
 }
-div.post:not(#qp)
+div.post:not(#qp):not([hidden])
 {
     display:block!important;
     margin:0!important;
@@ -1136,7 +1135,7 @@ td.doubledash
 .boardBanner .boardTitle
 {
     " + ($SS.conf["Board Name Position"] == 1 ? "
-    top:70px;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 342 : 82) + "px;") + "
+    top:64px;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 342 : 82) + "px;") + "
 	cursor:default!important;
 	display:block;
 	font-family:'PT Sans Narrow',sans-serif!important;
@@ -2675,6 +2674,7 @@ form[name=delform][action$='/f/up.php'] tr
 ($SS.conf["Sage Identification"] !== 1 ? "
 .useremail[href='mailto:sage'] .name::after
 {
+    color:" + $SS.theme.sageColor.hex + ";
 	content:" + ($SS.conf["Sage Identification"] === 2 ? "' (SAGE)'" : "url('data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdFJREFUOE+l0t0rQ3EYwPHz+52bTf4C76XslithbJzNy2xe5p15mR21jAnzknYhbigitUJ5f7sglPdCIkRJRHHhUi60e7t6POcoh23ecvE5p07P8/39Lg4DAMx/+Hz4K/HB1rNv7KgRNaOWH7Syad8FZDikQb1oEe2iPW9fBcLRSFR/5GXJhvHZdsS/OM7qoOW8HjouG6D7zgE9D22AM/v+AuEBDvlKxrz20brHg3nTLKreqgT7UQ04r+zQedsI3fcOwFnpBtRKBTK2lh3lJtSPFWsmKF0phZLlYnzn43I1tF/Y3rVeWD04uywFeAzUUG2oM+SqaKkAjAtGyJzU4VsHtoMqDFg+4KFiM8+N831SoIoK+pNcSrd+Ug9qlxrSxziwbJuA3/lMiCi6Iq+pmWqlQBkVrHIjKZ6EwQSIH4gVr+6tcr0Y9NOaJ5wdoyYqlwKFVHCYOKQEhTMKsmYyIWfO8C533iAGtKOqJ3m5bI0W0Qgk/Ug0hwqOFU4FcMPJYiB7Vi8uGqYyPJxL5Q6zh9zgzDjNxWXhwI8BoiKBRENO/ThB62iQpJI0oiNy8TCfQBxpQj1ESYJIMmH80iAdebutd4CJZnaYGCYYI76Lvwn8xyvFCs5Nsc8yoQAAAABJRU5ErkJggg==')") + ";
 }" : "") +
 ($SS.conf["Emoji Icons"] ? "
