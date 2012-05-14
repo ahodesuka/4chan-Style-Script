@@ -974,7 +974,7 @@
             init: function()
             {
                 var a = $("<a>SS").bind("click", $SS.options.show);
-                return $("#navtopr>a:last-child").replace(a);
+                return $("#navtopr").prepend($("<span>[").append(a).append(document.createTextNode("] ")));
             },
             show: function()
             {
