@@ -4,6 +4,11 @@ master
         - Inline image expansion.
         - 4chan X QR input dimensions.
         - Non-custom nav links.
+        - Pages z-index.
+        - Non-default backlinks positioning.
+        - Ability to hide threads.
+        - 4chan X quote hover preview width.
+        - Highlighted post style.
     added:
         - Board name/text link position.
 2.0.1

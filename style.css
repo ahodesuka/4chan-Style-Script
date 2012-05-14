@@ -450,7 +450,7 @@ body>span[style]~form[name=delform]" : "
 	margin:1px" + ($SS.conf["Layout"] === 1 ? ($SS.conf["Sidebar Position"] !== 2 ? " 0 1px 1px" : " 1px 1px 0") : ($SS.conf["Layout"] === 2 ? " 0 1px" : "")) + "!important;
     overflow:visible!important;
 	padding:0!important;
-    padding-" + $SS.conf["Sidebar Position String"] + ":2px!important;
+    " + ($SS.conf["Layout"] !== 3 ? "padding-" + $SS.conf["Sidebar Position String"] + ":2px!important;" : "") + "
 	position:relative;
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
@@ -496,8 +496,9 @@ form[name=delform]
 }
 .thread>div>.post
 {
-	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") +"
+	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") + "
     overflow:visible;
+    position:relative;
 }
 .thread:last-child>.postContainer:last-child>.reply
 {
@@ -553,7 +554,7 @@ hr
 {
     margin:0!important;
 }
-div.post:not([hidden])
+div.post:not(#qp)
 {
     display:block!important;
     margin:0!important;
@@ -685,11 +686,12 @@ div.post:not([hidden])
 {
     padding-top:2px!important;
 }
-.reply.highlight,
+.replyContainer div.highlight,
 .highlightPost,
 .qphl
 {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(16, true) + ",.9)!important;
+    border:0!important;
 }
 .filter_highlight
 {
@@ -714,7 +716,7 @@ div.post:not([hidden])
 .container
 {
 	" + ($SS.conf["Backlinks Position"] !== 1 ? "
-	bottom:" + ($SS.conf["Slim Replies"] ? 0 : 2) + "px;
+	bottom:2px;
 	position:absolute;
 	" + ($SS.conf["Backlinks Position"] === 2 ? "right" : "left") + ":2px;
 	z-index:1;" : "") + "
@@ -1174,6 +1176,10 @@ td.doubledash
 div.autohide>a[title='Auto-hide dialog box']
 {
 	text-decoration:underline!important;
+}
+.op
+{
+    display:block!important;
 }
 .op .filesize
 {
@@ -2085,7 +2091,7 @@ body>.closed
 	padding:0 5px;
 	position:fixed!important;
 	width:auto!important;
-	z-index:9;
+	z-index:12;
 }
 .mPagelist .pages
 {
