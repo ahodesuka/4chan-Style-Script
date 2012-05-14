@@ -181,7 +181,6 @@ body>a[style='cursor: pointer; float: right;'],
 #boardNavDesktop,
 #boardNavDesktop>a,
 #boardNavDesktop>span:not(#navtopr)>a,
-#navtopr,
 #imageType+label,
 #qr>form #spoilerLabel,
 .preview>label,
@@ -210,7 +209,7 @@ input[type=submit],
 #updater .move,
 #watcher .move,
 .deleteform::before,
-.boardBanner font[size='1'],
+.boardBanner .boardSubtitle,
 .preview>label::after,
 .riceFile div,
 .trbtn
@@ -265,7 +264,7 @@ input[type=submit],
 	font-size:" + ($SS.conf["Bitmap Font"] ? $SS.conf["Font Size"] : 10) + "px!important;
 }
 " + (!$SS.conf["Show Board Name"] ? ".boardBanner .boardTitle," : "") +
-(!$SS.conf["Show Text Board"] ? ".boardBanner font[size='1']," : "") +
+(!$SS.conf["Show Text Board"] ? ".boardBanner .boardSubtitle," : "") +
 ($SS.conf["Post Form"] !== 4 ? "#qr>.move .close," : "") +
 ($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") +
 ($SS.conf["Layout"] === 2 && !$SS.conf["Thread Separators"] ? ".board>hr," : "") +
@@ -285,7 +284,8 @@ a[href='#bottom'],
 .sideArrows:not(.hide_reply_button),
 #delform>hr,
 body>.closed>br,
-.board>hr:last-child
+.board>hr:last-child,
+div[style^='text-align: center']
 {
 	display:none!important;
 }
@@ -306,7 +306,7 @@ textarea,
 tr,
 #qr>.move,
 #qr>form #spoilerLabel::after,
-#navtopr span,
+#navtopr,
 #stats span,
 #themeoptions #toNav li label.selected,
 #themeoptions #toNav li label:hover,
@@ -445,7 +445,9 @@ body>span[style]~form[name=delform]" : "
 {
 	clear:both;
 	margin:1px" + ($SS.conf["Layout"] === 1 ? ($SS.conf["Sidebar Position"] !== 2 ? " 0 1px 1px" : " 1px 1px 0") : ($SS.conf["Layout"] === 2 ? " 0 1px" : "")) + "!important;
+    overflow:visible!important;
 	padding:0!important;
+    padding-" + $SS.conf["Sidebar Position String"] + ":2px!important;
 	position:relative;
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
@@ -453,7 +455,8 @@ form[name=delform] .op::after,
 #addMascot>label::after,
 #qr>form>div::after,
 #updater div>label::after,
-.thread::after
+.thread::after,
+.reply::after
 {
 	clear:both;
 	content:'';
@@ -470,7 +473,7 @@ form[name=delform] .op::after,
 {
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
-	right:2px;
+	right:0;
 	top:0;" : "
 	position:relative;
 	top:1px;") + "
@@ -491,6 +494,7 @@ form[name=delform]
 .thread>div>.reply
 {
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") +"
+    overflow:visible;
 }
 .thread:last-child>.postContainer:last-child>.reply
 {
@@ -567,7 +571,7 @@ div.post:not([hidden])
     vertical-align:top!important;
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
-	right:14px;
+	right:12px;
     top:0;" : "") + "
 }
 .inline .report_button,
@@ -590,13 +594,14 @@ div.post:not([hidden])
 	z-index:10!important;
 	position:relative;
 }
+" + ($SS.conf["Layout"] !== 2 ? "
 .hide_reply_button:not(.stub)
 {
-	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
-	right:2px;
-	top:0;" : "") + "
-}
+	right:0;
+	top:0;
+    z-index:3;
+}" : "") + "
 .hide_reply_button:not(.stub)>a,
 .hide_thread_button>span
 {
@@ -727,6 +732,10 @@ input[type=checkbox]:focus,
 	z-index:11!important;
 	border-radius:3px;
 }
+#qp .reply
+{
+    width:auto!important;
+}
 .inline .replyContainer>.reply
 {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.1)!important;
@@ -846,6 +855,11 @@ blockquote>div[style]
 .fileInfo
 {
     padding-left:3px!important;
+}
+.fileThumb>img+img
+{
+    position:relative;
+    z-index:10;
 }
 img[alt=Closed],
 img[alt=Sticky],
@@ -1069,6 +1083,7 @@ td.doubledash
 }
 .boardBanner
 {
+    height:86.3333px;
 	position:fixed;
 	" + $SS.conf["Sidebar Position String"] + ":1px;
 	text-align:center;
@@ -1127,7 +1142,7 @@ td.doubledash
 {
 	background:transparent!important;
 }
-.boardBanner font[size='1']
+.boardBanner .boardSubtitle
 {
 	left:0;
 	position:absolute;
@@ -1136,7 +1151,7 @@ td.doubledash
 	width:100%;
 	z-index:3;
 }
-.boardBanner font[size='1']>a
+.boardBanner .boardSubtitle>a
 {
 	text-transform:none!important;
 	text-shadow:" + $SS.theme.mainColor.hex + " -1px -1px," + $SS.theme.mainColor.hex + " 1px -1px," + $SS.theme.mainColor.hex + " -1px 1px," + $SS.theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.2) 0 0 10px,#000 0 1px 5px,#000 0 -1px 5px!important;
@@ -2262,7 +2277,7 @@ a[href='.././']
 {
 	display:block;
 }
-.selectedBoard
+#boardLinks>a.selectedBoard
 {
 	text-decoration:underline!important;
 }
@@ -2290,7 +2305,7 @@ a[href='.././']
 #qr.autohide
 {
 	" + ($SS.conf["Post Form"] === 1 ? "
-	bottom:-242px!important;
+	bottom:-240px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -2303,7 +2318,7 @@ a[href='.././']
 " + ($SS.conf["Post Form"] === 1 ? "
 #qr.autohide.dump:not(.focus):not(:hover)
 {
-	bottom:-342px!important;
+	bottom:-340px!important;
 }" : "") + "
 #qr:hover,
 #qr.focus
