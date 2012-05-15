@@ -1,4 +1,6 @@
 master
+
+2.2.0
     fixed:
         - Announcement z-index when using top nav bar.
         - An odd case where 4chanSS's CSS would be inserted before 4chan's.
