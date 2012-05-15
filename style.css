@@ -458,12 +458,11 @@ body>span[style]~form[name=delform]" : "
 	position:relative;
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
-form[name=delform] .op::after,
 #addMascot>label::after,
 #qr>form>div::after,
 #updater div>label::after,
-.thread::after,
-.reply::after
+" + ($SS.conf["Layout"] !== 2 ? ".thread .op::after," : "") + "
+.thread::after
 {
 	clear:both;
 	content:'';
@@ -596,6 +595,7 @@ div.post:not(#qp):not([hidden])
 	position:static!important;
 	vertical-align:middle!important;
 }
+#settingsBox,
 .replyContainer>.reply input[type=checkbox],
 .replyContainer>.reply .riceCheck,
 .container,
@@ -711,7 +711,7 @@ div.post:not(#qp):not([hidden])
 }
 .stub
 {
-	margin:1px 0 0!important;
+    margin:1px 0 0 " + ($SS.conf["Layout"] === 2 ? 16 : 0) + "px!important;
 	padding:0!important;
 }
 .thread.stub
@@ -878,11 +878,15 @@ blockquote>div[style]
 {
     padding-left:3px!important;
 }
+.fileThumb>img
+{
+    position:relative;
+    z-index:1;
+}
 .fileThumb>img+img
 {
 	background-color:rgba(" + $SS.theme.mainColor.rgb + ",.01)!important;
-    position:relative;
-    z-index:10;
+    z-index:10!important;
 }
 img[alt=Closed],
 img[alt=Sticky],

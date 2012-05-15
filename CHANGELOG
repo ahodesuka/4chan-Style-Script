@@ -4,6 +4,8 @@ master
         - An odd case where 4chanSS's CSS would be inserted before 4chan's.
         - Options link will no longer conflict with 4chanx's link.
         - Exhentai links inside cloned nodes (inline quotes).
+        - Fit contetn replies will wrap around OP's image similar to the vanilla 4chan style.
+        - z-index issue with thumbnails and inline quotes.
     added:
         - Import/Export theme feature.
 2.1.1
