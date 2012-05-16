@@ -108,7 +108,6 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.quoteColor.hex + "!important;
 }
-.postMessage .quote a,
 a.quotelink
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
@@ -116,7 +115,6 @@ a.quotelink
 a.forwardlink
 {
     color:" + $SS.theme.linkColor.hex + "!important;
-    text-decoration:underline!important;
 }
 .spoiler:not(:hover),
 .spoiler:not(:hover) .quote,
@@ -705,9 +703,10 @@ div.post:not(#qp):not([hidden])
 {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(16, true) + ",.9)!important;
 }
-.filter_highlight
+.filter_highlight>div.opContainer,
+.filter_highlight>.reply
 {
-    box-shadow:-5px 0 rgba(255,0,0,.5)!important;
+    box-shadow:inset 5px 0 rgba(" + $SS.theme.sageColor.rgb + ",.5)!important;
 }
 .stub
 {
