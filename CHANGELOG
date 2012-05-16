@@ -1,4 +1,6 @@
 master
+
+2.2.1
     fixed:
         - 4chan X highlighted post style.
         - Slideup post form size.
