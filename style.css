@@ -611,11 +611,11 @@ div.post:not(#qp):not([hidden])
 }
 .inline>div.post.reply
 {
-    background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.1)!important;
+    background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.8)!important;
 	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.4)!important;
 	padding:5px!important;
 	border-radius:3px!important;
-	box-shadow:rgba(0,0,0,.1) 0 5px 10px;
+	box-shadow:rgba(" + $SS.theme.mainColor.shiftRGB(16) + ",.9) 0 1px 3px;
     overflow:visible!important;
 	position:relative;
 	z-index:10!important;
