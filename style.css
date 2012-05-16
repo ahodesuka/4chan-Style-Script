@@ -116,6 +116,10 @@ a.forwardlink
 {
     color:" + $SS.theme.linkColor.hex + "!important;
 }
+.dateTime
+{
+    color:" + $SS.theme.timeColor.hex + "!important;
+}
 .spoiler:not(:hover),
 .spoiler:not(:hover) .quote,
 .spoiler:not(:hover) a

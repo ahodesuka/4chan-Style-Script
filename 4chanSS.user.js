@@ -196,7 +196,8 @@
         { dName: "Text",             name: "textColor",   property: "color"            },
         { dName: "Sage",             name: "sageColor",   property: "color"            },
         { dName: "Tripcodes",        name: "tripColor",   property: "color"            },
-        { dName: "Titles",           name: "titleColor",  property: "color"            }
+        { dName: "Titles",           name: "titleColor",  property: "color"            },
+        { dName: "Timestamps",       name: "timeColor",   property: "color"            }
     ],
     $lib, $SS;
 
@@ -1777,6 +1778,7 @@
                     sageColor:   "c99090",
                     tripColor:   "d4c095",
                     titleColor:  "9390c9",
+                    timeColor:   "dddddd",
                     customCSS:   ".reply{border:0!important}"
                 },
                 {
@@ -1797,6 +1799,7 @@
                     textColor:   "333333",
                     sageColor:   "990000",
                     tripColor:   "ff3300",
+                    timeColor:   "333333",
                     titleColor:  "002244"
                 },
                 {
@@ -1818,7 +1821,8 @@
                     textColor:   "c5c8c6",
                     sageColor:   "cc6666",
                     tripColor:   "8abeb7",
-                    titleColor:  "b294bb"
+                    titleColor:  "b294bb",
+                    timeColor:   "c5c8c6"
                 },
                 {
                     name:        "Yotsuba",
@@ -1840,6 +1844,7 @@
                     sageColor:   "cc1111",
                     tripColor:   "228854",
                     titleColor:  "cc1105",
+                    timeColor:   "800000",
                     customCSS:   'new String("#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}")'
                 },
                 {
@@ -1862,6 +1867,7 @@
                     sageColor:   "990000",
                     tripColor:   "228854",
                     titleColor:  "0f0c5d",
+                    timeColor:   "000000",
                     customCSS:   'new String("#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}")'
                 },
                 {
@@ -1883,7 +1889,8 @@
                     textColor:   "4d4d4c",
                     sageColor:   "c82829",
                     tripColor:   "3e999f",
-                    titleColor:  "4d4d4d"
+                    titleColor:  "4d4d4d",
+                    timeColor:   "4d4d4c"
                 },
                 {
                     name:        "Midnight Caek",
@@ -1904,7 +1911,8 @@
                     textColor:   "909090",
                     sageColor:   "7c2d2d",
                     tripColor:   "3e7157",
-                    titleColor:  "aaaaaa"
+                    titleColor:  "aaaaaa",
+                    timeColor:   "909090"
                 },
                 {
                     name:        "Solarized", // http://ethanschoonover.com/solarized
@@ -1926,6 +1934,7 @@
                     sageColor:   "cc6666",
                     tripColor:   "2aa198",
                     titleColor:  "bec2c4",
+                    timeColor:   "93a1a1",
                     customCSS:   ".reply{border:0!important}"
                 },
                 {
@@ -1949,6 +1958,7 @@
                     sageColor:   "cc6666",
                     tripColor:   "bf7f3f",
                     titleColor:  "4c4c4c",
+                    timeColor:   "4c4c4c",
                     customCSS:   'new String(($SS.conf["Layout"]===2?".opContainer{display:block!important;border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.opContainer,":"}"):"")+".post.reply{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.reply.highlight,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}")'
                 },
                 {
@@ -1971,6 +1981,7 @@
                     sageColor:   "4f4f4f",
                     tripColor:   "bd2b83",
                     titleColor:  "06989a",
+                    timeColor:   "dddddd",
                     customCSS:   ".reply{border:0!important}"
                 }
             ],
@@ -2912,6 +2923,7 @@
             this.textColor   = new $SS.Color(theme.textColor);
             this.titleColor  = new $SS.Color(theme.titleColor);
             this.tripColor   = new $SS.Color(theme.tripColor);
+            this.timeColor   = new $SS.Color(theme.timeColor || theme.textColor);
             this.checkMark   = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? 0 : -8) + "px");
             this.radioCheck  = new $SS.Image(inputImages, "no-repeat center " + (this.inputColor.isLight ? -16 : -24) + "px");
             this.icons       = new $SS.Image(theme.icons || defaultIcons);
