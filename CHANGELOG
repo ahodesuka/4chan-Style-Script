@@ -1,5 +1,14 @@
 master
-
+    fixed:
+        - 4chan X highlighted post style.
+        - Slideup post form size.
+        - Top positioned navigation bar with left positioned sidebar.
+    modified:
+        - forwardlink is no longer underlined.
+        - Yotsubar styles no longer have fixed background images.
+        - Invalid theme detection/notification while importing.
+    added:
+        - Option to preserve 4chan's default link underline style.
 2.2.0
     fixed:
         - Announcement z-index when using top nav bar.

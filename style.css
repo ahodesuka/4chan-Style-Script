@@ -67,10 +67,10 @@ h3,
 {
 	font-weight:400!important;
 }
-a:not(.hide_thread_button),
+a,
 a.replylink
 {
-	text-decoration:none!important;
+    " + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
 	font-weight:normal!important;
 	-webkit-transition:all .1s;
@@ -335,7 +335,7 @@ textarea:-moz-placeholder
 body
 {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
-	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) || ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 0 0" : (!$SS.bHideSidebar ? "0 0 0 265px" : "0 0 0")) + "!important;
+	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) || ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 0 0" : (!$SS.bHideSidebar ? "0 0 0 " + $SS.iSidebarSize + "px" : "0 0 0")) + "!important;
     margin-bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 43) + "px!important;
 	padding:0!important;
 }
@@ -441,11 +441,10 @@ body>a[style='cursor: pointer; float: right;']+div,
 }
 " + ($SS.conf["Layout"] !== 2 ? "
 .thread:not(.stub),
-body>span[style]~form[name=delform]" : "
-.op") + "
+body>span[style]~form[name=delform]
 {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.5);
-}
+}" : "") + "
 .thread
 {
 	clear:both;
@@ -1847,7 +1846,7 @@ input[name=customIMGB64]+a[name=clearIMG]
 	top:0;
 	width:" + ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 114 : 115) + "px!important;
 	padding-" + $SS.conf["Sidebar Position String"] + ":147px!important;
-	z-index:6;
+	z-index:13;
 }
 #imgControls #imageType,
 #boardNavDesktop>select
@@ -1920,7 +1919,7 @@ form[name=post] #com_submit+label,
 	line-height:18px;
 	overflow:hidden;
 	padding:0 3px;
-	z-index:9!important;
+	z-index:13!important;
 	width:140px;
 }
 #updater:hover
@@ -1967,7 +1966,6 @@ form[name=post] #com_submit+label,
 	height:18px;
 	line-height:18px;
 	top:0!important;
-	z-index:8!important;
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	right:43px!important;
 	left:auto!important;
@@ -1976,6 +1974,7 @@ form[name=post] #com_submit+label,
 	left:43px!important;
 	text-align:right;") + "
 	width:100px;
+	z-index:13!important;
 }
 #navlinks
 {
@@ -1983,8 +1982,8 @@ form[name=post] #com_submit+label,
 	left:5px;
 	right:auto!important;") + "
 	top:0!important;
-	height:20px;
-	z-index:6!important;
+	height:18px;
+	z-index:13!important;
 }
 #ihover
 {
@@ -2006,7 +2005,7 @@ body>center:nth-of-type(2)
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
-	" + $SS.conf["Sidebar Position String"] + ":265px!important;
+	" + $SS.conf["Sidebar Position String"] + ":" + $SS.iSidebarSize + "px!important;
     top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 19 : 0) + "px;
 	white-space:nowrap;
 	z-index:12;
@@ -2038,7 +2037,7 @@ body>.closed
 " + ($SS.conf["Navigation Bar Position"] === 1 ? "
 #bNavWrapper
 {
-    margin-left:-265px!important;
+    " + ($SS.conf["Sidebar Position"] !== 2 ? "margin-left:-" + $SS.iSidebarSize + "px!important;" : "") + "
     height:18px;
     line-height:18px;
     top:0!important;
@@ -2051,7 +2050,8 @@ body>.closed
 #boardNavDesktop
 {
     height:18px!important;
-    padding-left:265px!important;
+    margin-left:" + $SS.iSidebarSize + "px!important;
+    position:relative;
 }
 " : "
 #boardNavDesktop
@@ -2133,7 +2133,9 @@ select#pagesDrop
 {
     display:inline-block!important;
     float:left;
-    margin-top:1px;
+    " + ($SS.conf["Navigation Bar Position"] === 2 ? "
+    height:20px!important;" : "") + "
+    margin-top:1px!important;
 }
 " : "
 .mPagelist
@@ -2318,7 +2320,7 @@ a[href='.././']
 	text-indent:-9999px;
 	top:2px;
 	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] !== 2 ? 99 : 38)) + "px!important;
-	z-index:8;
+	z-index:14;
 }
 .exSource
 {
@@ -2459,7 +2461,7 @@ a[href='.././']
 }
 #qr>.move
 {
-	height:22px!important;
+    height:23px!important;
 	line-height:18px!important;
 	min-width:0!important;
 	padding:2px 0 0 3px!important;
@@ -2525,7 +2527,7 @@ span[style]~#qr>.move .riceCheck
 	color:rgba(" + $SS.theme.textColor.rgb + ",0)!important;
 	font-size:0!important;
 	position:absolute;
-	right:265px;
+	right:" + $SS.iSidebarSize + "px;
 	top:4px;
 	white-space:nowrap;
 	z-index:-1;
