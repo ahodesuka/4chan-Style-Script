@@ -2045,6 +2045,14 @@
                     for (var i = 0, MAX = $SS.conf["Selected Mascots"].length, j; i < MAX; i++)
                     {
                         j = $SS.conf["Selected Mascots"][i];
+
+                        if ($SS.conf["Mascots"][j] == undefined)
+                        {
+                            $SS.conf["Selected Mascots"].splice(i, 1);
+                            $SS.Config.set("Selected Mascots", $SS.conf["Selected Mascots"]);
+                            continue;
+                        }
+
                         if ($SS.conf["Mascots"][j].boards != undefined &&
                             $SS.conf["Mascots"][j].boards.split(",").indexOf($SS.location.board) == -1)
                             continue;
