@@ -56,14 +56,6 @@
                 { name: "Centered",    value: 3 }
             ], true
         ],
-        "Thread Separators":
-        [
-            true,
-            "Show the lines between different threads",
-            "Layout",
-            2,
-            true
-        ],
         "Navigation Bar Position":
         [
             2, "Sets the position of the navigation bar",

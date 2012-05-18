@@ -270,7 +270,6 @@ input[type=submit],
 (!$SS.conf["Show Text Board"] ? ".boardBanner .boardSubtitle," : "") +
 ($SS.conf["Post Form"] !== 4 ? "#qr>.move .close," : "") +
 ($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") +
-($SS.conf["Layout"] === 2 && !$SS.conf["Thread Separators"] ? ".board>hr," : "") +
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") + "
 [hidden],
