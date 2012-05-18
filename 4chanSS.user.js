@@ -987,13 +987,13 @@
                 {
                     var overlay     = $("<div id=overlay>"),
                         tOptions    = $("<div id=themeoptions class=reply>"),
-                        optionsHTML = "<ul id=toNav>\
-                        <li><label class=selected for=tcbMain>Main</label></li>\
-                        <li><label for=tcbThemes>Themes</label></li>\
-                        <li><label for=tcbMascots>Mascots</label></li>\
-                        <li><label for=tcbNavLinks>Nav Links</label></li>\
-                        </ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>\
-                        <p><a class=trbtn name=loadSysFonts title='Reqiures flash'>" + ($SS.fontList ? "System Fonts Loaded!" : "Load System Fonts") + "</a></p>",
+                        optionsHTML = "<ul id=toNav>" +
+                        "<li><label class=selected for=tcbMain>Main</label></li>" +
+                        "<li><label for=tcbThemes>Themes</label></li>" +
+                        "<li><label for=tcbMascots>Mascots</label></li>" +
+                        "<li><label for=tcbNavLinks>Nav Links</label></li>" +
+                        "</ul><div id=toWrapper><input type=radio name=toTab id=tcbMain hidden checked><div id=tMain>" +
+                        "<p><a class=trbtn name=loadSysFonts title='Reqiures flash'>" + ($SS.fontList ? "System Fonts Loaded!" : "Load System Fonts") + "</a></p>",
                         bindNavLinks = function(el)
                         {
                             $(".handle", el).bind("dragstart", function(e)
@@ -1044,13 +1044,16 @@
                         {
                             var pVal = $SS.conf[defaultConfig[key][2]];
                                 id   = defaultConfig[key][2].replace(" ", "_") + defaultConfig[key][3];
-                            optionsHTML += "<label class='mOption subOption' id=" + id + " title=\"" + des + "\"" + (pVal != defaultConfig[key][3] ? "hidden" : "") + "><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
+                            optionsHTML += "<label class='mOption subOption' id=" + id + " title=\"" + des + "\"" +
+                                            (pVal != defaultConfig[key][3] ? "hidden" : "") + "><span>" + key +
+                                            "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
                         }
                         else if (Array.isArray(defaultConfig[key][2])) // select
                         {
                             var opts = key === "Font" ? $SS.fontList || defaultConfig[key][2] : defaultConfig[key][2],
                                 cFonts = [];
-                            optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'" + (defaultConfig[key][3] === true ? " hasSub" : "")  + ">";
+                            optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span>" +
+                                           "<select name='" + key + "'" + (defaultConfig[key][3] === true ? " hasSub" : "")  + ">";
 
                             for (var i = 0, MAX = opts.length; i < MAX; ++i)
                             {
@@ -1066,7 +1069,8 @@
 
                                 if (key === "Font") cFonts.push(value);
 
-                                optionsHTML += "<option" + (key === "Font" ? " style=\"font-family:" + $SS.formatFont(value) + "!important\"" : "") + " value='" + value + "'" + (value == val ? " selected" : "") + ">" + name + "</option>";
+                                optionsHTML += "<option" + (key === "Font" ? " style=\"font-family:" + $SS.formatFont(value) + "!important\"" : "") +
+                                               " value='" + value + "'" + (value == val ? " selected" : "") + ">" + name + "</option>";
                             }
 
                             if (key === "Font" && cFonts.indexOf($SS.conf["Font"]) == -1)
@@ -1076,7 +1080,8 @@
                         }
                         else if (key === "Font Size")
                         {
-                            optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span><input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></span>";
+                            optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span>" +
+                                           "<input type=text name='Font Size' value=" + $SS.conf["Font Size"] + "px></span>";
                         }
                         else if (key === "Themes")
                         {
@@ -1089,20 +1094,25 @@
                         else if (key === "Nav Links")
                         {
                             var links = $SS.conf["Nav Links"];
-                            optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks>\
-                                            <p><a class=trbtn name=addLink>add</a>\
-                                            <label>Delimiter: \
-                                            <input type=text name='Nav Link Delimiter' value='" + $SS.conf["Nav Link Delimiter"] + "' style='width:40px' title='" + defaultConfig["Nav Link Delimiter"][1] + "'></p>";
+                            optionsHTML += "</div><input type=radio name=toTab id=tcbNavLinks hidden><div id=tNavLinks>" +
+                                           "<p><a class=trbtn name=addLink>add</a>" +
+                                           "<label>Delimiter: " +
+                                           "<input type=text name='Nav Link Delimiter' value='" + $SS.conf["Nav Link Delimiter"] +
+                                           "' style='width:40px' title='" + defaultConfig["Nav Link Delimiter"][1] + "'></p>";
 
-                            for (var i = 0, MAX = links.length; i < MAX; ++i)
-                                optionsHTML += "<div id=navlink" + i + " class=navlink><label>Text: <input type=text value='" + links[i].text + "'></label>" +
-                                                    "<label>Link: <input type=text value='" + links[i].link + "'></label><a class=trbtn name=delLink>remove</a><div class=handle draggable=true></div></div>";
+                            if (links != undefined)
+                                for (var i = 0, MAX = links.length; i < MAX; ++i)
+                                    optionsHTML += "<div id=navlink" + i + " class=navlink><label>Text: <input type=text value='" + links[i].text + "'></label>" +
+                                                   "<label>Link: <input type=text value='" + links[i].link + "'></label>" +
+                                                   "<a class=trbtn name=delLink>remove</a><div class=handle draggable=true></div></div>";
                         }
                         else // checkbox
-                            optionsHTML += "<label class=mOption title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") + " name='" + key + "' " + (defaultConfig[key][3] === true ? " hasSub" : "")  + " type=checkbox></label>";
+                            optionsHTML += "<label class=mOption title=\"" + des + "\"><span>" + key + "</span><input" + (val ? " checked" : "") +
+                                           " name='" + key + "' " + (defaultConfig[key][3] === true ? " hasSub" : "")  + " type=checkbox></label>";
                     }
 
-                    optionsHTML += "</div></div><div><span id=SSVersion>4chan SS v" + VERSION + "</span><a class=trbtn name=save title='Hold any modifier to prevent window from closing'>save</a><a class=trbtn name=cancel>cancel</a></div>";
+                    optionsHTML += "</div></div><div><span id=SSVersion>4chan SS v" + VERSION + "</span>" +
+                                   "<a class=trbtn name=save title='Hold any modifier to prevent window from closing'>save</a><a class=trbtn name=cancel>cancel</a></div>";
                     tOptions.html(optionsHTML);
                     overlay.append(tOptions);
 
@@ -1155,7 +1165,8 @@
                     {
                         var el = $("<div id=navlink" + $("#tNavLinks>.navlink").length() + " class=navlink>")
                                 .html("<label>Text: <input type=text></label>" +
-                                      "<label>Link: <input type=text value='boards.4chan.org/'></label><a class=trbtn name=delLink>remove</a><div class=handle draggable=true></div>");
+                                      "<label>Link: <input type=text value='boards.4chan.org/'></label>" +
+                                      "<a class=trbtn name=delLink>remove</a><div class=handle draggable=true></div>");
                         bindNavLinks(el);
                         $("#tNavLinks").append(el);
                     });
@@ -1290,14 +1301,14 @@
             {
                 var loadFontBTN = $(evt.target),
                     getFontMessage;
-                $(document.head).append($('<script type="text/javascript">\
-                function populateFontList(fontArr)\
-                {\
-                    var fontList = [];\
-                    for (var key in fontArr)\
-                        fontList.push(fontArr[key]);\
-                    window.postMessage(fontList, "*");\
-                }'));
+                $(document.head).append($('<script type="text/javascript">' +
+                "function populateFontList(fontArr)" +
+                "{" +
+                    "var fontList = [];" +
+                    "for (var key in fontArr)" +
+                        "fontList.push(fontArr[key]);" +
+                    "window.postMessage(fontList, '*');" +
+                "}"));
                 window.addEventListener("message", getFontMessage = function(e)
                 {
                     $SS.fontList = e.data;
@@ -1308,7 +1319,8 @@
                         var name, value;
                             name = value = $SS.fontList[i];
 
-                        fontSelect.append($("<option" + " style=\"font-family:" + $SS.formatFont(value) + "!important\"" + " value='" + value + "'" + (value == $SS.conf["Font"] ? " selected=true" : "") + ">" + name));
+                        fontSelect.append($("<option" + " style=\"font-family:" + $SS.formatFont(value) + "!important\"" +
+                                            " value='" + value + "'" + (value == $SS.conf["Font"] ? " selected=true" : "") + ">" + name));
                     }
 
                     $("select[name=Font]").before(fontSelect).remove();
@@ -1318,7 +1330,8 @@
                     loadFontBTN.text("System Fonts Loaded!").unbind("click", $SS.options.loadSystemFonts);
                 }, false);
 
-                $(document.body).append($("<div id=fontListSWF hidden><object type='application/x-shockwave-flash' data='" + fontListSWF + "'><param name=allowScriptAccess value=always></object>"));
+                $(document.body).append($("<div id=fontListSWF hidden><object type='application/x-shockwave-flash'" +
+                                          " data='" + fontListSWF + "'><param name=allowScriptAccess value=always></object>"));
                 return loadFontBTN.text("Loading...");
             },
             save: function()
@@ -1425,43 +1438,43 @@
 
                 div = $("<div id=addTheme>");
 
-                var innerHTML = "<label>\
-                <span>Theme Name:</span><input type=text name=name value='" + (bEdit ? tEdit.name : "") + "'>\
-                </label><label>\
-                <span>BG Image:</span><input type=text name=bgImg value='" + (bEdit ? ($SS.validImageURL(tEdit.bgImg) ? tEdit.bgImg + "'" :
-                ($SS.validBase64(tEdit.bgImg) ? "[Base 64 Encoded Image]' disabled=true" : "'")) : "'") + "></label><label>\
-                <span>BG Repeat:</span><select name=bgR>\
-                <option" + (bEdit && themeR === "no-repeat" ? " selected" : "") + ">no-repeat</option>\
-                <option" + (bEdit && themeR === "repeat" ? " selected" : "") + ">repeat</option>\
-                <option" + (bEdit && themeR === "repeat-x" ? " selected" : "") + ">repeat-x</option>\
-                <option" + (bEdit && themeR === "repeat-y" ? " selected" : "") + ">repeat-y</option>\
-                </select></label><label>\
-                <span>BG Attachment:</span><select name=bgA>\
-                <option" + (bEdit && themeA === "fixed" ? " selected" : "") + ">fixed</option>\
-                <option" + (bEdit && themeA === "scroll" ? " selected" : "") + ">scroll</option>\
-                </select></label><label>\
-                <span>BG Position-X:</span><select name=bgPX>\
-                <option" + (bEdit && themePX === "left" ? " selected" : "") + ">left</option>\
-                <option" + (bEdit && themePX === "center" ? " selected" : "") + ">center</option>\
-                <option" + (bEdit && themePX === "right" ? " selected" : "") + ">right</option>\
-                </select></label><label>\
-                <span>BG Position-Y:</span><select name=bgPY>\
-                <option" + (bEdit && themePY === "top" ? " selected" : "") + ">top</option>\
-                <option" + (bEdit && themePY === "center" ? " selected" : "") + ">center</option>\
-                <option" + (bEdit && themePY === "bottom" ? " selected" : "") + ">bottom</option>\
-                </select></label>";
+                var innerHTML = "<label>" +
+                "<span>Theme Name:</span><input type=text name=name value='" + (bEdit ? tEdit.name : "") + "'>" +
+                "</label><label>" +
+                "<span>BG Image:</span><input type=text name=bgImg value='" + (bEdit ? ($SS.validImageURL(tEdit.bgImg) ? tEdit.bgImg + "'" :
+                ($SS.validBase64(tEdit.bgImg) ? "[Base 64 Encoded Image]' disabled=true" : "'")) : "'") + "></label><label>" +
+                "<span>BG Repeat:</span><select name=bgR>" +
+                "<option" + (bEdit && themeR === "no-repeat" ? " selected" : "") + ">no-repeat</option>" +
+                "<option" + (bEdit && themeR === "repeat" ? " selected" : "") + ">repeat</option>" +
+                "<option" + (bEdit && themeR === "repeat-x" ? " selected" : "") + ">repeat-x</option>" +
+                "<option" + (bEdit && themeR === "repeat-y" ? " selected" : "") + ">repeat-y</option>" +
+                "</select></label><label>" +
+                "<span>BG Attachment:</span><select name=bgA>" +
+                "<option" + (bEdit && themeA === "fixed" ? " selected" : "") + ">fixed</option>" +
+                "<option" + (bEdit && themeA === "scroll" ? " selected" : "") + ">scroll</option>" +
+                "</select></label><label>" +
+                "<span>BG Position-X:</span><select name=bgPX>" +
+                "<option" + (bEdit && themePX === "left" ? " selected" : "") + ">left</option>" +
+                "<option" + (bEdit && themePX === "center" ? " selected" : "") + ">center</option>" +
+                "<option" + (bEdit && themePX === "right" ? " selected" : "") + ">right</option>" +
+                "</select></label><label>" +
+                "<span>BG Position-Y:</span><select name=bgPY>" +
+                "<option" + (bEdit && themePY === "top" ? " selected" : "") + ">top</option>" +
+                "<option" + (bEdit && themePY === "center" ? " selected" : "") + ">center</option>" +
+                "<option" + (bEdit && themePY === "bottom" ? " selected" : "") + ">bottom</option>" +
+                "</select></label>";
 
                 for (var i = 0, MAX = themeInputs.length; i < MAX; ++i)
-                    innerHTML += "<label><span>" + themeInputs[i].dName + ":</span>\
-                    <input type=text class=jsColor name=" + themeInputs[i].name + " value=" + (bEdit ? tEdit[themeInputs[i].name] : "") + "></label>";
+                    innerHTML += "<label><span>" + themeInputs[i].dName + ":</span>" +
+                    "<input type=text class=jsColor name=" + themeInputs[i].name + " value=" + (bEdit ? tEdit[themeInputs[i].name] : "") + "></label>";
 
-                innerHTML += "<label id=customCSS><span>Custom CSS:</span><textarea name=customCSS>" + (bEdit ? tEdit.customCSS || "" : "") + "</textarea>\
-                </label><div><div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>\
-                <span class=trbtn>Select Image</span></div>\
-                " + (bEdit && $SS.validBase64(tEdit.bgImg) ? "<input type=hidden name=customIMGB64 value='" + tEdit.bgImg + "'>" : "") + "\
-                <a class=trbtn name=clearIMG>Clear Image</a>\
-                <a class=trbtn name=export>Export</a>\
-                <a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div>";
+                innerHTML += "<label id=customCSS><span>Custom CSS:</span><textarea name=customCSS>" + (bEdit ? tEdit.customCSS || "" : "") + "</textarea>" +
+                "</label><div><div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>" +
+                "<span class=trbtn>Select Image</span></div>" +
+                "" + (bEdit && $SS.validBase64(tEdit.bgImg) ? "<input type=hidden name=customIMGB64 value='" + tEdit.bgImg + "'>" : "") + "" +
+                "<a class=trbtn name=clearIMG>Clear Image</a>" +
+                "<a class=trbtn name=export>Export</a>" +
+                "<a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div>";
 
                 div.html(innerHTML);
                 $(".jsColor", div).jsColor();
@@ -1598,25 +1611,31 @@
                     var bEdit = true,
                         mEdit = $SS.conf["Mascots"][mIndex];
 
-                div = $("<div id=addMascot>").html("<label><span>Image:</span><input type=text name=customIMG value='" + (bEdit ? ($SS.validImageURL(mEdit.img) ? mEdit.img + "'" : "[Base 64 Encoded Image]' disabled=true") : "'") + "></label>\
-                        <label title='Auto goes according to the post forms position' for=null><span>Alignment/Offset:</span>\
-                        <select name=mPosition>\
-                            <option" + ((bEdit && !mEdit.position) || !bEdit ? " selected" : "") + ">Auto</option>\
-                            <option" + (bEdit && mEdit.position === "top" ? " selected" : "") + ">Top</option>\
-                            <option" + (bEdit && mEdit.position === "center" ? " selected" : "") + ">Center</option>\
-                            <option" + (bEdit && mEdit.position === "bottom" ? " selected" : "") + ">Bottom</option>\
-                        </select>\
-                        <input type=text name=mOffset value='" + (bEdit && mEdit.position ? mEdit.offset + "px" : "") + "'></label>\
-                        <label title='Prevent streching with smaller images (Width < 313px)'><span>Prevent stretching:</span><input type=checkbox name=mSmall" + (bEdit && mEdit.small ? " checked" : "") + "></label>\
-                        <label title='Horizontally flip the mascot when sidebar is on the left'><span>Flip with sidebar:</span><input type=checkbox name=mFlip" + (!bEdit || (bEdit && (mEdit.flip || mEdit.flip == undefined)) ? " checked" : "") + "></label>\
-                        <label title='Allows the mascot to be shown outside the sidebar, forces auto offset and ignores `Prevent stretching` option'><span>Allow overflow:</span><input type=checkbox name=mOverflow" + (bEdit && mEdit.overflow ? " checked" : "") + "></label>\
-                        <label title='List of boards to display this mascot on, seperated by commas. Example: a,c,g,v,jp'><span>Boards:</span><input type=text name=mBoards value='" + (bEdit && mEdit.boards ? mEdit.boards : "") + "'></label>\
-                        <div>\
-                        <div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>\
-                        <span class=trbtn>Select Image</span></div>\
-                        " + (bEdit && $SS.validBase64(mEdit.img) ? "<input type=hidden name=customIMGB64 value='" + mEdit.img + "'>" : "") + "\
-                        <a class=trbtn name=clearIMG>Clear Image</a>\
-                        <a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>");
+                div = $("<div id=addMascot>").html("<label><span>Image:</span><input type=text name=customIMG value='" +
+                        (bEdit ? ($SS.validImageURL(mEdit.img) ? mEdit.img + "'" : "[Base 64 Encoded Image]' disabled=true") : "'") +
+                        "></label>" +
+                        "<label title='Auto goes according to the post forms position' for=null><span>Alignment/Offset:</span>" +
+                        "<select name=mPosition>" +
+                            "<option" + ((bEdit && !mEdit.position) || !bEdit ? " selected" : "") + ">Auto</option>" +
+                            "<option" + (bEdit && mEdit.position === "top" ? " selected" : "") + ">Top</option>" +
+                            "<option" + (bEdit && mEdit.position === "center" ? " selected" : "") + ">Center</option>" +
+                            "<option" + (bEdit && mEdit.position === "bottom" ? " selected" : "") + ">Bottom</option>" +
+                        "</select>" +
+                        "<input type=text name=mOffset value='" + (bEdit && mEdit.position ? mEdit.offset + "px" : "") + "'></label>" +
+                        "<label title='Prevent streching with smaller images (Width < 313px)'><span>Prevent stretching:</span>" +
+                        "<input type=checkbox name=mSmall" + (bEdit && mEdit.small ? " checked" : "") + "></label>" +
+                        "<label title='Horizontally flip the mascot when sidebar is on the left'><span>Flip with sidebar:</span>" +
+                        "<input type=checkbox name=mFlip" + (!bEdit || (bEdit && (mEdit.flip || mEdit.flip == undefined)) ? " checked" : "") + "></label>" +
+                        "<label title='Allows the mascot to be shown outside the sidebar, forces auto offset and ignores `Prevent stretching` option'>" +
+                        "<span>Allow overflow:</span><input type=checkbox name=mOverflow" + (bEdit && mEdit.overflow ? " checked" : "") + "></label>" +
+                        "<label title='List of boards to display this mascot on, seperated by commas. Example: a,c,g,v,jp'><span>Boards:</span>" +
+                        "<input type=text name=mBoards value='" + (bEdit && mEdit.boards ? mEdit.boards : "") + "'></label>" +
+                        "<div>" +
+                        "<div id=selectImage><input type=file riced=true accept='image/GIF,image/JPEG,image/PNG'>" +
+                        "<span class=trbtn>Select Image</span></div>" +
+                        "" + (bEdit && $SS.validBase64(mEdit.img) ? "<input type=hidden name=customIMGB64 value='" + mEdit.img + "'>" : "") + "" +
+                        "<a class=trbtn name=clearIMG>Clear Image</a>" +
+                        "<a class=trbtn name=" + (bEdit ? "edit" : "add") + ">" + (bEdit ? "edit" : "add") + "</a><a class=trbtn name=cancel>cancel</a></div></div>");
 
                 overlay = $("<div id=overlay2>").append(div);
 
@@ -2957,22 +2976,22 @@
             this.preview = function()
             {
                 var dText = this.default ? "Hide" : "Delete",
-                    div   = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply\
-                        style='background-color:" + this.mainColor.hex + "!important;border:1px solid " + this.brderColor.hex + "!important;color:" + this.textColor.hex + "!important'>\
-                        <div class=riceCheck style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;box-shadow:rgba(" + this.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>\
-                        <span style='color:" + this.titleColor.hex + "!important'>" + this.name + "</span> \
-                        <span style='color:" + this.nameColor.hex + "!important'>" + this.author + "</span>\
-                        <span style='color:" + this.sageColor.hex + "!important'> (SAGE)</span>\
-                        <span style='color:" + this.tripColor.hex + "!important'>!.pC/AHOKAg</span>\
-                        <time style='color:" + this.timeColor.hex + "'> 20XX.01.01 12:00 </time>\
-                        <a href='javascript:;' style='color:" + this.linkColor.hex + "!important' \
-                        onmouseover='this.setAttribute(\"style\",\"color:" + this.linkHColor.hex + "!important\")' \
-                        onmouseout='this.setAttribute(\"style\",\"color:" + this.linkColor.hex + "!important\")'>No.22772469</a>\
-                        <br><blockquote>Post content is right here.</blockquote>\
-                        <p><a title=Edit style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>Edit</a>\
-                        <a title=" + dText + " style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>" + dText + "</a></p>\
-                        <h3>SELECTED</h3>\
-                    </div>");
+                    div   = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply" +
+                        "style='background-color:" + this.mainColor.hex + "!important;border:1px solid " + this.brderColor.hex + "!important;color:" + this.textColor.hex + "!important'>" +
+                        "<div class=riceCheck style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;box-shadow:rgba(" + this.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>" +
+                        "<span style='color:" + this.titleColor.hex + "!important'>" + this.name + "</span> " +
+                        "<span style='color:" + this.nameColor.hex + "!important'>" + this.author + "</span>" +
+                        "<span style='color:" + this.sageColor.hex + "!important'> (SAGE)</span>" +
+                        "<span style='color:" + this.tripColor.hex + "!important'>!.pC/AHOKAg</span>" +
+                        "<time style='color:" + this.timeColor.hex + "'> 20XX.01.01 12:00 </time>" +
+                        "<a href='javascript:;' style='color:" + this.linkColor.hex + "!important' " +
+                        "onmouseover='this.setAttribute(\"style\",\"color:" + this.linkHColor.hex + "!important\")' " +
+                        "onmouseout='this.setAttribute(\"style\",\"color:" + this.linkColor.hex + "!important\")'>No.22772469</a>" +
+                        "<br><blockquote>Post content is right here.</blockquote>" +
+                        "<p><a title=Edit style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>Edit</a>" +
+                        "<a title=" + dText + " style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>" + dText + "</a></p>" +
+                        "<h3>SELECTED</h3>" +
+                    "</div>");
 
                 $(div).bind("click", function()
                 {
@@ -3078,6 +3097,8 @@
         {
             var links = $SS.conf["Nav Links"],
                 a = [], div;
+
+            if (links == undefined) return;
 
             for (var i = 0, MAX = links.length; i < MAX; ++i)
                 a.push("<a href='" + window.location.protocol + "//" + links[i].link + "'" +

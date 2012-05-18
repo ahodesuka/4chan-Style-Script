@@ -143,14 +143,15 @@ span[style='color:#FF0000;font-weight:normal']
 .reply,
 .hidden_thread,
 .stub>a,
+" + ($SS.conf["Layout"] !== 2 ? "a.summary," : "") + "
 option,
 div[id*=jsMath],
 #imgControls,
 #imgControls .preload,
+#prefetch,
 #jsMath_float>*,
 #watcher>div,
-.deleteform,
-a.summary
+.deleteform
 {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.9)!important;
 }
@@ -1270,7 +1271,8 @@ textarea
 	-o-transition:none;
 }" : "") + "
 #watcher .move,
-#imgControls .preload
+#imgControls .preload,
+#prefetch
 {
 	display:inline-block;
 	margin:0 5px;
@@ -1880,13 +1882,23 @@ input[name=customIMGB64]+a[name=clearIMG]
 {
 	background-position:-48px 0;
 }
-#imgControls .preload
+#imgControls .preload,
+#prefetch
 {
     bottom:-20px;
     height:15px;
     " + $SS.conf["Sidebar Position oString"] + ":24px;
     padding:1px 5px 3px!important;
     position:absolute;
+}
+#prefetch
+{
+    bottom:auto!important;
+    position:fixed!important;
+    " + $SS.conf["Sidebar Position String"] + ":130px!important;
+    " + $SS.conf["Sidebar Position oString"] + ":auto!important;
+    top:20px!important;
+    z-index:13!important;
 }
 body>a[style='cursor: pointer; float: right;'],
 form[name=post] input[name=email]+label,
@@ -2042,7 +2054,7 @@ body>.closed
 #bNavWrapper
 {
     " + ($SS.conf["Sidebar Position"] !== 2 ? "margin-left:-" + $SS.iSidebarSize + "px!important;" : "") + "
-    height:18px;
+    height:19px;
 	left:0!important;
     line-height:18px;
     overflow-y:hidden;
