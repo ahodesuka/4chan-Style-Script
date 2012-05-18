@@ -2002,6 +2002,32 @@
                     titleColor:  "06989a",
                     timeColor:   "dddddd",
                     customCSS:   ".reply{border:0!important}"
+                },
+                {
+                    name:        "4chan Dark Upgrade",
+                    "default":   true,
+                    bgImg:       "http://img85.imageshack.us/img85/4162/4chbg.gif",
+                    bgRPA:       "repeat top left fixed",
+                    bgColor:     "242424",
+                    mainColor:   "333333",
+                    brderColor:  "3a3a3a",
+                    inputColor:  "2f2f2f",
+                    inputbColor: "0f0f0f",
+                    blinkColor:  "cccccc",
+                    jlinkColor:  "cccccc",
+                    linkColor:   "dddddd",
+                    linkHColor:  "eeeeee",
+                    nameColor:   "ffffff",
+                    quoteColor:  "63995b",
+                    textColor:   "ffffff",
+                    sageColor:   "b17385",
+                    tripColor:   "a7dce7",
+                    titleColor:  "999999",
+                    timeColor:   "aaaaaa",
+                    customCSS:   "#delform{background:rgba(22,22,22,.8)!important;border:0!important;padding:1px!important;box-shadow:rgba(0,0,0,.8) 0 0 10px;}" +
+                                 ".postContainer>.reply{background-image:url(http://img714.imageshack.us/img714/3969/4ch2.gif)!important;" +
+                                 "border-bottom:#1f1f1f!important;border-radius:5px!important}" +
+                                 ".thread:not(.stub){background:0!important}a:not([href='javascript:;']){text-shadow:#0f0f0f 0 1px;}"
                 }
             ],
 

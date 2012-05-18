@@ -178,7 +178,6 @@ body,
 form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),
 img[alt=Closed],
 img[alt=Sticky],
-body>span[style],
 .navLinks,
 body>a[style='cursor: pointer; float: right;'],
 .deleteform,
@@ -289,7 +288,7 @@ a[href='#bottom'],
 .sideArrows:not(.hide_reply_button),
 #delform>hr,
 body>.closed>br,
-.board>hr:last-child,
+.board>hr:nth-last-child(2),
 div[style^='text-align: center'],
 #imageExpand,
 .hidden_thread+div.opContainer,
@@ -445,8 +444,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 	right:auto!important;
 }
 " + ($SS.conf["Layout"] !== 2 ? "
-.thread:not(.stub),
-body>span[style]~form[name=delform]
+.thread:not(.stub)
 {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.5);
 }" : "") + "
@@ -486,7 +484,7 @@ body>span[style]~form[name=delform]
 	position:relative;
 	top:1px;") + "
 }
-" + ($SS.conf["Layout"] !== 2 ? "
+" + ($SS.conf["Layout"] === 1 ? "
 .thread>.hide_thread_button:not(.hidden_thread)>span
 {
     right:2px!important;
@@ -557,7 +555,7 @@ textarea,
 .replyContainer>.replyContainer
 {
     border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
-    margin-left:5px!important;
+    padding-left:5px!important;
 }
 div.post
 {
@@ -611,7 +609,7 @@ div.post:not(#qp):not([hidden])
 {
     background:none!important;
     border:0!important;
-    overflow:visible;
+    overflow:visible!important;
 }
 .inline>div.post.reply
 {
@@ -2478,22 +2476,11 @@ a[href='.././']
 }
 #qr>.move
 {
-    height:23px!important;
+    height:" + ($SS.browser.webkit ? 23 : 22) + "px!important;
 	line-height:18px!important;
 	min-width:0!important;
 	padding:2px 0 0 3px!important;
 	text-align:left!important;
-}
-span[style]~#qr>.move
-{
-	text-align:center!important;
-}
-span[style]~#qr>.move #autohide,
-span[style]~#qr>.move .riceCheck
-{
-	position:absolute;
-	" + ($SS.conf["Post Form"] === 4 ? "left" : "right") + ":3px;
-    top:2px;
 }
 #qr>.move *
 {
