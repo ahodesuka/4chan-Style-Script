@@ -1,5 +1,13 @@
 master
 
+2.2.2
+    added:
+        - Timestamp color field for themes.
+    fixed:
+        - An issue where the CSS would never be inserted in webkit.
+        - Trying to access navlinks variable when it was undefined.
+    modified:
+        - Prefetch checkbox with aeosynth's 4chan X.
 2.2.1
     fixed:
         - 4chan X highlighted post style.
