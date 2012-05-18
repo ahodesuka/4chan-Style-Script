@@ -871,7 +871,11 @@
         {
             var qr = e.target;
 
-            $("input[type=file]").riceFile();
+            $("input[type=file]").riceFile().bind("click", function(e)
+            {
+                if (e.shiftKey)
+                    return $(this).nextSibling("span").text("");
+            });
 
             if ($SS.conf["Post Form"] !== 4)
                 $(".move", qr).bind("click", function(){ $("form :focus", qr).blur(); });
