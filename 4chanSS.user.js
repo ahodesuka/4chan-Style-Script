@@ -2976,7 +2976,7 @@
             this.preview = function()
             {
                 var dText = this.default ? "Hide" : "Delete",
-                    div   = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply" +
+                    div   = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply " +
                         "style='background-color:" + this.mainColor.hex + "!important;border:1px solid " + this.brderColor.hex + "!important;color:" + this.textColor.hex + "!important'>" +
                         "<div class=riceCheck style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;box-shadow:rgba(" + this.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>" +
                         "<span style='color:" + this.titleColor.hex + "!important'>" + this.name + "</span> " +
