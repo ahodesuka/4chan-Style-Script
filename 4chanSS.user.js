@@ -555,7 +555,7 @@
                 var t, m = new $lib(selector, this.elems[0].parentNode),
                     s = this.elems[0].parentNode.childNodes;
 
-                for (var i = 0, MAX = s.length; i < MAX; i++)
+                for (var i = 0, MAX = s.length; i < MAX; ++i)
                 {
                     if (s[i] === this.elems[0] && t == undefined)
                         return new $lib(null);
@@ -618,7 +618,7 @@
             if (args != null && !Array.isArray(args))
                 args = [ args ];
 
-            for (var i = 0, MAX = this.elems.length; i < MAX; i++)
+            for (var i = 0, MAX = this.elems.length; i < MAX; ++i)
                 func.apply(this.elems[i], args || [ i ]);
 
             return this;
@@ -697,7 +697,7 @@
                         /* fix old nav links that had hard coded protocols */
                         var links = $SS.Config.get("Nav Links");
 
-                        for (var i = 0, MAX = links.length; i < MAX; i++)
+                        for (var i = 0, MAX = links.length; i < MAX; ++i)
                             if (/^https?:\/\/.*/.test(links[i].link))
                                 links[i].link = links[i].link.replace(/^https?:\/\//, "");
 
@@ -728,7 +728,7 @@
                         var mDiff = ntMascots - otMascots;
                         sMascots.reverse();
 
-                        for (var i = 0, MAX = sMascots.length; i < MAX; i++)
+                        for (var i = 0, MAX = sMascots.length; i < MAX; ++i)
                             if (sMascots[i] < otMascots) break;
                             else sMascots[i] += mDiff;
 
@@ -758,7 +758,7 @@
             }
             else
             {
-                if (!$(document.head).exists())
+                if (!$("link[rel=stylesheet]", document.head).exists())
                     $(document).bind("DOMNodeInserted", $SS.insertCSS);
                 else
                     $SS.insertCSS();
@@ -934,7 +934,7 @@
                     else if (key === "Selected Mascots" && val === 0)
                         return 0;
 
-                    for (var i = 0, MAX = val.length, ret = []; i < MAX; i++)
+                    for (var i = 0, MAX = val.length, ret = []; i < MAX; ++i)
                         ret[i] = parseInt(val[i]);
 
                     return ret;
@@ -1052,7 +1052,7 @@
                                 cFonts = [];
                             optionsHTML += "<span class=mOption title=\"" + des + "\"><span>" + key + "</span><select name='" + key + "'" + (defaultConfig[key][3] === true ? " hasSub" : "")  + ">";
 
-                            for (var i = 0, MAX = opts.length; i < MAX; i++)
+                            for (var i = 0, MAX = opts.length; i < MAX; ++i)
                             {
                                 var name, value;
 
@@ -1094,7 +1094,7 @@
                                             <label>Delimiter: \
                                             <input type=text name='Nav Link Delimiter' value='" + $SS.conf["Nav Link Delimiter"] + "' style='width:40px' title='" + defaultConfig["Nav Link Delimiter"][1] + "'></p>";
 
-                            for (var i = 0, MAX = links.length; i < MAX; i++)
+                            for (var i = 0, MAX = links.length; i < MAX; ++i)
                                 optionsHTML += "<div id=navlink" + i + " class=navlink><label>Text: <input type=text value='" + links[i].text + "'></label>" +
                                                     "<label>Link: <input type=text value='" + links[i].link + "'></label><a class=trbtn name=delLink>remove</a><div class=handle draggable=true></div></div>";
                         }
@@ -1220,7 +1220,7 @@
 
                 themes.append(p);
 
-                for (var i = 0, MAX = $SS.conf["Themes"].length, tTheme; i < MAX; i++)
+                for (var i = 0, MAX = $SS.conf["Themes"].length, tTheme; i < MAX; ++i)
                 {
                     if ($SS.conf["Hidden Themes"].indexOf(i) !== -1)
                         continue;
@@ -1253,7 +1253,7 @@
 
                 mascots.append(p);
 
-                for (var i = 0, MAX = $SS.conf["Mascots"].length, tMascot; i < MAX; i++)
+                for (var i = 0, MAX = $SS.conf["Mascots"].length, tMascot; i < MAX; ++i)
                 {
                     if ($SS.conf["Hidden Mascots"].indexOf(i) !== -1)
                         continue;
@@ -1303,7 +1303,7 @@
                     $SS.fontList = e.data;
                     var fontSelect = $("<select name=Font>");
 
-                    for (var i = 0, MAX = $SS.fontList.length; i < MAX; i++)
+                    for (var i = 0, MAX = $SS.fontList.length; i < MAX; ++i)
                     {
                         var name, value;
                             name = value = $SS.fontList[i];
@@ -1451,7 +1451,7 @@
                 <option" + (bEdit && themePY === "bottom" ? " selected" : "") + ">bottom</option>\
                 </select></label>";
 
-                for (var i = 0, MAX = themeInputs.length; i < MAX; i++)
+                for (var i = 0, MAX = themeInputs.length; i < MAX; ++i)
                     innerHTML += "<label><span>" + themeInputs[i].dName + ":</span>\
                     <input type=text class=jsColor name=" + themeInputs[i].name + " value=" + (bEdit ? tEdit[themeInputs[i].name] : "") + "></label>";
 
@@ -2042,7 +2042,7 @@
                 }
                 else
                 {
-                    for (var i = 0, MAX = $SS.conf["Selected Mascots"].length, j; i < MAX; i++)
+                    for (var i = 0, MAX = $SS.conf["Selected Mascots"].length, j; i < MAX; ++i)
                     {
                         j = $SS.conf["Selected Mascots"][i];
 
@@ -2143,7 +2143,7 @@
                             var div = $("<div class=exPopup id=ex" + hash + ">");
                             anchor.addClass("exFound").append(div);
 
-                            for (var i = 0; i < MAX; i++)
+                            for (var i = 0; i < MAX; ++i)
                             {
                                 var ret = results.get(i),
                                     a   = $("<a href='" + ret.href + "' target=_blank>" + ret.innerHTML);
@@ -2158,7 +2158,7 @@
             data_string: function(data)
             {
                 var ret = "";
-                for (var i = 0, MAX = data.length; i < MAX; i++)
+                for (var i = 0, MAX = data.length; i < MAX; ++i)
                     ret += String.fromCharCode(data[i].charCodeAt(0) & 0xff);
 
                 return ret;
@@ -2171,7 +2171,7 @@
                 var l = msg.length/4 + 2;
                 var N = Math.ceil(l/16);
                 var M = new Array(N);
-                for (var i = 0; i < N; i++)
+                for (var i = 0; i < N; ++i)
                 {
                     M[i] = new Array(16);
                     for (var j = 0; j < 16; j++)
@@ -2189,7 +2189,7 @@
                 var H4 = 0xc3d2e1f0;
 
                 var W = new Array(80); var a, b, c, d, e;
-                for (var i = 0; i < N; i++)
+                for (var i = 0; i < N; ++i)
                 {
                     for (var t = 0; t < 16; t++)
                         W[t] = M[i][t];
@@ -3079,7 +3079,7 @@
             var links = $SS.conf["Nav Links"],
                 a = [], div;
 
-            for (var i = 0, MAX = links.length; i < MAX; i++)
+            for (var i = 0, MAX = links.length; i < MAX; ++i)
                 a.push("<a href='" + window.location.protocol + "//" + links[i].link + "'" +
                     ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
 
