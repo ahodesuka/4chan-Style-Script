@@ -1,5 +1,12 @@
 master
-
+    added:
+        - A new theme, 4chan Dark Upgrade.
+        - Show mascot option when the sidebar is disabled.
+    modified:
+        - Removed show thread spearators option - as they will always be shown now.
+    fixed:
+        - Non-custom nav links.
+        - Imcomplete code where deleting mascots/themes that would cause problems.
 2.2.2
     added:
         - Timestamp color field for themes.

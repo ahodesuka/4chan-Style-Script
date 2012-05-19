@@ -338,11 +338,14 @@ textarea:-moz-placeholder
 body
 {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
-	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) || ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 0 0" : (!$SS.bHideSidebar ? "0 0 0 " + $SS.iSidebarSize + "px" : "0 0 0")) + "!important;
+	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) ||
+                ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 0 0" :
+                (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] !== 3 ? "0 0 0 " + $SS.iSidebarSize + "px" : "0 0 0")) + "!important;
     margin-bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 43) + "px!important;
 	padding:0!important;
 }
-" + (!$SS.bHideSidebar ? "
+" + (!$SS.bHideSidebar ?
+($SS.conf["Sidebar Position"] !== 3 ? "
 body::before
 {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(-18) + ",.8);
@@ -354,7 +357,8 @@ body::before
 	position:fixed;
     top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : -19) + "px!important;
 	z-index:1;
-}
+}" : "") +
+($SS.conf["Sidebar Position"] !== 3 || $SS.conf["Show Mascot"] ? "
 body::after
 {
 	" + ($SS.mascot.overflow ? "content:" + $SS.mascot.img.get() + ";" :
@@ -371,7 +375,7 @@ body::after
 	-webkit-transform:scaleX(-1);
 	-moz-transform:scaleX(-1);
 	-o-transform:scaleX(-1);" : "") + "
-}" : "") + "
+}" : "") : "") + "
 body::after,
 body::before,
 .globalMessage,
@@ -2018,7 +2022,7 @@ body>center:nth-of-type(2)
 	overflow:hidden;
 	padding:0 10px;
 	position:absolute;
-	" + $SS.conf["Sidebar Position String"] + ":" + $SS.iSidebarSize + "px!important;
+	" + $SS.conf["Sidebar Position String"] + ":" + ($SS.iSidebarSize - 1) + "px!important;
     top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 19 : 0) + "px;
 	white-space:nowrap;
 	z-index:11;
@@ -2475,7 +2479,7 @@ a[href='.././']
 }
 #qr>.move
 {
-    height:" + ($SS.browser.webkit ? 23 : 22) + "px!important;
+    height:23px!important;
 	line-height:18px!important;
 	min-width:0!important;
 	padding:2px 0 0 3px!important;
