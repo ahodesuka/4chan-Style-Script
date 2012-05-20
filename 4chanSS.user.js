@@ -2042,6 +2042,28 @@
                                  "border-bottom:#1f1f1f!important;border-radius:5px!important}" +
                                  ".thread:not(.stub){background:0!important}a:not([href='javascript:;']){text-shadow:#0f0f0f 0 1px;}"
                 }
+                {
+                    name:        "AppChan", // Originally by Zixaphir @ http://userstyles.org/styles/54149/appchan
+                    author:      "Zixaphir",
+                    "default":   true,
+                    bgImg:       false
+                    bgColor:     "2c2c2c",
+                    mainColor:   "333333",
+                    brderColor:  "2c2c2c",
+                    inputColor:  "333333",
+                    inputbColor: "2c2c2c",
+                    blinkColor:  "4f5f8f",
+                    jlinkColor:  "6688aa",
+                    linkColor:   "6688aa",
+                    linkHColor:  "6688aa",
+                    nameColor:   "aaaaaa",
+                    quoteColor:  "789922",
+                    textColor:   "aaaaaa",
+                    sageColor:   "aaaaaa",
+                    tripColor:   "aaaaaa",
+                    titleColor:  "aaaaaa",
+                    timeColor:   "ffffff",
+                },
             ],
 
             init: function()
