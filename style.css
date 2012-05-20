@@ -526,6 +526,7 @@ textarea,
 .riceFile,
 .riceCheck,
 .boardBanner .boardTitle,
+.ys_playerContainer,
 #qr,
 #qr>form>.captcha>img,
 #themeoptions #tMascot div,
@@ -2637,6 +2638,20 @@ form[name=delform][action$='/f/up.php']>center>table
 form[name=delform][action$='/f/up.php'] tr
 {
     display:table-row!important;
+}
+.ys_playerContainer
+{
+    position:fixed!important;
+    bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 262 : 287) + "px!important;
+    margin:0!important;
+    width:262px!important;
+    " + $SS.conf["Sidebar Position String"] + ":0!important;
+    z-index:3!important;
+}
+
+.ys_playerContainer audio
+{
+    width:100%!important;
 }
 " + ($SS.conf["Pages Position"] === 3 ? "
 .pages
