@@ -2062,7 +2062,7 @@
                     sageColor:   "aaaaaa",
                     tripColor:   "aaaaaa",
                     titleColor:  "aaaaaa",
-                    timeColor:   "ffffff",
+                    timeColor:   "aaaaaa",
                 }
             ],
 
