@@ -780,7 +780,7 @@ a.summary
 	border-radius:3px;
 }
 .deleteform
-{;
+{
     bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 20) + "px!important;
 	height:22px;
 	overflow:hidden;
@@ -2480,7 +2480,7 @@ a[href='.././']
 }
 #qr>.move
 {
-    height:23px!important;
+    height:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 22) + "px!important;
 	line-height:18px!important;
 	min-width:0!important;
 	padding:2px 0 0 3px!important;
