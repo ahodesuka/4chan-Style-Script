@@ -1,4 +1,9 @@
 master
+
+2.2.4
+    fixed:
+        - 4chan Sounds Mark II play style/position.
+        - Slideup QR height.
     added:
         - A new theme, AppChan.
 2.2.3
