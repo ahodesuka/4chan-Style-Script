@@ -676,6 +676,15 @@
     $SS =
     {
         browser: { },
+        ppDark:
+        {
+            com: "#969896",
+            kwd: "#81a2be",
+            typ: "#b294bb",
+            str: "#b5bd68",
+            pun: "#aac674",
+            lit: "#8abeb7"
+        },
         init: function(reload)
         {
             if (!reload)
@@ -775,7 +784,7 @@
         {
             var css;
 
-            if ($("link[rel=stylesheet]", document.head).exists())
+            if ($("link[rel=stylesheet]", document.head).exists() || $SS.browser.opera)
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
 

@@ -68,7 +68,7 @@ h3,
 	font-weight:400!important;
 }
 a,
-a.replylink
+span>a.replylink
 {
     " + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
@@ -99,8 +99,9 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.nameColor.hex + "!important;
 }
-.postertrip,
-.useremail .postertrip
+.useremail span.name,
+.useremail span.postertrip,
+span>span.postertrip
 {
 	color:" + $SS.theme.tripColor.hex + "!important;
 }
@@ -108,7 +109,7 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.quoteColor.hex + "!important;
 }
-a.quotelink
+blockquote a.quotelink
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 }
@@ -2649,12 +2650,45 @@ form[name=delform][action$='/f/up.php'] tr
     " + $SS.conf["Sidebar Position String"] + ":0!important;
     z-index:3!important;
 }
-
 .ys_playerContainer audio
 {
     width:100%!important;
 }
-" + ($SS.conf["Pages Position"] === 3 ? "
+pre.prettyprint
+{
+    background:rgb(" + $SS.theme.mainColor.shiftRGB(-16) + ");
+    border:1px solid rgb(" + $SS.theme.brderColor.shiftRGB(16) + ");
+}
+.prettyprint .pln
+{
+    color:" + $SS.theme.textColor.hex + ";
+}
+" + (!$SS.theme.mainColor.isLight ? "
+.prettyprint .com
+{
+    color:" + $SS.ppDark.com + ";
+}
+.prettyprint .kwd
+{
+    color:" + $SS.ppDark.kwd + ";
+}
+.prettyprint .typ
+{
+    color:" + $SS.ppDark.typ + ";
+}
+.prettyprint .str
+{
+    color:" + $SS.ppDark.str + ";
+}
+.prettyprint .pun
+{
+    color:" + $SS.ppDark.pun + ";
+}
+.prettyprint .lit
+{
+    color:" + $SS.ppDark.lit + ";
+}" : "") +
+($SS.conf["Pages Position"] === 3 ? "
 .pages
 {
 	bottom:auto!important;
