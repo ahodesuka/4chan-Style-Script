@@ -1,5 +1,10 @@
 master
 
+2.2.5
+    fixed:
+        - Various CSS rules that where not overriding 4chan's default style.
+    modified:
+        - Code tag styles on /g/ should look better for dark themes.
 2.2.4
     fixed:
         - 4chan Sounds Mark II play style/position.
