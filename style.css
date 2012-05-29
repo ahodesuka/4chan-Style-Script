@@ -78,7 +78,7 @@ span>a.replylink
 	-o-transition:all .1s;
 }
 a:hover,
-div.post div.postInfo span.postNum a:hover
+div.post div.postInfo span~span.postNum a:hover
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 	text-shadow:rgba(" + $SS.theme.linkHColor.rgb + ",.2) 0 0 2px!important;
