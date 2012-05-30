@@ -2714,10 +2714,13 @@ pre.prettyprint
 	-o-transform-origin:bottom right;
 }" : "") +
 ($SS.conf["Expanding Form Inputs"] ? "
-#qr input:focus::-webkit-input-placeholder,
-#qr textarea:focus::-webkit-input-placeholder
+.field:focus::-webkit-input-placeholder
 {
 	color:transparent!important;
+}
+.field:focus:-moz-placeholder
+{
+    color:transparent!important;
 }
 #qr>form>div:first-child .field:not(#dump):focus
 {
