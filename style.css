@@ -99,7 +99,6 @@ a[href='javascript:;']
 {
 	color:" + $SS.theme.nameColor.hex + "!important;
 }
-.useremail span.name,
 .useremail span.postertrip,
 span>span.postertrip
 {
@@ -2658,6 +2657,11 @@ pre.prettyprint
 {
     background:rgb(" + $SS.theme.mainColor.shiftRGB(-16) + ");
     border:1px solid rgb(" + $SS.theme.brderColor.shiftRGB(16) + ");
+}
+.prettyprint *
+{
+    font-family:monospace!important;
+    font-size:medium!important;
 }
 .prettyprint .pln
 {
