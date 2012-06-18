@@ -273,7 +273,7 @@ input[type=submit],
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") + "
 [hidden],
-.hidden,
+.hidden:not(.postContainer),
 body>hr,
 body>form[name=post],
 .navLinksBot,
