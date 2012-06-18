@@ -2657,6 +2657,7 @@ pre.prettyprint
 {
     background:rgb(" + $SS.theme.mainColor.shiftRGB(-16) + ");
     border:1px solid rgb(" + $SS.theme.brderColor.shiftRGB(16) + ");
+    vertical-align:middle;
 }
 .prettyprint *
 {
