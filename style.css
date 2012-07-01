@@ -606,7 +606,9 @@ div.post:not(#qp):not([hidden])
 	right:4px;") + "
 }
 .inline .report_button,
-#qp .report_button
+#qp .report_button,
+.inline .delete_button,
+#qp .delete_button
 {
 	position:static!important;
 	vertical-align:middle!important;
