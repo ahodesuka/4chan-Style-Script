@@ -190,6 +190,7 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .report_button,
+.delete_button,
 .hide_reply_button:not(.stub)>a,
 .hidden_thread>span,
 .stub>a>span
@@ -593,8 +594,21 @@ div.post:not(#qp):not([hidden])
 	right:12px;
     top:0;" : "") + "
 }
+.delete_button
+{
+	background-position:-16px -16px;
+    vertical-align:top!important;
+	" + ($SS.conf["Layout"] !== 2 ? "
+	position:absolute;
+	right:24px;
+    top:0;" : "
+	position:relative;
+	right:4px;") + "
+}
 .inline .report_button,
-#qp .report_button
+#qp .report_button,
+.inline .delete_button,
+#qp .delete_button
 {
 	position:static!important;
 	vertical-align:middle!important;
@@ -605,7 +619,8 @@ div.post:not(#qp):not([hidden])
 .container,
 .hide_thread_button>span,
 .hide_reply_button,
-.report_button
+.report_button,
+.delete_button
 {
 	z-index:3!important;
 }
@@ -662,6 +677,7 @@ div.post:not(#qp):not([hidden])
 .close,
 .remove,
 .report_button,
+.delete_button,
 .hide_reply_button:not(.stub)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
@@ -674,6 +690,7 @@ div.post:not(#qp):not([hidden])
 .close:hover,
 .remove:hover,
 .report_button:hover,
+.delete_button:hover,
 .hide_reply_button:not(.stub)>a:hover,
 .hide_thread_button>span:hover,
 .hidden_thread:hover>span,
@@ -901,6 +918,7 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .report_button,
+.delete_button,
 .hide_reply_button:not(.stub)>a,
 .hide_thread_button>span,
 .hidden_thread>span,
