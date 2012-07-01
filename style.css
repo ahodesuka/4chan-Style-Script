@@ -601,7 +601,9 @@ div.post:not(#qp):not([hidden])
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
 	right:24px;
-    top:0;" : "") + "
+    top:0;" : "
+	position:relative;
+	right:4px;") + "
 }
 .inline .report_button,
 #qp .report_button
