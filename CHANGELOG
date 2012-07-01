@@ -1,5 +1,6 @@
 master
-
+	added:
+		- Style delete buttons
 2.2.5
     fixed:
         - Various CSS rules that where not overriding 4chan's default style.
