@@ -869,6 +869,7 @@
         },
         nodeInsertedHandler: function(e)
         {
+            console.log(e.target.className);
             if ($(e.target).hasClass("postContainer"))
             {
                 if ($SS.conf["ExHentai Source"] !== 1)
@@ -877,7 +878,7 @@
                 if (!$SS.browser.webkit)
                     $("input[type=checkbox]", e.target).riceCheck();
             }
-            else if (e.target.className === "preview")
+            else if (e.target.className === "thumbnail")
                 $(".riceFile>span", $("#qr")).text("");
             else if (e.target.nodeName === "DIV" && !$SS.browser.webkit)
                 $("input[type=checkbox]", e.target).riceCheck();
@@ -985,10 +986,8 @@
             deletedMascots: [],
             init: function()
             {
-                var n = $("#navtopr");
                 var a = $("<a>SS").bind("click", $SS.options.show);
-                n.get().removeChild(n.get().childNodes[2]);
-                return $("#navtopr>a:last-child").before($("<span>] [").append(a).append(document.createTextNode("] [")));
+                return $("#navtopr>a:last-child").replace(a);
             },
             show: function()
             {

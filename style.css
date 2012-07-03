@@ -22,6 +22,7 @@ input:focus,
 select:focus,
 textarea:focus
 {
+    border:1px solid " + $SS.theme.brderColor.hex + "!important;
 	outline:1px solid " + $SS.theme.linkColor.hex + "!important;
 	outline-offset:-2px!important;
 }
@@ -184,6 +185,7 @@ body>a[style='cursor: pointer; float: right;'],
 #boardNavDesktop,
 #boardNavDesktop>a,
 #boardNavDesktop>span:not(#navtopr)>a,
+#navtopr,
 #imageType+label,
 #qr>form #spoilerLabel,
 .preview>label,
@@ -310,9 +312,9 @@ input:not(.jsColor),
 select,
 textarea,
 tr,
+#navtopr>a:last-child::before,
 #qr>.move,
 #qr>form #spoilerLabel::after,
-#navtopr,
 #stats span,
 #themeoptions #toNav li label.selected,
 #themeoptions #toNav li label:hover,
@@ -528,7 +530,7 @@ textarea,
 .boardBanner .boardTitle,
 .ys_playerContainer,
 #qr,
-#qr>form>.captcha>img,
+#qr>form>.captchaimg>img,
 #themeoptions #tMascot div,
 #themeoptions #tThemes .reply,
 #themeoptions #tNavLinks .navlink .handle
@@ -927,7 +929,7 @@ textarea,
 button,
 input:not([type=checkbox]):not([type=radio]),
 select,
-#qr>form>.captcha>img,
+#qr>form>.captchaimg>img,
 .riceFile
 {
 	border:1px solid " + $SS.theme.inputbColor.hex + "!important;
@@ -2107,6 +2109,10 @@ body>.closed
 	right:5px!important;
 	top:0;
 }
+#navtopr>a:last-child::before
+{
+    content:' / ';
+}
 " + (!$SS.conf["Custom Navigation Links"] ? "
 #navtop
 {
@@ -2458,7 +2464,7 @@ a[href='.././']
 {
 	display:block!important;
 }") + "
-#qr>form>.captcha>img
+#qr>form>.captchaimg>img
 {
 	height:48px!important;
 	max-width:300px;
@@ -2500,7 +2506,7 @@ a[href='.././']
 	position:relative;
 }
 #qr>form>div:first-child #dump,
-#qr>form>.captcha>img,
+#qr>form>.captchaimg>img,
 #qr>form input[type=submit],
 #qr>form input[type=file],
 #qr>form .riceFile
@@ -2547,28 +2553,28 @@ a[href='.././']
 }
 #qr>form>div:first-child+div,
 #qr>form>div#replies+div,
-#qr>form>.captcha
+#qr>form>.captchaimg
 {
 	clear:both;
 }
 #qr>form .field,
-#qr>form>.captcha
+#qr>form>.captchaimg
 {
 	margin-bottom:1px!important;
 }
-#qr>form>.captcha
+#qr>form>.captchaimg
 {
 	background:none!important;
 	outline:none!important;
 }
-#qr>form>.captcha+div
+#qr>form>.captchaimg+div
 {
 	float:left;
 	margin-right:1px;
 	position:relative;
 	z-index:1;
 }
-#qr>form>.captcha+div input
+#qr>form>.captchaimg+div input
 {
     height:22px;
 	width:189px!important;
