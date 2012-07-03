@@ -1,5 +1,11 @@
 master
 
+2.2.6
+    fixed:
+        - Out of date CSS selectors for 4chan X's QR.
+        - Clearing the file input text after the QR has been submitted.
+    modified:
+        - Replace the 4chan homepage link with the SS options.
 2.2.5
     fixed:
         - Various CSS rules that where not overriding 4chan's default style.
