@@ -1,5 +1,7 @@
 master
-
+    added:
+        - OS emoji's thanks to burgle.
+        - 4chan X's new menu has been styled.
 2.2.6
     fixed:
         - Out of date CSS selectors for 4chan X's QR.
