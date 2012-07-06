@@ -144,7 +144,7 @@ span[style='color:#FF0000;font-weight:normal']
 }
 .reply,
 .hidden_thread,
-.stub>a,
+.stub>a:first-child,
 " + ($SS.conf["Layout"] !== 2 ? "a.summary," : "") + "
 option,
 div[id*=jsMath],
@@ -193,9 +193,10 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .report_button,
-.hide_reply_button:not(.stub)>a,
+.menu_button,
+.hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread>span,
-.stub>a>span
+.stub>a:first-child>span
 {
 	color:transparent!important;
 	font-size:0!important;
@@ -274,6 +275,7 @@ a.useremail[href='mailto:sage']:last-of-type::after,
 ($SS.conf["Post Form"] !== 4 ? "#qr>.move .close," : "") +
 ($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") +
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
+($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck," : "") +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") + "
 [hidden],
 .hidden:not(.postContainer),
@@ -327,6 +329,29 @@ tr,
 .replymode
 {
 	color:" + $SS.theme.textColor.hex + "!important;
+}
+body,
+body>a[style='cursor: pointer; float: right;']+div,
+input,
+select,
+textarea,
+.replyContainer>.reply,
+.hidden_thread,
+.stub>a:first-child,
+.thread.stub,
+.riceFile,
+.riceCheck,
+.boardBanner .boardTitle,
+.ys_playerContainer,
+#qr,
+#qr>form>.captchaimg>img,
+#themeoptions #tMascot div,
+#themeoptions #tThemes .reply,
+#themeoptions #tNavLinks .navlink .handle
+{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder
@@ -400,7 +425,7 @@ body::before,
 body>a[style='cursor: pointer; float: right;']+div,
 .reply,
 .hidden_thread,
-.stub>a
+.stub>a:first-child
 {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
@@ -481,7 +506,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 	" + ($SS.conf["Layout"] === 2 ? "
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "
 }
-.hide_thread_button:not(.hidden_thread)>span
+a.hide_thread_button>span
 {
 	" + ($SS.conf["Layout"] !== 2 ? "
 	position:absolute;
@@ -491,7 +516,7 @@ body>a[style='cursor: pointer; float: right;']+div,
 	top:1px;") + "
 }
 " + ($SS.conf["Layout"] === 1 ? "
-.thread>.hide_thread_button:not(.hidden_thread)>span
+.thread>a.hide_thread_button>span
 {
     right:2px!important;
 }" : "") + "
@@ -517,29 +542,11 @@ form[name=delform]
 {
 	margin-bottom:1px!important;
 }
-body,
-body>a[style='cursor: pointer; float: right;']+div,
-input,
-select,
-textarea,
-.replyContainer>.reply,
-.hidden_thread,
-.stub>a,
-.thread.stub,
-.riceFile,
-.riceCheck,
-.boardBanner .boardTitle,
-.ys_playerContainer,
-#qr,
-#qr>form>.captchaimg>img,
-#themeoptions #tMascot div,
-#themeoptions #tThemes .reply,
-#themeoptions #tNavLinks .navlink .handle
+" + ($SS.conf["Hide Checkboxes"] ? "
+.postInfo
 {
-	box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-}
+    padding:0 3px!important;
+}" : "" ) + "
 .sideArrows
 {
     margin-left:0!important;
@@ -548,7 +555,7 @@ textarea,
 " + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
 .reply,
 .hidden_thread,
-.stub>a
+.stub>a:first-child
 {
 	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
 	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "
@@ -602,11 +609,12 @@ div.post:not(#qp):not([hidden])
 	position:static!important;
 	vertical-align:middle!important;
 }
+a.hide_thread_button>span,
 #settingsBox,
 .replyContainer>.reply input[type=checkbox],
 .replyContainer>.reply .riceCheck,
 .container,
-.hide_thread_button>span,
+.hidden_thread a:first-child>span,
 .hide_reply_button,
 .report_button
 {
@@ -638,13 +646,13 @@ div.post:not(#qp):not([hidden])
 	top:0;
     z-index:3;
 }" : "") + "
-.hide_reply_button:not(.stub)>a,
-.hide_thread_button>span
+a.hide_thread_button>span,
+.hide_reply_button:not(.stub)>a:first-child>span
 {
 	background-position:-80px 0;
 }
-.hidden_thread>span,
-.stub>a>span
+.stub>a:first-child>span,
+.hidden_thread a:first-child>span
 {
 	background-position:-80px -16px;
 	vertical-align:middle!important;
@@ -662,25 +670,47 @@ div.post:not(#qp):not([hidden])
 {
 	padding:0!important;
 }
+.menu_button
+{
+    background-position:-32px -16px!important;
+    vertical-align:middle!important;
+}
 .close,
 .remove,
 .report_button,
-.hide_reply_button:not(.stub)>a,
-.hide_thread_button>span,
+.menu_button,
+.hide_reply_button:not(.stub)>a:first-child>span,
+a.hide_thread_button>span,
+.hidden_thread a:first-child>span,
 .hidden_thread>span,
-.stub>a>span
+.stub>a:first-child>span
+{
+    -o-transform:scale(.65);
+    -moz-transform:scale(.65);
+    -webkit-transform:scale(.65);
+}
+a.hide_thread_button>span,
+.close,
+.remove,
+.report_button,
+.menu_button,
+.hide_reply_button:not(.stub)>a:first-child>span,
+.hidden_thread a:first-child>span,
+.stub>a:first-child>span
 {
 	margin:0!important;
 	opacity:.5;
 	text-indent:-9999px!important;
 }
+a.hide_thread_button>span:hover,
 .close:hover,
 .remove:hover,
 .report_button:hover,
-.hide_reply_button:not(.stub)>a:hover,
-.hide_thread_button>span:hover,
+.hide_reply_button:not(.stub)>a:first-child>span:hover,
+.hide_thread_button a:first-child>span:hover,
 .hidden_thread:hover>span,
-.stub>a:hover>span
+.menu_button:hover,
+.stub>a:first-child>span
 {
 	opacity:.75;
 }
@@ -693,9 +723,8 @@ div.post:not(#qp):not([hidden])
 	line-height:16px!important;
 }
 .replyContainer>.reply,
-.stub,
+.stub>a:first-child,
 .hidden_thread,
-.stub>a
 {
 	padding:5px!important;
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "
@@ -728,7 +757,7 @@ div.post:not(#qp):not([hidden])
 	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .hidden_thread,
-.stub>a
+.stub>a:first-child
 {
 	display:" + ($SS.conf["Layout"] === 2 ? "inline-" : "") + "block;
 	padding:7px;
@@ -899,15 +928,17 @@ blockquote>div[style]
 img[alt=Closed],
 img[alt=Sticky],
 a[href='.././'],
+a.hide_thread_button>span,
 body>a[style='cursor: pointer; float: right;'],
 #imageType+label,
 .close,
 .remove,
 .report_button,
-.hide_reply_button:not(.stub)>a,
+.menu_button,
+.hide_reply_button:not(.stub)>a:first-child>span,
 .hide_thread_button>span,
-.hidden_thread>span,
-.stub>a>span
+.hidden_thread a:first-child>span,
+.stub>a:first-child>span
 {
 	background-image:" + $SS.theme.icons.get() + "!important;
 	background-color:transparent!important;
@@ -2619,7 +2650,11 @@ a[href='.././']
 	text-overflow:ellipsis;
 	white-space:nowrap;
 }
-.menu_button>span,
+#menu,
+#subMenu
+{
+    z-index:13;
+}
 .hasSubMenu:after
 {
     font-size:12px!important;
