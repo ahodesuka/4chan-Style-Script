@@ -3,6 +3,9 @@ master
 2.2.8
     added:
         - An option to hide report/delete checkboxes.
+        - 4chan X menu icon.
+    modified:
+        - Changed some of the default icons.
     fixed:
         - 4chan X menu z-index.
 2.2.7
