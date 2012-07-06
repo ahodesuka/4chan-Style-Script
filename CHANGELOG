@@ -1,4 +1,6 @@
 master
+
+2.3.0
     added:
         - Menu entries to replace the hide/show post buttons.
     fixed:
