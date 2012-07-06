@@ -1,5 +1,10 @@
 master
 
+2.2.8
+    added:
+        - An option to hide report/delete checkboxes.
+    fixed:
+        - 4chan X menu z-index.
 2.2.7
     added:
         - OS emoji's thanks to burgle.
