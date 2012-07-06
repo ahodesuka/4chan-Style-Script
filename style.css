@@ -801,6 +801,8 @@ input[type=checkbox]:focus,
 }
 #qp .reply
 {
+    background:none!important;
+    border:none!important;
     width:auto!important;
 }
 a.summary
@@ -2651,8 +2653,9 @@ a[href='.././']
 	white-space:nowrap;
 }
 #menu,
-#subMenu
+.subMenu
 {
+    border:1px solid " + $SS.theme.brderColor.hex + "!important;
     z-index:13;
 }
 .hasSubMenu:after
