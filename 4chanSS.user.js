@@ -25,6 +25,7 @@
         "Pony Icons":               [ false, "Shows pony icons for different e-mails" ],
         "Smart Tripcode Hider":     [ false, "Hides the name field if the value contains a tripcode" ],
         "Hide Checkboxes":          [ true,  "Hides the delete/report checkboxes" ],
+        "Show/Hide Menu Entry":     [ false, "Replaces the hide/show post button with a menu entry" ],
         "Underline Links":          [ false, "If enabled links that are normally underlined will remain so" ],
         "Expanding Form Inputs":    [ true,  "Makes certain form elements expand on focus" ],
         "Custom Navigation Links":  [ true,  "Use specified links instead of showing all boards" ],
@@ -241,7 +242,7 @@
             else if (typeof selector === "string")
             {
                 var root = root || document;
-                var tagCheck = /^<(\w+)([^>]*)>(.*)$/.exec(selector); // NO CLOSING TAGS FOR MAIN NODE
+                var tagCheck = /^<(\w+)([^>]*)>(.*)$/.exec(selector); // No closing tag for root node.
 
                 if (root.constructor === $lib)
                     root = root.get();
@@ -367,6 +368,9 @@
         },
         text: function(text)
         {
+            if (this.length() === 0)
+                return;
+
             if (text == undefined)
                 return this.elems[0].textContent;
 
@@ -533,13 +537,13 @@
                 var t, m = new $lib(selector, this.elems[0].parentNode),
                     s = this.elems[0].parentNode.childNodes;
 
-                for (var i = s.length - 1; i >= 0; i--)
+                for (var i = s.length - 1; i >= 0; --i)
                 {
-                    if (s[i] === this.elems[0] && t == undefined)
+                    if (s[i] === this.elems[0] && t == undefined) // end and no matching siblings
                         return new $lib(null);
-                    else if (s[i] === this.elems[0] && t != undefined)
+                    else if (s[i] === this.elems[0] && t != undefined) // end and matched sibling
                         return new $lib(t);
-                    else if (m.elems.indexOf(s[i]) !== -1)
+                    else if (m.elems.indexOf(s[i]) !== -1) // this element matches the selector
                         t = s[i];
                 }
             }
@@ -712,18 +716,6 @@
                                 links[i].link = links[i].link.replace(/^https?:\/\//, "");
 
                         $SS.Config.set("Nav Links", links);
-
-                        /* temporary fix for webkit ninjakit/tampermonkey */
-                        if ($SS.browser.webkit && $SS.Config.hasGM)
-                        {
-                            $SS.Config.hasGM = false;
-                            $SS.Config.init();
-                            $SS.Config.hasGM = true;
-
-                            for (key in defaultConfig)
-                                if ($SS.conf[key] !== defaultConfig[key] && $SS.conf[key] != undefined)
-                                    $SS.Config.set(key, $SS.conf[key]);
-                        }
                     }
 
                     var ntMascots = $SS.Mascots.defaults.length, // new total
@@ -852,6 +844,9 @@
 
                 if ($SS.location.board === "f")
                     $(".postarea input[type=file]").riceFile();
+
+                if ($SS.conf["Show/Hide Menu Entry"])
+                    $SS.hidePostME.init();
             }
             else
             {
@@ -873,7 +868,6 @@
         },
         nodeInsertedHandler: function(e)
         {
-            console.log(e.target.className);
             if ($(e.target).hasClass("postContainer"))
             {
                 if ($SS.conf["ExHentai Source"] !== 1)
@@ -2162,6 +2156,55 @@
             }
         },
 
+        hidePostME:
+        {
+            init: function()
+            {
+                var d = document;
+                var a = d.createElement("a");
+                var onclick;
+                a.href = "javascript:;";
+
+                var open = function(post)
+                {
+                    if (post.isInlined)
+                        return false;
+
+                    var p         = $(post.el),
+                        bIsHidden = p.attr("hidden") !== null;
+
+                    if (p.hasClass("op") && p.parent().previousSibling(".hidden_thread").exists())
+                        bIsHidden = true;
+
+                    a.textContent = (bIsHidden ? "Show" : "Hide") + " this post";
+
+                    a.removeEventListener("click", onclick);
+                    onclick = function()
+                    {
+                        var pc = $("#pc" + post.ID);
+                        console.log(post.ID);
+
+                        if (pc.hasClass("opContainer"))
+                            pc.previousSibling().click();
+                        else
+                            pc.children(".hide_reply_button:first-child>a").click();
+                    };
+                    a.addEventListener("click", onclick);
+
+                    return true;
+                };
+
+
+                d.dispatchEvent(new CustomEvent("AddMenuEntry",
+                {
+                    detail: {
+                        el   : a,
+                        open : open
+                    }
+                }));
+            }
+        },
+
         /* Thanks to hurfdurf
          * http://pastebin.com/TTDJNH7c
          * Modified by ahoka
@@ -2966,7 +3009,7 @@
             this.small    = mascot.small;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 263 : 22);
+            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 271 : 22);
             this.boards   = mascot.boards;
             this.enabled  = $SS.conf["Selected Mascots"] === 0 || $SS.conf["Selected Mascots"].indexOf(index) !== -1;
 

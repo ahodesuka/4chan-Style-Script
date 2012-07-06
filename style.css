@@ -276,6 +276,7 @@ a.useremail[href='mailto:sage']:last-of-type::after,
 ($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") +
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
 ($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck," : "") +
+($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : "") +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") + "
 [hidden],
 .hidden:not(.postContainer),
@@ -515,7 +516,9 @@ a.hide_thread_button>span
 	position:relative;
 	top:1px;") + "
 }
-" + ($SS.conf["Layout"] === 1 ? "
+" + ($SS.conf["Layout"] === 1 ?
+($SS.conf["Show/Hide Menu Entry"] ? "
+.hidden_thread>.menu_button," : "") + "
 .thread>a.hide_thread_button>span
 {
     right:2px!important;
@@ -626,7 +629,7 @@ a.hide_thread_button>span,
     border:0!important;
     overflow:visible!important;
 }
-.inline>div.post.reply
+.inline div.post.reply
 {
     background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.8)!important;
 	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.4)!important;
@@ -638,7 +641,9 @@ a.hide_thread_button>span,
 	z-index:10!important;
     width:auto!important;
 }
-" + ($SS.conf["Layout"] !== 2 ? "
+" + ($SS.conf["Layout"] !== 2 ?
+($SS.conf["Show/Hide Menu Entry"] ? "
+.menu_button," : ".stub>.menu_button,") + "
 .hide_reply_button:not(.stub)
 {
 	position:absolute;
@@ -748,7 +753,7 @@ a.hide_thread_button>span:hover,
 }
 .stub
 {
-    margin:1px 0 0 " + ($SS.conf["Layout"] === 2 ? 16 : 0) + "px!important;
+    margin:1px 0 0 " + ($SS.conf["Layout"] === 2 && !$SS.conf["Show/Hide Menu Entry"] ? 16 : 0) + "px!important;
 	padding:0!important;
 }
 .thread.stub

@@ -1,5 +1,8 @@
 master
-
+    added:
+        - Menu entries to replace the hide/show post buttons.
+    fixed:
+        - Misc CSS rules.
 2.2.8
     added:
         - An option to hide report/delete checkboxes.
