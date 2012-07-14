@@ -92,7 +92,7 @@ div.post div.postInfo span~span.postNum a:hover
 	-o-transition:none;
 }
 a:not([href]),
-a[href='javascript:;']
+a[href^='javascript:']
 {
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 }

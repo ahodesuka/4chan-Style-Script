@@ -1865,7 +1865,7 @@
                 {
                     name:        "Yotsuba",
                     "default":   true,
-                    bgImg:       "http://static.4chan.org/image/fade.png",
+                    bgImg:       "//static.4chan.org/image/fade.png",
                     bgRPA:       "repeat-x top center scroll",
                     bgColor:     "ffffee",
                     mainColor:   "f0e0d6",
@@ -1888,7 +1888,7 @@
                 {
                     name:        "Yotsuba B",
                     "default":   true,
-                    bgImg:       "http://static.4chan.org/image/fade-blue.png",
+                    bgImg:       "//static.4chan.org/image/fade-blue.png",
                     bgRPA:       "repeat-x top center scroll",
                     bgColor:     "eef2ff",
                     mainColor:   "d6daf0",
@@ -2182,7 +2182,6 @@
                     onclick = function()
                     {
                         var pc = $("#pc" + post.ID);
-                        console.log(post.ID);
 
                         if (pc.hasClass("opContainer"))
                             pc.previousSibling().click();
