@@ -92,7 +92,8 @@ div.post div.postInfo span~span.postNum a:hover
 	-o-transition:none;
 }
 a:not([href]),
-a[href^='javascript:']
+a[href='javascript:;'],
+#settingsWindowLink
 {
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 }
@@ -196,7 +197,8 @@ body>a[style='cursor: pointer; float: right;'],
 .menu_button,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread>span,
-.stub>a:first-child>span
+.stub>a:first-child>span,
+.mPagelist .pages span
 {
 	color:transparent!important;
 	font-size:0!important;
@@ -327,7 +329,8 @@ tr,
 .summary,
 .preview>label::after,
 .reply,
-.replymode
+.replymode,
+.mPagelist .pages span strong
 {
 	color:" + $SS.theme.textColor.hex + "!important;
 }
@@ -2232,9 +2235,9 @@ select#pagesDrop
 	-moz-box-align:center!important;
 	box-align:center!important;
 }
-.mPagelist .pages span
+.mPagelist .pages span a
 {
-	padding:2px 3px;
+    padding:2px 3px;
 }") : "") + "
 body>a[style='cursor: pointer; float: right;'],
 body>a[style='cursor: pointer; float: right;']::before,
