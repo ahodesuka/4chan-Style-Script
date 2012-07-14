@@ -1611,16 +1611,13 @@
             },
             deleteTheme: function(tIndex)
             {
-                if (confirm("Are you sure?"))
-                {
-                    if ($SS.conf["Themes"][tIndex].default &&
-                        $SS.conf["Hidden Themes"].push(tIndex) === 1)
-                        $("#tThemes a[name=restoreThemes]").show();
-                    else
-                        $SS.options.deletedThemes.push(tIndex);
+                if ($SS.conf["Themes"][tIndex].default &&
+                    $SS.conf["Hidden Themes"].push(tIndex) === 1)
+                    $("#tThemes a[name=restoreThemes]").show();
+                else
+                    $SS.options.deletedThemes.push(tIndex);
 
-                    return $("#theme" + tIndex).remove();
-                }
+                return $("#theme" + tIndex).remove();
             },
             showMascot: function(mIndex)
             {
@@ -1735,16 +1732,13 @@
             },
             deleteMascot: function(mIndex)
             {
-                if (confirm("Are you sure?"))
-                {
-                    if ($SS.conf["Mascots"][mIndex].default &&
-                        $SS.conf["Hidden Mascots"].push(mIndex) === 1)
-                        $("#tMascot a[name=restoreMascots]").show();
-                    else
-                        $SS.options.deletedMascots.push(mIndex);
+                if ($SS.conf["Mascots"][mIndex].default &&
+                    $SS.conf["Hidden Mascots"].push(mIndex) === 1)
+                    $("#tMascot a[name=restoreMascots]").show();
+                else
+                    $SS.options.deletedMascots.push(mIndex);
 
-                    return $("#mascot" + mIndex).remove();
-                }
+                return $("#mascot" + mIndex).remove();
             },
             SelectImage: function()
             {
