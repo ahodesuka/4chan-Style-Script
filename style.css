@@ -508,8 +508,11 @@ body>a[style='cursor: pointer; float: right;']+div,
 {
 	border:0!important;
 	position:relative;
-	" + ($SS.conf["Layout"] === 2 ? "
-	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";" : "") + "
+	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
+}
+.hide_thread_button:not(.hidden_thread)
+{
+    float:" + $SS.conf["Sidebar Position String"] + "!important;
 }
 a.hide_thread_button>span
 {
@@ -1931,21 +1934,21 @@ input[name=customIMGB64]+a[name=clearIMG]
 	background-position:-48px 0;
 }
 #imgControls .preload,
-#prefetch
+label#prefetch
 {
-    bottom:-20px;
     height:15px;
     " + $SS.conf["Sidebar Position oString"] + ":24px;
     padding:1px 5px 3px!important;
     position:absolute;
 }
-#prefetch
+label#prefetch
 {
     bottom:auto!important;
+    line-height:16px!important;
     position:fixed!important;
     " + $SS.conf["Sidebar Position String"] + ":130px!important;
     " + $SS.conf["Sidebar Position oString"] + ":auto!important;
-    top:20px!important;
+    top:19px!important;
     z-index:13!important;
 }
 body>a[style='cursor: pointer; float: right;'],

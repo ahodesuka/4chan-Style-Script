@@ -797,39 +797,12 @@
                 document.head.innerHTML = document.head.innerHTML;
 
             var div;
-            reload = reload === true;
 
-            $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler);
-
-            if ($SS.conf["ExHentai Source"] !== 1)
-                $SS.exsauce.init();
-            else if (reload)
-                $(".exSource").remove();
-
-            if ($SS.conf["Custom Navigation Links"])
-                $SS.buildCustomNav();
-            else if (reload && (div = $("#boardLinks")).exists())
-                div.remove();
-
-            if (!reload)
+            if (reload !== true)
             {
-                $SS.options.init();
-
-                var select = $("#boardSelectMobile").attr("id", "bSelectSS");
-
-                $("option[value=fa]", select).before($("<option value=f>/f/ - Flash"));
-                $("option[value=" + $SS.location.board + "]", select).attr("selected", "true");
-                div = $("#boardNavDesktop").prepend(select.bind("change", function(e)
-                {
-                    location.href = location.href.replace(/(\.org\/).+\/.*$/, "$1" + e.target.value + "/");
-                }));
-                $(document.body).prepend($("<div id=bNavWrapper>").append(div));
-
-                div = $("<div id=bBanner>").append($(".boardBanner>img").attr("id", "banner"));
-                $(".boardBanner").prepend(div);
-
-                if (!$SS.browser.webkit && !$SS.conf["Hide Checkboxes"])
-                    $("input[type=checkbox]:not(#imageExpand)").riceCheck();
+                $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler)
+                           .bind("QRPostSuccessful", $SS.QRPostSuccessfulHandler)
+                           .bind("DOMNodeInserted",  $SS.nodeInsertedHandler);
 
                 if ((div = $("#imageType+label")).exists())
                     div.bind("change", function()
@@ -839,32 +812,18 @@
 
                 if (!$SS.QRhandled && (div = $("#qr")).exists())
                     $SS.QRDialogCreationHandler({ target: div });
-
-                $(document).bind("DOMNodeInserted", $SS.nodeInsertedHandler);
-
-                if ($SS.location.board === "f")
-                    $(".postarea input[type=file]").riceFile();
-
-                if ($SS.conf["Show/Hide Menu Entry"])
-                    $SS.hidePostME.init();
-            }
-            else
-            {
-                if (!$SS.conf["Smart Tripcode Hider"])
-                    $("input[name=name]").each(function()
-                    {
-                        $(this).unbind("blur", $SS.tripCheck)
-                               .removeClass("tripping");
-                    });
-
-                if (!$SS.browser.webkit && !$SS.conf["Hide Checkboxes"] && !$(".postInfo>.riceCheck").exists())
-                    $("input[type=checkbox]:not(#imageExpand)").riceCheck();
             }
 
-            if ($SS.conf["Pages Position"] === 1)
-                $SS.buildPagesDropdown();
-            else
-                $("#pagesDrop").remove();
+            $SS.options.init();
+            $SS.nav.init();
+            $SS.pages.init();
+
+            $SS.exsauce.init();
+            $SS.menuEntries.init();
+
+            $SS.riceInputs.init();
+            $SS.logoReflect.init();
+
         },
         nodeInsertedHandler: function(e)
         {
@@ -876,10 +835,16 @@
                 if (!$SS.browser.webkit && !$SS.conf["Hide Checkboxes"])
                     $("input[type=checkbox]", e.target).riceCheck();
             }
-            else if (e.target.className === "thumbnail")
-                $(".riceFile>span", $("#qr")).text("");
-            else if (e.target.nodeName === "DIV" && !$SS.browser.webkit)
-                $("input[type=checkbox]", e.target).riceCheck();
+            else if (e.target.className === "thumbnail" ||
+                     e.target.nodeName === "DIV" ||
+                     e.target.id === "prefetch")
+            {
+                if (e.target.className === "thumbnail")
+                    $(".riceFile>span", $("#qr")).text("");
+
+                if (!$SS.browser.webkit)
+                    $("input[type=checkbox]", e.target).riceCheck();
+            }
         },
         QRDialogCreationHandler: function(e)
         {
@@ -908,16 +873,6 @@
                 });
 
             $SS.QRhandled = true;
-        },
-        tripCheck: function(e)
-        {
-            var $this = this.nodeName ? $(this) : $(e),
-                check = /^.*##?.+/.test($this.val());
-
-            if (check && !$this.hasClass("tripping"))
-                $this.addClass("tripping");
-            else if (!check && $this.hasClass("tripping"))
-                $this.removeClass("tripping");
         },
 
         /* CONFIG */
@@ -2133,7 +2088,7 @@
                             continue;
                         }
 
-                        if ($SS.conf["Mascots"][j].boards != undefined &&
+                        if ($SS.conf["Mascots"][j].boards != null &&
                             $SS.conf["Mascots"][j].boards.split(",").indexOf($SS.location.board) == -1)
                             continue;
 
@@ -2150,51 +2105,212 @@
             }
         },
 
-        hidePostME:
+        nav:
         {
+            hasInit: false,
             init: function()
             {
-                var d = document;
-                var a = d.createElement("a");
-                var onclick;
-                a.href = "javascript:;";
-
-                var open = function(post)
+                if (!this.hasInit)
                 {
-                    if (post.isInlined)
-                        return false;
+                    var select = $("#boardSelectMobile"),
+                    links      = $SS.conf["Nav Links"],
+                    div, a     = [];
 
-                    var p         = $(post.el),
-                        bIsHidden = p.attr("hidden") !== null;
-
-                    if (p.hasClass("op") && p.parent().previousSibling(".hidden_thread").exists())
-                        bIsHidden = true;
-
-                    a.textContent = (bIsHidden ? "Show" : "Hide") + " this post";
-
-                    a.removeEventListener("click", onclick);
-                    onclick = function()
+                    if (!$("#bNavWrapper").exists())
                     {
-                        var pc = $("#pc" + post.ID);
+                        div = $("#boardNavDesktop").prepend(select.bind("change", function(e)
+                        {
+                            location.href = location.href.replace(/(\.org\/).+\/.*$/, "$1" + e.target.value + "/");
+                        }));
 
-                        if (pc.hasClass("opContainer"))
-                            pc.previousSibling().click();
-                        else
-                            pc.children(".hide_reply_button:first-child>a").click();
+                        $("option[value=fa]", select).before($("<option value=f>/f/ - Flash"));
+                        $("option[value=" + $SS.location.board + "]", select).attr("selected", "true");
+                        $(document.body).prepend($("<div id=bNavWrapper>").append(div));
+                    }
+
+                    if ($SS.conf["Custom Navigation Links"])
+                    {
+                        if (links == undefined) return;
+
+                        for (var i = 0, MAX = links.length; i < MAX; ++i)
+                            a.push("<a href='" + window.location.protocol + "//" + links[i].link + "'" +
+                                ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
+
+                        if ((div = $("#boardLinks")).exists())
+                            return div.html(a.join($SS.conf["Nav Link Delimiter"]));
+
+                        if ((div = $("#pagesDrop")).exists())
+                            return div.after($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
+
+                        $("#boardNavDesktop").prepend($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
+                        return this.hasInit = true;
+                    }
+                }
+                else if (this.hasInit &&
+                         (div = $("#boardLinks")).exists() &&
+                         !$SS.conf["Custom Navigation Links"])
+                {
+                    div.remove();
+                    return this.hasInit = false;
+                }
+            }
+        },
+
+        pages:
+        {
+            hasInit: false,
+            init: function()
+            {
+                if (!this.hasInit && $SS.conf["Pages Position"] === 1)
+                {
+                    if ($("#pagesDrop").exists()) return;
+
+                    var pages  = $(".pagelist .pages>*"),
+                        cpage  = $(".pagelist .pages>strong").text(),
+                        select = $("<select id=pagesDrop>");
+
+                    if (pages.length() == 0) return;
+
+                    pages.each(function() { select.append($("<option value=" + this.textContent +
+                        (cpage == this.textContent ? " selected=true" : "") + ">Page " + this.textContent)); });
+                    select.bind("change", function(){ location.href = location.href.replace(/(\.org\/[^\/]+)\/?.*$/, "$1/" + this.value); });
+
+                    $("#boardNavDesktop").prepend(select);
+                    return this.hasInit = true;
+                }
+                else if (this.hasInit)
+                {
+                    $("#pagesDrop").remove();
+                    return this.hasInit = false;
+                }
+            }
+        },
+
+        tripHider:
+        {
+            hasInit: false,
+            init: function(input)
+            {
+                if (!this.hasInit && $SS.conf["Smart Tripcode Hider"])
+                {
+                    input.bind("blur", this.handle);
+                    return this.hasInit = true;
+                }
+                else if (this.hasInit)
+                {
+                    $("input[name=name]").each(function()
+                    {
+                        $(this).unbind("blur", $SS.tripHider.handle)
+                               .removeClass("tripping");
+                    });
+                    return this.hasInit = false;
+                }
+            },
+            handle: function(e)
+            {
+                var $this = this.nodeName ? $(this) : $(e),
+                    check = /^.*##?.+/.test($this.val());
+
+                if (check && !$this.hasClass("tripping"))
+                    $this.addClass("tripping");
+                else if (!check && $this.hasClass("tripping"))
+                    $this.removeClass("tripping");
+            }
+        },
+
+        menuEntries:
+        {
+            hasInit: false,
+            init: function()
+            {
+                if (!this.hasInit && $SS.conf["Show/Hide Menu Entry"])
+                {
+                    var a = document.createElement("a");
+                    var onclick;
+                    a.href = "javascript:;";
+
+                    var open = function(post)
+                    {
+                        if (post.isInlined)
+                            return false;
+
+                        var p         = $(post.el),
+                            bIsHidden = p.attr("hidden") !== null;
+
+                        if (p.hasClass("op") && p.parent().previousSibling(".hidden_thread").exists())
+                            bIsHidden = true;
+
+                        a.textContent = (bIsHidden ? "Show" : "Hide") + " this post";
+
+                        a.removeEventListener("click", onclick);
+                        onclick = function()
+                        {
+                            var pc = $("#pc" + post.ID);
+
+                            if (pc.hasClass("opContainer"))
+                                pc.previousSibling().click();
+                            else
+                                pc.children(".hide_reply_button:first-child>a").click();
+                        };
+                        a.addEventListener("click", onclick);
+
+                        return true;
                     };
-                    a.addEventListener("click", onclick);
 
-                    return true;
-                };
-
-
-                d.dispatchEvent(new CustomEvent("AddMenuEntry",
+                    this.createEntry(a, open);
+                    return this.hasInit = true;
+                }
+            },
+            createEntry: function(a, func)
+            {
+                return document.dispatchEvent(new CustomEvent("AddMenuEntry",
                 {
                     detail: {
                         el   : a,
-                        open : open
+                        open : func
                     }
                 }));
+            }
+        },
+
+        riceInputs:
+        {
+            hasInit: false,
+            init: function()
+            {
+                if (!this.hasInit)
+                {
+                    if (!$SS.browser.webkit && !$SS.conf["Hide Checkboxes"])
+                        $("input[type=checkbox]:not(#imageExpand)").riceCheck();
+                    else if (!$SS.browser.webkit)
+                        $("input#prefetch").riceCheck();
+
+                    if ($SS.location.board === "f")
+                        $(".postarea input[type=file]").riceFile();
+
+                    return this.hasInit = true;
+                }
+                else if (!$SS.browser.webkit &&
+                         !$SS.conf["Hide Checkboxes"] &&
+                         !$(".postInfo>.riceCheck").exists())
+                {
+                    $("input[type=checkbox]:not(#imageExpand)").riceCheck();
+                    return this.hasInit = false;
+                }
+            }
+        },
+
+        logoReflect:
+        {
+            hasInit: false,
+            init: function()
+            {
+                if (this.hasInit) return;
+
+                var div = $("<div id=bBanner>").append($(".boardBanner>img").attr("id", "banner"));
+                $(".boardBanner").prepend(div);
+
+                return this.hasInit = true;
             }
         },
 
