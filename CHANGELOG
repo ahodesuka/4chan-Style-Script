@@ -1,5 +1,16 @@
 master
 
+2.3.1
+    fixed:
+        - Hiding checkboxes causing horizontal scrollbars to always be present.
+        - Checkboxes not being riced randomly.
+        - Hide thread button hint for Vimperator/Pentadactyl.
+    modified:
+        - Yotsuba theme backgrounds will load over the correct protocol.
+        - Deleting themes/mascots will no longer ask for confirmation. (You can hit cancel if you do not want to save
+          the changes)
+        - Fixed pages position looks more like it use to before 4chan's HTML5 changes.
+        - Edited the cakefile to create tags on version changes.
 2.3.0
     added:
         - Menu entries to replace the hide/show post buttons.
@@ -58,7 +69,7 @@ master
         - Top positioned navigation bar with left positioned sidebar.
     modified:
         - forwardlink is no longer underlined.
-        - Yotsubar styles no longer have fixed background images.
+        - Yotsuba styles no longer have fixed background images.
         - Invalid theme detection/notification while importing.
     added:
         - Option to preserve 4chan's default link underline style.
@@ -74,7 +85,7 @@ master
         - Import/Export theme feature.
 2.1.1
     fixed:
-        - Hidding default mascots.
+        - Hiding default mascots.
 2.1.0
     fixed:
         - Reply/thread hiding.

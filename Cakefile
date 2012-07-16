@@ -30,4 +30,4 @@ task 'release', (options) ->
   data = fs.readFileSync CHANGELOG, 'utf8'
   fs.writeFileSync CHANGELOG, data.replace 'master', "master\n\n#{version}", 'utf8', (err) ->
     throw err if err
-  exec "cake build && git commit -am 'Release #{version}'"
+  exec "cake build && git commit -am 'Release #{version}' && git tag -a #{version} -m '#{version}' && git tag -af stable -m '#{version}'"
