@@ -868,8 +868,7 @@
             if ($SS.conf["Smart Tripcode Hider"])
                 $("input[name=name]").each(function()
                 {
-                    $(this).bind("blur", $SS.tripCheck);
-                    $SS.tripCheck(this);
+                    $SS.tripHider.init($(this));
                 });
 
             $SS.QRhandled = true;
@@ -2191,12 +2190,7 @@
             hasInit: false,
             init: function(input)
             {
-                if (!this.hasInit && $SS.conf["Smart Tripcode Hider"])
-                {
-                    input.bind("blur", this.handle);
-                    return this.hasInit = true;
-                }
-                else if (this.hasInit)
+                if (this.hasInit && !$SS.conf["Smart Tripcode Hider"])
                 {
                     $("input[name=name]").each(function()
                     {
@@ -2204,6 +2198,11 @@
                                .removeClass("tripping");
                     });
                     return this.hasInit = false;
+                }
+                else
+                {
+                    input.bind("blur", this.handle);
+                    return this.hasInit = true;
                 }
             },
             handle: function(e)
