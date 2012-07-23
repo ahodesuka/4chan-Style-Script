@@ -871,6 +871,9 @@
                     $SS.tripHider.init($(this));
                 });
 
+            if (!$SS.browser.webkit)
+                $("input[type=checkbox]", qr).riceCheck();
+
             $SS.QRhandled = true;
         },
 
