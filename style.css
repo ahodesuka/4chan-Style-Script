@@ -919,7 +919,12 @@ td:not(.hide_reply_button):not(.deleteform)
 blockquote
 {
 	margin:0!important;
-	padding:" + ($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] !== 1 ? 8 : 4) + "px 16px" : "12px 12px 24px 40px") + "!important;
+	padding:" + ($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] !== 1 ? 8 : 4) + "px 16px" : "12px 12px 12px 40px") + "!important;
+}
+#delform div.reply
+{
+    padding-top: 6px !important;
+    padding-left: 10px !important;
 }
 blockquote>div[style]
 {
@@ -2434,7 +2439,7 @@ a[href='.././']
 }
 #boardLinks>a.selectedBoard
 {
-	text-decoration:underline!important;
+	font-weight: bold !important;
 }
 #qr
 {
