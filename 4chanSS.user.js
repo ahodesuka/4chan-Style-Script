@@ -2326,6 +2326,8 @@
         {
             init: function()
             {
+                if ($SS.conf["ExHentai Source"] === 1) return;
+
                 this.extype = $SS.conf["ExHentai Source"] === 2 ? "exhentai" : "g.e-hentai";
                 $SS.exsauce.addLinks(document);
             },
