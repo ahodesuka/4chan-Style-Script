@@ -32,7 +32,7 @@
         "Style Scrollbars":         [ true,  "Make the scroll bar match the theme" ],
         "Sage Identification":
         [
-            2, "Adds identification to posts that do not bump threads.",
+            3, "Adds identification to posts that do not bump threads.",
             [
                 { name: "None", value: 1 },
                 { name: "Text", value: 2 },
