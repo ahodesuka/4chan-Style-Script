@@ -66,11 +66,10 @@ h3,
 .postInfo .name,
 .postInfo .subject
 {
-	font-weight:400!important;
+	font-weight:" + ($SS.conf["Bitmap Font"] ? 4 : 7) + "00!important;
 }
 a,
-span>a.replylink,
-#menu>.entry
+span>a.replylink
 {
     " + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
@@ -93,12 +92,13 @@ div.post div.postInfo span~span.postNum a:hover
 }
 a:not([href]),
 a[href='javascript:;'],
-#settingsWindowLink
+#settingsWindowLink,
+#menu>.entry
 {
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 }
-.postInfo .name,
-.postInfo .name a
+.postInfo span.name,
+.postInfo span.name a
 {
 	color:" + $SS.theme.nameColor.hex + "!important;
 }
@@ -576,9 +576,9 @@ form[name=delform]
 	margin:1px 0 0!important;
     position:relative;
 }
-.replyContainer>.replyContainer
+.threadContainer
 {
-    border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
+    border-left:1px solid rgba(" + $SS.theme.brderColor.shiftRGB(-16) + ", .4)!important;
     padding-left:5px!important;
 }
 div.post
@@ -1403,6 +1403,7 @@ body>a[style='cursor: pointer; float: right;']
 	width:600px;
 	padding:5px;
 	vertical-align:middle;
+    border-radius:5px!important;
 }
 #themeoptions>div
 {

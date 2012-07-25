@@ -1,5 +1,11 @@
 master
-
+    fixed:
+        - QR autohide checkbox not being riced on load.
+        - E-hentai source can actually be disabled.
+        - Default CSS flashing in firefox (atleast on my rig).
+        - 4chan X menu font color.
+        - Text that is normally bold will be if you are not using a bitmap font.
+        - Quote threading style.
 2.3.2
     fixed:
         - Tripcode hider.

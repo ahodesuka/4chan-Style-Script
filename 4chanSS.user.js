@@ -760,7 +760,8 @@
             }
             else
             {
-                if (!$("link[rel=stylesheet]", document.head).exists())
+                if (!$("link[rel=stylesheet]", document.head).exists() ||
+                    ($(document.head).exists() && $SS.browser.gecko))
                     $(document).bind("DOMNodeInserted", $SS.insertCSS);
                 else
                     $SS.insertCSS();
@@ -777,7 +778,8 @@
         {
             var css;
 
-            if ($("link[rel=stylesheet]", document.head).exists() || $SS.browser.opera)
+            if ($("link[rel=stylesheet]", document.head).exists() || $SS.browser.opera ||
+                ($(document.head).exists() && $SS.browser.gecko))
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
 
