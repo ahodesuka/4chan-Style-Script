@@ -6,6 +6,8 @@ master
         - 4chan X menu font color.
         - Text that is normally bold will be if you are not using a bitmap font.
         - Quote threading style.
+    added:
+        - 4chan Sound Player CSS.
 2.3.2
     fixed:
         - Tripcode hider.
