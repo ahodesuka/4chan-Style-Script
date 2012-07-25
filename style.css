@@ -17,10 +17,10 @@
 	-o-user-select:none;
 	user-select:none;
 }
-input:not([disabled]):active,
-input:focus,
-select:focus,
-textarea:focus
+input:active:not([disabled]),
+body input:focus:not([type]),
+body select:focus,
+body textarea:focus
 {
     border:1px solid " + $SS.theme.brderColor.hex + "!important;
 	outline:1px solid " + $SS.theme.linkColor.hex + "!important;
@@ -412,6 +412,7 @@ body::after
 	" + (!$SS.mascot.small ? "background-size:contain;" : "")) + "
     bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 21) + "px!important;
 	margin-bottom:" + $SS.mascot.offset + "px;
+    pointer-events:none;
 	position:fixed;
 	z-index:2;
 	" + ($SS.conf["Sidebar Position"] === 2 && $SS.mascot.flip ? "
@@ -670,7 +671,7 @@ a.hide_thread_button>span,
 	position:absolute;
 	right:0;
 	top:0;
-    z-index:3;
+    z-index:2;
 }" : "") + "
 a.hide_thread_button>span,
 .hide_reply_button:not(.stub)>a:first-child>span
