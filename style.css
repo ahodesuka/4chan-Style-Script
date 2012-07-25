@@ -92,6 +92,10 @@ div.post div.postInfo span~span.postNum a:hover
 }
 a:not([href]),
 a[href='javascript:;'],
+a[href='#'],
+a[href='#']:hover,
+#playerDiv a,
+#playerDiv a:hover,
 #settingsWindowLink,
 #menu>.entry
 {
@@ -111,11 +115,13 @@ span>span.postertrip
 {
 	color:" + $SS.theme.quoteColor.hex + "!important;
 }
-blockquote a.quotelink
+blockquote a.quotelink,
+a.playerLoadAllLink:hover
 {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 }
-a.forwardlink
+a.forwardlink,
+a.playerLoadAllLink
 {
     color:" + $SS.theme.linkColor.hex + "!important;
 }
@@ -151,6 +157,10 @@ option,
 div[id*=jsMath],
 #imgControls,
 #imgControls .preload,
+#playerDiv,
+#playerListMenu,
+#playerListItemMenu,
+#playerSettings,
 #prefetch,
 #jsMath_float>*,
 #watcher>div,
@@ -318,7 +328,7 @@ input:not(.jsColor),
 select,
 textarea,
 tr,
-#navtopr>a:last-child::before,
+#navtopr>a:not(:first-child)::before,
 #qr>.move,
 #qr>form #spoilerLabel::after,
 #stats span,
@@ -425,6 +435,10 @@ body::before,
 #jsMath_panel,
 #jsMath_float,
 #options ul,
+#playerDiv,
+#playerListMenu,
+#playerListItemMenu,
+#playerSettings,
 #qr,
 #themeoptions #toWrapper,
 body>a[style='cursor: pointer; float: right;']+div,
@@ -2058,6 +2072,18 @@ form[name=post] #com_submit+label,
 	padding-bottom:21px;
 	z-index:10!important;
 }
+#playerDiv
+{
+    padding:2px;
+}
+#playerStyleSettingsButton
+{
+    left:2px!important;
+}
+#playerClose
+{
+    right:2px!important;
+}
 body>center:nth-of-type(2)
 {
 	position:relative;
@@ -2156,7 +2182,7 @@ body>.closed
 	right:5px!important;
 	top:0;
 }
-#navtopr>a:last-child::before
+#navtopr>a:not(:first-child)::before
 {
     content:' / ';
 }
