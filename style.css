@@ -1063,7 +1063,7 @@ td.doubledash {
 	position:fixed;
 	" + $SS.conf["Sidebar Position String"] + ":1px;
 	text-align:center;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 40 : 20) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 41 : 21) + "px;
 }
 .boardBanner,
 .boardBanner img,
@@ -1686,7 +1686,7 @@ input[name=customIMGB64]+a[name=clearIMG] {
 #imgControls {
 	height:20px;
 	position:fixed!important;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px;
 	width:" + ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 114 : 115) + "px!important;
 	padding-" + $SS.conf["Sidebar Position String"] + ":147px!important;
 	z-index:13;
@@ -1727,7 +1727,7 @@ label#prefetch {
 	position:fixed!important;
 	" + $SS.conf["Sidebar Position String"] + ":130px!important;
 	" + $SS.conf["Sidebar Position oString"] + ":auto!important;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 41 : 21) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 42 : 21) + "px;
 	z-index:13!important;
 }
 body>a[style='cursor: pointer; float: right;'],
@@ -1760,7 +1760,7 @@ form[name=post] #com_submit+label,
 	border-bottom:1px solid " + $SS.theme.brderColor.hex + "!important;
 	position:fixed!important;
 	bottom:auto!important;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px;
 	height:20px;
 	line-height:20px;
 	overflow:hidden;
@@ -1802,7 +1802,7 @@ form[name=post] #com_submit+label,
 	bottom:auto!important;
 	height:20px;
 	line-height:20px;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px;
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	right:43px!important;
 	left:auto!important;
@@ -1817,7 +1817,7 @@ form[name=post] #com_submit+label,
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:5px;" : "
 	left:5px;
 	right:auto!important;") + "
-	top:0!important;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 3) + "px;
 	height:20px;
 	z-index:13!important;
 }
@@ -1847,7 +1847,7 @@ body>center:nth-of-type(2) {
 	padding:0 10px;
 	position:absolute;
 	" + $SS.conf["Sidebar Position String"] + ":" + ($SS.iSidebarSize - 1) + "px!important;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px;
 	white-space:nowrap;
 	z-index:11;
 	" + ($SS.conf["Layout"] !== 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
@@ -1886,7 +1886,7 @@ body>.closed {
 	position:fixed!important;
 	text-align:center;
 	width:100%!important;
-	z-index:14!important;
+	z-index:11!important;
 }
 #navtop,
 #navtopr {
@@ -2069,7 +2069,7 @@ a[href='.././'] {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.returnButton + "\")!important;
 	position:fixed!important;
 	text-indent:-9999px;
-	top:1px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
 	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] !== 2 ? 99 : 38)) + "px!important;
 	z-index:14;
 }
