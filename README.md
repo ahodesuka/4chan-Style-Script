@@ -6,5 +6,3 @@ Ensure both `Auto Hide QR` and `Persistent QR` options are checked in 4chan X's 
 
 ## Known Issues
 For exhentai source to work (as intended) in chrome you must install with [Tampermonkey](https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo) or [Ninjakit](https://chrome.google.com/webstore/detail/gpbepnljaakggeobkclonlkhbdgccfek).
-
-Some icons by [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/). All rights reserved.

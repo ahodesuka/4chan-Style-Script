@@ -1,6 +1,6 @@
 master
     fixed:
-        - QR autohide checkbox not being riced on load.
+        - Various checkboxes not being riced on page load.
         - E-hentai source can actually be disabled.
         - Delay when inserting CSS in Firefox. (should reduce some flashing)
         - 4chan X menu font color.
@@ -8,6 +8,12 @@ master
         - Quote threading style.
     added:
         - 4chan Sound Player CSS.
+        - 4chan Sound Player icon, [not] watched thread icons, and icons for X/SS.
+    modified:
+        - 4sight looks a lot better.
+        - Icons completely redone.
+        - Top navigation spans 100%.
+        - Non OP, 4chan X menu buttons are hidden until hovered over the post (like OneeChan).
 2.3.2
     fixed:
         - Tripcode hider.
