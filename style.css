@@ -53,8 +53,8 @@ h4,
 h5 {
 	margin:.4em 0!important;
 }
-b,
 h3,
+strong,
 .postInfo .name,
 .postInfo .subject {
 	font-weight:" + ($SS.conf["Bitmap Font"] ? 4 : 7) + "00!important;
@@ -71,6 +71,7 @@ span>a.replylink {
 }
 a:hover,
 blockquote a.quotelink:hover,
+#boardLinks>a.selectedBoard,
 div.post div.postInfo span~span.postNum a:hover {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 	text-shadow:rgba(" + $SS.theme.linkHColor.rgb + ",.2) 0 0 2px!important;
@@ -91,11 +92,13 @@ a[href='#']:hover,
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 }
 .postInfo span.name,
-.postInfo span.name a {
+.postInfo span.name a,
+#delform[action='https://sys.4chan.org/f/up.php'] .name {
 	color:" + $SS.theme.nameColor.hex + "!important;
 }
 .useremail span.postertrip,
-span>span.postertrip {
+span>span.postertrip,
+#delform[action='https://sys.4chan.org/f/up.php'] .postertrip {
 	color:" + $SS.theme.tripColor.hex + "!important;
 }
 .postMessage .quote {
@@ -117,7 +120,8 @@ a.playerLoadAllLink {
 	color:#000!important;
 }
 .postInfo .subject,
-.replytitle {
+.replytitle,
+#delform[action='https://sys.4chan.org/f/up.php'] .subject {
 	color:" + $SS.theme.titleColor.hex + "!important;
 }
 a.linkmail[href='mailto:sage'],
@@ -142,14 +146,59 @@ div[id*=jsMath],
 #playerListItemMenu,
 #playerSettings,
 #prefetch,
-#jsMath_float>*,
 #watcher>div,
-.deleteform {
+#jsMath_float>*,
+.deleteform,
+table.flashListing tr:nth-of-type(2n+1) {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.9)!important;
 }
 .globalMessage,
 #boardNavDesktop {
 	background:" + $SS.theme.mainColor.hex + "!important;
+}
+.box-outer, .yui-skin-sam .yuimenu .bd
+{
+	border: 1px solid " + $SS.theme.brderColor.hex + " !important;
+}
+#ft li, #recent-images li, .boxbar, body:not([class]) .menubutton
+{
+	background: none !important;
+	border: none !important;
+}
+#optionsmenu:not([style=*='visibility:hidden;']), #filtermenu:not([style*='visibility: hidden;']) {
+	top: 24px !important;
+}
+table.flashListing .highlightPost
+{
+background: none !important;
+}
+table.flashListing .highlightPost::after
+{
+content: '●';
+color: rgb(214, 149, 149);
+position: relative !important;
+top: 2px !important;
+}
+.flashListing > tbody
+{
+padding-top: 200px !important;
+}
+#delform[action='https://sys.4chan.org/f/up.php'], #delform[action='https://sys.4chan.org/f/up.php'] .postblock {
+background: none !important;
+border: none !important;
+}
+body:not([class]) {
+margin-top: 100px !important;
+}
+#ft ul {
+	border-top: none !important;
+}
+#ft li.first {
+	border-left: none !important;
+}
+#ft li.current, #ft li.fill {
+	background: none !important;
+	border: none !important;
 }
 a,
 button,
@@ -313,6 +362,7 @@ tr,
 .preview>label::after,
 .reply,
 .replymode,
+#delform[action='https://sys.4chan.org/f/up.php'] .postblock,
 .mPagelist .pages span strong {
 	color:" + $SS.theme.textColor.hex + "!important;
 }
@@ -843,6 +893,7 @@ a.hide_thread_button>span,
 }
 .menu_button {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
+    vertical-align:top!important;
 " + ($SS.conf["Layout"] !== 2 && $SS.conf["Show/Hide Menu Entry"] ? "
 	right:2px;
 	opacity:0!important;
@@ -1075,7 +1126,7 @@ td.doubledash {
 .boardBanner,
 .boardBanner img,
 .boardBanner .boardTitle {
-	width:" + ($SS.conf["Sidebar Position"] === 3 ? 262 : 260) + "px!important;
+	width:260px!important;
 }
 .boardBanner img {
 	height:auto!important;
@@ -1898,7 +1949,7 @@ body>.closed {
 	position:fixed!important;
 	text-align:center;
 	width:100%!important;
-	z-index:11!important;
+	z-index:12!important;
 }
 #navtop,
 #navtopr {
@@ -2144,7 +2195,7 @@ a[href='.././'] {
 }
 #qr.autohide {
 	" + ($SS.conf["Post Form"] === 1 ? "
-	bottom:-248px!important;
+	bottom:-249px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -2175,7 +2226,7 @@ a[href='.././'] {
 #qr.autohide>form {
 	display:block!important;
 }" : "
-	margin-bottom:19px!important;
+	margin-bottom:20px!important;
 	width:263px!important;
 	z-index:11!important;
 }
@@ -2188,7 +2239,14 @@ a[href='.././'] {
 #qr.focus>form {
 	display:block!important;
 }") + "
-#qr>form>.captchaimg>img {
+" + ($SS.conf["Post Form"] === 1 ? "
+#delform[action='https://sys.4chan.org/f/up.php'] ~ #qr
+{
+	bottom: 0px !important;
+}
+" : "") + "
+#qr>form>.captchaimg>img
+{
 	height:48px!important;
 	max-width:300px;
 	width:100%;
