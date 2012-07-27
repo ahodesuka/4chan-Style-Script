@@ -885,6 +885,7 @@
                 $("input[name=name]").each(function()
                 {
                     $SS.tripHider.init($(this));
+                    $SS.tripHider.handle(this);
                 });
 
             if (!$SS.browser.webkit)
