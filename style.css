@@ -60,6 +60,7 @@ h3,
 	font-weight:" + ($SS.conf["Bitmap Font"] ? 4 : 7) + "00!important;
 }
 a,
+blockquote a.quotelink,
 span>a.replylink {
 	" + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
@@ -69,6 +70,7 @@ span>a.replylink {
 	-o-transition:all .1s;
 }
 a:hover,
+blockquote a.quotelink:hover,
 div.post div.postInfo span~span.postNum a:hover {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 	text-shadow:rgba(" + $SS.theme.linkHColor.rgb + ",.2) 0 0 2px!important;
@@ -99,7 +101,6 @@ span>span.postertrip {
 .postMessage .quote {
 	color:" + $SS.theme.quoteColor.hex + "!important;
 }
-blockquote a.quotelink,
 a.playerLoadAllLink:hover {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 }
@@ -585,7 +586,7 @@ a.hide_thread_button>span,
 .menu_button," : ".stub>.menu_button,") + "
 .hide_reply_button:not(.stub) {
 	position:absolute;
-	right:0;
+	right:2px;
 	top:0;
 	z-index:1!important;
 }" : "") + "
@@ -845,15 +846,19 @@ a.hide_thread_button>span,
 .menu_button::before {
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 	content:'\u25BC';
-	font-size:10px!important;
-	left:0;
+	font-size:12px!important;
 	line-height:" + $SS.conf["Font Size"] + "px;
+" + ($SS.conf["Layout"] !== 2 && $SS.conf["Show/Hide Menu Entry"] ? "
+	left:0;
 	opacity:0!important;
 	position:absolute;
 	top:0;
 	-webkit-transition:all .3s ease-in-out!important;
 	-moz-transition:all .3s ease-in-out!important;
-	-o-transition:all .3s ease-in-out!important;
+	-o-transition:all .3s ease-in-out!important;" : "
+}
+.menu_button {
+    vertical-align:top!important;") + "
 }
 .opContainer .menu_button::before,
 .postContainer:hover .menu_button::before {
@@ -866,7 +871,6 @@ body>a[style='cursor: pointer; float: right;'],
 a.hide_thread_button>span,
 .close,
 .remove,
-.menu_button::before,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread a:first-child>span,
 .stub>a:first-child>span {
@@ -1814,12 +1818,16 @@ form[name=post] #com_submit+label,
 	z-index:13!important;
 }
 #navlinks {
-	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:5px;" : "
-	left:5px;
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:61px!important;" : "
+	left:61px!important;
 	right:auto!important;") + "
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 3) + "px;
+    line-height:12px!important;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px!important;
 	height:20px;
 	z-index:13!important;
+}
+#navlinks>a {
+    font-size:12px!important;
 }
 #ihover {
 	padding-bottom:21px;
@@ -2306,12 +2314,12 @@ a[href='.././'] {
 	white-space:nowrap;
 }
 #menu,
-.subMenu {
+.reply.subMenu {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 	z-index:13;
 }
-.hasSubMenu:after {
-	font-size:12px!important;
+.hasSubMenu::after {
+	font-size:14px!important;
 }
 #menu .focused.entry {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(16, true) + ", .5)!important;
@@ -2429,8 +2437,10 @@ pre.prettyprint {
 }
 #qr #replies+div {
 	height:128px!important;
+    margin-bottom:1px!important;
 }
 #qr textarea {
+    height:100%;
 	position:absolute;
 }
 #qr textarea:focus {

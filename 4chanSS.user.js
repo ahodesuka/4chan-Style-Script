@@ -412,11 +412,11 @@
         },
         hide: function()
         {
-            return this.each(function(){ $(this).toggle(true); });
+            return this.toggle(true);
         },
         show: function()
         {
-            return this.each(function(){ $(this).toggle(false); });
+            return this.toggle(false);
         },
         val: function(val)
         {
@@ -899,31 +899,32 @@
             hasGM: typeof GM_deleteValue !== "undefined",
             init: function()
             {
+                var parseVal = function(key, val)
+                {
+                    if (/^(Selected|Hidden)+\s(Mascots|Themes?)+$/.test(key))
+                    {
+                         if (key === "Selected Theme")
+                            return parseInt(val);
+                        else if (key === "Selected Mascots" && val === 0)
+                            return 0;
+
+                        for (var i = 0, MAX = val.length, ret = []; i < MAX; ++i)
+                            ret[i] = parseInt(val[i]);
+
+                        return ret;
+                    }
+
+                    return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
+                };
+
                 $SS.conf = [];
 
                 for (var key in defaultConfig)
-                    $SS.conf[key] = this.parseVal(key, this.get(key));
+                    $SS.conf[key] = parseVal(key, this.get(key));
 
                 $SS.conf["Small Font Size"]          = $SS.conf["Font Size"] > 11 && !$SS.conf["Bitmap Font"] ? 12 : $SS.conf["Font Size"];
                 $SS.conf["Sidebar Position String"]  = $SS.conf["Sidebar Position"] !== 2 ? "right" : "left";
                 $SS.conf["Sidebar Position oString"] = $SS.conf["Sidebar Position"] !== 2 ? "left" : "right";
-            },
-            parseVal: function(key, val)
-            {
-                if (/^(Selected|Hidden)+\s(Mascots|Themes?)+$/.test(key))
-                {
-                     if (key === "Selected Theme")
-                        return parseInt(val);
-                    else if (key === "Selected Mascots" && val === 0)
-                        return 0;
-
-                    for (var i = 0, MAX = val.length, ret = []; i < MAX; ++i)
-                        ret[i] = parseInt(val[i]);
-
-                    return ret;
-                }
-
-                return (Array.isArray(val) && typeof val[0] !== "object") ? val[0] : val;
             },
             get: function(name)
             {
@@ -1850,7 +1851,7 @@
                     tripColor:   "228854",
                     titleColor:  "cc1105",
                     timeColor:   "800000",
-                    customCSS:   'new String("#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}")'
+                    customCSS:   '#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}'
                 },
                 {
                     name:        "Yotsuba B",
@@ -1873,7 +1874,7 @@
                     tripColor:   "228854",
                     titleColor:  "0f0c5d",
                     timeColor:   "000000",
-                    customCSS:   'new String("#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}")'
+                    customCSS:   '#delform,.reply,.hidden_thread,.stub{border-radius:0!important}\n.reply,.hidden_thread,.stub{border-left:0!important;border-top:0!important;"+($SS.conf["Layout"]==1?"border-right:0!important":"")+"}'
                 },
                 {
                     name:        "安心院なじみ",
@@ -1964,7 +1965,7 @@
                     tripColor:   "bf7f3f",
                     titleColor:  "4c4c4c",
                     timeColor:   "4c4c4c",
-                    customCSS:   'new String(($SS.conf["Layout"]===2?".opContainer{display:block!important;border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.opContainer,":"}"):"")+".post.reply{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.reply.highlight,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}")'
+                    customCSS:   '($SS.conf["Layout"]===2?".opContainer{display:block!important;border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.opContainer,":"}"):"")+".post.reply{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.reply.highlight,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}'
                 },
                 {
                     name:        "violaceous",
@@ -2122,6 +2123,8 @@
                 $SS.mascot = new $SS.Mascot(mIndex); // Set the active mascot.
             }
         },
+
+
 
         nav:
         {
@@ -3144,13 +3147,12 @@
 
             this.preview  = function()
             {
-                var dText = this.default ? "Hide" : "Delete",
-                    div   = $("<div id=mascot" + this.index + (this.enabled ? " class=selected" : "") + " style=\"background:" + this.img.get() + "\">")
-                           .html("<a title=" + dText + ">X</a><a title=Edit>E</a>");
+                var div = $("<div id=mascot" + this.index + (this.enabled ? " class=selected" : "") + " style=\"background:" + this.img.get() + "\">")
+                           .html("<a title=Delete>X</a><a title=Edit>E</a>");
 
                 $(div).bind("click", function(){ $(this).toggleClass("selected"); });
 
-                $("a[title=" + dText + "]", div).bind("click", function(e)
+                $("a[title=Delete]", div).bind("click", function(e)
                 {
                     e.stopPropagation();
                     $SS.options.deleteMascot(index);
@@ -3225,16 +3227,16 @@
                               "<path fill='rgb(" + this.sageColor.rgb + ")' d='M22.335,12.833V9.999h-0.001C22.333,6.501,19.498,3.666,16,3.666S9.666,6.502,9.666,10h0v2.833H7.375V25h17.25V12.833H22.335zM11.667,10C11.667,10,11.667,10,11.667,10c0-2.39,1.944-4.334,4.333-4.334c2.391,0,4.335,1.944,4.335,4.333c0,0,0,0,0,0v2.834h-8.668V10z'/></svg>",
                  stuckThread:  "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
                                "<path fill='rgb(" + this.tripColor.rgb + ")' d='M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z'/></svg>",
-                 imgExpand:    "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
-                               "<path fill='rgb(" + this.titleColor.rgb + ")' d='M25.545,23.328,17.918,15.623,25.534,8.007,27.391,9.864,29.649,1.436,21.222,3.694,23.058,5.53,15.455,13.134,7.942,5.543,9.809,3.696,1.393,1.394,3.608,9.833,5.456,8.005,12.98,15.608,5.465,23.123,3.609,21.268,1.351,29.695,9.779,27.438,7.941,25.6,15.443,18.098,23.057,25.791,21.19,27.638,29.606,29.939,27.393,21.5z'/></svg>",
+                 imgExpand:    "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='14' width='14' xmlns='http://www.w3.org/2000/svg'>" +
+                               "<path fill='rgb(" + this.textColor.shiftRGB(32, true) + ")' d='M25.545,23.328,17.918,15.623,25.534,8.007,27.391,9.864,29.649,1.436,21.222,3.694,23.058,5.53,15.455,13.134,7.942,5.543,9.809,3.696,1.393,1.394,3.608,9.833,5.456,8.005,12.98,15.608,5.465,23.123,3.609,21.268,1.351,29.695,9.779,27.438,7.941,25.6,15.443,18.098,23.057,25.791,21.19,27.638,29.606,29.939,27.393,21.5z'/></svg>",
                  imgContract:  "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
-                               "<path fill='rgb(" + this.titleColor.rgb + ")' d='M25.083,18.895l-8.428-2.259l2.258,8.428l1.838-1.837l7.053,7.053l2.476-2.476l-7.053-7.053L25.083,18.895zM5.542,11.731l8.428,2.258l-2.258-8.428L9.874,7.398L3.196,0.72L0.72,3.196l6.678,6.678L5.542,11.731zM7.589,20.935l-6.87,6.869l2.476,2.476l6.869-6.869l1.858,1.857l2.258-8.428l-8.428,2.258L7.589,20.935zM23.412,10.064l6.867-6.87l-2.476-2.476l-6.868,6.869l-1.856-1.856l-2.258,8.428l8.428-2.259L23.412,10.064z'/></svg>",
+                               "<path fill='rgb(" + this.textColor.rgb + ")' d='M25.083,18.895l-8.428-2.259l2.258,8.428l1.838-1.837l7.053,7.053l2.476-2.476l-7.053-7.053L25.083,18.895zM5.542,11.731l8.428,2.258l-2.258-8.428L9.874,7.398L3.196,0.72L0.72,3.196l6.678,6.678L5.542,11.731zM7.589,20.935l-6.87,6.869l2.476,2.476l6.869-6.869l1.858,1.857l2.258-8.428l-8.428,2.258L7.589,20.935zM23.412,10.064l6.867-6.87l-2.476-2.476l-6.868,6.869l-1.856-1.856l-2.258,8.428l8.428-2.259L23.412,10.064z'/></svg>",
                  hideButton:   "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
                                "<path fill='rgb(203,77,70)' d='M25.979,12.896,5.979,12.896,5.979,19.562,25.979,19.562z'/></svg>",
                  showButton:   "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
                                "<path fill='rgb(63,203,73)' d='M25.979,12.896 19.312,12.896 19.312,6.229 12.647,6.229 12.647,12.896 5.979,12.896 5.979,19.562 12.647,19.562 12.647,26.229 19.312,26.229 19.312,19.562 25.979,19.562z'/></svg>",
                  returnButton: "<svg viewBox='0 0 30 30' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
-                               "<path fill='rgb(" + this.linkColor.rgb + ")' d='M12.981,9.073V6.817l-12.106,6.99l12.106,6.99v-2.422c3.285-0.002,9.052,0.28,9.052,2.269c0,2.78-6.023,4.263-6.023,4.263v2.132c0,0,13.53,0.463,13.53-9.823C29.54,9.134,17.952,8.831,12.981,9.073z'/></svg>",
+                               "<path fill='rgb(" + this.textColor.rgb + ")' d='M12.981,9.073V6.817l-12.106,6.99l12.106,6.99v-2.422c3.285-0.002,9.052,0.28,9.052,2.269c0,2.78-6.023,4.263-6.023,4.263v2.132c0,0,13.53,0.463,13.53-9.823C29.54,9.134,17.952,8.831,12.981,9.073z'/></svg>",
                  notWatched:  "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
                                "<path fill='rgb(" + this.quoteColor.rgb + ")' d='M16,22.375L7.116,28.83l3.396-10.438l-8.883-6.458l10.979,0.002L16.002,1.5l3.391,10.434h10.981l-8.886,6.457l3.396,10.439L16,22.375L16,22.375zM22.979,26.209l-2.664-8.205l6.979-5.062h-8.627L16,4.729l-2.666,8.206H4.708l6.979,5.07l-2.666,8.203L16,21.146L22.979,26.209L22.979,26.209z'/></svg>",
                  watchedIco:   "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
@@ -3254,7 +3256,7 @@
                 if (theme.customCSS.substr(0, 10) === "new String")
                     try
                     {
-                        this.customCSS = eval($SS.trimLineBreaks(theme.customCSS));
+                        this.customCSS = eval($SS.trimLineBreaks(new String(theme.customCSS)));
                     }
                     catch (e)
                     {
@@ -3269,8 +3271,7 @@
 
             this.preview = function()
             {
-                var dText = this.default ? "Hide" : "Delete",
-                    div   = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply " +
+                var div = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply " +
                         "style='background-color:" + this.mainColor.hex + "!important;border:1px solid " + this.brderColor.hex + "!important;color:" + this.textColor.hex + "!important'>" +
                         "<div class=riceCheck style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;box-shadow:rgba(" + this.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>" +
                         "<span style='color:" + this.titleColor.hex + "!important'>" + this.name + "</span> " +
@@ -3283,7 +3284,7 @@
                         "onmouseout='this.setAttribute(\"style\",\"color:" + this.linkColor.hex + "!important\")'>No.22772469</a>" +
                         "<br><blockquote>Post content is right here.</blockquote>" +
                         "<p><a title=Edit style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>Edit</a>" +
-                        "<a title=" + dText + " style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>" + dText + "</a></p>" +
+                        "<a title=Delete style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;color:" + this.textColor.hex + "!important'>Delete</a></p>" +
                         "<h3>SELECTED</h3>" +
                     "</div>");
 
@@ -3302,7 +3303,7 @@
                     e.stopPropagation();
                     $SS.options.showTheme(index);
                 });
-                $("a[title=" + dText + "]", div).bind("click", function(e)
+                $("a[title=Delete]", div).bind("click", function(e)
                 {
                     e.stopPropagation();
                     $SS.options.deleteTheme(index);
@@ -3386,41 +3387,6 @@
                 board: pathname[0],
                 reply: pathname[1] === "res"
             };
-        },
-        buildCustomNav: function()
-        {
-            var links = $SS.conf["Nav Links"],
-                a = [], div;
-
-            if (links == undefined) return;
-
-            for (var i = 0, MAX = links.length; i < MAX; ++i)
-                a.push("<a href='" + window.location.protocol + "//" + links[i].link + "'" +
-                    ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
-
-            if ((div = $("#boardLinks")).exists())
-                return div.html(a.join($SS.conf["Nav Link Delimiter"]));
-
-            if ((div = $("#pagesDrop")).exists())
-                return div.after($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
-
-            return $("#boardNavDesktop").prepend($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
-        },
-        buildPagesDropdown: function()
-        {
-            if ($("#pagesDrop").exists()) return;
-
-            var pages  = $(".pagelist .pages>*"),
-                cpage  = $(".pagelist .pages>strong").text(),
-                select = $("<select id=pagesDrop>");
-
-            if (pages.length() == 0) return;
-
-            pages.each(function() { select.append($("<option value=" + this.textContent +
-                (cpage == this.textContent ? " selected=true" : "") + ">Page " + this.textContent)); });
-            select.bind("change", function(){ location.href = location.href.replace(/(\.org\/[^\/]+)\/?.*$/, "$1/" + this.value); });
-
-            return $("#boardNavDesktop").prepend(select);
         }
     };
     /* END STYLE SCRIPT CLASSES */
