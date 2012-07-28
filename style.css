@@ -260,7 +260,7 @@ a.useremail[href='mailto:sage']:last-of-type::before,
 ($SS.conf["Post Form"] !== 4 ? "#qr>.move .close," : "") +
 ($SS.conf["Post Form"] === 3 ? "#qr>.move #autohide,#qr>.move .riceCheck," : "") +
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
-($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck," : "") +
+($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck,.deleteform," : "") +
 ($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : "") +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") + "
 [hidden],
@@ -793,6 +793,7 @@ body>a[style='cursor: pointer; float: right;'],
 	display:inline-block;
 	height:0!important;
 	padding-top:16px!important;
+    text-indent:-9999px!important;
 	vertical-align:bottom;
 	width:16px!important;
 }
@@ -830,39 +831,31 @@ a.hide_thread_button>span,
 .favicon[src$='ico'] {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.watchedIco + "\")!important;
 }
-#boardNavDesktop>a {
-	padding:0!important;
-}
 .menu_button {
-	height:12px!important;
-	padding:0!important;
-	width:12px!important;
-}
-.inline .menu_button,
-.inline .menu_button::before {
-	position:static!important;
-	vertical-align:top!important;
-}
-.menu_button::before {
-	color:" + $SS.theme.jlinkColor.hex + "!important;
-	content:'\u25BC';
-	font-size:12px!important;
-	line-height:" + $SS.conf["Font Size"] + "px;
+	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
 " + ($SS.conf["Layout"] !== 2 && $SS.conf["Show/Hide Menu Entry"] ? "
-	left:0;
+	right:2;
 	opacity:0!important;
 	position:absolute;
 	top:0;
-	-webkit-transition:all .3s ease-in-out!important;
-	-moz-transition:all .3s ease-in-out!important;
-	-o-transition:all .3s ease-in-out!important;" : "
+	-webkit-transition:all .4s ease-in-out!important;
+	-moz-transition:all .4s ease-in-out!important;
+	-o-transition:all .4s ease-in-out!important;" : "") + "
+	-webkit-transform:rotate(90deg);
+	-moz-transform:rotate(90deg);
+	-o-transform:rotate(90deg);
 }
-.menu_button {
-    vertical-align:top!important;") + "
+.menu_button:hover {
 }
-.opContainer .menu_button::before,
-.postContainer:hover .menu_button::before {
-	opacity:.95!important;
+#boardNavDesktop>a {
+	padding:0!important;
+}
+.inline .menu_button {
+	position:static!important;
+}
+.opContainer .menu_button,
+.postContainer:hover .menu_button {
+	opacity:1!important;
 }
 a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
@@ -1818,8 +1811,8 @@ form[name=post] #com_submit+label,
 	z-index:13!important;
 }
 #navlinks {
-	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:61px!important;" : "
-	left:61px!important;
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:59px!important;" : "
+	left:59px!important;
 	right:auto!important;") + "
     line-height:12px!important;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px!important;
@@ -1891,6 +1884,7 @@ body>.closed {
 	top:auto!important;") + "
 	padding:0!important;
 	left:0!important;
+    overflow:hidden;
 	position:fixed!important;
 	text-align:center;
 	width:100%!important;

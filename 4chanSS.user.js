@@ -955,8 +955,6 @@
         options:
         {
             saveAndClose  : true,
-            deletedThemes : [],
-            deletedMascots: [],
             init: function()
             {
                 var a = $("<a id=themeoptionsLink title='4chan SS Options'>SS").bind("click", $SS.options.show);
@@ -1206,7 +1204,7 @@
                     .bind("click", function()
                     {
                         $SS.conf["Hidden Themes"] = [];
-                        $SS.options.createThemesTab(tOptions);
+                        $("#tThemes>div[hidden]").show();
                     })
                 );
 
@@ -1217,9 +1215,6 @@
 
                 for (var i = 0, MAX = $SS.conf["Themes"].length, tTheme; i < MAX; ++i)
                 {
-                    if ($SS.conf["Hidden Themes"].indexOf(i) !== -1)
-                        continue;
-
                     tTheme = new $SS.Theme(i);
                     themes.append(tTheme.preview());
                 }
@@ -1234,7 +1229,7 @@
                     .bind("click", function()
                     {
                         $SS.conf["Hidden Mascots"] = [];
-                        $SS.options.createMascotsTab(tOptions);
+                        $("#tMascot>div[hidden]").show();
                     })
                 );
 
@@ -1250,9 +1245,6 @@
 
                 for (var i = 0, MAX = $SS.conf["Mascots"].length, tMascot; i < MAX; ++i)
                 {
-                    if ($SS.conf["Hidden Mascots"].indexOf(i) !== -1)
-                        continue;
-
                     tMascot = new $SS.Mascot(i);
                     mascots.append(tMascot.preview());
                 }
@@ -1346,15 +1338,10 @@
                     $SS.Config.set($(this).attr("name"), val);
                 });
 
-                // Remove deleted themes
-                for (var i = 0, MAX = $SS.options.deletedThemes.length; i < MAX; ++i)
-                    $SS.conf["Themes"].splice($SS.options.deletedThemes[i], 1);
-
                 // Save Themes
-                $("#themeoptions #tThemes>div").each(function()
+                $("#themeoptions #tThemes>div").each(function(index)
                 {
-                    var index = parseInt(this.id.substr(5));
-                    if (!$SS.conf["Themes"][index].default)
+                    if (!$SS.conf["Themes"][index].default && !this.hidden)
                         themes.push($SS.conf["Themes"][index]);
                 });
 
@@ -1365,17 +1352,13 @@
                 $SS.Config.set("Selected Theme", selectedTheme);
                 $SS.Config.set("Hidden Themes", $SS.conf["Hidden Themes"]);
 
-                // Remove deleted mascots
-                for (var i = 0, MAX = $SS.options.deletedMascots.length; i < MAX; ++i)
-                    $SS.conf["Mascots"].splice($SS.options.deletedMascots[i], 1);
-
                 // Save Mascots
-                $("#themeoptions #tMascot div").each(function(index)
+                $("#themeoptions #tMascot>div").each(function(index)
                 {
                     if ($(this).hasClass("selected"))
                         selectedMascots.push(index);
 
-                    if (!$SS.conf["Mascots"][index].default)
+                    if (!$SS.conf["Mascots"][index].default && !this.hidden)
                         mascots.push($SS.conf["Mascots"][index]);
                 });
 
@@ -1401,9 +1384,6 @@
                 });
 
                 $SS.Config.set("Nav Links", links);
-
-                $SS.options.deletedThemes  = [];
-                $SS.options.deletedMascots = [];
 
                 if ($SS.options.saveAndClose)
                     $SS.options.close();
@@ -1589,10 +1569,8 @@
                 if ($SS.conf["Themes"][tIndex].default &&
                     $SS.conf["Hidden Themes"].push(tIndex) === 1)
                     $("#tThemes a[name=restoreThemes]").show();
-                else
-                    $SS.options.deletedThemes.push(tIndex);
 
-                return $("#theme" + tIndex).remove();
+                return $("#theme" + tIndex).removeClass("selected").hide();
             },
             showMascot: function(mIndex)
             {
@@ -1710,10 +1688,8 @@
                 if ($SS.conf["Mascots"][mIndex].default &&
                     $SS.conf["Hidden Mascots"].push(mIndex) === 1)
                     $("#tMascot a[name=restoreMascots]").show();
-                else
-                    $SS.options.deletedMascots.push(mIndex);
 
-                return $("#mascot" + mIndex).remove();
+                return $("#mascot" + mIndex).removeClass("selected").hide();
             },
             SelectImage: function()
             {
@@ -1966,7 +1942,7 @@
                     tripColor:   "bf7f3f",
                     titleColor:  "4c4c4c",
                     timeColor:   "4c4c4c",
-                    customCSS:   '($SS.conf["Layout"]===2?".opContainer{display:block!important;border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.opContainer,":"}"):"")+".post.reply{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.reply.highlight,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}'
+                    customCSS:   '"+($SS.conf["Layout"]===2?".opContainer{display:block!important;border:1px solid "+this.brderColor.hex+"!important;"+($SS.conf["Sidebar Position"]===3?"margin-left:-"+($SS.conf["Side Margin"]+2)+"px!important;padding-left:"+($SS.conf["Side Margin"]+2)+"px!important}.opContainer,":"}"):"")+".post.reply{background:-webkit-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-moz-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;background:-o-linear-gradient(top,rgba(244,244,244,.8),rgba(239,239,239,.8))!important;box-shadow:0 2px 5px rgba(0,0,0,.05)!important}.reply.highlight,.qphl{border-color:rgba("+this.linkHColor.rgb+",.6)!important}'
                 },
                 {
                     name:        "violaceous",
@@ -2145,7 +2121,6 @@
                             location.href = location.href.replace(/(\.org\/).+\/.*$/, "$1" + e.target.value + "/");
                         }));
 
-                        $("option[value=fa]", select).before($("<option value=f>/f/ - Flash"));
                         $("option[value=" + $SS.location.board + "]", select).attr("selected", "true");
                         $(document.body).prepend($("<div id=bNavWrapper>").append(div));
                     }
@@ -3135,6 +3110,7 @@
                 var mascot = $SS.conf["Mascots"][index];
 
             this.index    = index;
+            this.hidden   = $SS.conf["Hidden Mascots"].indexOf(index) !== -1;
             this.default  = mascot.default;
             this.position = mascot.position || "bottom";
             this.overflow = mascot.overflow;
@@ -3148,7 +3124,9 @@
 
             this.preview  = function()
             {
-                var div = $("<div id=mascot" + this.index + (this.enabled ? " class=selected" : "") + " style=\"background:" + this.img.get() + "\">")
+                var div = $("<div " + (this.hidden ? "hidden=true " : "") +
+                            "id=mascot" + this.index + (this.enabled ? " class=selected" : "") +
+                            " style=\"background:" + this.img.get() + "\">")
                            .html("<a title=Delete>X</a><a title=Edit>E</a>");
 
                 $(div).bind("click", function(){ $(this).toggleClass("selected"); });
@@ -3178,6 +3156,7 @@
             }
 
             this.index       = index;
+            this.hidden      = $SS.conf["Hidden Themes"].indexOf(index) !== -1;
             this.name        = theme.name;
             this.author      = theme.author || "ahodesuka";
             this.default     = theme.default;
@@ -3242,6 +3221,8 @@
                                "<path fill='rgb(" + this.quoteColor.rgb + ")' d='M16,22.375L7.116,28.83l3.396-10.438l-8.883-6.458l10.979,0.002L16.002,1.5l3.391,10.434h10.981l-8.886,6.457l3.396,10.439L16,22.375L16,22.375zM22.979,26.209l-2.664-8.205l6.979-5.062h-8.627L16,4.729l-2.666,8.206H4.708l6.979,5.07l-2.666,8.203L16,21.146L22.979,26.209L22.979,26.209z'/></svg>",
                  watchedIco:   "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
                                "<path fill='rgb(" + this.quoteColor.rgb + ")' d='M16,22.375L7.116,28.83l3.396-10.438l-8.883-6.458l10.979,0.002L16.002,1.5l3.391,10.434h10.981l-8.886,6.457l3.396,10.439L16,22.375L16,22.375z'/></svg>",
+                 menuButton:   "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
+                               "<path fill='rgb(" + this.jlinkColor.rgb + ")' d='M10.129,22.186 16.316,15.999 10.129,9.812 13.665,6.276 23.389,15.999 13.665,25.725z'/></svg>",
                  _4chanSS:     "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
                                "<path fill='rgb(" + this.textColor.rgb + ")' d='M26.834,14.693c1.816-2.088,2.181-4.938,1.193-7.334l-3.646,4.252l-3.594-0.699L19.596,7.45l3.637-4.242c-2.502-0.63-5.258,0.13-7.066,2.21c-1.907,2.193-2.219,5.229-1.039,7.693L5.624,24.04c-1.011,1.162-0.888,2.924,0.274,3.935c1.162,1.01,2.924,0.888,3.935-0.274l9.493-10.918C21.939,17.625,24.918,16.896,26.834,14.693z'/></svg>",
                  _4chanX:      "<svg viewBox='0 0 30 30' preserveAspectRatio='true' height='16' width='16' xmlns='http://www.w3.org/2000/svg'>" +
@@ -3254,25 +3235,26 @@
 
             if (theme.customCSS)
             {
-                if (theme.customCSS.substr(0, 10) === "new String")
-                    try
-                    {
-                        this.customCSS = eval($SS.trimLineBreaks(new String(theme.customCSS)));
-                    }
-                    catch (e)
-                    {
-                        alert("Error evaluating theme.customCSS!\n" + e.message);
-                        this.customCSS = theme.customCSS;
-                    }
-                else
+                try
+                {
+                    if (theme.customCSS[0] === "(")
+                        theme.customCSS = "\"+".concat(theme.customCSS);
+
+                    this.customCSS = eval($SS.trimLineBreaks(new String('"'+theme.customCSS+'"')));
+                }
+                catch (e)
+                {
+                    alert("Error evaluating " + this.name + "'s theme.customCSS!\n" + e.message);
                     this.customCSS = theme.customCSS;
+                }
             }
             else
                 this.customCSS = "";
 
             this.preview = function()
             {
-                var div = $("<div id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply " +
+                var div = $("<div " + (this.hidden ? "hidden=true " : "") +
+                        " id=theme" + this.index + ($SS.conf["Selected Theme"] == this.index ? " class=selected>" : ">")).html("<div class=reply " +
                         "style='background-color:" + this.mainColor.hex + "!important;border:1px solid " + this.brderColor.hex + "!important;color:" + this.textColor.hex + "!important'>" +
                         "<div class=riceCheck style='background-color:" + this.inputColor.hex + "!important;border:1px solid " + this.inputbColor.hex + "!important;box-shadow:rgba(" + this.mainColor.shiftRGB(64) + ",.3) 0 1px;'></div>" +
                         "<span style='color:" + this.titleColor.hex + "!important'>" + this.name + "</span> " +
@@ -3299,15 +3281,15 @@
                     $this.addClass("selected");
                 });
 
-                $("a[title=Edit]", div).bind("click", function(e)
-                {
-                    e.stopPropagation();
-                    $SS.options.showTheme(index);
-                });
                 $("a[title=Delete]", div).bind("click", function(e)
                 {
                     e.stopPropagation();
                     $SS.options.deleteTheme(index);
+                });
+                $("a[title=Edit]", div).bind("click", function(e)
+                {
+                    e.stopPropagation();
+                    $SS.options.showTheme(index);
                 });
 
                 return div;
