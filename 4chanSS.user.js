@@ -1639,7 +1639,7 @@
                     return alert("Invalid image URL/base64.");
 
                 cIMG     = $SS.cleanBase64(cIMG);
-                bDefault = $SS.conf["Mascots"][mIndex].default;
+                bDefault = $SS.conf["Mascots"][mIndex] != undefined && $SS.conf["Mascots"][mIndex].default;
 
                 if (typeof mIndex === "number" && !bDefault)
                 {
