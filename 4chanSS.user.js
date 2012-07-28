@@ -26,7 +26,7 @@
         "Pony Icons":               [ false, "Shows pony icons for different e-mails" ],
         "Smart Tripcode Hider":     [ false, "Hides the name field if the value contains a tripcode" ],
         "Hide Checkboxes":          [ true,  "Hides the delete/report checkboxes" ],
-        "Show/Hide Menu Entry":     [ false, "Replaces the hide/show post button with a menu entry" ],
+        "Show/Hide Menu Entry":     [ true,  "Replaces the hide/show post button with a menu entry" ],
         "Underline Links":          [ false, "If enabled links that are normally underlined will remain so" ],
         "Expanding Form Inputs":    [ true,  "Makes certain form elements expand on focus" ],
         "Custom Navigation Links":  [ true,  "Use specified links instead of showing all boards" ],
