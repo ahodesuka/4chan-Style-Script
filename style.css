@@ -844,7 +844,7 @@ a.hide_thread_button>span,
 .menu_button {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
 " + ($SS.conf["Layout"] !== 2 && $SS.conf["Show/Hide Menu Entry"] ? "
-	right:2;
+	right:2px;
 	opacity:0!important;
 	position:absolute;
 	top:0;
