@@ -20,6 +20,7 @@
         "Show Logo":                [ true,  "Toggle visibility of the logo", null, true ],
         "Show Logo Reflection":     [ true,  "Toggle visibility of the logo reflection", "Show Logo", true, true ],
         "Auto Hide Thread Watcher": [ true,  "Hides watched threads unless the mouse is over the watcher" ],
+        "Slim Threads":             [ true,  "Reduces the spacing between threads" ],
         "Slim Replies":             [ true,  "Reduces the size of replies" ],
         "Emoji Icons":              [ false, "Show icons for different e-mails" ],
         "Pony Icons":               [ false, "Shows pony icons for different e-mails" ],
@@ -433,7 +434,7 @@
                     case "radio":
                         return el.checked == true;
                     default:
-                        if (!isNaN(el.value) && typeof el.value === "string")
+                        if (!isNaN(el.value) && typeof el.value === "string" && el.value !== "")
                             return parseInt(el.value);
                         return el.value;
                 }
@@ -1623,7 +1624,7 @@
             addMascot: function(mIndex)
             {
                 var overlay = $("#overlay2"),
-                    bSetPos, cIMG, cPosition, cOffset, cSmall, cFlip, tMascot;
+                    bSetPos, cIMG, cPosition, cOffset, cSmall, cFlip, tMascot, bDefault;
 
                 cIMG      = decodeURIComponent($("input[name=customIMGB64]", overlay).val() || $("input[name=customIMG]", overlay).val());
                 cPosition = $("select[name=mPosition]", overlay).val().toLowerCase();
@@ -1637,9 +1638,10 @@
                 if (!$SS.validImageURL(cIMG) && !$SS.validBase64(cIMG))
                     return alert("Invalid image URL/base64.");
 
-                cIMG = $SS.cleanBase64(cIMG);
+                cIMG     = $SS.cleanBase64(cIMG);
+                bDefault = $SS.conf["Mascots"][mIndex].default;
 
-                if (typeof mIndex === "number")
+                if (typeof mIndex === "number" && !bDefault)
                 {
                     $SS.conf["Mascots"][mIndex].img      = cIMG;
                     $SS.conf["Mascots"][mIndex].small    = cSmall;
@@ -1674,6 +1676,9 @@
                         tMascot.position = cPosition;
                         tMascot.offset   = cOffset;
                     }
+
+                    if (bDefault)
+                        $SS.options.deleteMascot(mIndex);
 
                     mIndex  = $SS.conf["Mascots"].push(tMascot);
                     tMascot = new $SS.Mascot(--mIndex).preview();

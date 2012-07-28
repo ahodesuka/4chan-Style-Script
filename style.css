@@ -463,6 +463,16 @@ body::before,
 	position:relative;
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
+" + (!$SS.conf["Slim Threads"] ? "
+.thread {
+    padding:2em 0!important;
+}
+.thread:first-child {
+    padding-top:0!important;
+}
+.board>div:nth-last-of-type(2) {
+    padding-bottom:0!important;
+}" : "") + "
 #addMascot>label::after,
 #qr>form>div::after,
 #updater div>label::after,
