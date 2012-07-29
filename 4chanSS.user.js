@@ -3248,6 +3248,8 @@
                 {
                     if (theme.customCSS[0] === "(")
                         theme.customCSS = "\"+".concat(theme.customCSS);
+                    if (theme.customCSS[theme.customCSS.length-1] === ")")
+                        theme.customCSS += "+\"";
 
                     this.customCSS = eval($SS.trimLineBreaks(new String('"'+theme.customCSS+'"')));
                 }
@@ -3385,4 +3387,5 @@
     /* END STYLE SCRIPT CLASSES */
 
     $SS.init();
+    console.log();
 })();
