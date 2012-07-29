@@ -1112,10 +1112,6 @@ textarea,
 .navLinks {
 	margin:0!important;
 }
-td.doubledash {
-	padding:0;
-	text-indent:-9999px;
-}
 .boardBanner {
 	height:100%;
 	position:fixed;

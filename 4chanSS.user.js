@@ -30,6 +30,7 @@
         "Underline Links":          [ false, "If enabled links that are normally underlined will remain so" ],
         "Expanding Form Inputs":    [ true,  "Makes certain form elements expand on focus" ],
         "Custom Navigation Links":  [ true,  "Use specified links instead of showing all boards" ],
+        "SFW/NSFW Themes":          [ true,  "Allows you to choose one theme for SFW boards and another for NSFW boards." ],
         "Style Scrollbars":         [ true,  "Make the scroll bar match the theme" ],
         "Sage Identification":
         [
@@ -172,6 +173,7 @@
         "Themes"          : [],
         "Hidden Themes"   : [],
         "Selected Theme"  : 0,
+        "NSFW Theme"      : 3,
         "Selected Mascots": 0,
         "Mascots"         : [],
         "Hidden Mascots"  : []
@@ -701,6 +703,7 @@
                 $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
                 $SS.browser.opera  = /Opera/.test(navigator.userAgent);
                 $SS.location       = $SS.getLocation();
+                console.log($SS.location.nsfw);
 
                 // correct selected theme/mascot after updating
                 // and the number defaults has changed.
@@ -1350,7 +1353,8 @@
                     parseInt(selectedTheme.attr("id").substr(5)) : 0;
 
                 $SS.Config.set("Themes", themes);
-                $SS.Config.set("Selected Theme", selectedTheme);
+                $SS.Config.set($SS.conf["SFW/NSFW Themes"] && $SS.location.nsfw ?
+                    "NSFW Theme" : "Selected Theme", selectedTheme);
                 $SS.Config.set("Hidden Themes", $SS.conf["Hidden Themes"]);
 
                 // Save Mascots
@@ -2027,8 +2031,9 @@
                 $SS.conf["Themes"] = Array.isArray($SS.conf["Themes"]) ?
                     this.defaults.concat($SS.conf["Themes"]) : this.defaults.slice(0);
 
-                var tIndex = $SS.conf["Themes"][$SS.conf["Selected Theme"]] ?
-                    $SS.conf["Selected Theme"] : 0;
+                var i      = $SS.conf["SFW/NSFW Themes"] && $SS.location.nsfw ?
+                                $SS.conf["NSFW Theme"] : $SS.conf["Selected Theme"],
+                    tIndex = $SS.conf["Themes"][i] ? i : 0;
 
                 $SS.theme = new $SS.Theme(tIndex); // Set the active theme.
             }
@@ -3373,6 +3378,7 @@
             return {
                 sub  : obj.hostname.split(".")[0],
                 board: pathname[0],
+                nsfw:  /^(b|d|e|f|gif|h|hr|r|s|t|u|wg|i|ic|r9k|y|pol|soc)$/.test(pathname[0]),
                 reply: pathname[1] === "res"
             };
         }
