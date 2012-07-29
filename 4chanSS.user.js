@@ -5,9 +5,9 @@
 // @namespace     ahodesuka.github.com
 // @version       2.3.2
 // @run-at        document-start
-// @include       http*://boards.4chan.org/*
-// @include       http*://rs.4chan.org/*
-// @include       http*://sys.4chan.org/*
+// @include       *://boards.4chan.org/*
+// @include       *://rs.4chan.org/*
+// @include       *://sys.4chan.org/*
 // @updateURL     https://github.com/ahodesuka/4chan-Style-Script/raw/stable/4chanSS.user.js
 // ==/UserScript==
 
@@ -81,7 +81,6 @@
             2, "Change the transition for the post form",
             [
                 { name: "Slide Up",  value: 1 },
-                /*{ name: "Slide Out", value: 5 },*/// TODO
                 { name: "Fade",      value: 2 },
                 { name: "Fixed",     value: 3 },
                 { name: "Float",     value: 4 }
@@ -173,7 +172,7 @@
         "Themes"          : [],
         "Hidden Themes"   : [],
         "Selected Theme"  : 0,
-        "NSFW Theme"      : 3,
+        "NSFW Theme"      : 0,
         "Selected Mascots": 0,
         "Mascots"         : [],
         "Hidden Mascots"  : []
@@ -703,7 +702,6 @@
                 $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
                 $SS.browser.opera  = /Opera/.test(navigator.userAgent);
                 $SS.location       = $SS.getLocation();
-                console.log($SS.location.nsfw);
 
                 // correct selected theme/mascot after updating
                 // and the number defaults has changed.
@@ -2023,6 +2021,7 @@
                     tripColor:   "aaaaaa",
                     titleColor:  "aaaaaa",
                     timeColor:   "aaaaaa",
+                    customCSS:   ".reply{border:0!important}"
                 }
             ],
 

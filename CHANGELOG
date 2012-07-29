@@ -6,6 +6,10 @@ master
         - 4chan X menu font color.
         - Text that is normally bold will be if you are not using a bitmap font.
         - Quote threading style.
+        - /f/ is some what bearable.
+        - Mascot and theme system were a mess when deleting/hiding things, should be much better now.
+        - Default mascots can be edited similar to default themes.
+        - Tripcode hider on page load.
     added:
         - 4chan Sound Player CSS.
         - 4chan Sound Player icon, [not] watched thread icons, and icons for X/SS.
@@ -13,7 +17,7 @@ master
         - 4sight looks a lot better.
         - Icons completely redone.
         - Top navigation spans 100%.
-        - Non OP, 4chan X menu buttons are hidden until hovered over the post (like OneeChan).
+        - Non OP 4chan X menu buttons are hidden until hovered over the post (like OneeChan).
 2.3.2
     fixed:
         - Tripcode hider.

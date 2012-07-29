@@ -134,7 +134,7 @@ span[style='color:#FF0000;font-weight:normal'] {
 }
 .reply,
 .hidden_thread,
-.stub>a:first-child,
+.stub,
 " + ($SS.conf["Layout"] !== 2 ? "a.summary," : "") + "
 option,
 div[id*=jsMath],
@@ -156,49 +156,21 @@ table.flashListing tr:nth-of-type(2n+1) {
 #boardNavDesktop {
 	background:" + $SS.theme.mainColor.hex + "!important;
 }
-.box-outer, .yui-skin-sam .yuimenu .bd
-{
-	border: 1px solid " + $SS.theme.brderColor.hex + " !important;
+table.flashListing .highlightPost {
+    background:none!important;
 }
-#ft li, #recent-images li, .boxbar, body:not([class]) .menubutton
-{
-	background: none !important;
-	border: none !important;
+table.flashListing .highlightPost::after {
+    content:'●';
+    color:rgb(214,149,149);
+    position:relative!important;
+    top:2px!important;
 }
-#optionsmenu:not([style=*='visibility:hidden;']), #filtermenu:not([style*='visibility: hidden;']) {
-	top: 24px !important;
-}
-table.flashListing .highlightPost
-{
-background: none !important;
-}
-table.flashListing .highlightPost::after
-{
-content: '●';
-color: rgb(214, 149, 149);
-position: relative !important;
-top: 2px !important;
-}
-.flashListing > tbody
-{
-padding-top: 200px !important;
+.flashListing > tbody {
+    padding-top:200px!important;
 }
 #delform[action='https://sys.4chan.org/f/up.php'], #delform[action='https://sys.4chan.org/f/up.php'] .postblock {
-background: none !important;
-border: none !important;
-}
-body:not([class]) {
-margin-top: 100px !important;
-}
-#ft ul {
-	border-top: none !important;
-}
-#ft li.first {
-	border-left: none !important;
-}
-#ft li.current, #ft li.fill {
-	background: none !important;
-	border: none !important;
+    background:none!important;
+    border:none!important;
 }
 a,
 button,
@@ -214,7 +186,6 @@ input[type=submit],
 	cursor:pointer;
 }
 body,
-form[name=post] tr:nth-of-type(3)>td:nth-of-type(3),
 img[alt=Closed],
 img[alt=Sticky],
 .navLinks,
@@ -374,7 +345,7 @@ textarea,
 .replyContainer>.reply,
 .hidden_thread,
 .postInfo,
-.stub>a:first-child,
+.stub,
 .thread.stub,
 .riceFile,
 .riceCheck,
@@ -399,8 +370,8 @@ textarea:-moz-placeholder {
 }
 body {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
-	margin:" + ((!$SS.bHideSidebar  && $SS.conf["Sidebar Position"] === 1) ||
-	            ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"]) ? "0 263px 0 0" :
+	margin:" + (!$SS.bHideSidebar  && ($SS.conf["Sidebar Position"] === 1 ||
+	            ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"])) ? "0 263px 0 0" :
 	            (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] !== 3 ? "0 0 0 " + $SS.iSidebarSize + "px" : "0 0 0")) + "!important;
 	margin-bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 43) + "px!important;
 	padding:0!important;
@@ -460,7 +431,7 @@ body::before,
 .sight4,
 .reply,
 .hidden_thread,
-.stub>a:first-child {
+.stub {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
 .globalMessage,
@@ -515,7 +486,7 @@ body::before,
 }
 " + (!$SS.conf["Slim Threads"] ? "
 .thread {
-    padding:2em 0!important;
+    padding:1em 0!important;
 }
 .thread:first-child {
     padding-top:0!important;
@@ -585,13 +556,13 @@ form[name=delform] {
 " + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
 .reply,
 .hidden_thread,
-.stub>a:first-child {
+.stub {
 	" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2)
 	? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") + "
 }
 .postContainer,
 .replyContainer {
-	margin:1px 0 0!important;
+	margin:1px 0!important;
 	position:relative;
 }
 .threadContainer {
@@ -677,11 +648,12 @@ a.hide_thread_button>span,
 	box-shadow:inset 5px 0 rgba(" + $SS.theme.sageColor.rgb + ",.5)!important;
 }
 .stub {
-	margin:1px 0 0 " + ($SS.conf["Layout"] === 2 && !$SS.conf["Show/Hide Menu Entry"] ? 16 : 0) + "px!important;
+    " + ($SS.conf["Layout"] === 2 ? "display:inline-block!important;" : "") + "
+	margin:1px 0!important;
 	padding:0!important;
 }
 .thread.stub {
-	margin:1px 0px!important;
+	margin:1px 0!important;
 	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
 .hidden_thread,
@@ -816,7 +788,7 @@ td:not(.hide_reply_button):not(.deleteform) {
 }
 blockquote {
 	margin:0!important;
-	padding:" + ($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] !== 1 ? 8 : 4) + "px 16px" : "12px 12px 24px 40px") + "!important;
+	padding:" + ($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] !== 1 ? 8 : 4) + "px 16px" : "12px 12px 24px 24px") + "!important;
 }
 blockquote>div[style] {
 	border-color:" + $SS.theme.sageColor.hex + "!important;
@@ -893,7 +865,7 @@ a.hide_thread_button>span,
 }
 .menu_button {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
-    vertical-align:top!important;
+    vertical-align:baseline!important;
     padding-top:12px!important;
 " + ($SS.conf["Layout"] !== 2 && $SS.conf["Show/Hide Menu Entry"] ? "
 	right:2px;
@@ -2246,6 +2218,7 @@ a[href='.././'] {
 {
 	height:48px!important;
 	max-width:300px;
+    opacity:.75;
 	width:100%;
 }
 #qr textarea {
