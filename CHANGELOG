@@ -1,4 +1,6 @@
 master
+
+2.4.0
     fixed:
         - Various checkboxes not being riced on page load.
         - E-hentai source can actually be disabled.
@@ -6,7 +8,7 @@ master
         - 4chan X menu font color.
         - Text that is normally bold will be if you are not using a bitmap font.
         - Quote threading style.
-        - /f/ is some what bearable.
+        - /f/ is usable.
         - Mascot and theme system were a mess when deleting/hiding things, should be much better now.
         - Default mascots can be edited similar to default themes.
         - Tripcode hider on page load.
