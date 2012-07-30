@@ -1,5 +1,14 @@
 master
 
+2.4.1
+    added:
+        - Emoji position option.
+        - Rounded edges option.
+        - Madotsuki emoji.
+        - 2 new themes from OneeChan.
+    fixed:
+        - Menu buttons inside inline posts.
+        - Some holes in the NSFW theme setting.
 2.4.0
     fixed:
         - Various checkboxes not being riced on page load.
