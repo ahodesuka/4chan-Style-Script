@@ -1521,7 +1521,7 @@
                         var b64 = $("input[name=customIMGB64]", overlay);
                         val     = b64.exists() ? decodeURIComponent(b64.val()) : this.value;
 
-                        if (val === "" || (!$SS.validImageURL(val) && !$SS.validBase64(val)))
+                        if (val !== "" && !$SS.validImageURL(val) && !$SS.validBase64(val))
                         {
                             error = true;
                             return alert("Invalid image URL/base64.");

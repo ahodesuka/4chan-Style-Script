@@ -36,8 +36,7 @@ body textarea:focus {
 	background:" + $SS.theme.linkColor.hex + ";
 	color:#" + ($SS.theme.linkColor.isLight ? "000" : "fff") +"!important;
 }
-img,
-.replyContainer div.highlight {
+img {
 	border:0!important;
 }
 hr {
@@ -660,10 +659,11 @@ form[name=delform] {
 .replyContainer>.reply {
 	padding:2px 6px!important;
 }
-.replyContainer div.highlight,
+.replyContainer>.post:target,
 .highlightPost,
 .qphl {
-	background:rgba(" + $SS.theme.mainColor.shiftRGB(16, true) + ",.9)!important;
+	background:rgba(" + $SS.theme.mainColor.shiftRGB(4, true) + ",.9)!important;
+    border:1px solid " + $SS.theme.linkColor.hex + "!important;
 }
 .filter_highlight>div.opContainer,
 .filter_highlight>.reply {
