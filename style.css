@@ -172,6 +172,7 @@ table.flashListing {
     position:relative;
     z-index:3;
 }
+.postContainer>.op:target,
 #delform[action='https://sys.4chan.org/f/up.php'],
 #delform[action='https://sys.4chan.org/f/up.php'] .postblock {
     background:none!important;
