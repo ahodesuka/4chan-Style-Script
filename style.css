@@ -526,7 +526,7 @@ a.hide_thread_button>span {
 	position:relative;
 	top:1px;") + "
 }
-" + ($SS.conf["Layout"] === 1 ?
+" + ($SS.conf["Layout"] === 1 ? "
 .thread>a.hide_thread_button>span {
 	right:2px!important;
 }" : "") + "

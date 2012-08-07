@@ -1,5 +1,8 @@
 master
 
+2.4.2a
+    fixed:
+        - Script.
 2.4.2
     fixed:
         - Highlighted post style.
