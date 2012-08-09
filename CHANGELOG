@@ -1,6 +1,7 @@
 master
     fixed:
         - Made announcement readable.
+        - ID text color when hovered.
 2.4.2a
     fixed:
         - Script.

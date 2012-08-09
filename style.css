@@ -55,8 +55,8 @@ h5 {
 *[style*='font-weight: bold;'],
 h3,
 strong,
-.postInfo .name,
-.postInfo .subject {
+.postInfo span.name,
+.postInfo span.subject {
 	font-weight:" + ($SS.conf["Bitmap Font"] ? 4 : 7) + "00!important;
 }
 a,
@@ -70,6 +70,7 @@ span>a.replylink {
 	-o-transition:all .1s;
 }
 a:hover,
+.posteruid span.hand:hover,
 blockquote a.quotelink:hover,
 #boardLinks>a.selectedBoard,
 div.post div.postInfo span~span.postNum a:hover {
