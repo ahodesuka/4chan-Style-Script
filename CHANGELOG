@@ -1,5 +1,6 @@
 master
-
+    fixed:
+        - Made announcement readable.
 2.4.2a
     fixed:
         - Script.

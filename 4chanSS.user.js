@@ -812,6 +812,9 @@
                            .bind("QRPostSuccessful", $SS.QRPostSuccessfulHandler)
                            .bind("DOMNodeInserted",  $SS.nodeInsertedHandler);
 
+                if ((div = $("#globalMessage *[style]")).exists())
+                    div.each(function() { $(this).attr("style", ""); });
+
                 setTimeout(function()
                 {
                     if (!$SS.QRhandled && (div = $("#qr")).exists())

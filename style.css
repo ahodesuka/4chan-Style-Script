@@ -52,6 +52,7 @@ h4,
 h5 {
 	margin:.4em 0!important;
 }
+*[style*='font-weight: bold;'],
 h3,
 strong,
 .postInfo .name,
