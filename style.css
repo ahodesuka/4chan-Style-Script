@@ -69,6 +69,9 @@ span>a.replylink {
 	-moz-transition:all .1s;
 	-o-transition:all .1s;
 }
+.filtered {
+    text-decoration:line-through" + ($SS.conf["Underline Links"] ? " underline" : "") + "!important;
+}
 a:hover,
 .posteruid span.hand:hover,
 blockquote a.quotelink:hover,
@@ -1861,7 +1864,7 @@ form[name=post] #com_submit+label,
 	bottom:auto!important;
 	height:20px;
 	line-height:20px;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px!important;
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "
 	right:43px!important;
 	left:auto!important;
