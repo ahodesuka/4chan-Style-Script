@@ -404,7 +404,7 @@ body::before {
 }" : "") +
 ($SS.conf["Sidebar Position"] !== 3 || $SS.conf["Show Mascot"] ? "
 body::after {
-	"background:" + $SS.mascot.img.get() + ";
+	background:" + $SS.mascot.img.get() + ";
 	content:'';
 	height:100%;
 	width:100%;
