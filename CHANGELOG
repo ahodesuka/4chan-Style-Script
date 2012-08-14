@@ -4,6 +4,8 @@ master
         - ID text color when hovered.
         - Mascots alignment.
         - Filtered backlinks style.
+     modified:
+        - Overflowing mascots can now have their positions set.
 2.4.2a
     fixed:
         - Script.

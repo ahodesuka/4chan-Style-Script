@@ -404,11 +404,11 @@ body::before {
 }" : "") +
 ($SS.conf["Sidebar Position"] !== 3 || $SS.conf["Show Mascot"] ? "
 body::after {
-	" + ($SS.mascot.overflow ? "content:" + $SS.mascot.img.get() + ";" :
+	" + ($SS.mascot.overflow && $SS.mascot.position === "auto" ? "content:" + $SS.mascot.img.get() + ";" :
 	"background:" + $SS.mascot.img.get() + ";
 	content:'';
 	height:100%;
-	width:261px;
+	width:100%;
 	" + (!$SS.mascot.small ? "background-size:contain;" : "")) + "
 	bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 21) + "px!important;
 	margin-bottom:" + $SS.mascot.offset + "px;

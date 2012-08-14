@@ -1606,7 +1606,7 @@
                         "<input type=checkbox name=mSmall" + (bEdit && mEdit.small ? " checked" : "") + "></label>" +
                         "<label title='Horizontally flip the mascot when sidebar is on the left'><span>Flip with sidebar:</span>" +
                         "<input type=checkbox name=mFlip" + (!bEdit || (bEdit && (mEdit.flip || mEdit.flip == undefined)) ? " checked" : "") + "></label>" +
-                        "<label title='Allows the mascot to be shown outside the sidebar, forces auto offset and ignores `Prevent stretching` option'>" +
+                        "<label title='Allows the mascot to be shown outside the sidebar, ignores `Prevent stretching` option'>" +
                         "<span>Allow overflow:</span><input type=checkbox name=mOverflow" + (bEdit && mEdit.overflow ? " checked" : "") + "></label>" +
                         "<label title='List of boards to display this mascot on, seperated by commas. Example: a,c,g,v,jp'><span>Boards:</span>" +
                         "<input type=text name=mBoards value='" + (bEdit && mEdit.boards ? mEdit.boards : "") + "'></label>" +
@@ -3174,13 +3174,15 @@
             this.index    = index;
             this.hidden   = $SS.conf["Hidden Mascots"].indexOf(index) !== -1;
             this.default  = mascot.default;
-            this.position = mascot.position || "bottom";
+            this.position = mascot.position;
             this.overflow = mascot.overflow;
-            this.img      = new $SS.Image(mascot.img, this.overflow ? "" : "no-repeat " + this.position + " center");
-            this.small    = mascot.small;
+            this.img      = new $SS.Image(mascot.img,
+                "no-repeat " + (this.overflow ? $SS.conf["Sidebar Position String"] : "center") +
+                " " + (this.position || "bottom"));
+            this.small    = mascot.small || this.overflow;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset && !this.overflow ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 273 : 24);
+            this.offset   = this.bOffset ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 273 : 24);
             this.boards   = mascot.boards;
             this.enabled  = $SS.conf["Selected Mascots"] === 0 || $SS.conf["Selected Mascots"].indexOf(index) !== -1;
 
