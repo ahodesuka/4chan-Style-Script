@@ -1,4 +1,6 @@
 master
+
+2.4.3
     fixed:
         - Made announcement readable.
         - ID text color when hovered.
