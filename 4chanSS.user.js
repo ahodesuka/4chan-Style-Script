@@ -808,6 +808,8 @@
 
             if (reload !== true)
             {
+                $SS.options.init();
+
                 $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler)
                            .bind("QRPostSuccessful", $SS.QRPostSuccessfulHandler)
                            .bind("DOMNodeInserted",  $SS.nodeInsertedHandler);
@@ -840,7 +842,6 @@
                 });
             }
 
-            $SS.options.init();
             $SS.nav.init();
             $SS.pages.init();
 
