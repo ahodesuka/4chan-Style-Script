@@ -1,5 +1,12 @@
 master
 
+2.4.4
+    fixed:
+        - Board specific mascots.
+        - Custom nav links updating after save.
+        - ExLinks menu button being replaced on options reload.
+    modified:
+        - Youtube Link Title links should look better when using bitmap fonts.
 2.4.3
     fixed:
         - Made announcement readable.
