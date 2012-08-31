@@ -2197,12 +2197,15 @@
                         return this.hasInit = true;
                     }
                 }
-                else if (this.hasInit &&
-                         (div = $("#boardLinks")).exists() &&
-                         !$SS.conf["Custom Navigation Links"])
+                else if ((div = $("#boardLinks")).exists())
                 {
                     div.remove();
-                    return this.hasInit = false;
+
+                    if (!$SS.conf["Custom Navigation Links"])
+                        return this.hasInit = false;
+
+                    this.hasInit = false;
+                    return this.init();
                 }
             }
         },
