@@ -55,6 +55,7 @@ h5 {
 *[style*='font-weight: bold;'],
 h3,
 strong,
+body a.YTLT-link,
 .postInfo span.name,
 .postInfo span.subject {
 	font-weight:" + ($SS.conf["Bitmap Font"] ? 4 : 7) + "00!important;
@@ -68,6 +69,15 @@ span>a.replylink {
 	-webkit-transition:all .1s;
 	-moz-transition:all .1s;
 	-o-transition:all .1s;
+}
+body a.YTLT-link {
+    font-style:normal!important;
+	-webkit-transition:none;
+	-moz-transition:none;
+	-o-transition:none;
+}
+body .YTLT-embed {
+    border:0!important;
 }
 .filtered {
     text-decoration:line-through" + ($SS.conf["Underline Links"] ? " underline" : "") + "!important;
