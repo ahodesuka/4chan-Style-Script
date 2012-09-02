@@ -5,4 +5,4 @@ This userscript is intended to be used along side [4chan X](http://mayhemydg.git
 Ensure both `Auto Hide QR` and `Persistent QR` options are checked in 4chan X's settings.
 
 ## Known Issues
-For exhentai source to work (as intended) in chrome you must install with [Tampermonkey](https://chrome.google.com/webstore/detail/dhdgffkkebhmkfjojejmpbldmpobfkfo) or [Ninjakit](https://chrome.google.com/webstore/detail/gpbepnljaakggeobkclonlkhbdgccfek).
+Firefox 18+ causes problems with certain features.
