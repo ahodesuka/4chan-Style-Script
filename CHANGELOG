@@ -1,5 +1,10 @@
 master
 
+master
+    fixed:
+        - Fix 4chan X settings styling issues.
+        - Fix SS button not showing up.
+
 2.4.4
     fixed:
         - Board specific mascots.
