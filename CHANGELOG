@@ -1,6 +1,8 @@
 master
 
-2.4.5
+2.4.6
+    fixed:
+        - Default 4chan extension is disabled automatically.
 
 2.4.5
     fixed:
@@ -8,7 +10,7 @@ master
         - Fix SS button not showing up.
         - 4sight button.
     modified:
-        - Default 4chan extension settings button is hidden, and disabled automatically.
+        - Default 4chan extension settings button is hidden.
 2.4.4
     fixed:
         - Board specific mascots.
