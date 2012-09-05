@@ -324,6 +324,7 @@ body>.closed>br,
 .board>hr:nth-last-child(2),
 div[style^='text-align: center'],
 #imageExpand,
+#settingsWindowLink,
 .menu_button>span,
 .hidden_thread+div.opContainer,
 .stub+div+div.post {

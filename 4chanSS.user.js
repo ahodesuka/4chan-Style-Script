@@ -837,7 +837,7 @@
                     if ((div = $("body>a[style='cursor: pointer; float: right;']")).exists())
                     {
                         div.nextSibling().addClass("sight4");
-                        $("#navtopr>a:first-child").before(div.addClass("sight4Button"));
+                        $("#navtopright>a:first-child").before(div.addClass("sight4Button"));
                     }
                 });
             }
