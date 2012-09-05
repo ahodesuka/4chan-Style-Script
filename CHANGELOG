@@ -1,10 +1,12 @@
 master
 
-master
+2.4.5
     fixed:
         - Fix 4chan X settings styling issues.
         - Fix SS button not showing up.
-
+        - 4sight button.
+    modified:
+        - Default 4chan extension settings button is hidden, disable 4chanSS to change the settings.
 2.4.4
     fixed:
         - Board specific mascots.
