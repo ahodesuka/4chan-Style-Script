@@ -1,5 +1,9 @@
 master
 
+master
+    fixed:
+        - 4chan X settings button not showing up.
+
 2.4.4
     fixed:
         - Board specific mascots.

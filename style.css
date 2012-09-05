@@ -216,9 +216,9 @@ body>a[style='cursor: pointer; float: right;'],
 .deleteform,
 #boardNavDesktop,
 #boardNavDesktop>a,
-#boardNavDesktop>span:not(#navtopr)>a,
-#navtopr,
-#navtopr>a,
+#boardNavDesktop>span:not(#navtopright)>a,
+#navtopright,
+#navtopright>a,
 #imageType+label,
 #qr>form #spoilerLabel,
 .preview>label,
@@ -344,7 +344,7 @@ input:not(.jsColor),
 select,
 textarea,
 tr,
-#navtopr>a:not(:first-child)::before,
+#navtopright>a:not(:first-child)::before,
 #qr>.move,
 #qr>form #spoilerLabel::after,
 #stats span,
@@ -852,7 +852,7 @@ a[href='.././'],
 a.hide_thread_button>span,
 body>a[style='cursor: pointer; float: right;'],
 #imageType+label,
-#navtopr>a,
+#navtopright>a,
 .close,
 .remove,
 .favicon,
@@ -938,7 +938,7 @@ a.hide_thread_button>span,
 a[href='.././'],
 body>a[style='cursor: pointer; float: right;'],
 #imageType+label,
-#navtopr>a,
+#navtopright>a,
 a.hide_thread_button>span,
 .close,
 .remove,
@@ -954,7 +954,7 @@ a.hide_thread_button>span,
 a[href='.././']:hover,
 body>a[style='cursor: pointer; float: right;']:hover,
 #imageType+label:hover,
-#navtopr>a:hover,
+#navtopright>a:hover,
 a.hide_thread_button>span:hover,
 .close:hover,
 .remove:hover,
@@ -1965,7 +1965,7 @@ body>.closed {
 	z-index:12!important;
 }
 #navtop,
-#navtopr {
+#navtopright {
 	float:none!important;
 	height:20px;
 }
@@ -1975,7 +1975,7 @@ body>.closed {
 #navtop>div {
 	line-height:20px;
 }
-#navtopr {
+#navtopright {
 	line-height:18px;
 	position:absolute;
 	right:5px!important;
