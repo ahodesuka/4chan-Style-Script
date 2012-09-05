@@ -969,7 +969,7 @@
             init: function()
             {
                 var a = $("<a id=themeoptionsLink title='4chan SS Options'>SS").bind("click", $SS.options.show);
-                return $("#navtopr>a:last-child").replace(a);
+                return $("#navtopright>a:last-child").replace(a);
             },
             show: function()
             {
