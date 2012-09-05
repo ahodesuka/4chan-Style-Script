@@ -3,7 +3,7 @@
 // @author        ahoka
 // @description   Customize 4chan to your liking right on the page itself.
 // @namespace     ahodesuka.github.com
-// @version       2.4.6
+// @version       2.4.61
 // @run-at        document-start
 // @include       *://boards.4chan.org/*
 // @include       *://rs.4chan.org/*
@@ -189,7 +189,7 @@
     MAX_FONT_SIZE = 16,
     MIN_FONT_SIZE = 10,
     NAMESPACE     = "4chanSS.",
-    VERSION       = "2.4.6",
+    VERSION       = "2.4.61",
     inputImages   = "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAgCAYAAAAv8DnQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAP9JREFUOMvV0CFLQ2EYxfHfrtdiURgbmCxOmFPBJgZZ0CQD0Q+goFkwabWIyWIWFgwmy7Qp7DPI3GD7ACZlYLNcy31ljG0aDHrSy3N43nOef6ZULBiifczEQ8wV7OAtGmBO4wgfOI2whsXUnMAJ8rhCJ8IxDpHDHpZwixqM5XPZBBtYxioauEgjRLjBI2bRxTneQ6EYCS4xiTu89DbONJrtP88hwnV64hm28YRqyPsFDkmSGKUYFubnsqignM7rqDWa7dcAqoLdnsXwrgZQ5QG/l8MVIxX1ZPar/lUyUOsv+aMzv+0Qw3OrM4VNrKfzB9yXioVu6LDVx+EA4/+Gwycw/Uz36O07WwAAAABJRU5ErkJggg==",
     fontListSWF   = "http://ahodesuka.github.com/FontList.swf",
     themeInputs   =
@@ -705,7 +705,7 @@
             if (!reload)
             {
                 if (/^about:neterror/.test(document.documentURI)) return;
-                localStorage["4chan-settings"] = JSON.stringify({ "disableAll" : true })
+                localStorage["4chan-settings"] = "{ \"disableAll\" : true }";
 
                 var m_VERSION;
                 $SS.browser.webkit = /AppleWebKit/.test(navigator.userAgent);

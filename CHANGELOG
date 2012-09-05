@@ -1,5 +1,7 @@
 master
 
+2.4.61
+
 2.4.6
     fixed:
         - Default 4chan extension is disabled automatically.
