@@ -1,10 +1,15 @@
 master
+
+2.4.7
     fixed:
         - Quote preview highlight style.
 
 2.4.6
     fixed:
         - Default 4chan extension is disabled automatically.
+        - Body scrollbars are no longer hidden when opening the settings menu.
+    modified:
+        - Script will no longer execute on rs.4chan.org.
 
 2.4.5
     fixed:
