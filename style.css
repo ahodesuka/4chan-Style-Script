@@ -727,6 +727,9 @@ input[type=checkbox]:focus,
 .qphl {
 	outline:none!important;
 }
+.qphl {
+    box-shadow:none!important;
+}
 #qp {
 	background:rgb(" + $SS.theme.mainColor.shiftRGB(-8) + ")!important;
 	border:1px solid rgba(" + $SS.theme.linkColor.rgb + ",.4)!important;
