@@ -6,7 +6,6 @@
 // @version       2.4.61
 // @run-at        document-start
 // @include       *://boards.4chan.org/*
-// @include       *://rs.4chan.org/*
 // @include       *://sys.4chan.org/*
 // @updateURL     https://github.com/ahodesuka/4chan-Style-Script/raw/stable/4chanSS.user.js
 // ==/UserScript==
