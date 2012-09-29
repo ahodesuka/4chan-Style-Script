@@ -343,6 +343,7 @@ form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
 input:not(.jsColor),
 select,
+table.exif td,
 textarea,
 tr,
 #navtopright>a:not(:first-child)::before,
@@ -2153,38 +2154,6 @@ a[href='.././'] {
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
 	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] !== 2 ? 99 : 38)) + "px!important;
 	z-index:14;
-}
-.exSource {
-	display:inline-block;
-	height:16px;
-	position:relative;
-}
-.exFound {
-	-webkit-transition:none!important;
-	-moz-transition:none!important;
-	-o-transition:none!important;
-}
-.exFound:hover {
-	background:rgba(" + $SS.theme.mainColor.shiftRGB(-4) + ",.9)!important;
-	border-radius:3px 3px 0 0;
-}
-.exFound:hover>.exPopup {
-	display:block!important;
-}
-.exPopup {
-	background:rgba(" + $SS.theme.mainColor.shiftRGB(-4) + ",.9)!important;
-	display:none;
-	left:0;
-	padding:5px;
-	position:absolute!important;
-	top:16px;
-	white-space:nowrap;
-	z-index:11!important;
-	box-shadow:rgba(0,0,0,.3) 0 2px 2px;
-	border-radius:0 3px 3px 3px;
-}
-.exPopup a {
-	display:block;
 }
 #boardLinks>a.selectedBoard {
 	" + ($SS.conf["Bitmap Font"] ? "

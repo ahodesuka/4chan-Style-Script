@@ -5,4 +5,4 @@ This userscript is intended to be used along side [4chan X](http://mayhemydg.git
 Ensure both `Auto Hide QR` and `Persistent QR` options are checked in 4chan X's settings.
 
 ## Known Issues
-Firefox 18+ causes problems with certain features.
+_?_ Firefox 18+ causes problems with certain features.

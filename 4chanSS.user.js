@@ -711,6 +711,7 @@
                 $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
                 $SS.browser.opera  = /Opera/.test(navigator.userAgent);
                 $SS.location       = $SS.getLocation();
+                $SS.chan4Pass      = document.cookie.indexOf("pass_enabled=") !== -1;
 
                 // correct selected theme/mascots after updating
                 // and the number defaults has changed.
@@ -844,10 +845,7 @@
 
             $SS.nav.init();
             $SS.pages.init();
-
-            $SS.exsauce.init();
             $SS.menuEntries.init();
-
             $SS.riceInputs.init();
             $SS.logoReflect.init();
 
@@ -856,9 +854,6 @@
         {
             if ($(e.target).hasClass("postContainer"))
             {
-                if ($SS.conf["ExHentai Source"] !== 1)
-                    $SS.exsauce.addLinks(e.target);
-
                 if (!$SS.browser.webkit && !$SS.conf["Hide Checkboxes"])
                     $("input[type=checkbox]", e.target).riceCheck();
             }
@@ -977,8 +972,8 @@
                     $SS.options.close();
                 else
                 {
-                    var overlay     = $("<div id=overlay>"),
-                        tOptions    = $("<div id=themeoptions class=reply>"),
+                    var overlay     = $("<div id=overlay>").bind("click", $SS.options.close),
+                        tOptions    = $("<div id=themeoptions class=reply>").bind("click", function(e) { return e.stopPropagation(); }),
                         optionsHTML = "<ul id=toNav>" +
                         "<li><label class=selected for=tcbMain>Main</label></li>" +
                         "<li><label for=tcbThemes>Themes</label></li>" +
@@ -1262,7 +1257,6 @@
             },
             close: function()
             {
-                $(document.body).attr("style", "");
                 $(document).unbind("keydown", $SS.options.keydown)
                            .unbind("keyup", $SS.options.keydown);
 
@@ -2365,174 +2359,6 @@
                 $(".boardBanner").prepend(div);
 
                 return this.hasInit = true;
-            }
-        },
-
-        /* Thanks to hurfdurf
-         * http://pastebin.com/TTDJNH7c
-         * Modified by ahoka
-         * To display links to matched doujins/galleries.
-         **/
-        /* EXHENTAI SOURCE */
-        exsauce:
-        {
-            init: function()
-            {
-                if ($SS.conf["ExHentai Source"] === 1) return;
-
-                this.extype = $SS.conf["ExHentai Source"] === 2 ? "exhentai" : "g.e-hentai";
-                $SS.exsauce.addLinks(document);
-            },
-            addLinks: function(x)
-            {
-                setTimeout(function()
-                {
-                    if ($(x).hasClass("inline")) $(".exSource", x).remove();
-
-                    $("a.fileThumb", x).each(function()
-                    {
-                        var node = $(this).previousSibling();
-
-                        if (!$(".exSource", node).exists())
-                        {
-                            var a = $("<a class=exSource href='" + location.protocol + $(this).attr("href") + "'>" + $SS.exsauce.extype).bind("click", $SS.exsauce.fetchImage);
-                            node.append(document.createTextNode(" ")).append(a);
-                        }
-                    });
-                });
-            },
-            fetchImage: function(e)
-            {
-                if (e.which !== 1) return;
-                e.preventDefault();
-
-                var a = $(e.target);
-                a.text("loading");
-
-                GM_xmlhttpRequest(
-                {
-                    method: "GET",
-                    url: a.attr("href"),
-                    overrideMimeType: "text/plain; charset=x-user-defined",
-                    headers: { "Content-Type": "image/jpeg" },
-                    onload: function(x) { $SS.exsauce.checkTitles(a, x.responseText); }
-                });
-            },
-            checkTitles: function(anchor, data)
-            {
-                var hash = $SS.exsauce.sha1Hash($SS.exsauce.data_string(data));
-
-                anchor.html("checking")
-                      .attr("href", "http://" + this.extype + ".org/?f_shash=" + hash + "&fs_similar=1&fs_exp=1")
-                      .unbind("click", $SS.exsauce.fetchImage);
-
-                GM_xmlhttpRequest(
-                {
-                    method: "GET",
-                    url: anchor.attr("href"),
-                    onload: function(x)
-                    {
-                        var temp    = $("<div>").html(x.responseText),
-                            results = $("div.it3>a:not([rel='nofollow']),div.itd2>a:not([rel='nofollow'])", temp),
-                            MAX     = results.length();
-
-                        anchor.html("found: " + MAX).attr("target", "_blank");
-
-                        if (MAX > 0)
-                        {
-                            var div = $("<div class=exPopup id=ex" + hash + ">");
-                            anchor.addClass("exFound").append(div);
-
-                            for (var i = 0; i < MAX; ++i)
-                            {
-                                var ret = results.get(i),
-                                    a   = $("<a href='" + ret.href + "' target=_blank>" + ret.innerHTML);
-                                div.append(a);
-                            }
-                        }
-                    }
-                });
-            },
-
-            /* SHA1 HASING */
-            data_string: function(data)
-            {
-                var ret = "";
-                for (var i = 0, MAX = data.length; i < MAX; ++i)
-                    ret += String.fromCharCode(data[i].charCodeAt(0) & 0xff);
-
-                return ret;
-            },
-
-            sha1Hash: function(msg)
-            {
-                var K = [0x5a827999, 0x6ed9eba1, 0x8f1bbcdc, 0xca62c1d6];
-                msg += String.fromCharCode(0x80);
-                var l = msg.length/4 + 2;
-                var N = Math.ceil(l/16);
-                var M = new Array(N);
-                for (var i = 0; i < N; ++i)
-                {
-                    M[i] = new Array(16);
-                    for (var j = 0; j < 16; j++)
-                        M[i][j] = (msg.charCodeAt(i*64+j*4)<<24) | (msg.charCodeAt(i*64+j*4+1)<<16) |
-                                  (msg.charCodeAt(i*64+j*4+2)<<8) | (msg.charCodeAt(i*64+j*4+3));
-                }
-
-                M[N-1][14] = ((msg.length-1)*8) / Math.pow(2, 32); M[N-1][14] = Math.floor(M[N-1][14])
-                M[N-1][15] = ((msg.length-1)*8) & 0xffffffff;
-
-                var H0 = 0x67452301;
-                var H1 = 0xefcdab89;
-                var H2 = 0x98badcfe;
-                var H3 = 0x10325476;
-                var H4 = 0xc3d2e1f0;
-
-                var W = new Array(80); var a, b, c, d, e;
-                for (var i = 0; i < N; ++i)
-                {
-                    for (var t = 0; t < 16; t++)
-                        W[t] = M[i][t];
-
-                    for (var t = 16; t < 80; t++)
-                        W[t] = $SS.exsauce.ROTL(W[t-3] ^ W[t-8] ^ W[t-14] ^ W[t-16], 1);
-
-                    a = H0; b = H1; c = H2; d = H3; e = H4;
-                    for (var t = 0; t < 80; t++)
-                    {
-                        var s = Math.floor(t/20);
-                        var T = ($SS.exsauce.ROTL(a,5) + $SS.exsauce.f(s,b,c,d) + e + K[s] + W[t]) & 0xffffffff;
-                        e = d;
-                        d = c;
-                        c = $SS.exsauce.ROTL(b, 30);
-                        b = a;
-                        a = T;
-                    }
-
-                    H0 = (H0+a) & 0xffffffff;
-                    H1 = (H1+b) & 0xffffffff;
-                    H2 = (H2+c) & 0xffffffff;
-                    H3 = (H3+d) & 0xffffffff;
-                    H4 = (H4+e) & 0xffffffff;
-                }
-
-                return H0.toHexStr() + H1.toHexStr() + H2.toHexStr() + H3.toHexStr() + H4.toHexStr();
-            },
-
-            f: function(s, x, y, z)
-            {
-                switch (s)
-                {
-                    case 0: return (x & y) ^ (~x & z);
-                    case 1: return x ^ y ^ z;
-                    case 2: return (x & y) ^ (x & z) ^ (y & z);
-                    case 3: return x ^ y ^ z;
-                }
-            },
-
-            ROTL: function(x, n)
-            {
-                return (x<<n) | (x>>>(32-n));
             }
         },
 
