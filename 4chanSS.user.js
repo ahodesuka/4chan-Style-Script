@@ -443,7 +443,7 @@
                     case "radio":
                         return el.checked == true;
                     default:
-                        if (!isNaN(el.value) && typeof el.value === "string" && el.value !== "")
+                        if (/^\d+$/.test(el.value))
                             return parseInt(el.value);
                         return el.value;
                 }
