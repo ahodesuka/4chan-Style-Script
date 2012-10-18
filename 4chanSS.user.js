@@ -2997,11 +2997,11 @@
             this.default  = mascot.default;
             this.position = mascot.position;
             this.overflow = mascot.overflow;
-            this.img      = new $SS.Image(mascot.img,
-                "no-repeat " + (this.overflow ? $SS.conf["Sidebar Position String"] : "center") +
-                " " + (this.position || "bottom"));
             this.small    = mascot.small || this.overflow;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
+            this.img      = new $SS.Image(mascot.img,
+                "no-repeat " + (this.overflow ? $SS.conf["Sidebar Position " + (this.flip ? "o" : "") + "String"] : "center") +
+                " " + (this.position || "bottom"));
             this.bOffset  = typeof mascot.offset === "number";
             this.offset   = this.bOffset ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 273 : 24);
             this.boards   = mascot.boards;
