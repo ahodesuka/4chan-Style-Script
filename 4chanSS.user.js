@@ -1575,8 +1575,10 @@
                 if ($SS.conf["Themes"][tIndex].default &&
                     $SS.conf["Hidden Themes"].push(tIndex) === 1)
                     $("#tThemes a[name=restoreThemes]").show();
+                else
+                    $SS.conf["Themes"].splice(tIndex);
 
-                return $("#theme" + tIndex).removeClass("selected").hide();
+                return $("#theme" + tIndex).remove();
             },
             showMascot: function(mIndex)
             {
@@ -1685,7 +1687,7 @@
                     if (bDefault)
                         $SS.options.deleteMascot(mIndex);
 
-                    mIndex  = $SS.conf["Mascots"].push(tMascot);
+                    mIndex = $SS.conf["Mascots"].push(tMascot);
                     tMascot = new $SS.Mascot(--mIndex).preview();
                     $("#tMascot").append(tMascot);
                     tMascot.fire("click").scrollIntoView(true);
@@ -1698,8 +1700,10 @@
                 if ($SS.conf["Mascots"][mIndex].default &&
                     $SS.conf["Hidden Mascots"].push(mIndex) === 1)
                     $("#tMascot a[name=restoreMascots]").show();
+                else
+                    $SS.conf["Mascots"].splice(mIndex);
 
-                return $("#mascot" + mIndex).removeClass("selected").hide();
+                return $("#mascot" + mIndex).remove();
             },
             SelectImage: function()
             {
