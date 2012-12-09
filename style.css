@@ -2464,6 +2464,9 @@ pre.prettyprint {
 	color:transparent!important;
 }
 .field:focus:-moz-placeholder {
+    color:transparent!important;
+}
+.field:focus::-moz-placeholder {
 	color:transparent!important;
 }
 #qr>form>div:first-child .field:not(#dump):focus {
@@ -2471,6 +2474,7 @@ pre.prettyprint {
 	left:24px!important;
 	position:absolute;
 	width:230px!important;
+    z-index:2;
 }
 #qr>form>div:first-child .field:not(#dump):focus+span {
 	color:rgba(" + $SS.theme.textColor.rgb + ",.4)!important;
