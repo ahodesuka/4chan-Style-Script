@@ -1,6 +1,10 @@
 master
+
+2.4.8
     fixed:
         - Ads selector.
+        - QR field styles for firefox 19+.
+        - Adding themes and mascots after deleting.
     modified:
         - Settings window will now close when clicking outside of the window.
         - Removed exsauce - use exlinks instead.
