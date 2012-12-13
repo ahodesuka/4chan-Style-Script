@@ -1346,8 +1346,9 @@
                 // Save Themes
                 $("#themeoptions #tThemes>div").each(function(index)
                 {
-                    if (!$SS.conf["Themes"][index].default && !this.hidden)
-                        themes.push($SS.conf["Themes"][index]);
+                    var oldIndex = parseInt(this.id.substr(5));
+                    if (!$SS.conf["Themes"][oldIndex].default)
+                        themes.push($SS.conf["Themes"][oldIndex]);
                 });
 
                 selectedTheme = (selectedTheme = $("#themeoptions #tThemes>div.selected")).exists() ?
@@ -1361,11 +1362,12 @@
                 // Save Mascots
                 $("#themeoptions #tMascot>div").each(function(index)
                 {
+                    var oldIndex = parseInt(this.id.substr(6));
                     if ($(this).hasClass("selected"))
                         selectedMascots.push(index);
 
-                    if (!$SS.conf["Mascots"][index].default && !this.hidden)
-                        mascots.push($SS.conf["Mascots"][index]);
+                    if (!$SS.conf["Mascots"][oldIndex].default)
+                        mascots.push($SS.conf["Mascots"][oldIndex]);
                 });
 
                 $SS.Config.set("Mascots", mascots);
@@ -1575,10 +1577,9 @@
                 if ($SS.conf["Themes"][tIndex].default &&
                     $SS.conf["Hidden Themes"].push(tIndex) === 1)
                     $("#tThemes a[name=restoreThemes]").show();
-                else
-                    $SS.conf["Themes"].splice(tIndex);
 
-                return $("#theme" + tIndex).remove();
+                return $SS.conf["Themes"][tIndex].default ?
+                    $("#theme" + tIndex).removeClass("selected").hide() : $("#theme" + tIndex).remove();
             },
             showMascot: function(mIndex)
             {
@@ -1700,10 +1701,9 @@
                 if ($SS.conf["Mascots"][mIndex].default &&
                     $SS.conf["Hidden Mascots"].push(mIndex) === 1)
                     $("#tMascot a[name=restoreMascots]").show();
-                else
-                    $SS.conf["Mascots"].splice(mIndex);
 
-                return $("#mascot" + mIndex).remove();
+                return $SS.conf["Mascots"][mIndex].default ?
+                    $("#mascot" + mIndex).removeClass("selected").hide() : $("#mascot" + mIndex).remove();
             },
             SelectImage: function()
             {
