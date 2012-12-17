@@ -72,16 +72,16 @@ span>a.replylink {
 	-o-transition:all .1s;
 }
 body a.YTLT-link {
-    font-style:normal!important;
+	font-style:normal!important;
 	-webkit-transition:none;
 	-moz-transition:none;
 	-o-transition:none;
 }
 body .YTLT-embed {
-    border:0!important;
+	border:0!important;
 }
 .filtered {
-    text-decoration:line-through" + ($SS.conf["Underline Links"] ? " underline" : "") + "!important;
+	text-decoration:line-through" + ($SS.conf["Underline Links"] ? " underline" : "") + "!important;
 }
 a:hover,
 .button:hover,
@@ -176,29 +176,29 @@ table.flashListing tr:nth-of-type(2n+1) {
 	background:" + $SS.theme.mainColor.hex + "!important;
 }
 table.flashListing .highlightPost {
-    background:none!important;
+	background:none!important;
 }
 table.flashListing .highlightPost::after {
-    content:'●';
-    color:rgb(214,149,149);
-    position:relative!important;
-    top:2px!important;
+	content:'●';
+	color:rgb(214,149,149);
+	position:relative!important;
+	top:2px!important;
 }
 .flashListing > tbody {
-    padding-top:200px!important;
+	padding-top:200px!important;
 }
 table.flashListing {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.9)!important;
-    position:relative;
-    z-index:3;
+	position:relative;
+	z-index:3;
 }
 .postContainer>.op.highlight,
 .postContainer>.op:target,
 .postContainer.qphl,
 #delform[action='https://sys.4chan.org/f/up.php'],
 #delform[action='https://sys.4chan.org/f/up.php'] .postblock {
-    background:none!important;
-    border:none!important;
+	background:none!important;
+	border:none!important;
 }
 a,
 button,
@@ -230,6 +230,7 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .menu_button,
+.toggleCatalog>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread>span,
 .hidden_thread a:first-child>span,
@@ -311,6 +312,7 @@ a.useremail[href='mailto:sage']:last-of-type::" + $SS.conf["Emoji Position"] + "
 ($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck,.deleteform," : "") +
 ($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : "") +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") +
+($SS.location.reply ? ".toggleCatalog," : "") +
 ($SS.location.catalog ? ".boardBanner," : "") + "
 [hidden],
 .hidden:not(.postContainer),
@@ -318,6 +320,7 @@ body>hr,
 body>form[name=post],
 .navLinksBot,
 a[href='#bottom'],
+a[href='.././catalog'],
 .stylechanger,
 #absbot,
 #boardNavDesktopFoot,
@@ -406,8 +409,8 @@ textarea:-moz-placeholder {
 body {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
 	margin:" + (!$SS.bHideSidebar  && ($SS.conf["Sidebar Position"] === 1 ||
-	            ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"])) ? "0 263px 0 0" :
-	            (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] !== 3 ? "0 0 0 " + $SS.iSidebarSize + "px" : "0 0 0")) + "!important;
+	        ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"])) ? "0 263px 0 0" :
+	        (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] !== 3 ? "0 0 0 " + $SS.iSidebarSize + "px" : "0 0 0")) + "!important;
 	margin-bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 43) + "px!important;
 	padding:0!important;
 }
@@ -429,7 +432,7 @@ body::after {
 	background:" + $SS.mascot.img.get() + ";
 	content:'';
 	height:100%;
-    width:" + ($SS.mascot.overflow ? "100%" : "261px") + ";
+	width:" + ($SS.mascot.overflow ? "100%" : "261px") + ";
 	" + (!$SS.mascot.small ? "background-size:contain;" : "") + "
 	bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : 21) + "px!important;
 	margin-bottom:" + $SS.mascot.offset + "px;
@@ -520,13 +523,13 @@ body::before,
 }
 " + (!$SS.conf["Slim Threads"] ? "
 .thread {
-    padding:1em 0!important;
+	padding:1em 0!important;
 }
 .thread:first-child {
-    padding-top:0!important;
+	padding-top:0!important;
 }
 .board>div:nth-last-of-type(2) {
-    padding-bottom:0!important;
+	padding-bottom:0!important;
 }" : "") + "
 #addMascot>label::after,
 #qr>form>div::after,
@@ -630,7 +633,7 @@ a.hide_thread_button>span,
 .stub,
 .post.reply,
 .hidden_thread {
-    border-radius:4px!important;
+	border-radius:4px!important;
 }
 .thread {
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
@@ -642,7 +645,7 @@ form[name=delform] {
 	border-radius:" + ($SS.conf["Layout"] !== 3 ? ($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
 }
 " + ($SS.conf["Hide Checkboxes"] ? "#qr" : ".deleteform") + " {
-    border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "3px 0 0 0" : "0 3px 0 0") + ";
+	border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "3px 0 0 0" : "0 3px 0 0") + ";
 }
 " : "") + "
 .inline {
@@ -672,7 +675,7 @@ form[name=delform] {
 }" : "
 .stub>.menu_button,
 .hidden_thread>.menu_button {
-    vertical-align:top!important;
+	vertical-align:top!important;
 }") + "
 .replyContainer>.reply>img {
 	vertical-align:middle;
@@ -696,14 +699,14 @@ form[name=delform] {
 .highlightPost,
 .qphl {
 	background:rgba(" + $SS.theme.mainColor.shiftRGB(4, true) + ",.9)!important;
-    border:1px solid " + $SS.theme.linkColor.hex + "!important;
+	border:1px solid " + $SS.theme.linkColor.hex + "!important;
 }
 .filter_highlight>div.opContainer,
 .filter_highlight>.reply {
 	box-shadow:inset 5px 0 rgba(" + $SS.theme.sageColor.rgb + ",.5)!important;
 }
 .stub {
-    " + ($SS.conf["Layout"] === 2 ? "display:inline-block!important;" : "") + "
+	" + ($SS.conf["Layout"] === 2 ? "display:inline-block!important;" : "") + "
 	margin:1px 0!important;
 	padding:0!important;
 }
@@ -740,7 +743,7 @@ input[type=checkbox]:focus,
 	outline:none!important;
 }
 .qphl {
-    box-shadow:none!important;
+	box-shadow:none!important;
 }
 #qp,
 #post-preview {
@@ -839,7 +842,7 @@ a.summary {
 	margin-left:0!important;
 }
 blockquote {
-    line-height:16px;
+	line-height:16px;
 	margin:0!important;
 	padding:" + ($SS.conf["Slim Replies"] ? ($SS.conf["Backlinks Position"] !== 1 ? 8 : 4) + "px 16px" : "12px 12px 24px 24px") + "!important;
 }
@@ -870,6 +873,7 @@ body>a[style='cursor: pointer; float: right;'],
 .favicon,
 .menu_button,
 .icon.closeIcon,
+.toggleCatalog>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hide_thread_button>span,
 .hidden_thread a:first-child>span,
@@ -880,7 +884,7 @@ body>a[style='cursor: pointer; float: right;'],
 	display:inline-block;
 	height:0!important;
 	padding-top:16px!important;
-    text-indent:-9999px!important;
+	text-indent:-9999px!important;
 	vertical-align:bottom;
 	width:16px!important;
 }
@@ -921,10 +925,16 @@ a.hide_thread_button>span,
 .favicon[src$='ico'] {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.watchedIco + "\")!important;
 }
+.toggleCatalog>a {
+	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
+  position:fixed;
+  top:1px;
+  " + $SS.conf["Sidebar Position String"] + ":166px;
+}
 .menu_button {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
-    vertical-align:baseline!important;
-    padding-top:12px!important;
+	vertical-align:baseline!important;
+	padding-top:12px!important;
 " + ($SS.conf["Layout"] !== 2 && $SS.conf["Show/Hide Menu Entry"] ? "
 	right:2px;
 	opacity:0!important;
@@ -937,15 +947,13 @@ a.hide_thread_button>span,
 	-moz-transform:rotate(90deg);
 	-o-transform:rotate(90deg);
 }
-.menu_button:hover {
-}
 #boardNavDesktop>a {
 	padding:0!important;
 }
 .inline .menu_button {
-    opacity:1!important;
+	opacity:1!important;
 	position:static!important;
-    vertical-align:top!important;
+	vertical-align:top!important;
 }
 .opContainer .menu_button,
 .postContainer:hover .menu_button {
@@ -958,6 +966,7 @@ body>a[style='cursor: pointer; float: right;'],
 a.hide_thread_button>span,
 .close,
 .remove,
+.toggleCatalog>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread a:first-child>span,
 .stub>a:first-child>span {
@@ -974,6 +983,7 @@ body>a[style='cursor: pointer; float: right;']:hover,
 a.hide_thread_button>span:hover,
 .close:hover,
 .remove:hover,
+.toggleCatalog>a:hover,
 .hide_reply_button:not(.stub)>a:first-child>span:hover,
 .hide_thread_button a:first-child>span:hover,
 .hidden_thread:hover>span:hover,
@@ -1162,7 +1172,7 @@ textarea,
 	margin:0!important;
 	opacity:.5;
 	position:relative;
-    top:-1px;
+	top:-1px;
 	z-index:1;
 }
 .boardBanner #bBanner {
@@ -1905,13 +1915,13 @@ form[name=post] #com_submit+label,
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:59px!important;" : "
 	left:59px!important;
 	right:auto!important;") + "
-    line-height:12px!important;
+	line-height:12px!important;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px!important;
 	height:20px;
 	z-index:13!important;
 }
 #navlinks>a {
-    font-size:12px!important;
+	font-size:12px!important;
 }
 #ihover {
 	padding-bottom:21px;
@@ -1975,7 +1985,7 @@ body>.closed {
 	top:auto!important;") + "
 	padding:0!important;
 	left:0!important;
-    overflow:hidden;
+	overflow:hidden;
 	position:fixed!important;
 	text-align:center;
 	width:100%!important;
@@ -2248,7 +2258,7 @@ a[href='.././'] {
 {
 	height:48px!important;
 	max-width:300px;
-    opacity:.75;
+	opacity:.75;
 	width:100%;
 }
 #qr textarea {
@@ -2277,7 +2287,7 @@ a[href='.././'] {
 }
 #qr>.move select {
 	height:19px!important;
-    vertical-align:top;
+	vertical-align:top;
 }
 #qr>form>div {
 	position:relative;
@@ -2395,8 +2405,8 @@ a.useremail" + ($SS.conf["Sage Identification"] === 2 ? ":not([href='mailto:sage
 }
 form[name=delform][action$='/f/up.php'] {
 	margin:0!important;
-    margin-" + $SS.conf["Sidebar Position String"] + ":" + $SS.iSidebarSize + "px!important;
-    padding-top:2em!important;
+	margin-" + $SS.conf["Sidebar Position String"] + ":" + $SS.iSidebarSize + "px!important;
+	padding-top:2em!important;
 }
 form[name=delform][action$='/f/up.php']>center {
 	background:rgba(" + $SS.theme.mainColor.rgb + ", .9)!important;
@@ -2476,7 +2486,7 @@ pre.prettyprint {
 	color:transparent!important;
 }
 .field:focus:-moz-placeholder {
-    color:transparent!important;
+	color:transparent!important;
 }
 .field:focus::-moz-placeholder {
 	color:transparent!important;
@@ -2486,7 +2496,7 @@ pre.prettyprint {
 	left:24px!important;
 	position:absolute;
 	width:230px!important;
-    z-index:2;
+	z-index:2;
 }
 #qr>form>div:first-child .field:not(#dump):focus+span {
 	color:rgba(" + $SS.theme.textColor.rgb + ",.4)!important;
@@ -2504,10 +2514,10 @@ pre.prettyprint {
 }
 #qr #replies+div {
 	height:128px!important;
-    margin-bottom:1px!important;
+	margin-bottom:1px!important;
 }
 #qr textarea {
-    height:100%;
+	height:100%;
 	position:absolute;
 }
 #qr textarea:focus {
@@ -2557,7 +2567,7 @@ a.useremail[href*='SAGE']:last-of-type::" + $SS.conf["Emoji Position"] + " {
 a.useremail[href*='madotsuki']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='Madotsuki']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='MADOTSUKI']:last-of-type::" + $SS.conf["Emoji Position"] + " {
-    content:url('data:image/gif;base64,R0lGODlhFAAPALMAABwHHHIAABEREZhtjZt1ckUYNHkYJrdyhreKilYtO2tFTOe+pYZFTFY+Qf///wAAACH5BAEAAA4ALAAAAAAUAA8AAARr0MkpmWU0Zzb4xRrFHN8XVp/CqIp6smsrt2HTzHd+K5qt+0BeppGwIRrHI7FIaTiWiEVDKkUkmImnwZmILr7ghdWRMGSJxnDYei1QioCFQPCdIwAJdwjgBSMIACcTAAEIhgQBgYKDAY2JIREAOw==');
+	content:url('data:image/gif;base64,R0lGODlhFAAPALMAABwHHHIAABEREZhtjZt1ckUYNHkYJrdyhreKilYtO2tFTOe+pYZFTFY+Qf///wAAACH5BAEAAA4ALAAAAAAUAA8AAARr0MkpmWU0Zzb4xRrFHN8XVp/CqIp6smsrt2HTzHd+K5qt+0BeppGwIRrHI7FIaTiWiEVDKkUkmImnwZmILr7ghdWRMGSJxnDYei1QioCFQPCdIwAJdwjgBSMIACcTAAEIhgQBgYKDAY2JIREAOw==');
 }
 a.useremail[href*='neko']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='Neko']:last-of-type::" + $SS.conf["Emoji Position"] + ",
@@ -2618,7 +2628,7 @@ a.useremail[href*='Gentoo']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='GENTOO']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='gentoo']:last-of-type::" + $SS.conf["Emoji Position"] + " {
 	content:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAB9VBMVEUAAAD///+AgICqqv+AgIC/v9+Ojqqii9GAgKptYZKQkOmPj/ddUYBgW4eVjeCTgfiWjO5wbJaZkvPBvepkXomYkNldV4Bzbpl6dJ+Uj7ynoO6Vi+1qZI63se2mnudjXYjOy+GCfaqZjvWlm/Pc2e+Oh7NeWIOWjfeXjeW1sd+gl+diXIfp5/KHgKnn5/F2cZx6c6ZgWoXc2e6dltrAvNu0scrX1eTOyujCvup4c5qpovVpY43///+6uPPJyPXq6fvm5vrz8/z8/P7+/v/d3PixqvmxrPSyrfe0sPO0sfS3tMve2/3r6vy6ufPz8/3d3fi3tM63tPO4tsu5tsu5tvO6tfe6t/Vva5KRjKy7tvW7t/W9vPO/vM+/vvPCwfPEw/TFwvTFxOfGxfTGxvTHxvTIx/TJx/aTiOrNzPXNzfXQzfnRzuHS0fbS0vbT0uHU0e/U0uTU0/bW0+zW1ffX1vfY1/jZ2Pjb2/jc2uSTiemVkLSlnvbe3PTe3vng3fzg3f3g4Pnh4Pnh4fri4enj4/nk5Prl5Prm4/ymn/bn5vro5/rp6O/p6funoPWsqs3t7Pvt7fXv7vzv7v3w7/nx7/3y8f3y8v3z8vytqPWuqPX09P319P319P719f339v739/34+P35+f37+/+uqev9/f6vqvSwrPQAR0dcAAAAPHRSTlMAAQIDBAgJCwwVFyAsNUFHSVBneH+Bh4mVmZmanKCxsrK2tr3ExtDW19rb4ODl5u3t7u/w8/T6+/z9/f4MkNJ1AAAA8ElEQVR4XjXNw5aDURSE0YrRtm3b54+dtm3btm3bz9k3Wek9+2pSYFwT8ibzE93hwAtdJqK3nZo4J9hFXbP+vFHOthV6gnGzstZq94wdCs4UCCDymQ2v7X0LdYoSQ0MIENRYzJbRlPTTHu73ZNAL8vivmVui98PpzuqffX0mIPHJGtOQenukteJ+aS3b9htNpDnT9TeZH1bHAwBRMhGpd6e6uNrLoRgxBKmsX47nBlp678ojpEA40fejcmW4e/No0V8IIPfj6eKgbEJ3ZUnzgE1OqWp9Q3VeWRAsg51f1dZ8c31RmAsc+N5JGbG+zvj3BzDCPrzMDC9SAAAAAElFTkSuQmCC);
-  }
+	}
 
 a.useremail[href*='Mint']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='MINT']:last-of-type::" + $SS.conf["Emoji Position"] + ",
@@ -2662,12 +2672,12 @@ a.useremail[href*='windows']:last-of-type::" + $SS.conf["Emoji Position"] + " {
 " : "") +
 ($SS.location.board === "f" ? "
 #qr #autohide, #qr #autohide+.riceCheck {
-    display:none;
+	display:none;
 }
 #qr .riceFile {
-    float:left!important;
-    margin-right:1px!important;
-    width:189px!important;
+	float:left!important;
+	margin-right:1px!important;
+	width:189px!important;
 }
 " : "") +
 ($SS.location.sub === "sys" ? "
@@ -2706,10 +2716,10 @@ body>form[action='']>table td[width='240px'] {
 }
 " : "") + "
 #post-preview {
-    margin:0!important;
-    position:absolute!important;
+	margin:0!important;
+	position:absolute!important;
 }
 #content #threads .thread {
-    background:" + $SS.theme.bgColor.hex + "!important;
+	background:" + $SS.theme.bgColor.hex + "!important;
 }
 " + $SS.theme.customCSS + "

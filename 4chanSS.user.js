@@ -23,7 +23,6 @@
         "Slim Replies":             [ true,  "Reduces the size of replies" ],
         "Rounded Edges":            [ true,  "Makes certain elements have round edges" ],
         "Emoji Icons":              [ false, "Show icons for different e-mails" ],
-        "Pony Icons":               [ false, "Shows pony icons for different e-mails" ],
         "Smart Tripcode Hider":     [ false, "Hides the name field if the value contains a tripcode" ],
         "Hide Checkboxes":          [ true,  "Hides the delete/report checkboxes" ],
         "Show/Hide Menu Entry":     [ true,  "Replaces the hide/show post button with a menu entry" ],

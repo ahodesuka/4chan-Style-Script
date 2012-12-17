@@ -1,7 +1,13 @@
 master
+    added:
+        - Catalog toggling icon.
+    modified:
+        - Catalog style.
+        - Removed pony icons.
 
 2.4.9
-
+    fixed:
+        - Adding themes and mascots after deleting.
 2.4.8
     fixed:
         - Ads selector.
