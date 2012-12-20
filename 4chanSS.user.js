@@ -18,6 +18,7 @@
         "Show Text Board":          [ true,  "Toggle visibility of the text board link" ],
         "Show Logo":                [ true,  "Toggle visibility of the logo", null, true ],
         "Show Logo Reflection":     [ true,  "Toggle visibility of the logo reflection", "Show Logo", true, true ],
+        "Fixed Logo Position":      [ true,  "Moves logo and board name into the sidebar" ],
         "Auto Hide Thread Watcher": [ true,  "Hides watched threads unless the mouse is over the watcher" ],
         "Slim Threads":             [ false, "Reduces the spacing between threads" ],
         "Slim Replies":             [ true,  "Reduces the size of replies" ],

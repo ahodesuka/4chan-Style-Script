@@ -1157,16 +1157,28 @@ textarea,
 }
 .boardBanner {
 	height:100%;
-	position:fixed;
 	" + $SS.conf["Sidebar Position String"] + ":1px;
 	text-align:center;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 41 : 21) + "px;
 }
+" + ($SS.conf["Fixed Logo Position"] ? "
 .boardBanner,
 .boardBanner img,
 .boardBanner .boardTitle {
 	width:260px!important;
 }
+.boardBanner,
+.boardBanner #bBanner {
+	position:fixed;
+}
+.boardBanner #bBanner {
+  height:86.3333px;
+}" : "
+.boardBanner #bBanner {
+  display:inline-block;
+  height:100px;
+  position:relative;
+}") + "
 .boardBanner img {
 	height:auto!important;
 	margin:0!important;
@@ -1174,10 +1186,6 @@ textarea,
 	position:relative;
 	top:-1px;
 	z-index:1;
-}
-.boardBanner #bBanner {
-	height:86.3333px;
-	position:fixed;
 }
 " + ($SS.conf["Show Logo Reflection"] ? "
 .boardBanner #bBanner::after {
@@ -1210,6 +1218,7 @@ textarea,
 	position:absolute;
 	text-align:center;
 	text-shadow:" + $SS.theme.mainColor.hex + " -1px -1px," + $SS.theme.mainColor.hex + " 1px -1px," + $SS.theme.mainColor.hex + " -1px 1px," + $SS.theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.6) 0 2px 4px,rgba(0,0,0,.6) 0 0 10px;
+  width:100%;
 	z-index:3;
 }
 .boardBanner .boardTitle::selection {
