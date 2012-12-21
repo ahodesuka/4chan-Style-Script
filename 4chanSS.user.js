@@ -3008,7 +3008,7 @@
                 "no-repeat " + (this.overflow ? $SS.conf["Sidebar Position " + ($SS.conf["Sidebar Position"] === 2 && this.flip ? "o" : "") + "String"] : "center") +
                 " " + (this.position || "bottom"));
             this.bOffset  = typeof mascot.offset === "number";
-            this.offset   = this.bOffset ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 273 : 24);
+            this.offset   = this.bOffset ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 273 : 23);
             this.boards   = mascot.boards;
             this.enabled  = $SS.conf["Selected Mascots"] === 0 || $SS.conf["Selected Mascots"].indexOf(index) !== -1;
 

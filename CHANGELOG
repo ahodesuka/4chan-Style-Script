@@ -1,6 +1,7 @@
 master
     added:
         - Catalog toggling icon.
+        - Fixed Logo Position option.
     modified:
         - Catalog style.
         - Removed pony icons.
