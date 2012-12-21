@@ -2,9 +2,12 @@ master
     added:
         - Catalog toggling icon.
         - Fixed Logo Position option.
+        - OpenBSD, GNU, Plan9, Crunchbang emojis.
     modified:
         - Catalog style.
         - Removed pony icons.
+    fixed:
+        - Support for 4chan Pass users.
 
 2.4.9
     fixed:

@@ -2226,7 +2226,7 @@ a[href='.././'] {
 }
 #qr.autohide {
 	" + ($SS.conf["Post Form"] === 1 ? "
-	bottom:-" + ($SS.chan4pass ? 201 : 249) + "px!important;
+	bottom:-" + ($SS.chan4Pass ? 233 : 249) + "px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -2238,7 +2238,7 @@ a[href='.././'] {
 }
 " + ($SS.conf["Post Form"] === 1 ? "
 #qr.autohide.dump:not(.focus):not(:hover) {
-	bottom:-" + ($SS.chan4pass ? 301 : 349) + "px!important;
+	bottom:-" + ($SS.chan4Pass ? 333 : 349) + "px!important;
 }" : "") + "
 #qr:hover,
 #qr.focus {
@@ -2378,12 +2378,12 @@ a[href='.././'] {
 }
 #qr>form input[type=submit] {
 	width:65px!important;
+    " + ($SS.chan4Pass ? "margin-top:1px!important;" : "") + "
 }
 #qr>form input[type=file]+input[type=submit] {
 	position:absolute;
 	right:0;
 	top:0;
-  " + ($SS.chan4pass ? "margin-top:1px!important;" : "") + "
 }
 #qr>form #spoilerLabel {
 	bottom:4px;
@@ -2536,7 +2536,7 @@ pre.prettyprint {
 	-o-transition:box-shadow .2s,width .2s ease-in-out!important;
 }
 #qr #replies+div {
-	height:128px!important;
+    height:" + ($SS.chan4Pass ? 160 : 128) + "px!important;
 	margin-bottom:1px!important;
 }
 #qr textarea {
