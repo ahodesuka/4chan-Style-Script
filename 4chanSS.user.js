@@ -711,7 +711,6 @@
                 $SS.browser.gecko  = /Gecko\//.test(navigator.userAgent);
                 $SS.browser.opera  = /Opera/.test(navigator.userAgent);
                 $SS.location       = $SS.getLocation();
-                $SS.chan4Pass      = document.cookie.indexOf("pass_enabled=") !== -1;
 
                 // correct selected theme/mascots after updating
                 // and the number defaults has changed.

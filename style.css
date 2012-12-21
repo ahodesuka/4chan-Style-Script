@@ -192,6 +192,10 @@ table.flashListing {
 	position:relative;
 	z-index:3;
 }
+table.postForm td {
+	background:none!important;
+    border:0!important;
+}
 .postContainer>.op.highlight,
 .postContainer>.op:target,
 .postContainer.qphl,
@@ -359,6 +363,8 @@ select,
 table.exif td,
 textarea,
 tr,
+td,
+td label,
 #navtopright>a:not(:first-child)::before,
 #qr>.move,
 #qr>form #spoilerLabel::after,
@@ -372,7 +378,7 @@ tr,
 .reply,
 .replymode,
 #delform[action='https://sys.4chan.org/f/up.php'] .postblock,
-.mPagelist .pages span strong {
+.mPagelist .pages span strong{
 	color:" + $SS.theme.textColor.hex + "!important;
 }
 body,
@@ -2226,7 +2232,7 @@ a[href='.././'] {
 }
 #qr.autohide {
 	" + ($SS.conf["Post Form"] === 1 ? "
-	bottom:-" + ($SS.chan4Pass ? 233 : 249) + "px!important;
+	bottom:-249px!important;
 	-webkit-transition:bottom .2s ease-in-out 1s;
 	-moz-transition:bottom .2s ease-in-out 1s;
 	-o-transition:bottom .2s ease-in-out 1s;" :
@@ -2238,7 +2244,7 @@ a[href='.././'] {
 }
 " + ($SS.conf["Post Form"] === 1 ? "
 #qr.autohide.dump:not(.focus):not(:hover) {
-	bottom:-" + ($SS.chan4Pass ? 333 : 349) + "px!important;
+	bottom:-349px!important;
 }" : "") + "
 #qr:hover,
 #qr.focus {
@@ -2378,7 +2384,6 @@ a[href='.././'] {
 }
 #qr>form input[type=submit] {
 	width:65px!important;
-    " + ($SS.chan4Pass ? "margin-top:1px!important;" : "") + "
 }
 #qr>form input[type=file]+input[type=submit] {
 	position:absolute;
@@ -2408,6 +2413,19 @@ a[href='.././'] {
 	text-align:center;
 	text-overflow:ellipsis;
 	white-space:nowrap;
+}
+" + ($SS.conf["Post Form"] === 1 ? "
+#qr.autohide:not(.captcha):not(:focus):not(:hover) {
+    bottom:-233px!important;
+}
+#qr.autohide.dump:not(.captcha):not(:focus):not(:hover) {
+    bottom:-333px!important;
+}" : "") + "
+#qr:not(.captcha)>form input[type=submit] {
+    margin-top:1px!important;
+}
+#qr:not(.captcha) #replies+div {
+    height:160px!important;
 }
 #menu,
 .reply.subMenu {
@@ -2536,7 +2554,7 @@ pre.prettyprint {
 	-o-transition:box-shadow .2s,width .2s ease-in-out!important;
 }
 #qr #replies+div {
-    height:" + ($SS.chan4Pass ? 160 : 128) + "px!important;
+    height:128px!important;
 	margin-bottom:1px!important;
 }
 #qr textarea {
