@@ -9,6 +9,7 @@ master
         - Removed pony icons.
     fixed:
         - Support for 4chan Pass users.
+        - Catalog link in #pagesDrop not working (seaweedchan).
 
 2.4.9
     fixed:

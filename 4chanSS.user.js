@@ -2224,7 +2224,7 @@
 
                     if (pages.length() == 0) return;
 
-                    pages.each(function() { select.append($("<option value=" + this.textContent +
+                    pages.each(function() { select.append($("<option value=" + this.textContent.toLowerCase() +
                         (cpage == this.textContent ? " selected=true" : "") + ">Page " + this.textContent)); });
                     select.bind("change", function(){ location.href = location.href.replace(/(\.org\/[^\/]+)\/?.*$/, "$1/" + this.value); });
 
