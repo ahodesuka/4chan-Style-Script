@@ -2181,7 +2181,7 @@ div.reply.lastmuInfo p {
 #lastmuSettings .pointer {
 	opacity: 0;
 }
-#lastmuSettings span::after {
+#lastmuSettings .panelHeader>span::after {
 	content: 'x';
 	font-size: 12px;
 	position: relative !important;
