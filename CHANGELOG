@@ -3,6 +3,7 @@ master
         - Catalog toggling icon.
         - Fixed Logo Position option.
         - OpenBSD, GNU, Plan9, Crunchbang emojis.
+        - Support for last.mu users (seaweedchan).
     modified:
         - Catalog style.
         - Removed pony icons.
