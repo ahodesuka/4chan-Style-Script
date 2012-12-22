@@ -3,11 +3,14 @@ master
         - Catalog toggling icon.
         - Fixed Logo Position option.
         - OpenBSD, GNU, Plan9, Crunchbang emojis.
+        - Support for last.mu users (seaweedchan).
     modified:
         - Catalog style.
         - Removed pony icons.
     fixed:
         - Support for 4chan Pass users.
+        - Catalog link in #pagesDrop not working (seaweedchan).
+        - QR warning being overlapped by / looking bad with spoiler checkbox (seaweedchan).
 
 2.4.9
     fixed:
