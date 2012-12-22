@@ -2438,12 +2438,14 @@ a[href='.././'] {
 #addReply {
 	font-size:3.5em!important;
 }
-#qr .warning {
+#qr .warning:not(:empty) {
 	overflow:hidden;
-	padding:0 2px;
+	padding: 1px 2px;
 	text-align:center;
 	text-overflow:ellipsis;
 	white-space:nowrap;
+	background:rgba(" + $SS.theme.mainColor.rgb + ",.9)!important;
+	z-index: 2;
 }
 #menu,
 .reply.subMenu {
