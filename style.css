@@ -296,7 +296,6 @@ input[type=submit],
 .riceFile div {
 	font-size:" + ($SS.conf["Bitmap Font"] ? $SS.conf["Font Size"] : 9) + "px!important;
 }
-#globalMessage::before,
 #qr>.move,
 #themeoptions #tMascot div a,
 #themeoptions #tThemes>div p a,
@@ -316,7 +315,6 @@ a.useremail[href='mailto:sage']:last-of-type::" + $SS.conf["Emoji Position"] + "
 ($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck,.deleteform," : "") +
 ($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : "") +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") +
-($SS.location.reply ? ".toggleCatalog," : "") +
 ($SS.location.catalog ? ".boardBanner," : "") + "
 [hidden],
 .hidden:not(.postContainer),
@@ -350,7 +348,6 @@ span#tobottom,
 a.summary,
 a.summary:hover,
 blockquote>.abbr,
-#globalMessage::before,
 #globalMessage>b,
 button,
 div,
@@ -464,6 +461,7 @@ body::before,
 #jsmath_button,
 #jsMath_panel,
 #jsMath_float,
+#globalMessage,
 #options ul,
 #playerDiv,
 #playerListMenu,
@@ -478,17 +476,14 @@ body::before,
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
 .panelHeader,
-#globalMessage,
 " + ($SS.conf["Navigation Bar Position"] === 1 ? "#boardNavDesktop," : "") + "
 #imgControls {
 	border-bottom:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
 " + ($SS.conf["Sidebar Position"] === 3 ? "#imgControls," : "") + "
-.deleteform,
-#globalMessage {
-	border-" + $SS.conf["Sidebar Position oString"] + ":1px solid " + $SS.theme.brderColor.hex + "!important;
+.deleteform {
+    border-" + $SS.conf["Sidebar Position oString"] + ":1px solid " + $SS.theme.brderColor.hex + "!important;
 }
-" + ($SS.conf["Sidebar Position"] === 3 ? "#globalMessage," : "") + "
 #updater {
 	border-right:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
@@ -933,9 +928,12 @@ a.hide_thread_button>span,
 }
 .toggleCatalog>a {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
-  position:fixed;
-  top:1px;
-  " + $SS.conf["Sidebar Position String"] + ":166px;
+    position:fixed;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
+    " + $SS.conf["Sidebar Position String"] + ":134px;
+}
+.toggleCatalog>a[title$='off.'] {
+    opacity:.75;
 }
 .menu_button {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
@@ -1813,8 +1811,8 @@ input[name=customIMGB64]+a[name=clearIMG] {
 	height:20px;
 	position:fixed!important;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px;
-	width:" + ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 114 : 115) + "px!important;
-	padding-" + $SS.conf["Sidebar Position String"] + ":147px!important;
+	width:" + ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 142 : 143) + "px!important;
+	padding-" + $SS.conf["Sidebar Position String"] + ":119px!important;
 	z-index:13;
 }
 #imgControls #imageType,
@@ -1892,11 +1890,13 @@ form[name=post] #com_submit+label,
 	overflow:hidden;
 	padding:0 3px;
 	z-index:13!important;
-	width:140px;
+	width:112px;
 }
 #updater:hover {
 	height:auto!important;
 	padding-bottom:3px;
+	width:160px;
+	z-index:18!important;
 }
 #updater #count.new {
 	background-color:transparent!important;
@@ -1930,7 +1930,7 @@ form[name=post] #com_submit+label,
 	line-height:20px;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px!important;
 	" + ($SS.conf["Sidebar Position"] !== 2 ? "
-	right:43px!important;
+	right:13px!important;
 	left:auto!important;
 	text-align:left;" : "
 	right:auto!important;
@@ -1971,31 +1971,29 @@ body>center:nth-of-type(2) {
 	color:" + $SS.theme.sageColor.hex + "!important;
 }
 #globalMessage {
-	max-height:20px;
-	max-width:100px;
 	overflow:hidden;
-	padding:0 10px;
-	position:absolute;
-	" + ($SS.location.catalog ? "right:0" : $SS.conf["Sidebar Position String"] + ":" + ($SS.iSidebarSize - 1)) + "px!important;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 21 : 0) + "px;
+	padding:3px 10px;
+	position:fixed;
+	" + ($SS.location.catalog ? "right:0" : $SS.conf["Sidebar Position String"] + ":5") + "px!important;
+    top:-10000px;
 	white-space:nowrap;
-	z-index:11;
+	z-index:14;
 	" + ($SS.conf["Layout"] !== 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
-	-webkit-transition:all .2s;
-	-moz-transition:all .2s;
-	-o-transition:all .2s;
 }
 #globalMessage::before {
-	content:'ANNOUNCEMENT';
+	content:url(\"data:image/svg+xml," + $SS.theme.icons.announcement + "\")!important;
 	display:block;
-	line-height:20px;
+    height:30px!important;
+    width:16px!important;
+    opacity:.5;
+    position:fixed;
+    " + $SS.conf["Sidebar Position String"] + ":151px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 2) + "px;
 }
 #globalMessage:hover {
-	max-height:200px;
-	max-width:600px;
-	padding:0 10px 10px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 45 : 24) + "px;
 	white-space:normal;
-	border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") + ";
+	border-radius:3px;
 }
 body>.closed {
 	height:20px;
@@ -2170,7 +2168,7 @@ a[href='.././']:hover,
 div.reply.lastmuInfo p {
 	display: inline-block !important;
 }
-#lastmuSettingsWindowLink 
+#lastmuSettingsWindowLink
 {
 	display: block !important;
 	color: transparent !important;
@@ -2180,7 +2178,7 @@ div.reply.lastmuInfo p {
 	background-image: url(\"data:image/svg+xml," + $SS.theme.icons.lastmu + "\") !important;
 	font-size: 0px !important;
 }
-#lastmuSettingsWindowLink:hover 
+#lastmuSettingsWindowLink:hover
 {
 	opacity: 1.0 !important;
 }
@@ -2238,7 +2236,7 @@ a[href='.././'] {
 	position:fixed!important;
 	text-indent:-9999px;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
-	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] !== 2 ? 99 : 38)) + "px!important;
+	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] !== 2 ? 95 : 34)) + "px!important;
 	z-index:14;
 }
 #boardLinks>a.selectedBoard {
@@ -2461,6 +2459,7 @@ a[href='.././'] {
 }" : "") + "
 #qr:not(.captcha)>form input[type=submit] {
     margin-top:1px!important;
+    width:100%!important;
 }
 #qr:not(.captcha) #replies+div {
     height:160px!important;
