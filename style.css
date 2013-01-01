@@ -83,7 +83,7 @@ body .YTLT-embed {
 .filtered {
 	text-decoration:line-through" + ($SS.conf["Underline Links"] ? " underline" : "") + "!important;
 }
-a:hover,
+body a:hover,
 .button:hover,
 .posteruid span.hand:hover,
 blockquote a.quotelink:hover,
@@ -1184,7 +1184,7 @@ textarea,
 }
 .boardBanner .boardSubtitle {
 	" + ($SS.conf["Board Name Position"] == 1 ? "
-	top:98px;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 332 : 72) + "px;") + "
+	top:98px!important;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 332 : 72) + "px;") + "
 	left:0;
   position:absolute!important;
 }
@@ -1975,9 +1975,9 @@ body>center:nth-of-type(2) {
 	padding:3px 10px;
 	position:fixed;
 	" + ($SS.location.catalog ? "right:0" : $SS.conf["Sidebar Position String"] + ":5") + "px!important;
-    top:-10000px;
 	white-space:nowrap;
 	z-index:14;
+	top:-5000px;
 	" + ($SS.conf["Layout"] !== 1 ? "border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 0 3px " : "0 0 3px 0") : "") + ";
 }
 #globalMessage::before {
@@ -1990,8 +1990,11 @@ body>center:nth-of-type(2) {
     " + $SS.conf["Sidebar Position String"] + ":151px;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 2) + "px;
 }
+#globalMessage:hover::before {
+    opacity:.95;
+}
 #globalMessage:hover {
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 45 : 24) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 45 : 25) + "px;
 	white-space:normal;
 	border-radius:3px;
 }
