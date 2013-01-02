@@ -64,7 +64,7 @@ a,
 .button,
 blockquote a.quotelink,
 blockquote .deadlink,
-span>a.replylink {
+span>a.replylink:not(:hover) {
 	" + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
 	font-weight:normal!important;
