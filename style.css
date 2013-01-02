@@ -63,6 +63,7 @@ body a.YTLT-link,
 a,
 .button,
 blockquote a.quotelink,
+blockquote .deadlink,
 span>a.replylink {
 	" + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
