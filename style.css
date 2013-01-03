@@ -1303,18 +1303,12 @@ textarea {
 	text-align:" + $SS.conf["Sidebar Position String"] + ";
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 41 : 21) + "px!important;
 	z-index:4!important;
-	-webkit-transition:max-width .1s .1s,min-width .1s .1s;
-	-moz-transition:max-width .1s .1s,min-width .1s .1s;
-	-o-transition:max-width .1s .1s,min-width .1s .1s;
 }
 " + ($SS.conf["Auto Hide Thread Watcher"] ? "
 #watcher:hover {
 	padding-bottom:16px;
 	max-width:261px!important;
 	min-width:261px!important;
-	-webkit-transition:none;
-	-moz-transition:none;
-	-o-transition:none;
 }" : "") + "
 #watcher .move,
 #imgControls .preload,
@@ -1335,9 +1329,6 @@ textarea {
 	" : "max-width:241px!important;") + "
 	padding:0 5px!important;
 	text-align:left!important;
-	-webkit-transition:max-height .1s,max-width .1s .1s,padding .1s;
-	-moz-transition:max-height .1s,max-width .1s .1s,padding .1s;
-	-o-transition:max-height .1s,max-width .1s .1s,padding .1s;
 }
 #watcher" + ($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "") + ">div:not(.move):nth-of-type(2) {
 	margin-top:3px;
@@ -1354,9 +1345,6 @@ textarea {
 	max-height:16px;
 	max-width:241px!important;
 	padding:1px 5px!important;
-	-webkit-transition:max-height .1s,max-width 0s,padding .1s;
-	-moz-transition:max-height .1s,max-width 0s,padding .1s;
-	-o-transition:max-height .1s,max-width 0s,padding .1s;
 }
 #overlay,
 #overlay2 {
@@ -1984,7 +1972,7 @@ body>center:nth-of-type(2) {
 #globalMessage::before {
 	content:url(\"data:image/svg+xml," + $SS.theme.icons.announcement + "\")!important;
 	display:block;
-    height:30px!important;
+    height:24px!important;
     width:16px!important;
     opacity:.5;
     position:fixed;
