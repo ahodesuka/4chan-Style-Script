@@ -62,10 +62,9 @@ body a.YTLT-link,
 }
 a,
 .button,
-.nameBlock .useremail:not(:hover),
 blockquote a.quotelink,
 blockquote .deadlink,
-span>a.replylink:not(:hover) {
+span>a.replylink[href] {
 	" + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
 	font-weight:normal!important;
@@ -109,13 +108,13 @@ a[href='#']:hover,
 #menu>.entry {
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 }
-.postInfo span.name,
-.postInfo span.name a,
+.nameBlock .name,
+.nameBlock .useremail[href] .name,
 #post-preview .post-author,
 #delform[action='https://sys.4chan.org/f/up.php'] .name {
 	color:" + $SS.theme.nameColor.hex + "!important;
 }
-.useremail span.postertrip,
+.useremail[href] span.postertrip,
 span>span.postertrip,
 #post-preview .post-tripcode,
 #delform[action='https://sys.4chan.org/f/up.php'] .postertrip {
