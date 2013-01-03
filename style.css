@@ -62,6 +62,7 @@ body a.YTLT-link,
 }
 a,
 .button,
+.nameBlock .useremail:not(:hover),
 blockquote a.quotelink,
 blockquote .deadlink,
 span>a.replylink:not(:hover) {
