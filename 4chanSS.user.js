@@ -704,7 +704,6 @@
             if (!reload)
             {
                 if (/^about:neterror/.test(document.documentURI)) return;
-                localStorage["4chan-settings"] = "{ \"disableAll\" : true }";
 
                 var m_VERSION;
                 $SS.browser.webkit = /AppleWebKit/.test(navigator.userAgent);

@@ -1229,12 +1229,15 @@ textarea,
 	height:36px;
 	letter-spacing:-1px;
 	padding:0 10px;
-  position:relative;
+    position:relative;
 	text-align:center;
-	text-shadow:" + $SS.theme.mainColor.hex + " -1px -1px," + $SS.theme.mainColor.hex + " 1px -1px," + $SS.theme.mainColor.hex + " -1px 1px," + $SS.theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.6) 0 2px 4px,rgba(0,0,0,.6) 0 0 10px;
-  top:-25px;
-  width:100%;
+    top:-25px;
+    width:100%;
 	z-index:3;
+}
+#navlinks a,
+.boardBanner .boardTitle {
+    text-shadow:" + $SS.theme.mainColor.hex + " -1px -1px," + $SS.theme.mainColor.hex + " 1px -1px," + $SS.theme.mainColor.hex + " -1px 1px," + $SS.theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.6) 0 2px 4px,rgba(0,0,0,.6) 0 0 10px!important;
 }
 .boardBanner .boardTitle::selection {
 	background:transparent!important;
@@ -1813,6 +1816,7 @@ input[name=customIMGB64]+a[name=clearIMG] {
 	height:20px!important;
 	padding:0 1px 1px 0;
 	width:77px!important;
+    " + ($SS.conf["Sidebar Position"] === 2 ? "float:right;" : "") + "
 }
 #boardNavDesktop>select {
 	padding:0 4px!important;
@@ -1820,7 +1824,7 @@ input[name=customIMGB64]+a[name=clearIMG] {
 }
 #imageType+label {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.imgExpand + "\")!important;
-	float:right;
+    float:" + ($SS.conf["Sidebar Position"] !== 2 ? "right" : "left") +";
 	margin:2px 1px 1px!important;
 	overflow:hidden;
 }
@@ -1923,17 +1927,16 @@ form[name=post] #com_submit+label,
 	left:auto!important;
 	text-align:left;" : "
 	right:auto!important;
-	left:43px!important;
+	left:13px!important;
 	text-align:right;") + "
 	width:100px;
 	z-index:13!important;
 }
 #navlinks {
-	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:59px!important;" : "
-	left:59px!important;
+	" + ($SS.conf["Sidebar Position"] !== 2 ? "right:235px!important;" : "
+	left:235px!important;
 	right:auto!important;") + "
-	line-height:12px!important;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 20 : 0) + "px!important;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 40 : 20) + "px!important;
 	height:20px;
 	z-index:13!important;
 }
@@ -2228,7 +2231,7 @@ a[href='.././'] {
 	position:fixed!important;
 	text-indent:-9999px;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
-	" + $SS.conf["Sidebar Position String"] + ":" + (($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"] ? 263 : 265) - ($SS.conf["Sidebar Position"] !== 2 ? 95 : 34)) + "px!important;
+	" + $SS.conf["Sidebar Position String"] + ":168px!important;
 	z-index:14;
 }
 #boardLinks>a.selectedBoard {
