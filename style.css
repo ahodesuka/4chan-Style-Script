@@ -89,6 +89,8 @@ body a:hover,
 .posteruid span.hand:hover,
 blockquote a.quotelink:hover,
 #boardLinks>a.selectedBoard,
+.nameBlock>.useremail:hover>.name,
+.nameBlock>.useremail:hover>.postertrip,
 div.post div.postInfo span~span.postNum a:hover {
 	color:" + $SS.theme.linkHColor.hex + "!important;
 	text-shadow:rgba(" + $SS.theme.linkHColor.rgb + ",.2) 0 0 2px!important;
@@ -109,12 +111,12 @@ a[href='#']:hover,
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 }
 .nameBlock .name,
-.nameBlock .useremail[href] .name,
+.nameBlock>.useremail:not(:hover)>.name,
 #post-preview .post-author,
 #delform[action='https://sys.4chan.org/f/up.php'] .name {
 	color:" + $SS.theme.nameColor.hex + "!important;
 }
-.useremail[href] span.postertrip,
+.nameBlock>.useremail:not(:hover)>.postertrip,
 span>span.postertrip,
 #post-preview .post-tripcode,
 #delform[action='https://sys.4chan.org/f/up.php'] .postertrip {

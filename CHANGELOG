@@ -11,6 +11,7 @@ master
         - Support for 4chan Pass users.
         - Catalog link in #pagesDrop not working (seaweedchan).
         - QR warning being overlapped by / looking bad with spoiler checkbox (seaweedchan).
+        - Useremail colors not matching settings (seaweedchan).
 
 2.4.9
     fixed:
