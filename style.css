@@ -981,8 +981,8 @@ a.hide_thread_button>span,
 .toggleCatalog>a {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
     position:fixed;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
-    " + $SS.conf["Sidebar Position String"] + ":134px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 2) + "px;
+    " + $SS.conf["Sidebar Position String"] + ":135px;
 }
 .toggleCatalog>a[title$='off.'] {
     opacity:.75;
