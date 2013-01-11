@@ -2014,6 +2014,7 @@ body>center:nth-of-type(2) {
 	color:" + $SS.theme.sageColor.hex + "!important;
 }
 #globalMessage {
+    margin-" + $SS.conf["Sidebar Position oString"] + ":10px;
 	overflow:hidden;
 	padding:3px 10px;
 	position:fixed;
