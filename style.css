@@ -45,6 +45,56 @@ hr {
 	clear:left;
 	margin:.3em 0!important;
 }
+/* Some original Yotsuba CSS */
+div.post div.file .fileThumb {
+    float:left;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:3px;
+    margin-bottom:5px;
+}
+.postContainer {
+    display:block;
+}
+div.post blockquote.postMessage {
+    display:block;
+}
+div.post {
+    margin:4px 0;
+}
+#delform div.reply:not([hidden]), div.image_expanded {
+    display:table !important;
+}
+div.thread {
+    margin:0px;
+    clear:both;
+}
+table.flashListing {
+    border-spacing:1px;
+    margin-left:auto;
+    margin-right:auto;
+}
+div.pagelist div.pages {
+    padding:4px;
+}
+.globalMessage {
+    text-align:center;
+}
+.prettyprint {
+    padding:5px!important;
+    display:inline-block;
+    max-height:400px;
+    overflow-x:auto;
+    max-width:600px;
+}
+span.spoiler {
+    color:rgb(0,0,0)!important;
+    background:none repeat scroll 0% 0% rgb(0, 0, 0)!important;
+}
+span.spoiler:hover, span.spoiler:focus {
+    color:rgb(255, 255, 255)!important;
+}
+/* End */
 h1,
 h2,
 h3,
@@ -317,6 +367,7 @@ a.useremail[href='mailto:sage']:last-of-type::" + $SS.conf["Emoji Position"] + "
 ($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : "") +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") +
 ($SS.location.catalog ? ".boardBanner," : "") + "
+.mobile,
 [hidden],
 .hidden:not(.postContainer),
 body>hr,
