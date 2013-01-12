@@ -813,6 +813,7 @@
                 $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler)
                            .bind("QRPostSuccessful", $SS.QRPostSuccessfulHandler)
                            .bind("DOMNodeInserted",  $SS.nodeInsertedHandler);
+
                 if (!$("*[xmlns]").exists() && !$("#ctxmenu-main").exists())
                     $("*[rel='stylesheet']").remove();
 

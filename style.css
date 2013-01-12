@@ -87,12 +87,15 @@ div.pagelist div.pages {
     overflow-x:auto;
     max-width:600px;
 }
-span.spoiler {
-    color:rgb(0,0,0)!important;
-    background:none repeat scroll 0% 0% rgb(0, 0, 0)!important;
+span.spoiler,
+s, s:not(:hover) {
+    color:#000!important;
+    background:#000!important;
+    text-decoration:none;
 }
-span.spoiler:hover, span.spoiler:focus {
-    color:rgb(255, 255, 255)!important;
+span.spoiler:hover, span.spoiler:focus,
+s:hover, s:focus, s:hover a {
+    color:#fff!important;
 }
 /* End */
 h1,
@@ -182,11 +185,6 @@ a.playerLoadAllLink {
 }
 .dateTime {
 	color:" + $SS.theme.timeColor.hex + "!important;
-}
-.spoiler:not(:hover),
-.spoiler:not(:hover) .quote,
-.spoiler:not(:hover) a {
-	color:#000!important;
 }
 .postInfo .subject,
 .replytitle,
