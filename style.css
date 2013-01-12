@@ -88,7 +88,7 @@ div.pagelist div.pages {
     max-width:600px;
 }
 span.spoiler,
-s, s:not(:hover) {
+s, s a {
     color:#000!important;
     background:#000!important;
     text-decoration:none;
@@ -115,9 +115,9 @@ body a.YTLT-link,
 }
 a,
 .button,
-blockquote a.quotelink,
-blockquote .deadlink,
-span>a.replylink[href] {
+a.quotelink,
+.deadlink,
+span>a.replylink {
 	" + (!$SS.conf["Underline Links"] ? "text-decoration:none!important;" : "") + "
 	color:" + $SS.theme.linkColor.hex + "!important;
 	font-weight:normal!important;
@@ -134,7 +134,7 @@ body a.YTLT-link {
 body .YTLT-embed {
 	border:0!important;
 }
-.filtered {
+a.filtered {
 	text-decoration:line-through" + ($SS.conf["Underline Links"] ? " underline" : "") + "!important;
 }
 body a:hover,
