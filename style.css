@@ -62,6 +62,9 @@ div.post blockquote.postMessage {
 div.post {
     margin:4px 0;
 }
+div.fileInfo {
+    margin:1px 10px 1px 20px;
+}
 #delform div.reply:not([hidden]), div.image_expanded {
     display:table !important;
 }
@@ -900,9 +903,6 @@ blockquote {
 blockquote>div[style] {
 	border-color:" + $SS.theme.sageColor.hex + "!important;
 }
-.fileInfo {
-	padding-left:3px!important;
-}
 .fileThumb>img {
 	position:relative;
 	z-index:1;
@@ -1214,6 +1214,7 @@ textarea,
 	" + $SS.conf["Sidebar Position String"] + ":1px;
 	text-align:center;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 41 : 21) + "px;
+    z-index:1;
 }
 " + ($SS.conf["Fixed Logo Position"] ? "
 .boardBanner,
@@ -2524,7 +2525,8 @@ input[name=name].tripping:not(:hover):not(:focus) {
 	color:transparent!important;
 }
 a.useremail" + ($SS.conf["Sage Identification"] === 2 ? ":not([href='mailto:sage'])" : "") + ":last-of-type::" + $SS.conf["Emoji Position"] + " {
-	vertical-align:top;
+    line-height:0;
+    vertical-align:top;
 }
 form[name=delform][action$='/f/up.php'] {
 	margin:0!important;
