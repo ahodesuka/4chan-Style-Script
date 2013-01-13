@@ -466,7 +466,7 @@ body {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
 	margin:" + (!$SS.bHideSidebar  && ($SS.conf["Sidebar Position"] === 1 ||
 	        ($SS.conf["Sidebar Position"] === 3 && $SS.conf["Reserve Edge"])) ? "0 263px 0 0" :
-	        (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] !== 3 ? "0 0 0 " + $SS.iSidebarSize + "px" : "0 0 0")) + "!important;
+	        (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] !== 3 ? "0 0 0 265px" : "0 0 0")) + "!important;
 	margin-bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 43) + "px!important;
 	padding:0!important;
 }
@@ -983,7 +983,7 @@ a.hide_thread_button>span,
     " + $SS.conf["Sidebar Position String"] + ":135px;
 }
 .toggleCatalog>a[title$='off.'] {
-    opacity:.75;
+    opacity:.9;
 }
 .menu_button {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
@@ -1220,7 +1220,7 @@ textarea,
 .boardBanner,
 .boardBanner img,
 .boardBanner .boardTitle {
-	width:260px!important;
+    width:26" +  ($SS.conf["Sidebar Position"] !== 3 ? 0 : 1) +"px!important;
 }
 .boardBanner,
 .boardBanner #bBanner {
@@ -2203,8 +2203,7 @@ a[href='.././']:hover,
 #fs_data tr:first-child td {
 	border-top:0!important;
 }
-#delform div.reply.lastmuInfo
-{
+#delform div.reply.lastmuInfo {
 	background: none !important;
 	border: none !important;
 	padding: 0px !important;
@@ -2214,8 +2213,7 @@ a[href='.././']:hover,
 div.reply.lastmuInfo p {
 	display: inline-block !important;
 }
-#lastmuSettingsWindowLink
-{
+#lastmuSettingsWindowLink {
 	display: block !important;
 	color: transparent !important;
 	background-repeat: no-repeat !important;
@@ -2224,8 +2222,7 @@ div.reply.lastmuInfo p {
 	background-image: url(\"data:image/svg+xml," + $SS.theme.icons.lastmu + "\") !important;
 	font-size: 0px !important;
 }
-#lastmuSettingsWindowLink:hover
-{
+#lastmuSettingsWindowLink:hover {
 	opacity: 1.0 !important;
 }
 #lastmuSettings .pointer {
@@ -2357,13 +2354,11 @@ a[href='.././'] {
 	display:block!important;
 }") + "
 " + ($SS.conf["Post Form"] === 1 ? "
-#delform[action='https://sys.4chan.org/f/up.php'] ~ #qr
-{
+#delform[action='https://sys.4chan.org/f/up.php'] ~ #qr {
 	bottom: 0px !important;
 }
 " : "") + "
-#qr>form>.captchaimg>img
-{
+#qr>form>.captchaimg>img {
 	height:48px!important;
 	max-width:300px;
 	opacity:.75;
@@ -2431,7 +2426,7 @@ a[href='.././'] {
 	color:rgba(" + $SS.theme.textColor.rgb + ",0)!important;
 	font-size:0!important;
 	position:absolute;
-	right:" + $SS.iSidebarSize + "px;
+	right:265px;
 	top:4px;
 	white-space:nowrap;
 	z-index:-1;
@@ -2530,7 +2525,7 @@ a.useremail" + ($SS.conf["Sage Identification"] === 2 ? ":not([href='mailto:sage
 }
 form[name=delform][action$='/f/up.php'] {
 	margin:0!important;
-	margin-" + $SS.conf["Sidebar Position String"] + ":" + $SS.iSidebarSize + "px!important;
+	margin-" + $SS.conf["Sidebar Position String"] + ":265px!important;
 	padding-top:2em!important;
 }
 form[name=delform][action$='/f/up.php']>center {

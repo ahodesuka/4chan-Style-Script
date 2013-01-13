@@ -7,12 +7,12 @@ master
     modified:
         - Catalog style.
         - Removed pony icons.
+        - Removed exsauce setting (forgot to in 2.4.8) - use exlinks instead.
     fixed:
         - Support for 4chan Pass users.
         - Catalog link in #pagesDrop not working (seaweedchan).
         - QR warning being overlapped by / looking bad with spoiler checkbox (seaweedchan).
         - Board banner z-index in chrome.
-
 2.4.9
     fixed:
         - Adding themes and mascots after deleting.
@@ -24,18 +24,15 @@ master
     modified:
         - Settings window will now close when clicking outside of the window.
         - Removed exsauce - use exlinks instead.
-
 2.4.7
     fixed:
         - Quote preview highlight style.
         - Body scrollbars are no longer hidden when opening the settings menu.
     modified:
         - Script will no longer execute on rs.4chan.org.
-
 2.4.6
     fixed:
         - Default 4chan extension is disabled automatically.
-
 2.4.5
     fixed:
         - Fix 4chan X settings styling issues.
