@@ -91,7 +91,7 @@ div.pagelist div.pages {
     max-width:600px;
 }
 span.spoiler,
-s, s a {
+s, s a, s:not(:hover) span.quote {
     color:#000!important;
     background:#000!important;
     text-decoration:none;
@@ -223,8 +223,8 @@ div[id*=jsMath],
 table.flashListing tr:nth-of-type(2n+1) {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.9)!important;
 }
-#globalMessage,
-#boardNavDesktop {
+#boardNavDesktop,
+#globalMessage {
 	background:" + $SS.theme.mainColor.hex + "!important;
 }
 table.flashListing .highlightPost {
@@ -276,8 +276,6 @@ img[alt=Sticky],
 body>a[style='cursor: pointer; float: right;'],
 .deleteform,
 #boardNavDesktop,
-#boardNavDesktop>a,
-#boardNavDesktop>span:not(#navtopright)>a,
 #navtopright,
 #navtopright>a,
 #imageType+label,
@@ -325,6 +323,7 @@ textarea,
 #themeoptions label,
 #themeoptions label>span,
 #themeoptions #tMascot div a,
+#boardNavDesktop>a:not(#lastmuSettingsWindowLink):not(.current),
 #updater label,
 #updater span,
 .container * {
@@ -366,7 +365,7 @@ a.useremail[href='mailto:sage']:last-of-type::" + $SS.conf["Emoji Position"] + "
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
 ($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck,.deleteform," : "") +
 ($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : "") +
-($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>select," : "") +
+($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>a," : "") +
 ($SS.location.catalog ? ".boardBanner," : "") + "
 .mobile,
 [hidden],
@@ -379,6 +378,7 @@ a[href='.././catalog'],
 .stylechanger,
 #absbot,
 #boardNavDesktopFoot,
+.navSmall,
 .pagelist,
 .pages~div,
 .postingMode,
@@ -421,6 +421,7 @@ td label,
 #stats span,
 #themeoptions #toNav li label.selected,
 #themeoptions #toNav li label:hover,
+#boardNavDesktop>a.current,
 .deleteform::before,
 .deleteform::after,
 .summary,
@@ -447,6 +448,7 @@ textarea,
 .ys_playerContainer,
 #qr,
 #qr>form>.captchaimg>img,
+#boardNavDesktop,
 #themeoptions #tMascot div,
 #themeoptions #tThemes .reply,
 #themeoptions #tNavLinks .navlink .handle {
@@ -952,8 +954,10 @@ img[alt=Sticky] {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons._4chanX + "\")!important;
 }
 .settingsWindowLinkBot {
-	float:left!important;
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons._4chanSP + "\")!important;
+	float:left!important;
+    position:relative;
+    top:2px;
 }
 #toggleMsgBtn.collapseIcon,
 a.hide_thread_button>span,
@@ -975,6 +979,9 @@ a.hide_thread_button>span,
 }
 .favicon[src$='ico'] {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.watchedIco + "\")!important;
+}
+.toggleCatalog {
+    position:absolute;
 }
 .toggleCatalog>a {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
@@ -1002,8 +1009,13 @@ a.hide_thread_button>span,
 	-o-transform:rotate(90deg);
 }
 #boardNavDesktop>a {
-	padding:0!important;
+	margin:0 1px 0 2px!important;
 }
+" + (!$SS.conf["Bitmap Font"] ? "
+#boardNavDesktop>a.current {
+    font-size:" + $SS.conf["Font Size"] + "px!important;
+    font-weight:700;
+}" : "") + "
 .inline .menu_button {
 	opacity:1!important;
 	position:static!important;
@@ -2048,14 +2060,13 @@ body>.closed {
 }
 
 #boardNavDesktop {
-	height:20px!important;
-	line-height:20px!important;
 	" + ($SS.conf["Navigation Bar Position"] === 1 ? "
 	top:0!important;
 	bottom:auto!important;" : "
 	bottom:0!important;
 	top:auto!important;") + "
-	padding:0!important;
+	min-height:21px;
+	padding:1px 100px 0!important;
 	left:0!important;
 	overflow:hidden;
 	position:fixed!important;
@@ -2118,18 +2129,16 @@ body>.closed {
 " : "") + ($SS.conf["Pages Position"] !== 4 ?
 ($SS.conf["Pages Position"] === 1 ? "
 select#pagesDrop {
-	display:inline-block!important;
-	float:left;
-	" + ($SS.conf["Navigation Bar Position"] === 2 ? "
-	height:20px!important;" : "") + "
-	margin-top:1px!important;
+    left:0;
+    position:absolute;
+    top:0;
 }
 " : "
 .mPagelist.mobile {
 	background:transparent!important;
 	" + ($SS.conf["Navigation Bar Position"] === 1 ? "top" : "bottom") + ":0!important;
 	display:block!important;
-	height:20px;
+	height:21px;
 	left:0!important;
 	margin:0!important;
 	padding:0 5px;

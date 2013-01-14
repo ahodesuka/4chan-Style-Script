@@ -2148,39 +2148,22 @@
             hasInit: false,
             init: function()
             {
-                if (!this.hasInit)
+                if (!this.hasInit && $SS.conf["Custom Navigation Links"])
                 {
                     var select = $("#boardSelectMobile"),
                     links      = $SS.conf["Nav Links"],
                     div, a     = [];
 
-                    if (!$("#bNavWrapper").exists())
-                    {
-                        div = $("#boardNavDesktop").prepend(select.bind("change", function(e)
-                        {
-                            location.href = location.href.replace(/(\.org\/).+\/.*$/, "$1" + e.target.value + "/");
-                        }));
+                    if (links == undefined) return;
 
-                        $("option[value=" + $SS.location.board + "]", select).attr("selected", "true");
-                        $(document.body).prepend($("<div id=bNavWrapper>").append(div));
-                    }
+                    for (var i = 0, MAX = links.length; i < MAX; ++i)
+                        a.push("<a href='" + window.location.protocol + "//" + links[i].link + "'" +
+                            ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
 
-                    if ($SS.conf["Custom Navigation Links"])
-                    {
-                        if (links == undefined) return;
-
-                        for (var i = 0, MAX = links.length; i < MAX; ++i)
-                            a.push("<a href='" + window.location.protocol + "//" + links[i].link + "'" +
-                                ($SS.location.board == $SS.getLocation(links[i].link).board ? " class=selectedBoard" : "") + ">" + links[i].text + "</a>");
-
-                        if ((div = $("#boardLinks")).exists())
-                            return div.html(a.join($SS.conf["Nav Link Delimiter"]));
-
-                        if ((div = $("#pagesDrop")).exists())
-                            return div.after($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
-
+                    if ((div = $("#pagesDrop")).exists())
+                        div.after($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
+                    else
                         $("#boardNavDesktop").prepend($("<div id=boardLinks>").html(a.join($SS.conf["Nav Link Delimiter"])));
-                    }
 
                     return this.hasInit = true;
                 }
@@ -2219,7 +2202,7 @@
                     $("#boardNavDesktop").prepend(select);
                     return this.hasInit = true;
                 }
-                else if (this.hasInit)
+                else if (this.hasInit && $SS.conf["Pages Position"] !== 1)
                 {
                     $("#pagesDrop").remove();
                     return this.hasInit = false;
