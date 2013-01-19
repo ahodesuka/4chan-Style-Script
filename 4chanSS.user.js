@@ -799,11 +799,29 @@
 
             if (reload !== true)
             {
+                var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
                 $SS.options.init();
 
                 $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler)
                            .bind("QRPostSuccessful", $SS.QRPostSuccessfulHandler)
-                           .bind("DOMNodeInserted",  $SS.nodeInsertedHandler);
+
+                if (MutationObserver)
+                {
+                    var observer = new MutationObserver(function(mutations)
+                    {
+                        var i, j, MAX, _MAX, nodes;
+
+                        for (i = 0, MAX = mutations.length; i < MAX; ++i)
+                        {
+                            nodes = mutations[i].addedNodes;
+                            for (j = 0, _MAX = nodes.length; i < _MAX; ++i)
+                                $SS.handleMutation(nodes[j]);
+                        }
+                    });
+                    observer.observe(document, { childList: true, subtree: true });
+                }
+                else
+                    $(document).bind("DOMNodeInserted", function(e) { $SS.handleMutation(e.target); });
 
                 // things that need to change after 4chan X loads.
                 setTimeout(function()
@@ -838,23 +856,13 @@
             $SS.logoReflect.init();
 
         },
-        nodeInsertedHandler: function(e)
+        handleMutation: function(el)
         {
-            if ($(e.target).hasClass("postContainer"))
-            {
-                if (!$SS.browser.webkit && !$SS.conf["Hide Checkboxes"])
-                    $("input[type=checkbox]", e.target).riceCheck();
-            }
-            else if (e.target.className === "thumbnail" ||
-                     e.target.nodeName === "DIV" ||
-                     e.target.id === "prefetch")
-            {
-                if (e.target.className === "thumbnail")
-                    $(".riceFile>span", $("#qr")).text("");
+            if (el.className === "thumbnail")
+                $(".riceFile>span", $("#qr")).text("");
 
-                if (!$SS.browser.webkit)
-                    $("input[type=checkbox]", e.target).riceCheck();
-            }
+            if (!$SS.browser.webkit)
+                $("input[type=checkbox]", el).riceCheck();
         },
         QRDialogCreationHandler: function(e)
         {
