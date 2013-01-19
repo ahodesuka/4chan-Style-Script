@@ -799,11 +799,10 @@
 
             if (reload !== true)
             {
-                var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
                 $SS.options.init();
 
                 $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler)
-                           .bind("QRPostSuccessful", $SS.QRPostSuccessfulHandler)
+                           .bind("QRPostSuccessful", function() { $(".riceFile>span", $("#qr")).text(""); });
 
                 if (MutationObserver)
                 {
@@ -815,13 +814,13 @@
                         {
                             nodes = mutations[i].addedNodes;
                             for (j = 0, _MAX = nodes.length; i < _MAX; ++i)
-                                $SS.handleMutation(nodes[j]);
+                                 $("input[type=checkbox]", nodes[j]).riceCheck();
                         }
                     });
                     observer.observe(document, { childList: true, subtree: true });
                 }
                 else
-                    $(document).bind("DOMNodeInserted", function(e) { $SS.handleMutation(e.target); });
+                    $(document).bind("DOMNodeInserted", function(e) { $("input[type=checkbox]", e.target).riceCheck(); });
 
                 // things that need to change after 4chan X loads.
                 setTimeout(function()
@@ -855,14 +854,6 @@
             $SS.riceInputs.init();
             $SS.logoReflect.init();
 
-        },
-        handleMutation: function(el)
-        {
-            if (el.className === "thumbnail")
-                $(".riceFile>span", $("#qr")).text("");
-
-            if (!$SS.browser.webkit)
-                $("input[type=checkbox]", el).riceCheck();
         },
         QRDialogCreationHandler: function(e)
         {
