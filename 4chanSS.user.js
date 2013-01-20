@@ -32,6 +32,7 @@
         "Custom Navigation Links":  [ true,  "Use specified links instead of showing all boards" ],
         "SFW/NSFW Themes":          [ true,  "Allows you to choose one theme for SFW boards and another for NSFW boards." ],
         "Style Scrollbars":         [ true,  "Make the scroll bar match the theme" ],
+        "Style Post Info":          [ true,  "Style the post information to differ from the actual post." ],
         "Sage Identification":
         [
             3, "Adds identification to posts that do not bump threads.",
@@ -2058,9 +2059,32 @@
                     textColor:   "393735",
                     sageColor:   "990000",
                     tripColor:   "cc6563",
-                    timeColor:   "333333",
                     titleColor:  "111111",
+                    timeColor:   "333333",
                     customCSS:   ".boardTitle{color:#bc312a!important;text-shadow:1px 1px 1px #772e28!important;}.boardSubtitle,.boardBanner .boardSubtitle>a{text-shadow:none!important;}.postNum a{color:#111111!important;}div.reply a.quotelink{color:#bc312a!important;}"
+                },
+                {
+                    name:        "Photons + Odin",
+                    author:      "!Hu6tDS8lls",
+                    "default":   true,
+                    bgImg:       "R0lGODlhAwADAIAAAB0dHRkZGSH5BADoAwAALAAAAAADAAMAAAIDDG5YADs=",
+                    bgRPA:       "repeat top left fixed",
+                    bgColor:     "202020",
+                    mainColor:   "1a1a1a",
+                    brderColor:  "1f1f1f",
+                    inputColor:  "18191a",
+                    inputbColor: "121314",
+                    blinkColor:  "c72d41",
+                    jlinkColor:  "446a6d",
+                    linkColor:   "737f88",
+                    linkHColor:  "4f585d",
+                    nameColor:   "0099bc",
+                    quoteColor:  "85c600",
+                    textColor:   "dddddd",
+                    sageColor:   "c72d41",
+                    tripColor:   "ff0085",
+                    titleColor:  "ffa600",
+                    timeColor:   "ffffff"
                 }
             ],
 

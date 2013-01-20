@@ -637,10 +637,10 @@ form[name=delform] {
 .thread:last-child>.postContainer:last-child>.reply {
 	margin-bottom:1px!important;
 }
-" + ($SS.conf["Hide Checkboxes"] ? "
 .postInfo {
-	padding:0 3px!important;
-}" : "" ) + "
+    line-height:18px;
+    padding:2px 6px!important;
+}
 .sideArrows {
 	margin-left:0!important;
 	margin-right:0!important;
@@ -656,6 +656,9 @@ form[name=delform] {
 .replyContainer {
 	margin:1px 0!important;
 	position:relative;
+}
+.thread .replyContainer {
+    margin:3px 0!important;
 }
 .threadContainer {
 	border-left:1px solid rgba(" + $SS.theme.brderColor.shiftRGB(-16) + ", .4)!important;
@@ -749,9 +752,6 @@ form[name=delform] {
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "
 	border-radius:" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2) ?
 	($SS.conf["Sidebar Position"] !== 2 ? "2px 0 0 2px" : "0 2px 2px 0") : "2px") + ";
-}
-.replyContainer>.reply {
-	padding:2px 6px!important;
 }
 .replyContainer>.post.highlight,
 .replyContainer>.post:target,
@@ -1254,18 +1254,21 @@ textarea,
 	left:0;
   position:absolute!important;
 }
+.boardBanner img {
+	top:-1px;
+}
 " : "
 .boardBanner #bBanner {
   display:inline-block;
   height:100px;
   position:relative;
-}") + "
+}
+") + "
 .boardBanner img {
 	height:auto!important;
 	margin:0!important;
-	opacity:.5;
 	position:relative;
-	top:-1px;
+	opacity:.5;
 	z-index:1;
 }
 " + ($SS.conf["Show Logo Reflection"] ? "
@@ -1302,7 +1305,11 @@ textarea,
 }
 #navlinks a,
 .boardBanner .boardTitle {
-    text-shadow:" + $SS.theme.mainColor.hex + " -1px -1px," + $SS.theme.mainColor.hex + " 1px -1px," + $SS.theme.mainColor.hex + " -1px 1px," + $SS.theme.mainColor.hex + " 1px 1px,rgba(0,0,0,.6) 0 2px 4px,rgba(0,0,0,.6) 0 0 10px!important;
+    text-shadow:" + $SS.theme.mainColor.hex + " -1px -1px, " + $SS.theme.mainColor.hex + " 1px -1px,
+                " + $SS.theme.mainColor.hex + " -1px 1px, " + $SS.theme.mainColor.hex + " 1px 1px,
+                " + $SS.theme.mainColor.hex + " -1px 0, " + $SS.theme.mainColor.hex + " 1px 0,
+                " + $SS.theme.mainColor.hex + " 0 -1px, " + $SS.theme.mainColor.hex + " 0 1px,
+                rgba(0,0,0,.6) 0 2px 4px, rgba(0,0,0,.6) 0 0 10px!important;
 }
 .boardBanner .boardTitle::selection {
 	background:transparent!important;
@@ -2595,24 +2602,28 @@ pre.prettyprint {
 }" : "") +
 ($SS.conf["Pages Position"] === 3 ? "
 .pages {
-	bottom:auto!important;
-	left:auto!important;
+	bottom:auto;
+    " + ($SS.conf["Sidebar Position"] === 2 ? "
+    left:283px;
+    right:auto;" : "
+	left:auto;
+    right:95px;") + "
 	margin:0!important;
 	opacity:.75;
 	padding:0!important;
 	position:fixed;
-	right:" + ($SS.conf["Layout"] === 3 ?
-	(Math.min($SS.conf["Side Margin"], 40) / 2 * ($SS.conf["Side Margin"] < 10 ? 3 : 1)) + "%" : "263px") + "!important;
-	top:47%;
+    top:25%;
 	width:auto!important;
-	z-index:6!important;
 	-webkit-transform:rotate(90deg);
-	-webkit-transform-origin:bottom right;
+	-webkit-transform-origin:top left;
 	-moz-transform:rotate(90deg);
-	-moz-transform-origin:bottom right;
-	-o-transform:rotate(90deg);
-	-o-transform-origin:bottom right;
-}" : "") +
+	-moz-transform-origin:top left;
+}
+.mPagelist.mobile {
+    top:0;
+    z-index:6!important;
+}
+" : "") +
 ($SS.conf["Expanding Form Inputs"] ? "
 .field:focus::-webkit-input-placeholder {
 	color:transparent!important;
@@ -2688,6 +2699,23 @@ pre.prettyprint {
 	border-radius:5px;
 }
 ": "") +
+($SS.conf["Style Post Info"] ? "
+.reply .postInfo {
+    background: rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.2);
+    border-bottom:1px solid rgb(" + $SS.theme.mainColor.shiftRGB(8) + ");
+    display:block!important;
+    " + ($SS.conf["Rounded Edges"] ? "border-radius: 3px 3px 0 0;" : "") + "
+    margin:0!important;
+    box-shadow: inset rgba(0,0,0,.15) 0 0 3px;
+}
+#qp,
+.inline,
+.inline div.post.reply {
+    padding:0!important;
+}
+.menu_button {
+    top:4px!important;
+}" : "") +
 ($SS.conf["Sage Identification"] !== 1 ? "
 a.useremail[href*='sage']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='Sage']:last-of-type::" + $SS.conf["Emoji Position"] + ",
