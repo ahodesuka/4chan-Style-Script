@@ -99,35 +99,12 @@
         [
             1, "Change the position of the sidebar",
             [
-                { name: "Right",    value: 1 },
-                { name: "Left",     value: 2 },
-                { name: "Disabled", value: 3 }
+                { name: "Right",       value: 1 },
+                { name: "Left",        value: 2 },
+                { name: "Right (Old)", value: 4 },
+                { name: "Left (Old)",  value: 5 },
+                { name: "Disabled",    value: 3 }
             ], true
-        ],
-        "Reserve Edge":
-        [
-            true,
-            "Reserve the edge where the sidebar would be",
-            "Sidebar Position",
-            3,
-            true
-        ],
-        "Show Mascot":
-        [
-            false,
-            "Still shows a mascot on the right side",
-            "Sidebar Position",
-            3,
-            true
-        ],
-        "Backlinks Position":
-        [
-            1, "Change the position of 4chan x backlinks",
-            [
-                { name: "Default",      value: 1 },
-                { name: "Bottom Right", value: 2 },
-                { name: "Bottom Left",  value: 3 }
-            ]
         ],
         "Pages Position":
         [
@@ -918,8 +895,9 @@
                     $SS.conf[key] = parseVal(key, this.get(key));
 
                 $SS.conf["Small Font Size"]          = $SS.conf["Font Size"] > 11 && !$SS.conf["Bitmap Font"] ? 12 : $SS.conf["Font Size"];
-                $SS.conf["Sidebar Position String"]  = $SS.conf["Sidebar Position"] !== 2 ? "right" : "left";
-                $SS.conf["Sidebar Position oString"] = $SS.conf["Sidebar Position"] !== 2 ? "left" : "right";
+                $SS.conf["Sidebar Position String"]  = $SS.conf["Sidebar Position"] !== 2 &&
+                                                       $SS.conf["Sidebar Position"] !== 5 ? "right" : "left";
+                $SS.conf["Sidebar Position oString"] = $SS.conf["Sidebar Position String"] === "right" ? "left" : "right";
             },
             get: function(name)
             {
@@ -2164,8 +2142,6 @@
             }
         },
 
-
-
         nav:
         {
             hasInit: false,
@@ -2999,7 +2975,7 @@
             this.small    = mascot.small || this.overflow;
             this.flip     = mascot.flip == undefined ? true : mascot.flip;
             this.img      = new $SS.Image(mascot.img,
-                "no-repeat " + (this.overflow ? $SS.conf["Sidebar Position " + ($SS.conf["Sidebar Position"] === 2 && this.flip ? "o" : "") + "String"] : "center") +
+                "no-repeat " + (this.overflow ? $SS.conf["Sidebar Position " + ($SS.conf["Sidebar Position String"] === "left" && this.flip ? "o" : "") + "String"] : "center") +
                 " " + (this.position || "bottom"));
             this.bOffset  = typeof mascot.offset === "number";
             this.offset   = this.bOffset ? mascot.offset : ($SS.conf["Post Form"] !== 1 ? 273 : 23);

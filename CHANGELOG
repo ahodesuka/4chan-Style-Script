@@ -4,15 +4,20 @@ master
         - Fixed Logo Position option.
         - OpenBSD, GNU, Plan9, Crunchbang emojis.
         - Support for last.mu users (seaweedchan).
+        - Style post info option.
     modified:
         - Catalog style.
         - Removed pony icons.
         - Removed exsauce setting (forgot to in 2.4.8) - use exlinks instead.
+        - Use MutationObserver for ricing checkboxes.
+        - Removed backlinks position option.
+        - Changed default sidebar style to be more like OneeChan.
     fixed:
         - Support for 4chan Pass users.
         - Catalog link in #pagesDrop not working (seaweedchan).
         - QR warning being overlapped by / looking bad with spoiler checkbox (seaweedchan).
         - Board banner z-index in chrome.
+        - Filtered link style.
 2.4.9
     fixed:
         - Adding themes and mascots after deleting.
