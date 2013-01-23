@@ -1,5 +1,8 @@
 master
 
+3.0.1
+    fixed:
+        - Body margin on catalog.
 3.0
     added:
         - Catalog toggling icon.

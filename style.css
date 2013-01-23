@@ -472,7 +472,7 @@ body {
 	background:" + $SS.theme.bgImg.get() + $SS.theme.bgColor.hex +"!important;
     margin:0!important;
 	margin-bottom:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 43) + "px!important;
-    " + ($SS.conf["Sidebar Position"] !== 3 ? "margin-" + $SS.conf["Sidebar Position String"] + ":265px!important;" : "") +"
+    " + (!$SS.bHideSidebar && $SS.conf["Sidebar Position"] !== 3 ? "margin-" + $SS.conf["Sidebar Position String"] + ":265px!important;" : "") +"
 	padding:0!important;
 }
 " + (!$SS.bHideSidebar ?
