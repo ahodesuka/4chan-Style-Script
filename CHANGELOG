@@ -1,4 +1,6 @@
 master
+    fixed:
+        - Drop down and custom navigation disappearing on refresh (seaweedchan).
 
 3.0.1
     fixed:
