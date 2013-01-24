@@ -777,6 +777,7 @@
 
             if (reload !== true)
             {
+                var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
                 $SS.options.init();
 
                 $(document).bind("QRDialogCreation", $SS.QRDialogCreationHandler)
