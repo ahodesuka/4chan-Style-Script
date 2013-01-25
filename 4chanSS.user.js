@@ -751,7 +751,7 @@
             var css,
                 reload = $("#ch4SS").exists();
 
-            if ($("link[rel=stylesheet]", document.head).exists())
+            if (reload || $("link[rel=stylesheet]", document.head).exists())
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
 
