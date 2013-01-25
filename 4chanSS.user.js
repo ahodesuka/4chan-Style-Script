@@ -997,7 +997,7 @@
                         if (defaultConfig[key][4] === true) // sub-option
                         {
                             var pVal = $SS.conf[defaultConfig[key][2]];
-                                id   = defaultConfig[key][2].replace(" ", "_") + defaultConfig[key][3];
+                                id   = defaultConfig[key][2].replace(/\s/g, "_") + defaultConfig[key][3];
                             optionsHTML += "<label class='mOption subOption " + id + "' title=\"" + des + "\"" +
                                             (pVal != defaultConfig[key][3] ? "hidden" : "") + "><span>" + key +
                                             "</span><input" + (val ? " checked" : "") + " name='" + key + "' type=checkbox></label>";
@@ -1081,13 +1081,13 @@
                     });
                     $("[hasSub]", tOptions).bind("change", function()
                     {
-                        var id  = this.name.replace(" ", "_") + $(this).val(),
+                        var id  = this.name.replace(/\s/g, "_") + $(this).val(),
                             sub = $("." + id);
 
                         if (sub.exists())
                             sub.each(function(){ $(this).show(); });
                         else
-                            $("[class*='" + this.name.replace(" ", "_") + "']")
+                            $("[class*='" + this.name.replace(/\s/g, "_") + "']")
                                 .each(function(){ $(this).hide(); });
                     });
                     $("a[name=save]", tOptions).bind("click", $SS.options.save);
