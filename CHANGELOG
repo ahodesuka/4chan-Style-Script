@@ -1,7 +1,7 @@
 master
     fixed:
         - Drop down and custom navigation disappearing on refresh (seaweedchan).
-
+        - Padding at the top of the page.
 3.0.1
     fixed:
         - Body margin on catalog.

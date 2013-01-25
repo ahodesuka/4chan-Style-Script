@@ -393,6 +393,7 @@ div.center,
 .menu_button>span,
 .hidden_thread+div.opContainer,
 .stub+div+div.post,
+#hideBtn,
 span#tobottom,
 #topnav .toggleCatalog,
 #topnav~#globalMessage,
@@ -544,8 +545,18 @@ body::before,
 #updater {
 	border-right:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
-#delform {
+body #delform {
+	" + ($SS.conf["Layout"] !== 2 && $SS.conf["Sidebar Position"] > 3 ? "
+	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.9);
+	" + ($SS.conf["Layout"] === 1 ? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") : "") + "
+	margin:" + ($SS.conf["Layout"] !== 3 ?
+	($SS.conf["Sidebar Position String"] !== "left" ? "0 0 0 " + $SS.conf["Side Margin"] + "px" :
+	"0 " + $SS.conf["Side Margin"] + "px 0 0") :
+	"0 " + (Math.min($SS.conf["Side Margin"], 40) / 2 * ($SS.conf["Side Margin"] < 10 ? 3 : 1)) + "% 0") + ";
+	padding:0!important;
+	position:relative;
 	margin-top:20px!important;
+    padding-top:0!important;
 }
 .closed~#delform {
 	margin-top:0!important;
@@ -619,15 +630,7 @@ a.hide_thread_button>span {
 	right:2px!important;
 }" : "") + "
 form[name=delform] {
-	" + ($SS.conf["Layout"] !== 2 && $SS.conf["Sidebar Position"] > 3 ? "
-	border:1px solid rgba(" + $SS.theme.brderColor.rgb + ",.9);
-	" + ($SS.conf["Layout"] === 1 ? "border-" + $SS.conf["Sidebar Position String"] + ":0!important;" : "") : "") + "
-	margin:" + ($SS.conf["Layout"] !== 3 ?
-	($SS.conf["Sidebar Position String"] !== "left" ? "0 0 0 " + $SS.conf["Side Margin"] + "px" :
-	"0 " + $SS.conf["Side Margin"] + "px 0 0") :
-	"0 " + (Math.min($SS.conf["Side Margin"], 40) / 2 * ($SS.conf["Side Margin"] < 10 ? 3 : 1)) + "% 0") + ";
-	padding:0!important;
-	position:relative;
+
 }
 .thread>div>.post {
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : "") + "
@@ -980,7 +983,7 @@ a.hide_thread_button>span,
 .toggleCatalog>a {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
     position:fixed;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 2) + "px;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 2) + "px;
     " + $SS.conf["Sidebar Position String"] + ":135px;
 }
 .toggleCatalog>a[title$='off.'] {
@@ -1997,7 +2000,7 @@ form[name=post] #com_submit+label,
 #navlinks {
 	" + $SS.conf["Sidebar Position String"] + ":235px!important;
 	" + $SS.conf["Sidebar Position oString"] + ":auto!important;
-	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 40 : 20) + "px!important;
+	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 43 : 22) + "px!important;
 	height:20px;
 	z-index:13!important;
 }
