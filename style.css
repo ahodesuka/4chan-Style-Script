@@ -129,6 +129,7 @@ span>a.replylink {
 	-o-transition:all .1s;
 }
 body a.YTLT-link {
+    " + ($SS.location.catalog ? "white-space:normal;" : "") + "
 	font-style:normal!important;
 	-webkit-transition:none;
 	-moz-transition:none;
@@ -219,6 +220,7 @@ div[id*=jsMath],
 #prefetch,
 #watcher>div,
 #jsMath_float>*,
+#content>#ctrl,
 .deleteform,
 table.flashListing tr:nth-of-type(2n+1) {
 	background:rgba(" + $SS.theme.mainColor.rgb + ",.9)!important;
@@ -395,6 +397,7 @@ div.center,
 .stub+div+div.post,
 #hideBtn,
 span#tobottom,
+#filters-ctrl,
 #topnav .toggleCatalog,
 #topnav~#globalMessage,
 #toggleMsgBtn,
@@ -402,6 +405,27 @@ span#tobottom,
 #content>.navLinks,
 #content>#styleSwitcher {
 	display:none!important;
+}
+.btn-wrap::after,
+.btn-wrap::before {
+    content:''!important;
+}
+.btn-wrap {
+    padding:0 2px;
+}
+#content #settings {
+    float:none!important;
+    text-align:center!important;
+}
+#content #info {
+    float:none!important;
+    position:absolute;
+}
+#content>#ctrl {
+    padding:1px 2px;
+    position:fixed;
+    width:100%;
+    z-index:13;
 }
 a.summary,
 a.summary:hover,
@@ -533,6 +557,7 @@ body::before,
 .stub {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
+#content>#ctrl,
 .panelHeader,
 " + ($SS.conf["Navigation Bar Position"] === 1 ? "#boardNavDesktop," : "") + "
 #imgControls {
