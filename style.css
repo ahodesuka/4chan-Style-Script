@@ -718,6 +718,11 @@ a.hide_thread_button>span,
 .hide_reply_button {
 	z-index:3!important;
 }
+" + ($SS.conf["Layout"] === 2 ? "
+.hide_reply_button {
+    float:left;
+    margin:0 2px;
+}" : "") + "
 " + ($SS.conf["Rounded Edges"] ? "
 .stub,
 .post.reply,

@@ -1,5 +1,7 @@
 master
-
+    modified:
+        - Catalog style.
+        - Hide reply buttons when layout is set to fit content.
 3.0.2
     fixed:
         - Drop down and custom navigation disappearing on refresh (seaweedchan).
