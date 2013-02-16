@@ -1,5 +1,6 @@
 master
-
+    fixed:
+        - Quote preview z-index.
 3.0.3
     modified:
         - Catalog style.
