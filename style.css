@@ -353,7 +353,6 @@ input[type=submit],
 #themeoptions #tMascot div a,
 #themeoptions #tThemes>div p a,
 #watcher>div>a:first-child,
-a.useremail[href='mailto:sage']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 .container::before,
 .deleteform::before,
 .riceFile span,
@@ -2564,7 +2563,7 @@ a[href='.././'] {
 input[name=name].tripping:not(:hover):not(:focus) {
 	color:transparent!important;
 }
-a.useremail" + ($SS.conf["Sage Identification"] === 2 ? ":not([href='mailto:sage'])" : "") + ":last-of-type::" + $SS.conf["Emoji Position"] + " {
+a.useremail:last-of-type::" + $SS.conf["Emoji Position"] + " {
     line-height:0;
     vertical-align:top;
 }
@@ -2748,6 +2747,9 @@ a.useremail[href*='Sage']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='SAGE']:last-of-type::" + $SS.conf["Emoji Position"] + " {
 	color:" + $SS.theme.sageColor.hex + "!important;
 	content:" + ($SS.conf["Sage Identification"] === 2 ? "' (SAGE)'" : "url('data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAdFJREFUOE+l0t0rQ3EYwPHz+52bTf4C76XslithbJzNy2xe5p15mR21jAnzknYhbigitUJ5f7sglPdCIkRJRHHhUi60e7t6POcoh23ecvE5p07P8/39Lg4DAMx/+Hz4K/HB1rNv7KgRNaOWH7Syad8FZDikQb1oEe2iPW9fBcLRSFR/5GXJhvHZdsS/OM7qoOW8HjouG6D7zgE9D22AM/v+AuEBDvlKxrz20brHg3nTLKreqgT7UQ04r+zQedsI3fcOwFnpBtRKBTK2lh3lJtSPFWsmKF0phZLlYnzn43I1tF/Y3rVeWD04uywFeAzUUG2oM+SqaKkAjAtGyJzU4VsHtoMqDFg+4KFiM8+N831SoIoK+pNcSrd+Ug9qlxrSxziwbJuA3/lMiCi6Iq+pmWqlQBkVrHIjKZ6EwQSIH4gVr+6tcr0Y9NOaJ5wdoyYqlwKFVHCYOKQEhTMKsmYyIWfO8C533iAGtKOqJ3m5bI0W0Qgk/Ug0hwqOFU4FcMPJYiB7Vi8uGqYyPJxL5Q6zh9zgzDjNxWXhwI8BoiKBRENO/ThB62iQpJI0oiNy8TCfQBxpQj1ESYJIMmH80iAdebutd4CJZnaYGCYYI76Lvwn8xyvFCs5Nsc8yoQAAAABJRU5ErkJggg==')") + ";
+    " + ($SS.conf["Sage Identification"] === 2 ? "
+    line-height:normal!important;
+    vertical-align:baseline!important;" : "") + "
 }" : "") +
 ($SS.conf["Emoji Icons"] ? "
 a.useremail[href*='madotsuki']:last-of-type::" + $SS.conf["Emoji Position"] + ",

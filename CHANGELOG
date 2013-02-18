@@ -1,6 +1,7 @@
 master
     fixed:
         - Quote preview z-index.
+        - Sage Identification vertical alignment.
 3.0.3
     modified:
         - Catalog style.
