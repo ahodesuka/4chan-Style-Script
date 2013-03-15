@@ -1255,7 +1255,7 @@ textarea,
 	margin:0!important;
 }
 .boardBanner {
-	height:100%;
+	" + ($SS.conf["Sidebar Position"] !== 3 ? "height:100%;" : "") + "
 	" + $SS.conf["Sidebar Position String"] + ":1px;
 	text-align:center;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 43 : 22) + "px;
@@ -1282,16 +1282,16 @@ textarea,
 	" + ($SS.conf["Board Name Position"] == 1 ? "
 	top:98px!important;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 332 : 72) + "px;") + "
 	left:0;
-  position:absolute!important;
+    position:absolute!important;
 }
 .boardBanner img {
 	top:-1px;
 }
 " : "
 .boardBanner #bBanner {
-  display:inline-block;
-  height:100px;
-  position:relative;
+    display:inline-block;
+    height:" + ($SS.conf["Show Logo"] ? 100 : 40) + "px;
+    position:relative;
 }
 ") + "
 .boardBanner img {
@@ -1301,7 +1301,7 @@ textarea,
 	opacity:.5;
 	z-index:1;
 }
-" + ($SS.conf["Show Logo Reflection"] ? "
+" + ($SS.conf["Show Logo"] && $SS.conf["Show Logo Reflection"] ? "
 .boardBanner #bBanner::after {
 	background-image:-moz-element(#banner);
 	bottom:-100%;
@@ -2696,7 +2696,7 @@ pre.prettyprint {
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 0 : -20) + "px;
 }
 .boardBanner img {
-	visibility:hidden;
+    display:none!important;
 }" : "") +
 ($SS.conf["Style Scrollbars"] ? "::-webkit-scrollbar {
 	width:8px;
