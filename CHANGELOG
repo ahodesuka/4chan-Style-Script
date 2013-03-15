@@ -1,6 +1,8 @@
 master
 
 3.0.4
+
+3.0.4
     fixed:
         - Quote preview z-index.
         - Sage Identification vertical alignment.

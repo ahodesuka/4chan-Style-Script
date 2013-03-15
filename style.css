@@ -2465,6 +2465,8 @@ a[href='.././'] {
 	margin-left:1px!important;
 	padding:3px 4px!important;
 	width:76px!important;
+	min-width:76px!important;
+	max-width:76px!important;
 }
 #qr>form>div:first-child .field:not(#dump)+span {
 	color:rgba(" + $SS.theme.textColor.rgb + ",0)!important;
