@@ -616,7 +616,7 @@ body #delform {
 }
 " + (!$SS.conf["Slim Threads"] ? "
 .thread {
-	padding:1em 0!important;
+	padding:0 0 1em 0!important;
 }
 .thread:first-child {
 	padding-top:0!important;
@@ -637,9 +637,6 @@ body #delform {
 	border:0!important;
 	padding-top:.3em!important;
 	position:relative;
-}
-.hide_thread_button:not(.hidden_thread) {
-	float:" + $SS.conf["Sidebar Position String"] + "!important;
 }
 a.hide_thread_button>span {
 	" + ($SS.conf["Layout"] !== 2 ? "
@@ -719,8 +716,10 @@ a.hide_thread_button>span,
 }
 " + ($SS.conf["Layout"] === 2 ? "
 .hide_reply_button {
-    float:left;
     margin:0 2px;
+}
+.hide_reply_button:not(.stub) {
+    float:left;
 }" : "") + "
 " + ($SS.conf["Rounded Edges"] ? "
 .stub,
@@ -765,11 +764,14 @@ form[name=delform] {
 	z-index:1!important;
 }
 " + (!$SS.conf["Show/Hide Menu Entry"] ? "
-.hide_thread_button:not(.stub),
+.hide_thread_button:not(.hidden_thread) {
+    top:2px!important;
+}
+.hide_thread_button:not(.hidden_thread),
 .hide_reply_button:not(.stub) {
     line-height:18px;
 	position:absolute;
-	right:18px;
+	right:18px!important;
 	top:0;
 	z-index:1!important;
 }" : "") : "") + "
@@ -781,7 +783,7 @@ form[name=delform] {
 }
 .replyContainer>.reply,
 .stub>a:first-child,
-.hidden_thread, {
+.hidden_thread>a:first-child, {
 	padding:5px!important;
 	" + ($SS.conf["Layout"] !== 2 ? "width:100%;" : ($SS.conf["Sidebar Position"] !== 2 ? "margin-right:1px!important;" : "")) + "
 	border-radius:" + ($SS.conf["Layout"] !== 3 && !($SS.conf["Sidebar Position"] !== 2 && $SS.conf["Layout"] === 2) ?
@@ -807,7 +809,7 @@ form[name=delform] {
 	margin:1px 0!important;
 	padding:0 " + ($SS.conf["Sidebar Position"] !== 2 ? "0 0 1px" : "1px 0 0") + "!important;
 }
-.hidden_thread,
+.hidden_thread>a:first-child,
 .stub>a:first-child {
 	display:" + ($SS.conf["Layout"] === 2 ? "inline-" : "") + "block;
 	line-height:16px!important;
@@ -1042,8 +1044,7 @@ a.hide_thread_button>span,
 }
 " + ($SS.conf["Layout"] !== 2 ? "
 .menu_button,
-.hide_reply_button,
-.hide_thread_button {
+.hide_reply_button:not(.stub) {
     right:2px;
 	opacity:0!important;
 	position:absolute;
@@ -1053,7 +1054,6 @@ a.hide_thread_button>span,
 	-o-transition:all .4s ease-in-out!important;
 }
 .opContainer .menu_button,
-.opContainer .hide_thread_button,
 .postContainer:hover .hide_reply_button,
 .postContainer:hover .menu_button {
 	opacity:1!important;
@@ -1314,6 +1314,7 @@ textarea,
 	top:100%;
 	z-index:1;
 	-moz-transform:scaleY(-1);
+	pointer-events:none;
 }
 .boardBanner img {
 	-webkit-box-reflect:below 0 -webkit-gradient(linear,left top,left bottom,from(transparent),color-stop(.1,transparent),to(rgba(255,255,255,.5)));

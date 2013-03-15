@@ -2,6 +2,10 @@ master
     fixed:
         - Quote preview z-index.
         - Sage Identification vertical alignment.
+        - Board banner covering page elements.
+        - Thread/reply stubs being hidden when they should not.
+        - Hide thread buttons.
+        - Reply stubs when layout is fit content.
 3.0.3
     modified:
         - Catalog style.
