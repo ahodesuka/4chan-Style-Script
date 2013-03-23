@@ -2039,7 +2039,7 @@ form[name=post] #com_submit+label,
 }
 #ihover {
 	padding-bottom:21px;
-	z-index:10!important;
+	z-index:12!important;
 }
 #playerDiv {
 	padding:2px;
