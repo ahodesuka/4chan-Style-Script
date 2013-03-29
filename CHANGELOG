@@ -1,5 +1,7 @@
 master
-
+    fixed:
+        - Image hover z-index.
+        - Image hover vertical padding.
 3.0.4
     fixed:
         - Quote preview z-index.

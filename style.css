@@ -1009,7 +1009,8 @@ a.hide_thread_button>span,
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.watchedIco + "\")!important;
 }
 .toggleCatalog {
-    position:absolute;
+    position:fixed;
+    z-index:13;
 }
 .toggleCatalog>a {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
@@ -2038,8 +2039,8 @@ form[name=post] #com_submit+label,
 	font-size:12px!important;
 }
 #ihover {
-	padding-bottom:21px;
-	z-index:12!important;
+	padding-" + ($SS.conf["Navigation Bar Position"] === 2 ? "bottom" : "top" ) + ":21px;
+	z-index:14!important;
 }
 #playerDiv {
 	padding:2px;
