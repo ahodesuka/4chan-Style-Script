@@ -2,6 +2,7 @@ master
     fixed:
         - Image hover z-index.
         - Image hover vertical padding.
+        - Expanding form inputs width.
 3.0.4
     fixed:
         - Quote preview z-index.

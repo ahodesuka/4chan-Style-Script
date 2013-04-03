@@ -423,6 +423,7 @@ span#tobottom,
 #content>#ctrl {
     padding:1px 2px;
     position:fixed;
+    top:0;
     width:100%;
     z-index:13;
 }
@@ -2668,6 +2669,8 @@ pre.prettyprint {
 	left:24px!important;
 	position:absolute;
 	width:230px!important;
+	min-width:230px!important;
+	max-width:230px!important;
 	z-index:2;
 }
 #qr>form>div:first-child .field:not(#dump):focus+span {
