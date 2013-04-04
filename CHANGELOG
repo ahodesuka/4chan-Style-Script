@@ -3,6 +3,8 @@ master
         - Image hover z-index.
         - Image hover vertical padding.
         - Expanding form inputs width.
+        - Catalog bar position.
+        - PostInfo display without styling enable.
 3.0.4
     fixed:
         - Quote preview z-index.

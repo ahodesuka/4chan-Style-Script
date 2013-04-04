@@ -60,10 +60,13 @@ div.post blockquote.postMessage {
     display:block;
 }
 div.post {
-    margin:4px 0;
+    margin:2px 0;
 }
 div.fileInfo {
     margin:1px 10px 1px 20px;
+}
+div.reply div.postInfo {
+    display:block!important;
 }
 #delform div.reply:not([hidden]), div.image_expanded {
     display:table !important;
@@ -687,9 +690,6 @@ form[name=delform] {
 .threadContainer {
 	border-left:1px solid rgba(" + $SS.theme.brderColor.shiftRGB(-16) + ", .4)!important;
 	padding-left:5px!important;
-}
-div.post {
-	margin:2px 0!important;
 }
 " + ($SS.conf["Layout"] !== 2 ? "
 hr {
@@ -2683,9 +2683,9 @@ pre.prettyprint {
 }
 #qr textarea:focus,
 #qr>form>div:first-child .field:not(#dump):focus {
-	-webkit-transition:box-shadow .2s,width .2s ease-in-out!important;
-	-moz-transition:box-shadow .2s,width .2s ease-in-out!important;
-	-o-transition:box-shadow .2s,width .2s ease-in-out!important;
+	-webkit-transition:box-shadow .2s,width .2s ease-in-out,max-width .2s ease-in-out,min-width .2s ease-in-out!important;
+	-moz-transition:box-shadow .2s,width .2s ease-in-out,max-width .2s ease-in-out,min-width .2s ease-in-out!important;
+	-o-transition:box-shadow .2s,width .2s ease-in-out,max-width .2s ease-in-out,min-width .2s ease-in-out!important;
 }
 #qr #replies+div {
     height:128px!important;
@@ -2735,7 +2735,6 @@ pre.prettyprint {
 .reply .postInfo {
     background: rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.2);
     border-bottom:1px solid rgb(" + $SS.theme.mainColor.shiftRGB(8) + ");
-    display:block!important;
     " + ($SS.conf["Rounded Edges"] ? "border-radius: 3px 3px 0 0;" : "") + "
     margin:0!important;
     box-shadow: inset rgba(0,0,0,.15) 0 0 3px;
