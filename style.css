@@ -165,7 +165,7 @@ a[href='#']:hover,
 #playerDiv a,
 #playerDiv a:hover,
 #settingsWindowLink,
-#menu>.entry {
+#menu .entry {
 	color:" + $SS.theme.jlinkColor.hex + "!important;
 }
 .nameBlock .name,
@@ -543,6 +543,7 @@ body::before,
 	" + $SS.conf["Sidebar Position oString"] + ":auto!important;
 }
 " + ($SS.conf["Layout"] === 2 ? ".op," : "") + "
+#menu,
 #jsmath_button,
 #jsMath_panel,
 #jsMath_float,
@@ -554,12 +555,14 @@ body::before,
 #playerSettings,
 #qr,
 #themeoptions #toWrapper,
+.subMenu.reply,
 .sight4,
 .reply,
 .hidden_thread,
 .stub {
 	border:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
+#menu .entry:not(:last-child),
 #content>#ctrl,
 .panelHeader,
 " + ($SS.conf["Navigation Bar Position"] === 1 ? "#boardNavDesktop," : "") + "
@@ -723,6 +726,8 @@ a.hide_thread_button>span,
     float:left;
 }" : "") + "
 " + ($SS.conf["Rounded Edges"] ? "
+#menu,
+.subMenu,
 .stub,
 .post.reply,
 .hidden_thread {
@@ -739,6 +744,18 @@ form[name=delform] {
 }
 " + ($SS.conf["Hide Checkboxes"] ? "#qr" : ".deleteform") + " {
 	border-radius:" + ($SS.conf["Sidebar Position"] !== 2 ? "3px 0 0 0" : "0 3px 0 0") + ";
+}
+#menu a:first-child,
+.subMenu a:first-child {
+    border-radius:3px 3px 0 0;
+}
+#menu a:last-child,
+.subMenu a:last-child {
+    border-radius:0 0 3px 3px;
+}
+#menu a:first-child:last-child,
+.subMenu a:first-child:last-child {
+    border-radius:3px;
 }
 " : "") + "
 .inline {
@@ -1488,7 +1505,7 @@ textarea {
 	padding:5px;
 }
 .trbtn {
-	color:" + $SS.theme.jlinkColor.hex + ";
+	color:" + $SS.theme.jlinkColor.hex + "!important;
 	display:inline-block;
 	line-height:18px;
 	margin:0 2px;
@@ -1503,6 +1520,7 @@ textarea {
 }
 .trbtn:hover,
 #selectImage>input[type=file]:hover+.trbtn {
+	color:" + $SS.theme.jlinkColor.hex + "!important;
 	background:rgba(60,60,60,.9);
 	background:-webkit-linear-gradient(top,rgba(" + $SS.theme.mainColor.shiftRGB(40) + ",.9),rgba(" + $SS.theme.mainColor.rgb + ",.9));
 	background:-moz-linear-gradient(top,rgba(" + $SS.theme.mainColor.shiftRGB(40) + ",.9),rgba(" + $SS.theme.mainColor.rgb + ",.9));
@@ -2555,9 +2573,10 @@ a[href='.././'] {
     height:160px!important;
 }
 #menu,
-.reply.subMenu {
-	border:1px solid " + $SS.theme.brderColor.hex + "!important;
+.subMenu {
+    margin:0 2px;
 	z-index:13;
+	box-shadow:rgba(0,0,0,.4) 0 1px 2px;
 }
 .hasSubMenu::after {
 	font-size:14px!important;
@@ -2734,7 +2753,7 @@ pre.prettyprint {
 ($SS.conf["Style Post Info"] ? "
 .reply .postInfo {
     background: rgba(" + $SS.theme.mainColor.shiftRGB(-16) + ",.2);
-    border-bottom:1px solid rgb(" + $SS.theme.mainColor.shiftRGB(8) + ");
+    border-bottom:1px solid rgb(" + $SS.theme.mainColor.shiftRGB(4) + ");
     " + ($SS.conf["Rounded Edges"] ? "border-radius: 3px 3px 0 0;" : "") + "
     margin:0!important;
     box-shadow: inset rgba(0,0,0,.15) 0 0 3px;
