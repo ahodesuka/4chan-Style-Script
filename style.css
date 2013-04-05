@@ -943,12 +943,12 @@ a.summary {
 .deleteform:hover input[type=password] {
 	margin-left:0!important;
 }
-blockquote {
+blockquote.postMessage {
 	line-height:16px;
 	margin:0!important;
-	padding:" + ($SS.conf["Slim Replies"] ? "4px 16px" : "12px 12px 24px 24px") + "!important;
+	padding:" + ($SS.conf["Slim Replies"] ? "4px 16px" : "10px 15px 12px 15px") + "!important;
 }
-blockquote>div[style] {
+blockquote.postMessage>div[style] {
 	border-color:" + $SS.theme.sageColor.hex + "!important;
 }
 .fileThumb>img {
@@ -2048,14 +2048,16 @@ form[name=post] #com_submit+label,
 	z-index:13!important;
 }
 #navlinks {
-	" + $SS.conf["Sidebar Position String"] + ":235px!important;
+	" + $SS.conf["Sidebar Position String"] + ":205px!important;
 	" + $SS.conf["Sidebar Position oString"] + ":auto!important;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 43 : 22) + "px!important;
+    text-align:left;
 	height:20px;
+    width:50px;
 	z-index:13!important;
 }
 #navlinks>a {
-	font-size:12px!important;
+    font-size:12px!important;
 }
 #ihover {
 	padding-" + ($SS.conf["Navigation Bar Position"] === 2 ? "bottom" : "top" ) + ":21px;
