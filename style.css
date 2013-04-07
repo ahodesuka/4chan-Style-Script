@@ -1294,12 +1294,11 @@ textarea,
   height:86.3333px;
 }
 .boardBanner .boardTitle {
-	" + ($SS.conf["Board Name Position"] == 1 ? "top:64" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 342 : 82)) + "px!important;
+	top:64px!important;
 	position:absolute!important;
 }
 .boardBanner .boardSubtitle {
-	" + ($SS.conf["Board Name Position"] == 1 ? "
-	top:98px!important;" : "bottom:" + ($SS.conf["Post Form"] !== 1 ? 332 : 72) + "px;") + "
+	top:98px!important;
 	left:0;
     position:absolute!important;
 }
@@ -1785,6 +1784,8 @@ textarea {
 #themeoptions span>input[type=text] {
 	width:125px;
 }
+#addMascot input[type=text],
+#addTheme input[type=text],
 #themeoptions input[type=text],
 #themeoptions select {
 	height:20px;
@@ -1824,8 +1825,12 @@ textarea {
 }
 #addMascot>label>select,
 #addTheme>label>select {
-  height:20px;
-  margin-right:2px!important;
+    height:20px;
+}
+#addMascot select {
+    margin-right:1px!important;
+    position:relative;
+    top:-1px;
 }
 #addMascot select[name=mPosition],
 #addMascot input[name=mOffset][type=text] {
@@ -2479,7 +2484,7 @@ a[href='.././'] {
 #qr>form>div:first-child #dump {
 	float:left;
 	height:22px!important;
-	width:24px!important;
+	width:25px!important;
 }
 #qr>form>div:first-child .field:not(#dump) {
 	float:left;
@@ -2523,7 +2528,7 @@ a[href='.././'] {
 }
 #qr>form>.captchaimg+div input {
 	height:22px;
-	width:189px!important;
+	width:190px!important;
 }
 #qr>form input[type=submit] {
 	width:65px!important;

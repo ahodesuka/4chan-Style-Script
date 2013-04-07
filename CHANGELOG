@@ -5,9 +5,11 @@ master
         - Expanding form inputs width.
         - Catalog bar position.
         - PostInfo display without styling enable.
+        - Misc px values.
     modified:
         - Changed 4chan x menu style.
         - Show reply borders on default theme (dark flat).
+        - Removed board text position setting, may be re-added if requested.
 3.0.4
     fixed:
         - Quote preview z-index.
