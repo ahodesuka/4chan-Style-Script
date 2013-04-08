@@ -478,7 +478,6 @@ textarea,
 .riceCheck,
 .boardBanner .boardTitle,
 .ys_playerContainer,
-#qr,
 #qr>form>.captchaimg>img,
 #boardNavDesktop,
 #themeoptions #tMascot div,
@@ -487,6 +486,11 @@ textarea,
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
+}
+#qr {
+	box-sizing:padding-box;
+	-moz-box-sizing:padding-box;
+	-webkit-box-sizing:padding-box;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
@@ -1445,30 +1449,34 @@ textarea {
 	border-radius:0 0 3px 3px;
 }
 #watcher>div:not(.move) {
+    display:none;
 	line-height:15px;
 	margin:0 5px;
 	" + ($SS.conf["Auto Hide Thread Watcher"] ? "
 	max-height:0px;
 	max-width:0!important;
 	" : "max-width:241px!important;") + "
-	padding:0 5px!important;
+	padding:1px 5px!important;
 	text-align:left!important;
+	-webkit-transition:max-height .1s ease-in-out;
+	-moz-transition:max-height .1s ease-in-out;
+	-o-transition:max-height .1s ease-in-out;
 }
-#watcher" + ($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "") + ">div:not(.move):nth-of-type(2) {
+#watcher>div:not(.move):nth-of-type(2) {
 	margin-top:3px;
 	padding-top:5px!important;
 	border-top-left-radius:3px;
 	border-top-right-radius:3px;
 }
-#watcher" + ($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "") + ">div:not(.move):last-child {
+#watcher>div:not(.move):last-child {
 	padding-bottom:5px!important;
 	border-bottom-left-radius:3px;
 	border-bottom-right-radius:3px;
 }
 #watcher" + ($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "") + ">div:not(.move) {
+    display:block;
 	max-height:16px;
 	max-width:241px!important;
-	padding:1px 5px!important;
 }
 #overlay,
 #overlay2 {
@@ -2582,7 +2590,7 @@ a[href='.././'] {
 #menu,
 .subMenu {
     margin:0 2px;
-	z-index:13;
+	z-index:15;
 	box-shadow:rgba(0,0,0,.4) 0 1px 2px;
 }
 .hasSubMenu::after {
