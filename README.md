@@ -1,5 +1,7 @@
 # [Click Here to Install](https://github.com/ahodesuka/4chan-Style-Script/raw/stable/4chanSS.user.js)
 
-## 4chan X
-This userscript is intended to be used along side [4chan X](http://mayhemydg.github.com/4chan-x/).  As of now only 2.34+ is supported.
-Ensure both `Auto Hide QR` and `Persistent QR` options are checked in 4chan X's settings.
+Mayhem's 4chan X v3 is NOT supported.
+Either use mayhem's v2 or my own fork below.
+# [Click Here to Install 4chan X](https://github.com/ahodesuka/4chan-x/raw/stable/4chan_x.user.js)
+
+Ensure the `Persistent QR` option is checked in 4chan X's settings.

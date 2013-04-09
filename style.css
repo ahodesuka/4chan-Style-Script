@@ -2806,6 +2806,7 @@ a.useremail[href*='sega']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='Sega']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='SEGA']:last-of-type::" + $SS.conf["Emoji Position"] + " {
 	content:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAALBAMAAAD2A3K8AAAAMFBMVEUAAACMjpOChImytLmdnqMrKzDIyM55dnkODQ94foQ7PkXm5Olsb3VUUVVhZmw8Sl6klHLxAAAAAXRSTlMAQObYZgAAANFJREFUGJVjYIACRiUlJUUGDHBk4syTkxQwhO3/rQ/4ZYsuymi3YEFUqAhC4LCJZJGIi1uimKKjk3KysbOxsaMnAwNLyqoopaXhttf2it1anrJqke1pr1DlBAZhicLnM5YXZ4RWlIYoezx0zrjYqG6czCDsYRzxIko6Q/qFaKy0690Ij0MxN8K2MIhJXF+hsfxJxuwdpYGVaUU3Mm5bqgKFOZOFit3Vp23J3pgsqLxFUXpLtlD5bgcGBs45794dn6mkOVFQUOjNmXPPz8ysOcAAANw6SHLtrqolAAAAAElFTkSuQmCC');
+    vertical-align:baseline;
 }
 a.useremail[href*='Sakamoto']:last-of-type::" + $SS.conf["Emoji Position"] + ",
 a.useremail[href*='sakamoto']:last-of-type::" + $SS.conf["Emoji Position"] + ",
