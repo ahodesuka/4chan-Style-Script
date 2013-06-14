@@ -288,6 +288,7 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .menu_button,
+.toggleCatalog,
 .toggleCatalog>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread>span,
@@ -404,7 +405,8 @@ span#tobottom,
 #toggleMsgBtn,
 #content>hr,
 #content>.navLinks,
-#content>#styleSwitcher {
+#content>#styleSwitcher,
+#navtopright>a[href='https://4chan-x.just-believe.in/'] {
 	display:none!important;
 }
 .btn-wrap::after,
