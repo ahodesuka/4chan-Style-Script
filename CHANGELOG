@@ -1,4 +1,6 @@
 master
+
+3.0.5
     fixed:
         - Image hover z-index.
         - Image hover vertical padding.
