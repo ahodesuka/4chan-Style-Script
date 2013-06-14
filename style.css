@@ -288,8 +288,7 @@ body>a[style='cursor: pointer; float: right;'],
 .close,
 .remove,
 .menu_button,
-.toggleCatalog,
-.toggleCatalog>a,
+#boardNavDesktop>.boardList,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread>span,
 .hidden_thread a:first-child>span,
@@ -400,7 +399,7 @@ div.center,
 #hideBtn,
 span#tobottom,
 #filters-ctrl,
-#topnav .toggleCatalog,
+.toggleCatalog,
 #topnav~#globalMessage,
 #toggleMsgBtn,
 #content>hr,
@@ -454,7 +453,7 @@ td label,
 #stats span,
 #themeoptions #toNav li label.selected,
 #themeoptions #toNav li label:hover,
-#boardNaveDesktop>.boardList a.current,
+#boardNavDesktop>.boardList a.current,
 .deleteform::before,
 .deleteform::after,
 .summary,
@@ -462,7 +461,7 @@ td label,
 .reply,
 .replymode,
 #delform[action='https://sys.4chan.org/f/up.php'] .postblock,
-.mPagelist .pages span strong{
+.mPagelist .pages span strong>a {
 	color:" + $SS.theme.textColor.hex + "!important;
 }
 body,
@@ -977,7 +976,7 @@ body>a[style='cursor: pointer; float: right;'],
 .favicon,
 .menu_button,
 .icon.closeIcon,
-.toggleCatalog>a,
+.pages>span:last-child>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hide_thread_button>span,
 .hidden_thread a:first-child>span,
@@ -1031,18 +1030,16 @@ a.hide_thread_button>span,
 .favicon[src$='ico'] {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.watchedIco + "\")!important;
 }
-.toggleCatalog {
+.pages>span:last-child {
     position:fixed;
     z-index:13;
 }
-.toggleCatalog>a {
+.pages>span:last-child>a {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
+    padding:16px 1px 0!important;
     position:fixed;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 23 : 2) + "px;
     " + $SS.conf["Sidebar Position String"] + ":135px;
-}
-.toggleCatalog>a[title$='off.'] {
-    opacity:.9;
 }
 .menu_button {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.menuButton + "\")!important;
@@ -1052,12 +1049,11 @@ a.hide_thread_button>span,
 	-moz-transform:rotate(90deg);
 	-o-transform:rotate(90deg);
 }
-
-#boardNaveDesktop>.boardList a {
+#boardNavDesktop>.boardList a {
 	margin:0 1px 0 2px!important;
 }
 " + (!$SS.conf["Bitmap Font"] ? "
-#boardNaveDesktop>.boardList a.current {
+#boardNavDesktop>.boardList a.current {
     font-size:" + $SS.conf["Font Size"] + "px!important;
     font-weight:700;
 }" : "") + "
@@ -1089,7 +1085,7 @@ body>a[style='cursor: pointer; float: right;'],
 a.hide_thread_button>span,
 .close,
 .remove,
-.toggleCatalog>a,
+.pages>span:last-child>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread a:first-child>span,
 .stub>a:first-child>span {
@@ -1106,7 +1102,7 @@ body>a[style='cursor: pointer; float: right;']:hover,
 a.hide_thread_button>span:hover,
 .close:hover,
 .remove:hover,
-.toggleCatalog>a:hover,
+.pages>span:last-child>a:hover,
 .hide_reply_button:not(.stub)>a:first-child>span:hover,
 .hide_thread_button a:first-child>span:hover,
 .hidden_thread:hover>span:hover,
@@ -2230,8 +2226,7 @@ select#pagesDrop {
 	-moz-box-align:center!important;
 	box-align:center!important;
 }
-.mPagelist .pages span a,
-.mPagelist .pages span strong {
+.mPagelist .pages span a {
 	padding:2px 3px;
 }") : "") + "
 .sight4Button {
