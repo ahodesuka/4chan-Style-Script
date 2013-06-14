@@ -280,7 +280,6 @@ img[alt=Sticky],
 .navLinks,
 body>a[style='cursor: pointer; float: right;'],
 .deleteform,
-#boardNavDesktop,
 #navtopright,
 #navtopright>a,
 #imageType+label,
@@ -328,7 +327,7 @@ textarea,
 #themeoptions label,
 #themeoptions label>span,
 #themeoptions #tMascot div a,
-#boardNavDesktop>a:not(#lastmuSettingsWindowLink):not(.current),
+#boardNavDesktop>.boardList a:not(#lastmuSettingsWindowLink):not(.current),
 #updater label,
 #updater span,
 .container * {
@@ -369,7 +368,7 @@ input[type=submit],
 ($SS.conf["Pages Position"] === 4 ? ".pages," : "" ) +
 ($SS.conf["Hide Checkboxes"] ? ".postInfo>input[type=checkbox],.postInfo>.riceCheck,.deleteform," : "") +
 ($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : ".stub>.menu_button,") +
-($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>a," : "") +
+($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>.boardList," : "") +
 ($SS.location.catalog ? ".boardBanner," : "") + "
 .mobile,
 [hidden],
@@ -453,7 +452,7 @@ td label,
 #stats span,
 #themeoptions #toNav li label.selected,
 #themeoptions #toNav li label:hover,
-#boardNavDesktop>a.current,
+#boardNaveDesktop>.boardList a.current,
 .deleteform::before,
 .deleteform::after,
 .summary,
@@ -1052,11 +1051,11 @@ a.hide_thread_button>span,
 	-o-transform:rotate(90deg);
 }
 
-#boardNavDesktop>a {
+#boardNaveDesktop>.boardList a {
 	margin:0 1px 0 2px!important;
 }
 " + (!$SS.conf["Bitmap Font"] ? "
-#boardNavDesktop>a.current {
+#boardNaveDesktop>.boardList a.current {
     font-size:" + $SS.conf["Font Size"] + "px!important;
     font-weight:700;
 }" : "") + "
