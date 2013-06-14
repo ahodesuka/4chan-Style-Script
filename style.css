@@ -1432,6 +1432,7 @@ textarea {
 	z-index:4!important;
 }
 " + ($SS.conf["Auto Hide Thread Watcher"] ? "
+#watcher.show,
 #watcher:hover {
 	padding-bottom:16px;
 	max-width:261px!important;
@@ -1472,6 +1473,7 @@ textarea {
 	border-bottom-left-radius:3px;
 	border-bottom-right-radius:3px;
 }
+#watcher.show>div:not(.move),
 #watcher" + ($SS.conf["Auto Hide Thread Watcher"] ? ":hover" : "") + ">div:not(.move) {
     display:block;
 	max-height:16px;
