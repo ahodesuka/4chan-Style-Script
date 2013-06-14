@@ -1,4 +1,6 @@
 master
+
+3.0.6
     fixed:
         - Non-custom nav links style.
         - Catalog link in pages.
