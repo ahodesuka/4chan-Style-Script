@@ -1,4 +1,9 @@
 master
+    fixed:
+        - Non-custom nav links style.
+        - Catalog link in pages.
+    modified:
+        - Catalog button is now just a link to the current boards catalog.
 
 3.0.5
     fixed:
