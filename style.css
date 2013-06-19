@@ -690,6 +690,7 @@ form[name=delform] {
 .replyContainer {
 	margin:1px 0!important;
 	position:relative;
+    z-index:1;
 }
 .thread .replyContainer {
     margin:3px 0!important;
