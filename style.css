@@ -686,11 +686,9 @@ form[name=delform] {
 .stub {
 	border-" + $SS.conf["Sidebar Position String"] + ":0!important;
 }" : "") + "
-.postContainer,
-.replyContainer {
+.postContainer {
 	margin:1px 0!important;
 	position:relative;
-    z-index:1;
 }
 .thread .replyContainer {
     margin:3px 0!important;
@@ -1278,6 +1276,7 @@ textarea,
 .boardBanner {
 	" + ($SS.conf["Sidebar Position"] !== 3 ? "height:100%;" : "") + "
 	" + $SS.conf["Sidebar Position String"] + ":1px;
+    pointer-events:none;
 	text-align:center;
 	top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 43 : 22) + "px;
     z-index:1;
@@ -1302,6 +1301,7 @@ textarea,
 .boardBanner .boardSubtitle {
 	top:98px!important;
 	left:0;
+    pointer-events:auto;
     position:absolute!important;
 }
 .boardBanner img {
