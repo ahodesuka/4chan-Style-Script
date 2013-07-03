@@ -370,6 +370,7 @@ input[type=submit],
 ($SS.conf["Show/Hide Menu Entry"] ? ".hide_thread_button:not(.hidden_thread),.hide_reply_button:not(.stub)," : ".stub>.menu_button,") +
 ($SS.conf["Custom Navigation Links"] ? "#boardNavDesktop>.boardList," : "") +
 ($SS.location.catalog ? ".boardBanner," : "") + "
+.ad-plea,
 .mobile,
 [hidden],
 .hidden:not(.postContainer),
