@@ -747,7 +747,7 @@
                 $(document).unbind("DOMNodeInserted", $SS.insertCSS);
             else return;
 
-            if (!reload && !$SS.location.catalog && (css = $("link[rel*='stylesheet']")).exists())
+            if (!reload && !$SS.location.catalog && (css = $("link[rel*='stylesheet']:not([href*='flags'])")).exists())
                 css.remove();
 
             $SS.bHideSidebar = $SS.location.sub !== "boards" ||
