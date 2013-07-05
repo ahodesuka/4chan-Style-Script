@@ -976,7 +976,7 @@ body>a[style='cursor: pointer; float: right;'],
 .favicon,
 .menu_button,
 .icon.closeIcon,
-.pages>span:last-child>a,
+.mobileCatalogLink>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hide_thread_button>span,
 .hidden_thread a:first-child>span,
@@ -1030,11 +1030,11 @@ a.hide_thread_button>span,
 .favicon[src$='ico'] {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.watchedIco + "\")!important;
 }
-.pages>span:last-child {
+.mobileCatalogLink {
     position:fixed;
     z-index:13;
 }
-.pages>span:last-child>a {
+.mobileCatalogLink>a {
 	background-image:url(\"data:image/svg+xml," + $SS.theme.icons.catalog + "\")!important;
     padding:16px 1px 0!important;
     position:fixed;
@@ -1085,7 +1085,7 @@ body>a[style='cursor: pointer; float: right;'],
 a.hide_thread_button>span,
 .close,
 .remove,
-.pages>span:last-child>a,
+.mobileCatalogLink>a,
 .hide_reply_button:not(.stub)>a:first-child>span,
 .hidden_thread a:first-child>span,
 .stub>a:first-child>span {
@@ -1102,7 +1102,7 @@ body>a[style='cursor: pointer; float: right;']:hover,
 a.hide_thread_button>span:hover,
 .close:hover,
 .remove:hover,
-.pages>span:last-child>a:hover,
+.mobileCatalogLink>a:hover,
 .hide_reply_button:not(.stub)>a:first-child>span:hover,
 .hide_thread_button a:first-child>span:hover,
 .hidden_thread:hover>span:hover,
