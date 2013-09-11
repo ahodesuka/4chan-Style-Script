@@ -1,4 +1,6 @@
 master
+
+3.0.8
     fixed:
         - Stray catalog link.
     modified:
