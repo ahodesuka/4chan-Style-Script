@@ -1,5 +1,10 @@
 master
 
+3.0.7
+    fixed:
+        - Flags on /int/
+        - Sidebar intercepting pointer events.
+        - Catalog link.
 3.0.6
     fixed:
         - Non-custom nav links style.
@@ -288,14 +293,14 @@ master
         - emoji and sage icons now work on the OP, as well as replies.
 1.6.3
     fixed:
-	    - script actually works now.
-	    - when the script is first installed all mascots are selected instead of none.
+        - script actually works now.
+        - when the script is first installed all mascots are selected instead of none.
 1.6.2
     fixed:
         - file encoding which caused chrome to durp.
 1.6.1
     modified:
-	    - centered layout margins.
+        - centered layout margins.
     fixed:
         - checkboxes getting binded twice in firefox.
         - thread stubs selectors for newest 4chan X.
@@ -364,11 +369,11 @@ master
     fixed:
         - a bug where chrome would almost endlessly call insertCSS
 1.3.6
-	added:
-		- `Midnight Caek` theme
-	fixed:
-		- chrome style bugs
-		- firefox users who updated to 1.3.4/5 will have their settings reset to fix my screw up
+    added:
+        - `Midnight Caek` theme
+    fixed:
+        - chrome style bugs
+        - firefox users who updated to 1.3.4/5 will have their settings reset to fix my screw up
 1.3.5
     fixed:
         - some incorrect styling in Yotsuba/B themes
