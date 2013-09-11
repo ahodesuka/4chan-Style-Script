@@ -1,5 +1,8 @@
 master
-
+    fixed:
+        - Return link.
+    modified:
+        - Announcement icon position.
 3.0.8
     fixed:
         - Stray catalog link.

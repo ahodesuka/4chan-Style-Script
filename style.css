@@ -377,7 +377,8 @@ input[type=submit],
 body>hr,
 body>form[name=post],
 .navLinksBot,
-.navLinks.desktop,
+.navLinks a[href$='catalog'],
+.navLinks a[href='#bottom'],
 #navtopright a[href$='faq'],
 #navtopright a[href$='rules'],
 .stylechanger,
@@ -2362,7 +2363,7 @@ a[href='.././'] {
     position:fixed!important;
     text-indent:-9999px;
     top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
-    " + $SS.conf["Sidebar Position String"] + ":168px!important;
+    " + $SS.conf["Sidebar Position String"] + ":135px!important;
     z-index:14;
 }
 #boardLinks>a.selectedBoard {
