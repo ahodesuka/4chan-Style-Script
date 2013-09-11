@@ -1,5 +1,8 @@
 master
-
+    fixed:
+        - Stray catalog link.
+    modified:
+        - Hide faq and rules links.
 3.0.7
     fixed:
         - Flags on /int/
@@ -11,7 +14,6 @@ master
         - Catalog link in pages.
     modified:
         - Catalog button is now just a link to the current boards catalog.
-
 3.0.5
     fixed:
         - Image hover z-index.
