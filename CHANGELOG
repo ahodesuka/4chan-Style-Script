@@ -1,6 +1,8 @@
 master
 
 3.0.10
+    modified:
+        - Hide catalog search.
 
 3.0.9
     fixed:
