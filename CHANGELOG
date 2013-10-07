@@ -1,5 +1,6 @@
 master
-
+    fixed:
+        - Hide status and feedback links.
 3.0.10
     modified:
         - Hide catalog search.

@@ -113,6 +113,7 @@ h5 {
 }
 *[style*='font-weight: bold;'],
 h3,
+b,
 strong,
 body a.YTLT-link,
 .postInfo span.name,
@@ -381,8 +382,7 @@ body>form[name=post],
 .navLinks #search-btn,
 .navLinks #search-cnt,
 .navLinks a[href='#bottom'],
-#navtopright a[href$='faq'],
-#navtopright a[href$='rules'],
+#navtopright a[target=_blank],
 .stylechanger,
 #absbot,
 #boardNavDesktopFoot,
@@ -677,7 +677,6 @@ form[name=delform] {
     margin-bottom:1px!important;
 }
 .postInfo {
-    " + ($SS.conf["Layout"] !== 2 ? "line-height:18px;" : "") + "
     padding:2px 6px!important;
 }
 .sideArrows {
@@ -709,6 +708,9 @@ hr {
 div.post:not(#qp):not([hidden]) {
     margin:0!important;
     width:100%;
+}
+.reply .postInfo {
+    line-height:18px;
 }" : "" ) + "
 .favicon {
     vertical-align:middle;
@@ -1061,6 +1063,9 @@ a.hide_thread_button>span,
     font-size:" + $SS.conf["Font Size"] + "px!important;
     font-weight:700;
 }" : "
+i {
+    font-style:normal!important;
+}
 body .exlinks-options-title,
 body .exlinks-options-subtitle {
     font-size:" + $SS.conf["Font Size"] + "px!important;
