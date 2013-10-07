@@ -1,430 +1,429 @@
 master
-    fixed:
-        - Hide status and feedback links.
+  fixed:
+    - Hide status and feedback links.
+  modified:
+    - Removed 4sight support.
+    - Styled catalog search and return button.
 3.0.10
-    modified:
-        - Hide catalog search.
-
+  modified:
+    - Hide catalog search.
 3.0.9
-    fixed:
-        - Return link.
-    modified:
-        - Announcement icon position.
+  fixed:
+    - Return link.
+  modified:
+    - Announcement icon position.
 3.0.8
-    fixed:
-        - Stray catalog link.
-    modified:
-        - Hide faq and rules links.
+  fixed:
+    - Stray catalog link.
+  modified:
+    - Hide faq and rules links.
 3.0.7
-    fixed:
-        - Flags on /int/
-        - Sidebar intercepting pointer events.
-        - Catalog link.
+  fixed:
+    - Flags on /int/
+    - Sidebar intercepting pointer events.
+    - Catalog link.
 3.0.6
-    fixed:
-        - Non-custom nav links style.
-        - Catalog link in pages.
-    modified:
-        - Catalog button is now just a link to the current boards catalog.
+  fixed:
+    - Non-custom nav links style.
+    - Catalog link in pages.
+  modified:
+    - Catalog button is now just a link to the current boards catalog.
 3.0.5
-    fixed:
-        - Image hover z-index.
-        - Image hover vertical padding.
-        - Expanding form inputs width.
-        - Catalog bar position.
-        - PostInfo display without styling enable.
-        - Misc px values.
-    modified:
-        - Changed 4chan x menu style.
-        - Show reply borders on default theme (dark flat).
-        - Removed board text position setting, may be re-added if requested.
-        - Min and Max font size.
+  fixed:
+    - Image hover z-index.
+    - Image hover vertical padding.
+    - Expanding form inputs width.
+    - Catalog bar position.
+    - PostInfo display without styling enable.
+    - Misc px values.
+  modified:
+    - Changed 4chan x menu style.
+    - Show reply borders on default theme (dark flat).
+    - Removed board text position setting, may be re-added if requested.
+    - Min and Max font size.
 3.0.4
-    fixed:
-        - Quote preview z-index.
-        - Sage Identification vertical alignment.
-        - Board banner covering page elements.
-        - Thread/reply stubs being hidden when they should not.
-        - Hide thread buttons.
-        - Reply stubs when layout is fit content.
+  fixed:
+    - Quote preview z-index.
+    - Sage Identification vertical alignment.
+    - Board banner covering page elements.
+    - Thread/reply stubs being hidden when they should not.
+    - Hide thread buttons.
+    - Reply stubs when layout is fit content.
 3.0.3
-    modified:
-        - Catalog style.
-        - Hide reply buttons when layout is set to fit content.
+  modified:
+    - Catalog style.
+    - Hide reply buttons when layout is set to fit content.
 3.0.2
-    fixed:
-        - Drop down and custom navigation disappearing on refresh (seaweedchan).
-        - Padding at the top of the page.
+  fixed:
+    - Drop down and custom navigation disappearing on refresh (seaweedchan).
+    - Padding at the top of the page.
 3.0.1
-    fixed:
-        - Body margin on catalog.
+  fixed:
+    - Body margin on catalog.
 3.0
-    added:
-        - Catalog toggling icon.
-        - Fixed Logo Position option.
-        - OpenBSD, GNU, Plan9, Crunchbang emojis.
-        - Support for last.mu users (seaweedchan).
-        - Style post info option.
-    modified:
-        - Catalog style.
-        - Removed pony icons.
-        - Removed exsauce setting (forgot to in 2.4.8) - use exlinks instead.
-        - Use MutationObserver for ricing checkboxes.
-        - Removed backlinks position option.
-        - Changed default sidebar style to be more like OneeChan.
-    fixed:
-        - Support for 4chan Pass users.
-        - Catalog link in #pagesDrop not working (seaweedchan).
-        - QR warning being overlapped by / looking bad with spoiler checkbox (seaweedchan).
-        - Board banner z-index in chrome.
-        - Filtered link style.
+  added:
+    - Catalog toggling icon.
+    - Fixed Logo Position option.
+    - OpenBSD, GNU, Plan9, Crunchbang emojis.
+    - Support for last.mu users (seaweedchan).
+    - Style post info option.
+  modified:
+    - Catalog style.
+    - Removed pony icons.
+    - Removed exsauce setting (forgot to in 2.4.8) - use exlinks instead.
+    - Use MutationObserver for ricing checkboxes.
+    - Removed backlinks position option.
+    - Changed default sidebar style to be more like OneeChan.
+  fixed:
+    - Support for 4chan Pass users.
+    - Catalog link in #pagesDrop not working (seaweedchan).
+    - QR warning being overlapped by / looking bad with spoiler checkbox (seaweedchan).
+    - Board banner z-index in chrome.
+    - Filtered link style.
 2.4.9
-    fixed:
-        - Adding themes and mascots after deleting.
+  fixed:
+    - Adding themes and mascots after deleting.
 2.4.8
-    fixed:
-        - Ads selector.
-        - QR field styles for firefox 19+.
-        - Adding themes and mascots after deleting.
-    modified:
-        - Settings window will now close when clicking outside of the window.
-        - Removed exsauce - use exlinks instead.
+  fixed:
+    - Ads selector.
+    - QR field styles for firefox 19+.
+    - Adding themes and mascots after deleting.
+  modified:
+    - Settings window will now close when clicking outside of the window.
+    - Removed exsauce - use exlinks instead.
 2.4.7
-    fixed:
-        - Quote preview highlight style.
-        - Body scrollbars are no longer hidden when opening the settings menu.
-    modified:
-        - Script will no longer execute on rs.4chan.org.
+  fixed:
+    - Quote preview highlight style.
+    - Body scrollbars are no longer hidden when opening the settings menu.
+  modified:
+    - Script will no longer execute on rs.4chan.org.
 2.4.6
-    fixed:
-        - Default 4chan extension is disabled automatically.
+  fixed:
+    - Default 4chan extension is disabled automatically.
 2.4.5
-    fixed:
-        - Fix 4chan X settings styling issues.
-        - Fix SS button not showing up.
-        - 4sight button.
-    modified:
-        - Default 4chan extension settings button is hidden.
+  fixed:
+    - Fix 4chan X settings styling issues.
+    - Fix SS button not showing up.
+    - 4sight button.
+  modified:
+    - Default 4chan extension settings button is hidden.
 2.4.4
-    fixed:
-        - Board specific mascots.
-        - Custom nav links updating after save.
-        - ExLinks menu button being replaced on options reload.
-    modified:
-        - Youtube Link Title links should look better when using bitmap fonts.
+  fixed:
+    - Board specific mascots.
+    - Custom nav links updating after save.
+    - ExLinks menu button being replaced on options reload.
+  modified:
+    - Youtube Link Title links should look better when using bitmap fonts.
 2.4.3
-    fixed:
-        - Made announcement readable.
-        - ID text color when hovered.
-        - Mascots alignment.
-        - Filtered backlinks style.
-     modified:
-        - Overflowing mascots can now have their positions set.
+  fixed:
+    - Made announcement readable.
+    - ID text color when hovered.
+    - Mascots alignment.
+    - Filtered backlinks style.
+  modified:
+    - Overflowing mascots can now have their positions set.
 2.4.2a
-    fixed:
-        - Script.
+  fixed:
+    - Script.
 2.4.2
-    fixed:
-        - Highlighted post style.
-        - Select all mascots button selected hidden mascots.
+  fixed:
+    - Highlighted post style.
+    - Select all mascots button selected hidden mascots.
 2.4.1
-    added:
-        - Emoji position option.
-        - Rounded edges option.
-        - Madotsuki emoji.
-        - 2 new themes from OneeChan.
-    fixed:
-        - Menu buttons inside inline posts.
-        - Some holes in the NSFW theme setting.
+  added:
+    - Emoji position option.
+    - Rounded edges option.
+    - Madotsuki emoji.
+    - 2 new themes from OneeChan.
+  fixed:
+    - Menu buttons inside inline posts.
+    - Some holes in the NSFW theme setting.
 2.4.0
-    fixed:
-        - Various checkboxes not being riced on page load.
-        - E-hentai source can actually be disabled.
-        - Delay when inserting CSS in Firefox. (should reduce some flashing)
-        - 4chan X menu font color.
-        - Text that is normally bold will be if you are not using a bitmap font.
-        - Quote threading style.
-        - /f/ is usable.
-        - Mascot and theme system were a mess when deleting/hiding things, should be much better now.
-        - Default mascots can be edited similar to default themes.
-        - Tripcode hider on page load.
-    added:
-        - 4chan Sound Player CSS.
-        - 4chan Sound Player icon, [not] watched thread icons, and icons for X/SS.
-    modified:
-        - 4sight looks a lot better.
-        - Icons completely redone.
-        - Top navigation spans 100%.
-        - Non OP 4chan X menu buttons are hidden until hovered over the post (like OneeChan).
+  fixed:
+    - Various checkboxes not being riced on page load.
+    - E-hentai source can actually be disabled.
+    - Delay when inserting CSS in Firefox. (should reduce some flashing)
+    - 4chan X menu font color.
+    - Text that is normally bold will be if you are not using a bitmap font.
+    - Quote threading style.
+    - /f/ is usable.
+    - Mascot and theme system were a mess when deleting/hiding things, should be much better now.
+    - Default mascots can be edited similar to default themes.
+    - Tripcode hider on page load.
+  added:
+    - 4chan Sound Player CSS.
+    - 4chan Sound Player icon, [not] watched thread icons, and icons for X/SS.
+  modified:
+    - 4sight looks a lot better.
+    - Icons completely redone.
+    - Top navigation spans 100%.
+    - Non OP 4chan X menu buttons are hidden until hovered over the post (like OneeChan).
 2.3.2
-    fixed:
-        - Tripcode hider.
+  fixed:
+    - Tripcode hider.
 2.3.1
-    fixed:
-        - Hiding checkboxes causing horizontal scrollbars to always be present.
-        - Checkboxes not being riced randomly.
-        - Hide thread button hint for Vimperator/Pentadactyl.
-    modified:
-        - Yotsuba theme backgrounds will load over the correct protocol.
-        - Deleting themes/mascots will no longer ask for confirmation. (You can hit cancel if you do not want to save
-          the changes)
-        - Fixed pages position looks more like it use to before 4chan's HTML5 changes.
-        - Edited the cakefile to create tags on version changes.
+  fixed:
+    - Hiding checkboxes causing horizontal scrollbars to always be present.
+    - Checkboxes not being riced randomly.
+    - Hide thread button hint for Vimperator/Pentadactyl.
+  modified:
+    - Yotsuba theme backgrounds will load over the correct protocol.
+    - Deleting themes/mascots will no longer ask for confirmation. (You can hit cancel if you do not want to save the changes)
+    - Fixed pages position looks more like it use to before 4chan's HTML5 changes.
+    - Edited the cakefile to create tags on version changes.
 2.3.0
-    added:
-        - Menu entries to replace the hide/show post buttons.
-    fixed:
-        - Misc CSS rules.
+  added:
+    - Menu entries to replace the hide/show post buttons.
+  fixed:
+    - Misc CSS rules.
 2.2.8
-    added:
-        - An option to hide report/delete checkboxes.
-        - 4chan X menu icon.
-    modified:
-        - Changed some of the default icons.
-    fixed:
-        - 4chan X menu z-index.
+  added:
+    - An option to hide report/delete checkboxes.
+    - 4chan X menu icon.
+  modified:
+    - Changed some of the default icons.
+  fixed:
+    - 4chan X menu z-index.
 2.2.7
-    added:
-        - OS emoji's thanks to burgle.
-        - 4chan X's new menu has been styled.
+  added:
+    - OS emoji's thanks to burgle.
+    - 4chan X's new menu has been styled.
 2.2.6
-    fixed:
-        - Out of date CSS selectors for 4chan X's QR.
-        - Clearing the file input text after the QR has been submitted.
-    modified:
-        - Replace the 4chan homepage link with the SS options.
+  fixed:
+    - Out of date CSS selectors for 4chan X's QR.
+    - Clearing the file input text after the QR has been submitted.
+  modified:
+    - Replace the 4chan homepage link with the SS options.
 2.2.5
-    fixed:
-        - Various CSS rules that where not overriding 4chan's default style.
-    modified:
-        - Code tag styles on /g/ should look better for dark themes.
+  fixed:
+    - Various CSS rules that where not overriding 4chan's default style.
+  modified:
+    - Code tag styles on /g/ should look better for dark themes.
 2.2.4
-    fixed:
-        - 4chan Sounds Mark II play style/position.
-        - Slideup QR height.
-    added:
-        - A new theme, AppChan.
+  fixed:
+    - 4chan Sounds Mark II play style/position.
+    - Slideup QR height.
+  added:
+    - A new theme, AppChan.
 2.2.3
-    added:
-        - A new theme, 4chan Dark Upgrade.
-        - Show mascot option when the sidebar is disabled.
-    modified:
-        - Removed show thread spearators option - as they will always be shown now.
-    fixed:
-        - Non-custom nav links.
-        - Imcomplete code where deleting mascots/themes that would cause problems.
+  added:
+    - A new theme, 4chan Dark Upgrade.
+    - Show mascot option when the sidebar is disabled.
+  modified:
+    - Removed show thread spearators option - as they will always be shown now.
+  fixed:
+    - Non-custom nav links.
+    - Imcomplete code where deleting mascots/themes that would cause problems.
 2.2.2
-    added:
-        - Timestamp color field for themes.
-    fixed:
-        - An issue where the CSS would never be inserted in webkit.
-        - Trying to access navlinks variable when it was undefined.
-    modified:
-        - Prefetch checkbox with aeosynth's 4chan X.
+  added:
+    - Timestamp color field for themes.
+  fixed:
+    - An issue where the CSS would never be inserted in webkit.
+    - Trying to access navlinks variable when it was undefined.
+  modified:
+    - Prefetch checkbox with aeosynth's 4chan X.
 2.2.1
-    fixed:
-        - 4chan X highlighted post style.
-        - Slideup post form size.
-        - Top positioned navigation bar with left positioned sidebar.
-    modified:
-        - forwardlink is no longer underlined.
-        - Yotsuba styles no longer have fixed background images.
-        - Invalid theme detection/notification while importing.
-    added:
-        - Option to preserve 4chan's default link underline style.
+  fixed:
+    - 4chan X highlighted post style.
+    - Slideup post form size.
+    - Top positioned navigation bar with left positioned sidebar.
+  modified:
+    - forwardlink is no longer underlined.
+    - Yotsuba styles no longer have fixed background images.
+    - Invalid theme detection/notification while importing.
+  added:
+    - Option to preserve 4chan's default link underline style.
 2.2.0
-    fixed:
-        - Announcement z-index when using top nav bar.
-        - An odd case where 4chanSS's CSS would be inserted before 4chan's.
-        - Options link will no longer conflict with 4chanx's link.
-        - Exhentai links inside cloned nodes (inline quotes).
-        - Fit content replies will wrap around OP's image similar to the vanilla 4chan style.
-        - z-index issue with thumbnails and inline quotes.
-    added:
-        - Import/Export theme feature.
+  fixed:
+    - Announcement z-index when using top nav bar.
+    - An odd case where 4chanSS's CSS would be inserted before 4chan's.
+    - Options link will no longer conflict with 4chanx's link.
+    - Exhentai links inside cloned nodes (inline quotes).
+    - Fit content replies will wrap around OP's image similar to the vanilla 4chan style.
+    - z-index issue with thumbnails and inline quotes.
+  added:
+    - Import/Export theme feature.
 2.1.1
-    fixed:
-        - Hiding default mascots.
+  fixed:
+    - Hiding default mascots.
 2.1.0
-    fixed:
-        - Reply/thread hiding.
-        - Sage text color x2.
-        - Thread hide button position.
-        - Image hover z-index.
-        - Inline quote display.
-        - Thread stubs, (aeosynth).
-    added:
-        - Logo reflection option.
-        - Drop down pages position.
-        - Navigation bar position setting.
-        - Version is now displayed in the options window.
+  fixed:
+    - Reply/thread hiding.
+    - Sage text color x2.
+    - Thread hide button position.
+    - Image hover z-index.
+    - Inline quote display.
+    - Thread stubs, (aeosynth).
+  added:
+    - Logo reflection option.
+    - Drop down pages position.
+    - Navigation bar position setting.
+    - Version is now displayed in the options window.
 2.0.2
-    fixed:
-        - Expand all images checkbox will no be hidden.
-        - Inline image expansion.
-        - 4chan X QR input dimensions.
-        - Non-custom nav links.
-        - Pages z-index.
-        - Non-default backlinks positioning.
-        - Ability to hide threads.
-        - 4chan X quote hover preview width.
-        - Highlighted post style.
-    added:
-        - Board name/text link position.
+  fixed:
+    - Expand all images checkbox will no be hidden.
+    - Inline image expansion.
+    - 4chan X QR input dimensions.
+    - Non-custom nav links.
+    - Pages z-index.
+    - Non-default backlinks positioning.
+    - Ability to hide threads.
+    - 4chan X quote hover preview width.
+    - Highlighted post style.
+  added:
+    - Board name/text link position.
 2.0.1
-    fixed:
-        - 4chan X image expansion.
-        - Options link will now replace the [Home] link.
-        - Text boards style/position.
-        - 4chan X QR positioning.
+  fixed:
+    - 4chan X image expansion.
+    - Options link will now replace the [Home] link.
+    - Text boards style/position.
+    - 4chan X QR positioning.
 2.0.0
-    fixed:
-        - Added support for 4chan's new html.
-    modified:
-        - The board name font will be loaded through the same protocol as 4chan.
+  fixed:
+    - Added support for 4chan's new html.
+  modified:
+    - The board name font will be loaded through the same protocol as 4chan.
 1.7.0
-    modified:
-        - /f/ and the report form are now styled.
-        - Webkit will now use GM_* functions if they are available.
-    fixed:
-        - fit content layout in webkit.
+  modified:
+    - /f/ and the report form are now styled.
+    - Webkit will now use GM_* functions if they are available.
+  fixed:
+    - fit content layout in webkit.
 1.6.6
-    modified:
-        - styled backlinks that are hovered in quote preview (.forwardlink).
-        - Yotsuba styles look a little more like vanilla 4chan.
-        - added protocol to images being fetched by exsauce.
-        - removed hardcoded protocols from custom nav links.
-        - made pony emoji optional.
+  modified:
+    - styled backlinks that are hovered in quote preview (.forwardlink).
+    - Yotsuba styles look a little more like vanilla 4chan.
+    - added protocol to images being fetched by exsauce.
+    - removed hardcoded protocols from custom nav links.
+    - made pony emoji optional.
 1.6.5
-    fixed:
-        - exhentai source nodes not being inserted on ajax loaded replies.
-    modified:
-        - added emoji for various ponies.
+  fixed:
+    - exhentai source nodes not being inserted on ajax loaded replies.
+  modified:
+    - added emoji for various ponies.
 1.6.4
-    fixed:
-        - announcement alignment with reserved edge.
-    modified:
-        - emoji and sage icons now work on the OP, as well as replies.
+  fixed:
+    - announcement alignment with reserved edge.
+  modified:
+    - emoji and sage icons now work on the OP, as well as replies.
 1.6.3
-    fixed:
-        - script actually works now.
-        - when the script is first installed all mascots are selected instead of none.
+  fixed:
+    - script actually works now.
+    - when the script is first installed all mascots are selected instead of none.
 1.6.2
-    fixed:
-        - file encoding which caused chrome to durp.
+  fixed:
+    - file encoding which caused chrome to durp.
 1.6.1
-    modified:
-        - centered layout margins.
-    fixed:
-        - checkboxes getting binded twice in firefox.
-        - thread stubs selectors for newest 4chan X.
-        - various minor style fixes for floating QR.
-        - slide up QR offset when QR is in dump mode.
+  modified:
+    - centered layout margins.
+  fixed:
+    - checkboxes getting binded twice in firefox.
+    - thread stubs selectors for newest 4chan X.
+    - various minor style fixes for floating QR.
+    - slide up QR offset when QR is in dump mode.
 1.6.0
-    modified:
-        - neko/sega icons changed to emoji icons akin to OneeChan.
-        - captcha image height.
-        - rice inputs are now mandatory.
-        - a multitude of performance increases.
-        - page position completely re-styled.
-        - textarea height no longer expands because it was annoying.
-    fixed:
-        - quote preivew bottom padding.
-        - table and td borders.
-    added:
-        - hidden pages position
-        twnsnd:
-            - `violaceous` theme
-            - yuzuki yukari mascot
+  modified:
+    - neko/sega icons changed to emoji icons akin to OneeChan.
+    - captcha image height.
+    - rice inputs are now mandatory.
+    - a multitude of performance increases.
+    - page position completely re-styled.
+    - textarea height no longer expands because it was annoying.
+  fixed:
+    - quote preivew bottom padding.
+    - table and td borders.
+  added:
+    - hidden pages position
+  twnsnd:
+    - `violaceous` theme
+    - yuzuki yukari mascot
 1.5.2
-    added:
-        - sage identification option (text/icon/none).
-        - 2 sub-options (thread spearators & reserve edge).
-        - floating post form option.
-    modified:
-        - cleaned up CSS, removed a lot of old trash.
-        - drag and drop nav links is now very sexy.
-        - .replyhider position when layout is set to fit content.
+  added:
+    - sage identification option (text/icon/none).
+    - 2 sub-options (thread spearators & reserve edge).
+    - floating post form option.
+  modified:
+    - cleaned up CSS, removed a lot of old trash.
+    - drag and drop nav links is now very sexy.
+    - .replyhider position when layout is set to fit content.
 1.5.1
-    added:
-        - an easy way to keep selected theme/mascots when updating and the defaults have been changed.
-    modified:
-        - icons have been changed, old icons will be re-added when the icon option is added to the theme editor.
-        - nav links are now re-rearrangeable by drag and drop.
-        - some rgba colors have been replaced with just rgb to increase performance.
-        - ran icons and input images through pngcrush.
-    fixed:
-        - varius bugs javascript bugs that were preventing some functionality.
+  added:
+    - an easy way to keep selected theme/mascots when updating and the defaults have been changed.
+  modified:
+    - icons have been changed, old icons will be re-added when the icon option is added to the theme editor.
+    - nav links are now re-rearrangeable by drag and drop.
+    - some rgba colors have been replaced with just rgb to increase performance.
+    - ran icons and input images through pngcrush.
+  fixed:
+    - varius bugs javascript bugs that were preventing some functionality.
 1.5.0
-    - nearly rewrote the entire script, this should fix all issues that have to due with the
-      random settings reset that people have reported.
+    - nearly rewrote the entire script, this should fix all issues that have to due with the random settings reset that people have reported.
     - also fixed various CSS issues.
 1.4.2
-    added:
-        - author property to themes
-    modified:
-        - Yotsuba/B themes use some variables to better their style
-    fixed:
-        - z-index of misc fixe elements
-        - customCSS eval when there are line breaks in the css
-        - vertical-align of reportbutton's
+  added:
+    - author property to themes
+  modified:
+    - Yotsuba/B themes use some variables to better their style
+  fixed:
+    - z-index of misc fixe elements
+    - customCSS eval when there are line breaks in the css
+    - vertical-align of reportbutton's
 1.4.1
-    added:
-        - `4chan rewired` theme, originally by !K.WeEabo0o
-        - theme customCSS can now hold javascript variables if written like; `new String(CSS/JS here)`
-    fixed:
-        - line height of #stats div
+  added:
+    - `4chan rewired` theme, originally by !K.WeEabo0o
+    - theme customCSS can now hold javascript variables if written like; `new String(CSS/JS here)`
+  fixed:
+    - line height of #stats div
 1.4.0
-    added:
-        - `Solarized` theme
-        - option to disable the sidebar
-        - option to add neko/sega icons
+  added:
+    - `Solarized` theme
+    - option to disable the sidebar
+    - option to add neko/sega icons
 1.3.7
-    fixed:
-        - a bug where chrome would almost endlessly call insertCSS
+  fixed:
+    - a bug where chrome would almost endlessly call insertCSS
 1.3.6
-    added:
-        - `Midnight Caek` theme
-    fixed:
-        - chrome style bugs
-        - firefox users who updated to 1.3.4/5 will have their settings reset to fix my screw up
+  added:
+    - `Midnight Caek` theme
+  fixed:
+    - chrome style bugs
+    - firefox users who updated to 1.3.4/5 will have their settings reset to fix my screw up
 1.3.5
-    fixed:
-        - some incorrect styling in Yotsuba/B themes
-        - checkboxes from being riced when they are not suppose to be
-        - `Style Scrollbars` from not being adjustable in webkit
-        - the apply function in the options
-        - 4chan x options window text inputs style
-        - text board location should no longer overlap board name
+  fixed:
+    - some incorrect styling in Yotsuba/B themes
+    - checkboxes from being riced when they are not suppose to be
+    - `Style Scrollbars` from not being adjustable in webkit
+    - the apply function in the options
+    - 4chan x options window text inputs style
+    - text board location should no longer overlap board name
 1.3.4
-    fixed:
-        - issues with the autohide checkbox and un-riced checkboxes
-        - GM_setValue not working in tampermonkey, moved all setings to localStorage
-        - compatability with `Youtube Link Title` userscript
-        - some performance issues caused by DOMSubtreeModified event looping like crazy in chrome
+  fixed:
+    - issues with the autohide checkbox and un-riced checkboxes
+    - GM_setValue not working in tampermonkey, moved all setings to localStorage
+    - compatability with `Youtube Link Title` userscript
+    - some performance issues caused by DOMSubtreeModified event looping like crazy in chrome
 1.3.3
-    fixed:
-        - themes can now be edited as intended
-        - ajimu najimi backlink color
-        - delform being visible when 4sight is open
+  fixed:
+    - themes can now be edited as intended
+    - ajimu najimi backlink color
+    - delform being visible when 4sight is open
 1.3.2
-    added:
-        - theme and mascot update buttons,
-          which will restore/update the themes or mascots with default values while keeping any user defined ones
-        - `Expanding Form Inputs` setting
-        - ajimu najimi theme
-    modified:
-        - default settings back to originals from dark flat
-        - side margain options
-        - autohide checkbox will be hidden when post form is fixed
-        - only apply style to boards.4chan.org for now
-    fixed:
-        - error checking on theme edit/creation
-        - riceCheck from binding click event multiple times
-        - slide up post form offset
-        - delform padding in webkit
+  added:
+    - theme and mascot update buttons, which will restore/update the themes or mascots with default values while keeping any user defined ones
+    - `Expanding Form Inputs` setting
+    - ajimu najimi theme
+  modified:
+    - default settings back to originals from dark flat
+    - side margain options
+    - autohide checkbox will be hidden when post form is fixed
+    - only apply style to boards.4chan.org for now
+  fixed:
+    - error checking on theme edit/creation
+    - riceCheck from binding click event multiple times
+    - slide up post form offset
+    - delform padding in webkit
 1.3.1
-    fixed:
-        - a bug with newlines in theme's customCSS
+  fixed:
+    - a bug with newlines in theme's customCSS
 1.3.0
     - initial release

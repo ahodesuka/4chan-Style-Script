@@ -214,7 +214,6 @@ span[style='color:#FF0000;font-weight:normal'] {
 " + ($SS.conf["Layout"] !== 2 ? "a.summary," : "") + "
 option,
 div[id*=jsMath],
-#fs_data tr[style],
 #imgControls,
 #imgControls .preload,
 #playerDiv,
@@ -279,7 +278,6 @@ body,
 img[alt=Closed],
 img[alt=Sticky],
 .navLinks,
-body>a[style='cursor: pointer; float: right;'],
 .deleteform,
 #navtopright,
 #navtopright>a,
@@ -298,7 +296,6 @@ body>a[style='cursor: pointer; float: right;'],
     color:transparent!important;
     font-size:0!important;
 }
-body>a[style='cursor: pointer; float: right;'],
 button,
 form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
@@ -334,7 +331,6 @@ textarea,
 .container * {
     font:" + $SS.conf["Small Font Size"] + "px " + $SS.formatFont($SS.conf["Font"]) + "!important;
 }
-body>a[style='cursor: pointer; float: right;'],
 #qr>form #spoilerLabel::after,
 button,
 form[name=post] input[name=email]+label,
@@ -407,6 +403,7 @@ span#tobottom,
 .toggleCatalog,
 #topnav~#globalMessage,
 #toggleMsgBtn,
+#first-run,
 #content>hr,
 #content>.navLinks,
 #content>#styleSwitcher,
@@ -470,7 +467,6 @@ td label,
     color:" + $SS.theme.textColor.hex + "!important;
 }
 body,
-.sight4,
 input,
 select,
 textarea,
@@ -565,7 +561,6 @@ body::before,
 #qr,
 #themeoptions #toWrapper,
 .subMenu.reply,
-.sight4,
 .reply,
 .hidden_thread,
 .stub {
@@ -602,8 +597,7 @@ body #delform {
     margin-top:0!important;
 }
 .deleteform,
-" + ($SS.conf["Navigation Bar Position"] !== 1 ? "#boardNavDesktop," : "") + "
-#fs_data td {
+" + ($SS.conf["Navigation Bar Position"] !== 1 ? "#boardNavDesktop," : "") + " {
     border-top:1px solid " + $SS.theme.brderColor.hex + "!important;
 }
 #jsmath_button {
@@ -973,7 +967,8 @@ img[alt=Closed],
 img[alt=Sticky],
 a[href='.././'],
 a.hide_thread_button>span,
-body>a[style='cursor: pointer; float: right;'],
+#qf-ctrl,
+#info a[href='./'],
 #imageType+label,
 #navtopright>a,
 #toggleMsgBtn,
@@ -1055,6 +1050,15 @@ a.hide_thread_button>span,
     -moz-transform:rotate(90deg);
     -o-transform:rotate(90deg);
 }
+#qf-ctrl {
+    background-image:url(\"data:image/svg+xml," + $SS.theme.icons.search + "\")!important;
+    left:20px;
+    position:absolute;
+}
+#qf-cnt {
+    left:38px;
+    position:absolute;
+}
 #boardNavDesktop>.boardList a {
     margin:0 1px 0 2px!important;
 }
@@ -1092,7 +1096,8 @@ body .exlinks-options-subtitle {
     opacity:1!important;
 }" : "") + "
 a[href='.././'],
-body>a[style='cursor: pointer; float: right;'],
+#qf-ctrl,
+#info a[href='./'],
 #imageType+label,
 #navtopright>a,
 a.hide_thread_button>span,
@@ -1109,9 +1114,12 @@ a.hide_thread_button>span,
     -o-transition:all .1s ease-in-out;
 }
 a[href='.././']:hover,
-body>a[style='cursor: pointer; float: right;']:hover,
+#qf-ctrl:hover,
+#info a[href='./']:hover,
 #imageType+label:hover,
 #navtopright>a:hover,
+#imageType+label:hover,
+#imageType+label.imgExpanded,
 a.hide_thread_button>span:hover,
 .close:hover,
 .remove:hover,
@@ -1126,7 +1134,6 @@ textarea,
 button,
 input:not([type=checkbox]):not([type=radio]),
 select,
-#fs_status,
 #qr>form>.captchaimg>img,
 .riceFile {
     border:1px solid " + $SS.theme.inputbColor.hex + "!important;
@@ -1137,12 +1144,10 @@ input[type=file],
 input[type=password],
 input[type=submit],
 input[type=text]:not(.jsColor),
-input#fs_search,
 input.field,
 select,
 textarea,
 .riceFile,
-#fs_status,
 #options input {
     background:rgba(" + $SS.theme.inputColor.rgb + ",.9)!important;
 }
@@ -1159,7 +1164,6 @@ input[type=button]:hover,
 input[type=password]:hover,
 input[type=submit]:hover,
 input[type=text]:not(.jsColor):not([disabled]):hover,
-input#fs_search:hover,
 input.field:hover,
 select:hover,
 textarea:hover,
@@ -1171,7 +1175,6 @@ textarea:hover,
 }
 input[type=password]:hover,
 input[type=text]:not([disabled]):hover,
-input#fs_search:hover,
 input.field:hover,
 select:hover,
 textarea:hover,
@@ -1180,7 +1183,6 @@ textarea:hover,
 }
 input[type=password]:focus,
 input[type=text]:focus,
-input#fs_search:focus,
 input.field:focus,
 select:focus,
 textarea:focus,
@@ -1190,7 +1192,6 @@ textarea:focus,
 textarea:focus,
 input[type=text]:not(.jsColor):not([disabled]):focus,
 input[type=password]:focus,
-input#fs_search:focus,
 input.field:focus,
 #options input:focus {
     background:rgba(" + $SS.theme.inputColor.hover + ",.9)!important;
@@ -1996,7 +1997,6 @@ label#prefetch {
     top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 42 : 21) + "px;
     z-index:13!important;
 }
-body>a[style='cursor: pointer; float: right;'],
 form[name=post] input[name=email]+label,
 form[name=post] #com_submit+label,
 #qr>form #spoilerLabel::after,
@@ -2243,57 +2243,6 @@ select#pagesDrop {
 .mPagelist .pages span a {
     padding:2px 3px;
 }") : "") + "
-.sight4Button {
-    background-image:url(\"data:image/svg+xml," + $SS.theme.icons._4sight + "\")!important;
-    float:none!important;
-    text-indent:-9999px;
-}
-body>div[style='width: 100%;']+form[name=delform] {
-    display:block!important;
-    margin-top:43px!important;
-    position:fixed;
-}
-a[href='.././']:hover,
-.sight4Button,
-#imageType+label:hover,
-#imageType+label.imgExpanded {
-    opacity:1;
-}
-.sight4 {
-    border-left:0!important;
-    border-right:0!important;
-    height:100%!important;
-    margin:0 auto;
-    width:100%!important;
-}
-.sight4>table {
-    height:100%!important;
-    padding-bottom:20px;
-}
-.sight4>table td {
-    border-left:1px solid " + $SS.theme.brderColor.hex + "!important;
-    height:600px!important;
-}
-.sight4>table td:first-child {
-    border-left:0!important;
-}
-.sight4>table input[type=button] {
-    width:100px!important;
-}
-.sight4>table table td {
-    border:0!important;
-    height:auto!important;
-}
-.sight4>table table td b[style] {
-    background-color:" + $SS.theme.sageColor.hex + "!important;
-}
-.sight4>table table,
-.sight4>table #fs_search {
-    width:100%!important;
-}
-#fs_data tr:first-child td {
-    border-top:0!important;
-}
 #delform div.reply.lastmuInfo {
     background: none !important;
     border: none !important;
@@ -2365,13 +2314,16 @@ ul#Alerts,
 ul#Alerts a:hover {
     color:#222!important;
 }
+#info a[href='./'],
 a[href='.././'] {
     background-image:url(\"data:image/svg+xml," + $SS.theme.icons.returnButton + "\")!important;
     position:fixed!important;
     text-indent:-9999px;
+    z-index:14;
+}
+a[href='.././'] {
     top:" + ($SS.conf["Navigation Bar Position"] === 1 ? 22 : 1) + "px;
     " + $SS.conf["Sidebar Position String"] + ":135px!important;
-    z-index:14;
 }
 #boardLinks>a.selectedBoard {
     " + ($SS.conf["Bitmap Font"] ? "
