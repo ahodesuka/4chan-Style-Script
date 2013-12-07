@@ -1,6 +1,8 @@
 master
 
 3.0.12
+
+3.0.12
   fixed:
     - .fileInfo -> .fileText
 3.0.11
