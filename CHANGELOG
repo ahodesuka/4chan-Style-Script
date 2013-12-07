@@ -1,5 +1,8 @@
 master
 
+3.0.12
+  fixed:
+    - .fileInfo -> .fileText
 3.0.11
   fixed:
     - Hide status and feedback links.

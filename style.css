@@ -62,7 +62,7 @@ div.post blockquote.postMessage {
 div.post {
     margin:2px 0;
 }
-div.fileInfo {
+div.fileText {
     margin:1px 10px 1px 20px;
 }
 div.reply div.postInfo {
@@ -404,6 +404,8 @@ span#tobottom,
 #topnav~#globalMessage,
 #toggleMsgBtn,
 #first-run,
+#search-label,
+#search-label-bottom,
 #content>hr,
 #content>.navLinks,
 #content>#styleSwitcher,
