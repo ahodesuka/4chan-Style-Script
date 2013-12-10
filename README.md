@@ -1,3 +1,5 @@
+# This userscript is no longer being maintained.
+
 # [Click Here to Install](https://github.com/ahodesuka/4chan-Style-Script/raw/stable/4chanSS.user.js)
 
 Mayhem's 4chan X v3 is NOT supported.
